@@ -1,5 +1,5 @@
 function Body() {
-  return <div>Body</div>;
+  return <main>Body</main>;
 }
 
 export default Body;
