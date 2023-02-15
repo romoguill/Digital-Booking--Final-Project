@@ -16,10 +16,10 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false,length = 50)
+    @Column(nullable = false,length = 50, unique = true)
     private String titulo;
-    @Column(nullable = false)
+    @Column(nullable = false,length = 100)
     private String descripcion;
-    @Column(name = "url_imagen",length = 80)
+    @Column(name = "url_imagen")
     private String urlImagen;
 }
