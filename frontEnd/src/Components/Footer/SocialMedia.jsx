@@ -6,16 +6,16 @@ import twitterLogo from '../../assets/socialMedia/twitter.png';
 function SocialMedia() {
   return (
     <div>
-      <a href="www.facebook.com">
+      <a href="#">
         <img src={facebookLogo} />
       </a>
-      <a href="www.instagram.com">
+      <a href="#">
         <img src={instagramLogo} />
       </a>
-      <a href="www.linkedin.com">
+      <a href="#">
         <img src={linkedinLogo} />
       </a>
-      <a href="www.twitter.com">
+      <a href="#">
         <img src={twitterLogo} />
       </a>
     </div>

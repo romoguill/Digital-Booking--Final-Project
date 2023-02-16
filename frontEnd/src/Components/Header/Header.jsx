@@ -1,4 +1,5 @@
 import Brand from './Brand';
+import './Header.scss';
 
 function Header() {
   return (
