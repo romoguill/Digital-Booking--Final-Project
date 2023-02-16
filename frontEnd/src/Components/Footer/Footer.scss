@@ -1,0 +1,9 @@
+@use '/src/sassStyles/globals';
+
+footer {
+  position: fixed;
+  bottom: 0;
+  background-color: globals.$primary-color;
+  width: 100%;
+  display: flex;
+}

@@ -1,20 +1,22 @@
 function GridRentals() {
   return (
-    <section>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
+    <section className="section__rentals">
+      <div className="container-main">
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+        <div className="card-rentals">Card Rental</div>
+      </div>
     </section>
   );
 }
