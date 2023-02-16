@@ -4,6 +4,7 @@ import Label from "./Components/Label/Label";
 import Input from "./Components/Input/Input";
 import '../Login/Login.css'
 import Home from "../Home";
+import { Link } from "react-router-dom";
 
 
 const Login = () => {
@@ -67,7 +68,7 @@ const Login = () => {
         <div className="login-container">
             { isLogged ?
                 <>
-                    <Home user={user}/>
+                    <Home user={user} isLogged={isLogged}/>
                 </>
             :
             <>
@@ -111,8 +112,11 @@ const Login = () => {
                 <button className="button-login" onClick={handleSubmit}>
                     Ingresar
                 </button>
-
-                <h5>¿No tienes una cuenta? <span>Regístrate</span></h5>
+                
+                <Link to={"/register"} className="link-button">
+                    <h5>¿No tienes una cuenta? <span>Regístrate</span></h5>
+                </Link>
+                
             </>
             }
         </div>

@@ -5,6 +5,7 @@ import Label from "../Login/Components/Label/Label";
 import "../CreateUser/CreateUser.css";
 import { useState } from "react";
 import Home from "../Home";
+import { Link } from "react-router-dom";
 
 const CreateUser = () => {
   const [user, setUser] = useState("");
@@ -171,9 +172,11 @@ const CreateUser = () => {
                 </button>
 
                 <div className="login-btn">
-                    <h5>
-                    ¿Ya tienes una cuenta? <span>Loguéate</span>
-                    </h5>
+                  <Link to={"/login"} className="link-button">
+                      <h5>
+                      ¿Ya tienes una cuenta? <span>Loguéate</span>
+                      </h5>
+                  </Link>
                 </div>
                 </div>
             </div>
