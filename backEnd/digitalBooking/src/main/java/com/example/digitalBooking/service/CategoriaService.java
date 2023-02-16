@@ -1,7 +1,7 @@
 package com.example.digitalBooking.service;
 
 
-import com.example.digitalBooking.controller.CategoriaController;
+
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.CategoriaNotFoundException;
 import com.example.digitalBooking.model.Categoria;

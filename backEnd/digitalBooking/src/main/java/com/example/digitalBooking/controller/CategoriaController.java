@@ -8,7 +8,6 @@ import com.example.digitalBooking.model.Categoria;
 import com.example.digitalBooking.service.CategoriaService;
 import lombok.AllArgsConstructor;
 
-import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
