@@ -1,3 +1,5 @@
+import './CarrouselCategories.scss';
+
 function CarrouselCategories() {
   return (
     <section className="section__categories">
