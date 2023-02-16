@@ -1,1 +1,21 @@
 @use './src/sassStyles/globals';
+
+header {
+  width: 100%;
+  background-color: globals.$bg-white;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  
+    .container-header {
+      margin: globals.$m-3 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .account-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+}

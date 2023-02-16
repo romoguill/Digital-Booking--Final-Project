@@ -4,6 +4,8 @@
 *::before,
 *::after {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html, body {
@@ -29,5 +31,29 @@ button {
   border: none;
   border-radius: variables.$border-radius-sm;
   padding: 0.5rem 1rem;
+  font-size: variables.$font-size-3;
+  font-weight: variables.$font-weight-lg;
 }
 
+.button-primary {
+  padding: variables.$m-2 variables.$m-5;
+  border: 2px solid variables.$primary-color;
+
+  &--empty {
+    background-color: transparent;
+    color: variables.$primary-color;
+  }
+  
+  &--full {
+    background-color: variables.$primary-color;
+    color: variables.$bg-white;
+  }
+  
+}
+
+
+.container-main {
+  width: 100%;
+  max-width: 1800px;
+  padding: 0 5%;
+}
