@@ -1,6 +1,6 @@
 function GridRentals() {
   return (
-    <div>
+    <section>
       <div className="card-rentals">Card Rental</div>
       <div className="card-rentals">Card Rental</div>
       <div className="card-rentals">Card Rental</div>
@@ -15,7 +15,7 @@ function GridRentals() {
       <div className="card-rentals">Card Rental</div>
       <div className="card-rentals">Card Rental</div>
       <div className="card-rentals">Card Rental</div>
-    </div>
+    </section>
   );
 }
 

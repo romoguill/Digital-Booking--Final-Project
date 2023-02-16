@@ -14,6 +14,11 @@ html, body {
 	color: #000;
 }
 
+section {
+  padding-top: variables.$p-3;
+  padding-bottom: variables.$p-3;
+}
+
 ul {
   list-style: none;
 }
@@ -48,7 +53,14 @@ button {
     background-color: variables.$primary-color;
     color: variables.$bg-white;
   }
-  
+}
+
+input {
+  padding: variables.$p-2;
+  border-radius: variables.$border-radius-sm;
+  border: variables.$bg-white;
+  background-color: variables.$bg-white;
+  width: 100%;
 }
 
 

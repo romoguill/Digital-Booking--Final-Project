@@ -1,9 +1,13 @@
 // Color
 $primary-color: rgba(240, 87, 45, 1);
-$text-dark: rgba(25, 27, 29, 1);
-$text-light: rgba(49, 54, 63, 1);
+$bg-dark: rgba(25, 27, 29, 1);
+$bg-medium: rgba(49, 54, 63, 1);
 $bg-light: rgba(223, 228, 234, 1);
 $bg-white: #fff;
+
+$text-dark: rgba(25, 27, 29, 1);
+$text-medium: rgba(223, 228, 234, 1);
+$text-light: #fff;
 
 // Text
 $font-family-primary: 'Roboto', sans-serif;
@@ -17,6 +21,7 @@ $font-size-2: 14px;
 $font-size-3: 16px;
 $font-size-4: 20px;
 $font-size-5: 24px;
+$font-size-6: 36px;
 
 // Radius
 $border-radius-sm: 5px;
