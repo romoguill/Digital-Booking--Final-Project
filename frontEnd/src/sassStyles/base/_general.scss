@@ -1,5 +1,33 @@
-html {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@use '../abstracts/variables';
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
+
+html, body {
+	min-height: 100%;
+	background: #fff;
+	color: #000;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  border: none;
+  border-radius: variables.$border-radius-sm;
+  padding: 0.5rem 1rem;
+}
+
