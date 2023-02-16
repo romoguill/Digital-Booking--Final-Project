@@ -1,0 +1,47 @@
+.formCreateUser {
+    width: 85%;
+    margin: auto
+}
+
+.createUserContent {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.CreateUserContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#1DBEB4;
+}
+
+.label-container{
+    width: 400px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    color: #F3F1ED;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
