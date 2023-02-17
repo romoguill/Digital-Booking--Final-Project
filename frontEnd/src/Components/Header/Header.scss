@@ -18,4 +18,21 @@ header {
       gap: 10px;
     }
 
+    .button-primary{
+      cursor: pointer;
+      background-color: white;
+      color: #F0572D;
+      transition: 0.2s;
+    }
+
+    .button-primary:hover{
+      background-color: #F0572D;
+      color: white;
+    }
+
+    .welcome-user{
+      font-size: 24px;
+      color: #191B1D;
+    }
+
 }

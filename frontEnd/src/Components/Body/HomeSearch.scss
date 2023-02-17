@@ -1,6 +1,7 @@
 @use '/src/sassStyles/globals';
 
 .home-search {
+  width: 100%;
   text-align: center;
   background-color: globals.$text-dark;
   padding-top: globals.$m-5;
