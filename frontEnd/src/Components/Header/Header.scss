@@ -6,6 +6,8 @@ header {
   height: 80px;
   display: flex;
   align-items: center;
+  position: fixed;
+  top: 0;
   
     .container-header {
       margin: globals.$m-3 0;

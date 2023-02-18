@@ -4,7 +4,7 @@
   width: 100%;
   text-align: center;
   background-color: globals.$text-dark;
-  padding-top: globals.$m-5;
+  padding-top: calc(globals.$m-3 + 80px); // +80 porque el header tiene 80px
   padding-bottom: globals.$m-5;
 
 
