@@ -126,7 +126,7 @@ const Login = () => {
                 </button>
                 <h5>¿No tienes una cuenta?</h5>
                 <Link to={"/register"} className="link-button">
-                     <span>Regístrate</span>
+                     <span className="register-click">Regístrate</span>
                 </Link>
                 
             </>

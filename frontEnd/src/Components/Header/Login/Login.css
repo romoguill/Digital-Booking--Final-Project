@@ -86,13 +86,13 @@ h5{
     color: #F3F1ED;
 }
 
-span{
+.register-click{
     font-weight: 600;
     color: #31363F;
     font-family: "Roboto", sans-serif;
 }
 
-span:hover{
+.register-click:hover{
     transition: 0.3s;
     color: #191B1D;
     cursor: pointer;
