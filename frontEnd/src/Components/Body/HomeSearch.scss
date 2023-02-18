@@ -29,3 +29,13 @@
     }
   }
 }
+
+@media screen and (max-width: globals.$bp-mobile) {
+  .home-search {
+    .search-by-location-date {
+      flex-direction: column;
+      max-width: 100%;
+    }
+
+  }
+}
