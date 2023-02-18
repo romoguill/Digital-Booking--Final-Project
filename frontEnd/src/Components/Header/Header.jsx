@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 import Brand from './Brand';
 import './Header.scss';
 
@@ -15,6 +18,7 @@ function Header() {
               Iniciar sesión
             </button>
           </div>
+          <FontAwesomeIcon icon={faBars} />
         </div>
       </div>
     </header>
