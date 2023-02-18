@@ -1,0 +1,9 @@
+@use '/src/sassStyles/globals';
+
+.section__rentals {
+  background-color: globals.$bg-light;
+
+  h2 {
+    color: globals.$text-dark;
+  }
+}

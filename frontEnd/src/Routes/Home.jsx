@@ -1,9 +1,9 @@
-import Header from '../Components/Header/Header';
-import Body from '../Components/Body/Body';
-import Footer from '../Components/Footer/Footer';
-import HomeSearch from '../Components/Body/HomeSearch';
-import CarrouselCategories from '../Components/Body/CarrouselCategories';
-import GridRentals from '../Components/Body/GridRentals';
+import Header from '../components/header/Header';
+import Body from '../components/body/Body';
+import Footer from '../components/footer/Footer';
+import HomeSearch from '../components/body/HomeSearch';
+import CarrouselCategories from '../components/body/CarrouselCategories';
+import GridRentals from '../components/body/GridRentals';
 
 function Home() {
   return (

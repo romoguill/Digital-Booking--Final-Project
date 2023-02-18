@@ -1,0 +1,7 @@
+@use '/src/sassStyles/globals';
+
+.section__categories {
+  h2 {
+    color: globals.$text-dark;
+  }
+}
