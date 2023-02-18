@@ -18,7 +18,6 @@ function GridRentals() {
       <div className="card-rentals">Card Rental</div>
       <div className="card-rentals">Card Rental</div> */}
       <Card />
-      <Card />
     </section>
   );
 }
