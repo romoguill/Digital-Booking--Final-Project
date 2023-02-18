@@ -1,23 +1,32 @@
 import Card from "../../Common/Card";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function GridRentals() {
+
+  const [Deptos, setDeptos] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+        axios('src/Common/JSON/deptos.json')
+        .then(res => setDeptos(res.data))
+    }
+    fetchData()
+  }, [])
+
   return (
     <section style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-      {/* <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div>
-      <div className="card-rentals">Card Rental</div> */}
-      <Card />
+      {Deptos.map(item => {
+            return <Card 
+            key={item.id} 
+            id={item.id} 
+            img={item.img} 
+            category={item.category}
+            title={item.title}
+            location={item.location}
+            description={item.description} 
+            />
+          })}
     </section>
   );
 }

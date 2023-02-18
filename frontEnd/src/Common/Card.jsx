@@ -7,13 +7,13 @@ import swim from "../assets/Images/icon-hombre-nadando.png";
 import wifi from "../assets/Images/icon-wifi-2.png";
 import ubication from "../assets/Images/ubication.png";
 
-const Card = () => {
+const Card = ({id, img, category, title, location, description}) => {
   return (
     <div className="card-container">
       <div className="card">
         {/* <div className='card-image'></div> */}
         <div>
-          <img src={img_depto_1} alt="depto" className="depto-img" />
+          <img src={img} alt="depto" className="depto-img" />
           {/* <img src={favorite} alt="fav" className='fav-icon'/> */}
         </div>
 
@@ -21,14 +21,15 @@ const Card = () => {
           <div className="head">
             <div>
               <p className="deptoStars">
-                DEPTO
+                {category}
                 <img src={star} alt="star" className="star" />
                 <img src={star} alt="star" className="star" />
                 <img src={star} alt="star" className="star" />
                 <img src={star} alt="star" className="star" />
                 <img src={star} alt="star" className="star" />
               </p>
-              <p className="deptoName">Hermitage Hotel</p>
+              <p className="deptoName">{title}</p>
+              <p className="location">{location}</p>
             </div>
 
             <div className="head-score">
@@ -54,8 +55,7 @@ const Card = () => {
           <div className="bottom">
             <div className="depto-description">
                 <p>
-                    En el corazón de San Telmo, disfruta de un albergue inspirado en
-                    las pasiones de Buenos Aires.<span className="more-description"> más...</span>
+                    {description}<span className="more-description"> más...</span>
                 </p>
             </div>
 

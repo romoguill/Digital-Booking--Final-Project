@@ -116,6 +116,11 @@ body p {
     line-height: 16px;
 }
 
+.location {
+    color: #31363F;
+    padding-top: 5px;
+}
+
 /* MIDDLE */
 
 .middle {
@@ -184,7 +189,7 @@ body p {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 18px;
+    margin-top: 10px;
 }
 
 .depto-description p {
