@@ -1,6 +1,7 @@
 @use '/src/sassStyles/globals';
 
 .home-search {
+  width: 100%;
   text-align: center;
   background-color: globals.$text-dark;
   padding-top: calc(globals.$m-3 + 80px); // +80 porque el header tiene 80px

@@ -1,0 +1,35 @@
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.regular-style{
+    width: 300px;
+    height: 35px;
+    border-radius: 25px;
+    border: none;
+    padding: 0 10px 0 20px;
+    box-sizing: border-box;
+    color: #191B1D;
+    font-size: 14px;
+    outline: none;
+}
+
+.regular-style::placeholder{
+    font-size: 14px;
+    color: rgb(48, 48, 48);
+    opacity: 0.8;
+}
+
+.input-error{
+    width: 300px;
+    height: 35px;
+    border-radius: 25px;
+    padding: 0 10px 0 20px;
+    box-sizing: border-box;
+    border: 1px solid red;
+    font-size: 14px;
+    outline: none;
+    color: red;
+}
