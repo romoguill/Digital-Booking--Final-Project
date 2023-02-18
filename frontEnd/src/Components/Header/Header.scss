@@ -9,7 +9,7 @@ header {
   position: fixed;
   top: 0;
   
-    navbar {
+    nav {
       margin: globals.$m-3 0;
       display: flex;
       justify-content: space-between;
@@ -38,4 +38,21 @@ header {
       color: #191B1D;
     }
 
+    .main-menu__hamburger {
+      background-color: transparent;
+      display: none;
+    }
+}
+
+
+@media screen and (max-width: globals.$bp-mobile) {
+  header {
+    .account-actions {
+      display: none;
+    }
+
+    .main-menu__hamburger {
+      display: block;
+    }
+  }
 }

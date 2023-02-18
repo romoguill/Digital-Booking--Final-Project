@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 import Brand from './Brand';
 import './Header.scss';
 import { Link, Route } from 'react-router-dom';
@@ -9,7 +12,7 @@ function Header({ user, isLogged }) {
   return (
     <header>
       <div className="container-main">
-        <navbar className="navbar">
+        <nav className="navbar">
           <Brand />
           {isLogged ? (
             <>
@@ -36,7 +39,10 @@ function Header({ user, isLogged }) {
               </Link>
             </div>
           )}
-        </navbar>
+          <button className="main-menu__hamburger">
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+        </nav>
       </div>
     </header>
   );
