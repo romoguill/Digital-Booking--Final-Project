@@ -188,7 +188,7 @@ const CreateUser = () => {
                     <h5>¿Ya tienes una cuenta?</h5>
                     <div className="login-btn-container">
                         <Link to={"/login"} className="link-button">
-                            <span>Loguéate</span>
+                            <span className="register-click">Loguéate</span>
                         </Link>
                     </div>
                   
