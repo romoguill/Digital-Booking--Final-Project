@@ -4,10 +4,12 @@ import Footer from '../Components/Footer/Footer';
 import HomeSearch from '../Components/Body/HomeSearch';
 import CarrouselCategories from '../Components/Body/CarrouselCategories';
 import GridRentals from '../Components/Body/GridRentals';
+import MenuDrawerMobile from '../Components/MenuDrawerMobile/MenuDrawerMobile';
 
 function Home() {
   return (
     <>
+      <MenuDrawerMobile />
       <Header />
       <HomeSearch />
       <Body>
