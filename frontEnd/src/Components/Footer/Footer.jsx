@@ -9,7 +9,10 @@ function Footer() {
   return (
     <footer>
       <div className="container-main">
-        <h3>Logo</h3>
+        <div className="footer__copyright">
+          <h3>Logo</h3>
+          <p>© 2023 SPRINGSENSE</p>
+        </div>
         <div className="container__social-media">
           <a href="#">
             <img src={facebookLogo} />
