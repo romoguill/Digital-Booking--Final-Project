@@ -25,3 +25,11 @@ footer {
     gap: 10px;
   }
 }
+
+@media screen and (max-width: globals.$bp-mobile) {
+  footer {
+    .container__social-media {
+      display: none;
+    }
+  }
+}
