@@ -73,3 +73,9 @@ input {
 .hidden {
   display: none;
 }
+
+@media screen and (max-width: variables.$bp-mobile) {
+  .container-main {
+    padding: 0 2%;
+  }
+}

@@ -21,3 +21,11 @@
     gap: 10px;
   }
 }
+
+@media screen and (min-width: globals.$bp-mobile) and (max-width: globals.$bp-tablet) {
+  .home-search {
+    h1 {
+      font-size: 30px;
+    }
+  }
+}
