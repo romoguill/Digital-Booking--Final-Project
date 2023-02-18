@@ -4,6 +4,7 @@ import Footer from '../Components/Footer/Footer';
 import HomeSearch from '../Components/Body/HomeSearch';
 import CarrouselCategories from '../Components/Body/CarrouselCategories';
 import GridRentals from '../Components/Body/GridRentals';
+import Card from '../Common/Card';
 
 function Home() {
   return (
