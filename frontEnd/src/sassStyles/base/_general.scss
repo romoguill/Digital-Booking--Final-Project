@@ -38,6 +38,7 @@ button {
   padding: 0.5rem 1rem;
   font-size: variables.$font-size-3;
   font-weight: variables.$font-weight-lg;
+  cursor: pointer;
 }
 
 .button-primary {
@@ -55,6 +56,11 @@ button {
   }
 }
 
+.button-ghost {
+  padding: 0;
+  background-color: transparent;
+}
+
 input {
   padding: variables.$p-2;
   border-radius: variables.$border-radius-sm;
@@ -69,6 +75,12 @@ input {
   max-width: 1800px;
   padding: 0 5%;
 }
+
+.container__social-media {
+  display: flex;
+  gap: 2rem;
+}
+
 
 .hidden {
   display: none;
