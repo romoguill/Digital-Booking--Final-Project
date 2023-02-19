@@ -69,7 +69,7 @@ input {
   width: 100%;
 }
 
-
+// CONTAINERS
 .container-main {
   width: 100%;
   max-width: 1800px;
@@ -81,7 +81,12 @@ input {
   gap: 2rem;
 }
 
+// TEXT
+.text-dark {
+  color: variables.$text-dark;
+}
 
+// MISC
 .hidden {
   display: none;
 }

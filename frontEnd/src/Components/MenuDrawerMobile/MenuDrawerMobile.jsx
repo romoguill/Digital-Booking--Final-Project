@@ -27,8 +27,9 @@ function MenuDrawerMobile() {
       </div>
       <div className="menu-drawer-mobile__body">
         <div className="menu-drawer-mobile__container">
-          <h3>Crear cuenta</h3>
-          <h3>Iniciar Sesion</h3>
+          <h3 className="text-dark">Crear cuenta</h3>
+          <hr />
+          <h3 className="text-dark">Inciar sesión</h3>
         </div>
       </div>
       <div className="menu-drawer-mobile__footer">

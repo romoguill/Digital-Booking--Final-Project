@@ -31,11 +31,20 @@
     display: flex;
     justify-content: end;
     align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  &__body {
+    height: 100%;
+    text-align: right;
+    hr {
+      margin: 1rem 0;
+    }
   }
 
   &__footer {
     height: 60px;
-    font-size: globals.$font-size-4;
+    font-size: globals.$font-size-5;
     display: flex;
     justify-content: flex-end;
 
@@ -44,7 +53,7 @@
     }
 
     .container__social-media {
-      gap: 1rem;
+      gap: 1.5rem;
     }
   }
 }
