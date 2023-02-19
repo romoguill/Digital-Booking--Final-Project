@@ -8,7 +8,11 @@ import { useState } from 'react';
 import Home from '../../Routes/Home';
 import UserProfile from '../UserProfile/UserProfile';
 
-function Header({ user, isLogged }) {
+function Header({ user, isLogged, setMenuDrawerVisible }) {
+  function handleOpenDrawerMenu() {
+    setMenuDrawerVisible(true);
+  }
+
   return (
     <header>
       <div className="container-main">
@@ -39,7 +43,10 @@ function Header({ user, isLogged }) {
               </Link>
             </div>
           )}
-          <button className="main-menu__hamburger">
+          <button
+            className="main-menu__hamburger"
+            onClick={handleOpenDrawerMenu}
+          >
             <FontAwesomeIcon icon={faBars} />
           </button>
         </nav>

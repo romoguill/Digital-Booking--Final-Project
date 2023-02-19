@@ -14,10 +14,17 @@ import {
 
 import './MenuDrawerMobile.scss';
 
-function MenuDrawerMobile() {
+function MenuDrawerMobile({ setMenuDrawerVisible }) {
+  function handleMenuDrawerClose() {
+    setMenuDrawerVisible(false);
+  }
+
   return (
-    <aside className="menu-drawer-mobile">
-      <button className="close-menu button-ghost">
+    <aside className="menu-drawer-mobile hidden">
+      <button
+        className="close-menu button-ghost"
+        onClick={handleMenuDrawerClose}
+      >
         <FontAwesomeIcon icon={faXmark} />
       </button>
       <div className="menu-drawer-mobile__header">

@@ -6,11 +6,13 @@ import CarrouselCategories from '../Components/Body/CarrouselCategories';
 import GridRentals from '../Components/Body/GridRentals';
 import MenuDrawerMobile from '../Components/MenuDrawerMobile/MenuDrawerMobile';
 
-function Home() {
+function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
   return (
     <>
-      <MenuDrawerMobile />
-      <Header />
+      {menuDrawerVisible && (
+        <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
+      )}
+      <Header setMenuDrawerVisible={setMenuDrawerVisible} />
       <HomeSearch />
       <Body>
         <CarrouselCategories />
