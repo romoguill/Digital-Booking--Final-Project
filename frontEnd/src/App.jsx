@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import Home from './Routes/Home';
-import Login from './Components/Header/Login/Login';
+import Login from './Routes/Login';
 import CreateUser from './Components/Header/CreateUser/CreateUser';
 
 function App() {
