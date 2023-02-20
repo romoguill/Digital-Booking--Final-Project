@@ -100,11 +100,11 @@ const CreateUser = () => {
           <div className="createUserContent">
             <Header />
             <div className="formCreateUser">
-              <Link to={'/'}>
+              {/* <Link to={'/'}>
                 <button type="button" class="close">
                   X
                 </button>
-              </Link>
+              </Link> */}
 
               <Title text={<h1>¡Cree una cuenta!</h1>} />
 

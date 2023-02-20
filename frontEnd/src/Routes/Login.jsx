@@ -71,11 +71,11 @@ const Login = () => {
         </>
       ) : (
         <>
-          <Link to={'/'}>
+          {/* <Link to={'/'}>
             <button type="button" class="close">
               X
             </button>
-          </Link>
+          </Link> */}
 
           <Title text={<h1>¡Bienvenido!</h1>} />
           {hasError && (

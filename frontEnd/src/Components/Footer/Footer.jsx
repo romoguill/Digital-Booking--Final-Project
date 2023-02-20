@@ -1,9 +1,12 @@
-import './Footer.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faFacebook,
+  faInstagram,
+  faTwitter,
+  faLinkedin,
+} from '@fortawesome/free-brands-svg-icons';
 
-import facebookLogo from '../../assets/socialMedia/facebook.png';
-import instagramLogo from '../../assets/socialMedia/instagram.png';
-import linkedinLogo from '../../assets/socialMedia/linkedin.png';
-import twitterLogo from '../../assets/socialMedia/twitter.png';
+import './Footer.scss';
 
 function Footer() {
   return (
@@ -15,16 +18,16 @@ function Footer() {
         </div>
         <div className="container__social-media">
           <a href="#">
-            <img src={facebookLogo} />
+            <FontAwesomeIcon icon={faFacebook} />
           </a>
           <a href="#">
-            <img src={instagramLogo} />
+            <FontAwesomeIcon icon={faInstagram} />
           </a>
           <a href="#">
-            <img src={linkedinLogo} />
+            <FontAwesomeIcon icon={faLinkedin} />
           </a>
           <a href="#">
-            <img src={twitterLogo} />
+            <FontAwesomeIcon icon={faTwitter} />
           </a>
         </div>
       </div>

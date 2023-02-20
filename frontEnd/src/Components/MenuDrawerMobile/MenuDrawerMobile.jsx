@@ -1,8 +1,3 @@
-import facebookLogo from '../../assets/socialMedia/facebook.png';
-import instagramLogo from '../../assets/socialMedia/instagram.png';
-import linkedinLogo from '../../assets/socialMedia/linkedin.png';
-import twitterLogo from '../../assets/socialMedia/twitter.png';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import {

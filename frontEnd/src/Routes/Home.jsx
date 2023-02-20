@@ -1,5 +1,4 @@
 import Header from '../Components/Header/Header';
-import Body from '../Components/Body/Body';
 import Footer from '../Components/Footer/Footer';
 import HomeSearch from '../Components/Body/HomeSearch';
 import CarrouselCategories from '../Components/Body/CarrouselCategories';
@@ -14,10 +13,8 @@ function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
       )}
       <Header setMenuDrawerVisible={setMenuDrawerVisible} />
       <HomeSearch />
-      <Body>
-        <CarrouselCategories />
-        <GridRentals />
-      </Body>
+      <CarrouselCategories />
+      <GridRentals />
       <Footer />
     </>
   );
