@@ -4,10 +4,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .regular-style{
-    width: 300px;
+
     height: 35px;
     border-radius: globals.$border-radius-sm;
     border: none;
@@ -20,7 +21,6 @@
 }
 
 .input-error{
-    width: 300px;
     height: 35px;
     border-radius: 25px;
     padding: 0 10px 0 20px;

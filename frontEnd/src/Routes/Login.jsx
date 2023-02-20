@@ -113,7 +113,7 @@ const Login = () => {
             </label>
           )}
 
-          <button className="button-login" onClick={handleSubmit}>
+          <button className="button-primary" onClick={handleSubmit}>
             Ingresar
           </button>
           <h5>¿No tienes una cuenta?</h5>

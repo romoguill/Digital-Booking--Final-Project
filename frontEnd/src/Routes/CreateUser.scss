@@ -5,6 +5,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 450px;
+
+    button {
+        margin-top: 4rem;
+    }
 }
 
 .createUserContent {
@@ -24,18 +29,36 @@
     height: 100vh;
 }
 
-.login-btn{
+.name-surname {
+    width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    gap: 10px;
+
+    .form-control {
+        width: 100%;
+    }
 }
 
-.login-btn-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.link-button span{
+    color: globals.$text-link;
 }
 
+@media screen and (max-width: globals.$bp-tablet) {
+    .formCreateUser {
+        width: 350px;
+    }
 
+    button {
+        width: 100%;
+    }
 
+    .name-surname {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: globals.$bp-mobile) {
+    .formCreateUser {
+        width: 300px;
+    }
+}

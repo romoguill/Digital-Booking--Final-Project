@@ -109,29 +109,33 @@ const CreateUser = () => {
               </Link> */}
 
                 <Title text={<h1>Crear cuenta</h1>} />
-
-                <Label text="Nombre" />
-                <Input
-                  className="regular-style-register"
-                  attribute={{
-                    name: 'firstName',
-                    type: 'text',
-                    placeholder: 'Ingrese su nombre',
-                  }}
-                  required
-                  handleChange={handleChange}
-                />
-
-                <Label text="Apellido" />
-                <Input
-                  attribute={{
-                    name: 'lastName',
-                    type: 'text',
-                    placeholder: 'Ingrese su apellido',
-                  }}
-                  required
-                  handleChange={handleChange}
-                />
+                <div className="name-surname">
+                  <div className="form-control">
+                    <Label text="Nombre" />
+                    <Input
+                      className="regular-style-register"
+                      attribute={{
+                        name: 'firstName',
+                        type: 'text',
+                        placeholder: 'Ingrese su nombre',
+                      }}
+                      required
+                      handleChange={handleChange}
+                    />
+                  </div>
+                  <div className="form-control">
+                    <Label text="Apellido" />
+                    <Input
+                      attribute={{
+                        name: 'lastName',
+                        type: 'text',
+                        placeholder: 'Ingrese su apellido',
+                      }}
+                      required
+                      handleChange={handleChange}
+                    />
+                  </div>
+                </div>
 
                 <Label required text="E-mail" />
                 <Input
@@ -177,17 +181,22 @@ const CreateUser = () => {
                   </label>
                 )}
 
-                <button className="button-login" onClick={handleSubmit}>
-                  Registrarse
+                <button
+                  className="button-primary button-primary--full"
+                  onClick={handleSubmit}
+                >
+                  Crear Cuenta
                 </button>
 
                 <div className="login-btn">
-                  <h5>¿Ya tienes una cuenta?</h5>
-                  <div className="login-btn-container">
-                    <Link to={'/login'} className="link-button">
-                      <span className="register-click">Loguéate</span>
-                    </Link>
-                  </div>
+                  <h5 className="text-dark">
+                    ¿Ya tienes una cuenta?
+                    <span>
+                      <Link to={'/login'} className="link-button">
+                        <span className="register-click"> Iniciar sesión</span>
+                      </Link>
+                    </span>
+                  </h5>
                 </div>
               </div>
             </div>
