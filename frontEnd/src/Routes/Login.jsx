@@ -64,8 +64,7 @@ const Login = () => {
   }
 
   return (
-    <div className="login-container">
-      <Header />
+    <>
       {isLogged ? (
         <>
           <Header user={user} isLogged={isLogged} />
@@ -77,53 +76,67 @@ const Login = () => {
               X
             </button>
           </Link> */}
+          <div className="CreateUserContainer">
+            <div className="createUserContent">
+              <Header />
+              <div className="formCreateUser">
+                <Title text={<h1>Iniciar sesión</h1>} />
+                {hasError && (
+                  <label className="label-alert">
+                    Por favor vuelva a intentarlo, sus credenciales son
+                    inválidas
+                  </label>
+                )}
 
-          <Title text={<h1>¡Bienvenido!</h1>} />
-          {hasError && (
-            <label className="label-alert">
-              Por favor vuelva a intentarlo, sus credenciales son inválidas
-            </label>
-          )}
+                <Label text="Usuario" />
+                <Input
+                  attribute={{
+                    id: 'usuario',
+                    name: 'usuario',
+                    type: 'text',
+                    placeholder: 'Ingrese su mail',
+                  }}
+                  handleChange={handleChange}
+                />
+                <Label text="Contraseña" />
+                <Input
+                  attribute={{
+                    id: 'contraseña',
+                    name: 'contraseña',
+                    type: 'password',
+                    placeholder: 'Ingrese su contraseña',
+                  }}
+                  handleChange={handleChange}
+                  param={passwordError}
+                />
 
-          <Label text="Usuario" />
-          <Input
-            attribute={{
-              id: 'usuario',
-              name: 'usuario',
-              type: 'text',
-              placeholder: 'Ingrese su mail',
-            }}
-            handleChange={handleChange}
-          />
-          <Label text="Contraseña" />
-          <Input
-            attribute={{
-              id: 'contraseña',
-              name: 'contraseña',
-              type: 'password',
-              placeholder: 'Ingrese su contraseña',
-            }}
-            handleChange={handleChange}
-            param={passwordError}
-          />
+                {passwordError && (
+                  <label className="label-error">
+                    Contraseña inválida o incompleta
+                  </label>
+                )}
 
-          {passwordError && (
-            <label className="label-error">
-              Contraseña inválida o incompleta
-            </label>
-          )}
-
-          <button className="button-primary" onClick={handleSubmit}>
-            Ingresar
-          </button>
-          <h5>¿No tienes una cuenta?</h5>
-          <Link to={'/register'} className="link-button">
-            <span className="register-click">Regístrate</span>
-          </Link>
+                <button
+                  className="button-primary button-primary--full"
+                  onClick={handleSubmit}
+                >
+                  Ingresar
+                </button>
+                <h5 className="text-dark">
+                  ¿Aún no tenes cuenta?
+                  <span>
+                    <Link to={'/register'} className="link-button">
+                      <span> Registrate</span>
+                    </Link>
+                  </span>
+                </h5>
+              </div>
+            </div>
+          </div>
           <Footer />
         </>
       )}
-    </div>
+    </>
   );
 };
 
