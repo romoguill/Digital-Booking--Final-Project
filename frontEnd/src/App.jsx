@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import Home from './Routes/Home';
 import Login from './Routes/Login';
-import CreateUser from './Components/Header/CreateUser/CreateUser';
+import CreateUser from './Routes/CreateUser';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible

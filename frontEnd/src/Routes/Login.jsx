@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import Title from './Components/Title/Title';
-import Label from './Components/Label/Label';
-import Input from './Components/Input/Input';
-import Home from '../../../Routes/Home';
-import HomeSearch from '../../Body/HomeSearch';
-import Header from '../Header';
+import Title from '../Components/Login/Title';
+import Label from '../Components/Login/Label';
+import Input from '../Components/Login/Input';
+import Header from '../Components/Header/Header';
 import { Link } from 'react-router-dom';
 import './Login.css';
 
