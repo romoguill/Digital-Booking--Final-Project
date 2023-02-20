@@ -1,13 +1,13 @@
-import React from "react";
-import "./CardStyles.css";
-import img_depto_1 from "../assets/Images/hotel-img-1.png";
-import favorite from "../assets/Images/favorite.png";
-import star from "../assets/Images/star.png";
-import swim from "../assets/Images/icon-hombre-nadando.png";
-import wifi from "../assets/Images/icon-wifi-2.png";
-import ubication from "../assets/Images/ubication.png";
+import React from 'react';
+import './CardRentalGrid.scss';
+import img_depto_1 from '../../assets/Images/hotel-img-1.png';
+import favorite from '../../assets/Images/favorite.png';
+import star from '../../assets/Images/star.png';
+import swim from '../../assets/Images/icon-hombre-nadando.png';
+import wifi from '../../assets/Images/icon-wifi-2.png';
+import ubication from '../../assets/Images/ubication.png';
 
-const Card = ({id, img, category, title, location, description}) => {
+const Card = ({ id, img, category, title, location, description }) => {
   return (
     <div className="card-container">
       <div className="card">
@@ -40,7 +40,12 @@ const Card = ({id, img, category, title, location, description}) => {
 
           <div className="middle">
             <div className="depto-ubication">
-              <p><img src={ubication} alt="ubication" className="ubication-img"/>
+              <p>
+                <img
+                  src={ubication}
+                  alt="ubication"
+                  className="ubication-img"
+                />
                 A 940 m del centro
                 <span className="show-map"> MOSTRAR EN EL MAPA</span>
               </p>
@@ -54,13 +59,14 @@ const Card = ({id, img, category, title, location, description}) => {
 
           <div className="bottom">
             <div className="depto-description">
-                <p>
-                    {description}<span className="more-description"> más...</span>
-                </p>
+              <p>
+                {description}
+                <span className="more-description"> más...</span>
+              </p>
             </div>
 
             <div className="show-more">
-                <button>Ver más</button>
+              <button>Ver más</button>
             </div>
           </div>
         </div>
