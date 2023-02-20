@@ -1,5 +1,5 @@
 import React from 'react';
-import './Label.css';
+import './Label.scss';
 
 const Label = ({ text }) => {
   return <div className="label-container">{text}</div>;

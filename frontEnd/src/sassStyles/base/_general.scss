@@ -70,6 +70,10 @@ input {
   width: 100%;
 }
 
+.input::placeholder {
+  color: variables.$text-placeholder;
+}
+
 // CONTAINERS
 .container-main {
   width: 100%;

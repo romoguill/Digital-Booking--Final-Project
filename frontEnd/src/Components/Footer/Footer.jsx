@@ -13,7 +13,6 @@ function Footer() {
     <footer>
       <div className="container-main">
         <div className="footer__copyright">
-          <h3>Logo</h3>
           <p>© 2023 SPRINGSENSE</p>
         </div>
         <div className="container__social-media">

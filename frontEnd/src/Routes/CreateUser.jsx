@@ -2,11 +2,12 @@ import React from 'react';
 import Input from '../Components/Login/Input';
 import Title from '../Components/Login/Title';
 import Label from '../Components/Login/Label';
-import '../Routes/CreateUser.css';
+import '../Routes/CreateUser.scss';
 import { useState } from 'react';
 import Home from './Home';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header/Header';
+import Footer from '../Components/Footer/Footer';
 
 const CreateUser = () => {
   const [user, setUser] = useState('');
@@ -96,100 +97,103 @@ const CreateUser = () => {
           <Home user={user} />
         </>
       ) : (
-        <div className="CreateUserContainer">
-          <div className="createUserContent">
-            <Header />
-            <div className="formCreateUser">
-              {/* <Link to={'/'}>
+        <>
+          <div className="CreateUserContainer">
+            <div className="createUserContent">
+              <Header />
+              <div className="formCreateUser">
+                {/* <Link to={'/'}>
                 <button type="button" class="close">
                   X
                 </button>
               </Link> */}
 
-              <Title text={<h1>¡Cree una cuenta!</h1>} />
+                <Title text={<h1>Crear cuenta</h1>} />
 
-              <Label text="Nombre" />
-              <Input
-                className="regular-style-register"
-                attribute={{
-                  name: 'firstName',
-                  type: 'text',
-                  placeholder: 'Ingrese su nombre',
-                }}
-                required
-                handleChange={handleChange}
-              />
+                <Label text="Nombre" />
+                <Input
+                  className="regular-style-register"
+                  attribute={{
+                    name: 'firstName',
+                    type: 'text',
+                    placeholder: 'Ingrese su nombre',
+                  }}
+                  required
+                  handleChange={handleChange}
+                />
 
-              <Label text="Apellido" />
-              <Input
-                attribute={{
-                  name: 'lastName',
-                  type: 'text',
-                  placeholder: 'Ingrese su apellido',
-                }}
-                required
-                handleChange={handleChange}
-              />
+                <Label text="Apellido" />
+                <Input
+                  attribute={{
+                    name: 'lastName',
+                    type: 'text',
+                    placeholder: 'Ingrese su apellido',
+                  }}
+                  required
+                  handleChange={handleChange}
+                />
 
-              <Label required text="E-mail" />
-              <Input
-                className="regular-style-register"
-                attribute={{
-                  name: 'user',
-                  type: 'email',
-                  placeholder: 'Ingrese un mail',
-                }}
-                required
-                handleChange={handleChange}
-              />
+                <Label required text="E-mail" />
+                <Input
+                  className="regular-style-register"
+                  attribute={{
+                    name: 'user',
+                    type: 'email',
+                    placeholder: 'Ingrese un mail',
+                  }}
+                  required
+                  handleChange={handleChange}
+                />
 
-              <Label text="Contraseña" />
-              <Input
-                attribute={{
-                  name: 'password',
-                  type: 'password',
-                  placeholder: 'Escriba una contraseña',
-                }}
-                required
-                handleChange={handleChange}
-                param={errors.passwordError}
-              />
-              {errors.passwordError && (
-                <label className="label-error">Mínimo 6 caracteres</label>
-              )}
+                <Label text="Contraseña" />
+                <Input
+                  attribute={{
+                    name: 'password',
+                    type: 'password',
+                    placeholder: 'Escriba una contraseña',
+                  }}
+                  required
+                  handleChange={handleChange}
+                  param={errors.passwordError}
+                />
+                {errors.passwordError && (
+                  <label className="label-error">Mínimo 6 caracteres</label>
+                )}
 
-              <Label text="Confirmar contraseña" />
-              <Input
-                attribute={{
-                  name: 'passwordAgain',
-                  type: 'password',
-                  placeholder: 'Confirme su contraseña',
-                }}
-                required
-                handleChange={handleChange}
-                param={passwordAgain}
-              />
-              {errors.passwordAgainError && (
-                <label className="label-error">
-                  Las contraseñas no coinciden
-                </label>
-              )}
+                <Label text="Confirmar contraseña" />
+                <Input
+                  attribute={{
+                    name: 'passwordAgain',
+                    type: 'password',
+                    placeholder: 'Confirme su contraseña',
+                  }}
+                  required
+                  handleChange={handleChange}
+                  param={passwordAgain}
+                />
+                {errors.passwordAgainError && (
+                  <label className="label-error">
+                    Las contraseñas no coinciden
+                  </label>
+                )}
 
-              <button className="button-login" onClick={handleSubmit}>
-                Registrarse
-              </button>
+                <button className="button-login" onClick={handleSubmit}>
+                  Registrarse
+                </button>
 
-              <div className="login-btn">
-                <h5>¿Ya tienes una cuenta?</h5>
-                <div className="login-btn-container">
-                  <Link to={'/login'} className="link-button">
-                    <span className="register-click">Loguéate</span>
-                  </Link>
+                <div className="login-btn">
+                  <h5>¿Ya tienes una cuenta?</h5>
+                  <div className="login-btn-container">
+                    <Link to={'/login'} className="link-button">
+                      <span className="register-click">Loguéate</span>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+          <Footer />
+        </>
       )}
     </>
   );

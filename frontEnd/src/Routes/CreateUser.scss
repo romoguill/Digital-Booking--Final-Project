@@ -1,3 +1,5 @@
+@use '/src/sassStyles/globals';
+
 .formCreateUser{
     display: flex;
     flex-direction: column;
@@ -18,7 +20,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:#F0572D;
+    background-color: globals.$bg-gray;
+    height: 100vh;
 }
 
 .login-btn{

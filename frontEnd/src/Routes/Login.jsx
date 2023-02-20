@@ -4,7 +4,8 @@ import Label from '../Components/Login/Label';
 import Input from '../Components/Login/Input';
 import Header from '../Components/Header/Header';
 import { Link } from 'react-router-dom';
-import './Login.css';
+import './Login.scss';
+import Footer from '../Components/Footer/Footer';
 
 const Login = () => {
   const [user, setUser] = useState('');
@@ -119,6 +120,7 @@ const Login = () => {
           <Link to={'/register'} className="link-button">
             <span className="register-click">Regístrate</span>
           </Link>
+          <Footer />
         </>
       )}
     </div>

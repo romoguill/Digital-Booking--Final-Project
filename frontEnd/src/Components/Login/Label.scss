@@ -1,11 +1,13 @@
+@use '/src/sassStyles/globals';
+
 .label-container{
     width: 300px;
     display: flex;
     justify-content: left;
     align-items: center;
-    color: #F3F1ED;
+    color: globals.$text-dark;
     font-weight: 600;
     margin-top: 15px;
     margin-bottom: 5px;
-    font-family: "Roboto", sans-serif;
+    font-size: globals.$font-size-1;
 }
