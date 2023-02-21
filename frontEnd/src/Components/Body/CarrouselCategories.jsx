@@ -24,7 +24,7 @@ function CarrouselCategories() {
   return (
     <section className="section__categories">
       <h2>Buscar por tipo de alojamiento</h2>
-      <div className="container-main">
+      <div className="container-categories">
         {!error ? (
           categorias
             .slice(0, 4)
