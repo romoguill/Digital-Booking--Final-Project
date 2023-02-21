@@ -31,7 +31,8 @@ body p {
 }
 
 .card p{
-    color: #31363F;
+    color: rgba(49, 54, 63,1);
+
 }
 
 .depto-img {
