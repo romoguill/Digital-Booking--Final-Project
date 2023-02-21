@@ -1,14 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-
 import Brand from './Brand';
 import './Header.scss';
 import { Link, Route } from 'react-router-dom';
-import { useState } from 'react';
-import Home from '../../Routes/Home';
 import UserProfile from '../UserProfile/UserProfile';
+import HomeSearch from '../Body/HomeSearch';
+import CarrouselCategories from '../Body/CarrouselCategories';
+import GridRentals from '../Body/GridRentals';
+import Footer from '../Footer/Footer';
 
-function Header({ user, isLogged }) {
+function Header({ user, isLogged, setMenuDrawerVisible }) {
+  function handleOpenDrawerMenu() {
+    setMenuDrawerVisible(true);
+  }
+
   return (
     <header>
       <div className="container-main">
@@ -39,7 +44,10 @@ function Header({ user, isLogged }) {
               </Link>
             </div>
           )}
-          <button className="main-menu__hamburger">
+          <button
+            className="main-menu__hamburger"
+            onClick={handleOpenDrawerMenu}
+          >
             <FontAwesomeIcon icon={faBars} />
           </button>
         </nav>

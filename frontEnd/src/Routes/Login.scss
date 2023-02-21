@@ -1,22 +1,28 @@
-.login-container{
+@use '/src/sassStyles/globals';
+
+// TODO: Unificar estilos los contenedores de Crear usuario y login
+.formCreateUser{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color:#F0572D;
+    width: 450px;
+
+    button {
+        margin-top: 4rem;
+    }
 }
 
-.button-login{
-    width: 200px;
-    margin-top: 30px;
-    background-color: #31363F;
-    border: none;
-    border-radius: 25px;
-    padding: 10px;
-    color: #F3F1ED;
-    font-weight: 600;
-    transition: 0.3s;
+.createUserContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
+
+
 
 .button-login:hover{
     transition: 0.3s;
