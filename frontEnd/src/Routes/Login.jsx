@@ -6,6 +6,9 @@ import Header from '../Components/Header/Header';
 import { Link } from 'react-router-dom';
 import './Login.scss';
 import Footer from '../Components/Footer/Footer';
+import HomeSearch from '../Components/Body/HomeSearch';
+import CarrouselCategories from '../Components/Body/CarrouselCategories';
+import GridRentals from '../Components/Body/GridRentals';
 
 const Login = () => {
   const [user, setUser] = useState('');
@@ -38,7 +41,7 @@ const Login = () => {
   function ifMatch(param) {
     if (param.user.length > 0 && param.password.length > 0) {
       if (
-        (param.user === 'Manu' && param.password === '123456') ||
+        (param.user === 'John Doe' && param.password === '123456') ||
         (user === lsd.username && password === lsd.password)
       ) {
         const { user, password } = param;
@@ -68,14 +71,13 @@ const Login = () => {
       {isLogged ? (
         <>
           <Header user={user} isLogged={isLogged} />
+          <HomeSearch />
+          <CarrouselCategories />
+          <GridRentals />
+          <Footer />
         </>
       ) : (
         <>
-          {/* <Link to={'/'}>
-            <button type="button" class="close">
-              X
-            </button>
-          </Link> */}
           <div className="CreateUserContainer">
             <div className="createUserContent">
               <Header />
