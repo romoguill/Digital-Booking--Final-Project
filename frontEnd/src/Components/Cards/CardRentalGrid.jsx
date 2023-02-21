@@ -1,7 +1,14 @@
-import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faStar,
+  faStarHalf,
+  faLocationDot,
+  faWifi,
+  faPersonSwimming,
+} from '@fortawesome/free-solid-svg-icons';
+
 import './CardRentalGrid.scss';
-import img_depto_1 from '../../assets/Images/hotel-img-1.png';
-import favorite from '../../assets/Images/favorite.png';
+
 import star from '../../assets/Images/star.png';
 import swim from '../../assets/Images/icon-hombre-nadando.png';
 import wifi from '../../assets/Images/icon-wifi-2.png';
@@ -9,66 +16,52 @@ import ubication from '../../assets/Images/ubication.png';
 
 const Card = ({ id, img, category, title, location, description }) => {
   return (
-    <div className="card-container">
-      <div className="card">
-        {/* <div className='card-image'></div> */}
-        <div>
-          <img src={img} alt="depto" className="depto-img" />
-          {/* <img src={favorite} alt="fav" className='fav-icon'/> */}
+    <div className="card-rental">
+      <div className="card-rental__img">
+        <img src={img} alt="foto alquiler" className="depto-img" />
+      </div>
+
+      <div className="card-rental__info">
+        <div className="card-rental__head">
+          <div className="card-rental__head--main">
+            <h3 className="rental-category text-dark">{category}</h3>
+            <div className="rental-rating--stars">
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={faStarHalf} />
+            </div>
+            <h2 className="rental-name text-dark">Hermitage Hotel</h2>
+          </div>
+          <div className="rental-rating--score">
+            <p className="score--number">8</p>
+            <p className="score--description text-dark">Muy bueno</p>
+          </div>
         </div>
 
-        <div className="card-info">
-          <div className="head">
-            <div>
-              <p className="deptoStars">
-                {category}
-                <img src={star} alt="star" className="star" />
-                <img src={star} alt="star" className="star" />
-                <img src={star} alt="star" className="star" />
-                <img src={star} alt="star" className="star" />
-                <img src={star} alt="star" className="star" />
-              </p>
-              <p className="deptoName">{title}</p>
-              <p className="location">{location}</p>
-            </div>
-
-            <div className="head-score">
-              <div className="deptoScore">8</div>
-              <p className="deptoOpinion">Muy bueno</p>
-            </div>
+        <div className="card-rental__meta">
+          <p className="rental-location text-dark">
+            <span>
+              <FontAwesomeIcon icon={faLocationDot} />
+            </span>
+            A 900m del centro
+            <span className="show-map"> MOSTRAR EN EL MAPA</span>
+          </p>
+          <div className="rental-amenities">
+            <FontAwesomeIcon icon={faWifi} />
+            <FontAwesomeIcon icon={faPersonSwimming} />
           </div>
+        </div>
 
-          <div className="middle">
-            <div className="depto-ubication">
-              <p>
-                <img
-                  src={ubication}
-                  alt="ubication"
-                  className="ubication-img"
-                />
-                A 940 m del centro
-                <span className="show-map"> MOSTRAR EN EL MAPA</span>
-              </p>
-            </div>
-
-            <div className="depto-includes">
-              <img src={wifi} alt="wifi" />
-              <img src={swim} alt="swim" />
-            </div>
-          </div>
-
-          <div className="bottom">
-            <div className="depto-description">
-              <p>
-                {description}
-                <span className="more-description"> más...</span>
-              </p>
-            </div>
-
-            <div className="show-more">
-              <button>Ver más</button>
-            </div>
-          </div>
+        <div className="card-rental__body">
+          <p className="text-dark">
+            {description}
+            <span className="more-description">
+              <a>más...</a>
+            </span>
+          </p>
+          <button className="button--read-more">ver más</button>
         </div>
       </div>
     </div>
