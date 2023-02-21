@@ -17,49 +17,53 @@ const Card = ({ id, img, category, title, location, description }) => {
       </div>
 
       <div className="card-rental__info">
-        <div className="card-rental__head">
-          <div className="card-rental__head--main">
-            <div className="upper-title">
-              <h3 className="rental-category text-gray">{category}</h3>
-              <div className="rental-rating--stars">
-                <FontAwesomeIcon icon={faStar} />
-                <FontAwesomeIcon icon={faStar} />
-                <FontAwesomeIcon icon={faStar} />
-                <FontAwesomeIcon icon={faStar} />
-                <FontAwesomeIcon icon={faStarHalf} />
+        <div className="card-rental__data">
+          <div className="card-rental__head">
+            <div className="card-rental__head--main">
+              <div className="upper-title">
+                <h3 className="rental-category text-gray">{category}</h3>
+                <div className="rental-rating--stars">
+                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon icon={faStarHalf} />
+                </div>
               </div>
+              <h2 className="rental-name text-dark">{title}</h2>
             </div>
-            <h2 className="rental-name text-dark">{title}</h2>
+            <div className="rental-rating--score">
+              <p className="score--number">8</p>
+              <p className="score--description text-dark">Muy bueno</p>
+            </div>
           </div>
-          <div className="rental-rating--score">
-            <p className="score--number">8</p>
-            <p className="score--description text-dark">Muy bueno</p>
+
+          <div className="card-rental__meta">
+            <p className="rental-location text-dark">
+              <span>
+                <FontAwesomeIcon icon={faLocationDot} />
+              </span>
+              <span>{location}</span>
+              <span className="show-map">
+                <a href="#">MOSTRAR EN EL MAPA</a>
+              </span>
+            </p>
+            <div className="rental-amenities">
+              <FontAwesomeIcon icon={faWifi} />
+              <FontAwesomeIcon icon={faPersonSwimming} />
+            </div>
+          </div>
+
+          <div className="card-rental__body">
+            <p className="text-dark">
+              {description}
+              <span className="more-description">
+                <a>más...</a>
+              </span>
+            </p>
           </div>
         </div>
-
-        <div className="card-rental__meta">
-          <p className="rental-location text-dark">
-            <span>
-              <FontAwesomeIcon icon={faLocationDot} />
-            </span>
-            <span>{location}</span>
-            <span className="show-map">
-              <a href="#">MOSTRAR EN EL MAPA</a>
-            </span>
-          </p>
-          <div className="rental-amenities">
-            <FontAwesomeIcon icon={faWifi} />
-            <FontAwesomeIcon icon={faPersonSwimming} />
-          </div>
-        </div>
-
-        <div className="card-rental__body">
-          <p className="text-dark">
-            {description}
-            <span className="more-description">
-              <a>más...</a>
-            </span>
-          </p>
+        <div className="card-rental__action">
           <button className="button--read-more button-primary button-primary--full">
             ver más
           </button>
