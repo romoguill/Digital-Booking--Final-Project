@@ -9,11 +9,6 @@ import {
 
 import './CardRentalGrid.scss';
 
-import star from '../../assets/Images/star.png';
-import swim from '../../assets/Images/icon-hombre-nadando.png';
-import wifi from '../../assets/Images/icon-wifi-2.png';
-import ubication from '../../assets/Images/ubication.png';
-
 const Card = ({ id, img, category, title, location, description }) => {
   return (
     <div className="card-rental">
@@ -24,15 +19,17 @@ const Card = ({ id, img, category, title, location, description }) => {
       <div className="card-rental__info">
         <div className="card-rental__head">
           <div className="card-rental__head--main">
-            <h3 className="rental-category text-dark">{category}</h3>
-            <div className="rental-rating--stars">
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStarHalf} />
+            <div className="upper-title">
+              <h3 className="rental-category text-gray">{category}</h3>
+              <div className="rental-rating--stars">
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStarHalf} />
+              </div>
             </div>
-            <h2 className="rental-name text-dark">Hermitage Hotel</h2>
+            <h2 className="rental-name text-dark">{title}</h2>
           </div>
           <div className="rental-rating--score">
             <p className="score--number">8</p>
@@ -45,8 +42,10 @@ const Card = ({ id, img, category, title, location, description }) => {
             <span>
               <FontAwesomeIcon icon={faLocationDot} />
             </span>
-            A 900m del centro
-            <span className="show-map"> MOSTRAR EN EL MAPA</span>
+            <span>{location}</span>
+            <span className="show-map">
+              <a href="#">MOSTRAR EN EL MAPA</a>
+            </span>
           </p>
           <div className="rental-amenities">
             <FontAwesomeIcon icon={faWifi} />
@@ -61,7 +60,9 @@ const Card = ({ id, img, category, title, location, description }) => {
               <a>más...</a>
             </span>
           </p>
-          <button className="button--read-more">ver más</button>
+          <button className="button--read-more button-primary button-primary--full">
+            ver más
+          </button>
         </div>
       </div>
     </div>
