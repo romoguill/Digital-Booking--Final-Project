@@ -78,7 +78,8 @@ input {
 .container-main {
   width: 100%;
   max-width: 1800px;
-  padding: 0 5%;
+  padding: 0 3%;
+  margin: 0 auto;
 }
 
 .container__social-media {
@@ -93,6 +94,10 @@ input {
 
 .text-gray {
   color: variables.$text-gray;
+}
+
+.section-header {
+  margin-bottom: variables.$m-3;
 }
 
 // MISC

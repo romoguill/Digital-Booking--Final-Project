@@ -17,7 +17,7 @@ function GridRentals() {
   return (
     <section className="grid-rentals">
       <div className="container-main">
-        <h2 className="text-dark">Recomendaciones</h2>
+        <h2 className="text-dark section-header">Recomendaciones</h2>
         <div className="grid-rentals__grid">
           {Deptos.map((item) => {
             return (

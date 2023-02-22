@@ -63,6 +63,7 @@ const Card = ({ id, img, category, title, location, description }) => {
             </p>
           </div>
         </div>
+
         <div className="card-rental__action">
           <button className="button--read-more button-primary button-primary--full">
             ver más
