@@ -34,7 +34,7 @@ function Header({ user, isLogged, setMenuDrawerVisible }) {
               </Link>
 
               <Link to={'/login'}>
-                <button className="button-primary button-primary--full">
+                <button className="button-primary button-primary--empty">
                   Iniciar sesión
                 </button>
               </Link>
