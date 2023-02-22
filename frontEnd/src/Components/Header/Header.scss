@@ -32,8 +32,10 @@ header {
     }
 
     .welcome-user{
-      font-size: 24px;
+      font-size: 20px;
       color: #191B1D;
+      margin-left: auto;
+      margin-right: 10px;
     }
 
     .main-menu__hamburger {
@@ -43,8 +45,30 @@ header {
       text-align: right;
       font-size: 1.5rem;
     }
+
+    // .button-logout{
+    //   background-color: #F0572D;
+    //   color: white;
+    // }
+
 }
 
+@media screen and (max-width: globals.$bp-tablet) {
+  header {
+    .account-actions {
+      display: none;
+    }
+
+    .main-menu__hamburger {
+      display: block;
+    }
+
+    .button-logout{
+      display: none;
+    }
+
+  }
+}
 
 @media screen and (max-width: globals.$bp-menu-drawer) {
   header {
@@ -54,6 +78,18 @@ header {
 
     .main-menu__hamburger {
       display: block;
+    }
+
+    .welcome-user{
+      display: none;
+    }
+
+    .button-logout{
+      display: none;
+    }
+
+    .user-profile {
+      display: none;
     }
   }
 }
