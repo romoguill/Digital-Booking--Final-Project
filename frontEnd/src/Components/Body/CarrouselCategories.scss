@@ -1,45 +1,42 @@
 @use '/src/sassStyles/globals';
 
-.section__categories {
-  width: 100%;
-  padding: 1% 2%;
-  h2 {
-    color: globals.$text-dark;
-  }
-}
-
-.container-categories{
-  width: 100%;
+.container-categories {
   display: flex;
-  justify-content: center;
-  padding: 10px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
-.card-category{
-    margin: 0px 6px;
-    width: 24%;
-    height: 210px;
+.card-category {
     border: 1px solid #DFE4EA;
     box-shadow: 0px 4px 3px 0px globals.$bg-light;
     -webkit-box-shadow: 0px 4px 3px 0px globals.$bg-light;
     -moz-box-shadow: 0px 4px 3px 0px globals.$bg-light;
     border-radius: 10px;
     background-color: (223, 228, 234, 1);
-  h3{
+    height: 250px;
+    flex-basis: 300px;
+    flex-grow: 1;
+
+  h3 {
     margin: 2%;
     color:globals.$text-dark;
     font-size: globals.$font-size-3;
     font-weight: globals.$font-weight-lg;
   }
-  p{
+
+  p {
     margin: 2%;
     color: globals.$text-dark;
     font-weight: globals.$font-weight-md;
   }
-  img{
+
+  img {
     width: 100%;
-    height:70%;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
+    height: 70%;
+    object-fit: cover;
+    object-position: center center;
+    border-top-right-radius: globals.$border-radius-lg;
+    border-top-left-radius: globals.$border-radius-lg;
   }
 }
