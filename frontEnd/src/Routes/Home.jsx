@@ -7,7 +7,7 @@ import MenuDrawerMobile from '../Components/MenuDrawerMobile/MenuDrawerMobile';
 
 function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
   return (
-    <>
+    <div className="container-page">
       {menuDrawerVisible && (
         <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
       )}
@@ -16,7 +16,7 @@ function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
       <CarrouselCategories />
       <GridRentals />
       <Footer />
-    </>
+    </div>
   );
 }
 

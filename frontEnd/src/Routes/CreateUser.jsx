@@ -97,7 +97,7 @@ const CreateUser = () => {
           <Home user={user} />
         </>
       ) : (
-        <>
+        <div className="container-page">
           <div className="CreateUserContainer">
             <div className="createUserContent">
               <Header />
@@ -202,7 +202,7 @@ const CreateUser = () => {
             </div>
           </div>
           <Footer />
-        </>
+        </div>
       )}
     </>
   );

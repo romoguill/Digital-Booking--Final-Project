@@ -46,11 +46,12 @@
 @media screen and (max-width: globals.$bp-tablet) {
     .formCreateUser {
         width: 350px;
+        
+        button {
+            width: 100%;
+        }
     }
 
-    button {
-        width: 100%;
-    }
 
     .name-surname {
         flex-direction: column;

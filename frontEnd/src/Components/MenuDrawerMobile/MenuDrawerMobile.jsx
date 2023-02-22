@@ -15,7 +15,7 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
   }
 
   return (
-    <aside className="menu-drawer-mobile hidden">
+    <aside className="menu-drawer-mobile">
       <button
         className="close-menu button-ghost"
         onClick={handleMenuDrawerClose}

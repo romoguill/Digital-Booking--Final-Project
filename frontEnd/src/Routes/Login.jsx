@@ -77,7 +77,7 @@ const Login = () => {
           <Footer />
         </>
       ) : (
-        <>
+        <div className="container-page">
           <div className="CreateUserContainer">
             <div className="createUserContent">
               <Header />
@@ -136,7 +136,7 @@ const Login = () => {
             </div>
           </div>
           <Footer />
-        </>
+        </div>
       )}
     </>
   );

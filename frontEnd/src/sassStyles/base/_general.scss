@@ -16,7 +16,7 @@ html, body {
 
 section {
   padding-top: variables.$p-3;
-  padding-bottom: variables.$p-3;
+  padding-bottom: variables.$p-5;
 }
 
 ul {
@@ -75,6 +75,10 @@ input {
 }
 
 // CONTAINERS
+.container-page {
+  margin-top: variables.$header-height;
+}
+
 .container-main {
   width: 100%;
   max-width: 1800px;
