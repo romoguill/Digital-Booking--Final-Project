@@ -4,10 +4,9 @@ import Brand from './Brand';
 import './Header.scss';
 import { Link, Route } from 'react-router-dom';
 import UserProfile from '../UserProfile/UserProfile';
-import HomeSearch from '../Body/HomeSearch';
-import CarrouselCategories from '../Body/CarrouselCategories';
-import GridRentals from '../Body/GridRentals';
-import Footer from '../Footer/Footer';
+import {
+  faRightFromBracket
+} from "@fortawesome/free-solid-svg-icons";
 
 function Header({ user, isLogged, setMenuDrawerVisible }) {
   function handleOpenDrawerMenu() {
@@ -21,8 +20,15 @@ function Header({ user, isLogged, setMenuDrawerVisible }) {
           <Brand />
           {isLogged ? (
             <>
+              <p className='welcome-user'>Hola {user}!</p>
               <UserProfile name={user} />
+              <Link to={'/'}>
+                <button className="button-logout button-primary--empty">
+                  <FontAwesomeIcon icon={faRightFromBracket} />
+                </button>
+              </Link>
             </>
+            
           ) : (
             <div className="account-actions">
               <Link to={'/register'}>
