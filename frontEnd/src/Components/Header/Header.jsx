@@ -4,9 +4,7 @@ import Brand from './Brand';
 import './Header.scss';
 import { Link, Route } from 'react-router-dom';
 import UserProfile from '../UserProfile/UserProfile';
-import {
-  faRightFromBracket
-} from "@fortawesome/free-solid-svg-icons";
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 function Header({ user, isLogged, setMenuDrawerVisible }) {
   function handleOpenDrawerMenu() {
@@ -20,7 +18,6 @@ function Header({ user, isLogged, setMenuDrawerVisible }) {
           <Brand />
           {isLogged ? (
             <>
-              <p className='welcome-user'>Hola {user}!</p>
               <UserProfile name={user} />
               <Link to={'/'}>
                 <button className="button-logout button-primary--empty">
@@ -28,7 +25,6 @@ function Header({ user, isLogged, setMenuDrawerVisible }) {
                 </button>
               </Link>
             </>
-            
           ) : (
             <div className="account-actions">
               <Link to={'/register'}>

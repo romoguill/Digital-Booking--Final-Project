@@ -36,5 +36,12 @@
   font-weight: globals.$font-weight-md;
 }
 
+@media screen and (max-width: globals.$bp-menu-drawer) {
+  .user-profile {
+    display: none;
+  }
+}
+
+
 
 
