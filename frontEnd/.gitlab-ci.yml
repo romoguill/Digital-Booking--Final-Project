@@ -2,10 +2,10 @@ image: node:lastest
 
 cache:
   paths:
-    - ./front/ui/node_modules/
+    - ./frontend/node_modules/
 
 before_script:
-  - cd ./front/ui # enter the React app directory
+  - cd ./frontend # enter the React app directory
   - rm -rf build # remove the existing build
   - CI=false npm install # install required packages
 
