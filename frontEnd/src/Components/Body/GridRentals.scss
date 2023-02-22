@@ -2,10 +2,6 @@
 
 .grid-rentals {
   background-color: globals.$bg-light;
-
-  h2 {
-    margin-bottom: globals.$m-3;
-  }
   
   &__grid {
     display: flex;
