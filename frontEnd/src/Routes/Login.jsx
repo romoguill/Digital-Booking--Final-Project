@@ -9,8 +9,9 @@ import Footer from '../Components/Footer/Footer';
 import HomeSearch from '../Components/Body/HomeSearch';
 import CarrouselCategories from '../Components/Body/CarrouselCategories';
 import GridRentals from '../Components/Body/GridRentals';
+import MenuDrawerMobile from '../Components/MenuDrawerMobile/MenuDrawerMobile';
 
-const Login = () => {
+const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
@@ -70,73 +71,85 @@ const Login = () => {
     <>
       {isLogged ? (
         <>
-          <Header user={user} isLogged={isLogged} />
+          {menuDrawerVisible && (
+            <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
+          )}
+          <Header
+            user={user}
+            isLogged={isLogged}
+            setMenuDrawerVisible={setMenuDrawerVisible}
+          />
           <HomeSearch />
           <CarrouselCategories />
           <GridRentals />
           <Footer />
         </>
       ) : (
-        <div className="container-page">
-          <div className="CreateUserContainer">
-            <div className="createUserContent">
-              <Header />
-              <div className="formCreateUser">
-                <Title text={<h1>Iniciar sesión</h1>} />
-                {hasError && (
-                  <label className="label-alert">
-                    Por favor vuelva a intentarlo, sus credenciales son
-                    inválidas
-                  </label>
-                )}
+        <>
+          {menuDrawerVisible && (
+            <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
+          )}
+          <div className="container-page">
+            <div className="CreateUserContainer">
+              <div className="createUserContent">
+                <Header setMenuDrawerVisible={setMenuDrawerVisible} />
+                <div className="formCreateUser">
+                  <Title text={<h1>Iniciar sesión</h1>} />
+                  {hasError && (
+                    <label className="label-alert">
+                      Por favor vuelva a intentarlo, sus credenciales son
+                      inválidas
+                    </label>
+                  )}
 
-                <Label text="Usuario" />
-                <Input
-                  attribute={{
-                    id: 'usuario',
-                    name: 'usuario',
-                    type: 'text',
-                    placeholder: 'Ingrese su mail',
-                  }}
-                  handleChange={handleChange}
-                />
-                <Label text="Contraseña" />
-                <Input
-                  attribute={{
-                    id: 'contraseña',
-                    name: 'contraseña',
-                    type: 'password',
-                    placeholder: 'Ingrese su contraseña',
-                  }}
-                  handleChange={handleChange}
-                  param={passwordError}
-                />
+                  <Label text="Usuario" />
+                  <Input
+                    attribute={{
+                      id: 'usuario',
+                      name: 'usuario',
+                      type: 'text',
+                      placeholder: 'Ingrese su mail',
+                    }}
+                    handleChange={handleChange}
+                  />
+                  <Label text="Contraseña" />
+                  <Input
+                    attribute={{
+                      id: 'contraseña',
+                      name: 'contraseña',
+                      type: 'password',
+                      placeholder: 'Ingrese su contraseña',
+                    }}
+                    handleChange={handleChange}
+                    param={passwordError}
+                  />
 
-                {passwordError && (
-                  <label className="label-error">
-                    Contraseña inválida o incompleta
-                  </label>
-                )}
+                  {passwordError && (
+                    <label className="label-error">
+                      Contraseña inválida o incompleta
+                    </label>
+                  )}
 
-                <button
-                  className="button-primary button-primary--full"
-                  onClick={handleSubmit}
-                >
-                  Ingresar
-                </button>
-                <h5 className="text-dark">
-                  ¿Aún no tenes cuenta?
-                  <span>
-                    <Link to={'/register'} className="link-button">
-                      <span> Registrate</span>
-                    </Link>
-                  </span>
-                </h5>
+                  <button
+                    className="button-primary button-primary--full"
+                    onClick={handleSubmit}
+                  >
+                    Ingresar
+                  </button>
+                  <h5 className="text-dark">
+                    ¿Aún no tenes cuenta?
+                    <span>
+                      <Link to={'/register'} className="link-button">
+                        <span> Registrate</span>
+                      </Link>
+                    </span>
+                  </h5>
+                </div>
               </div>
             </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
+        </>
       )}
     </>
   );

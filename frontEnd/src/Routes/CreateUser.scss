@@ -26,7 +26,7 @@
     justify-content: center;
     align-items: center;
     background-color: globals.$bg-gray;
-    height: 100vh;
+    height: calc(100vh - globals.$footer-height - globals.$header-height);
 }
 
 .name-surname {
@@ -46,7 +46,7 @@
 @media screen and (max-width: globals.$bp-tablet) {
     .formCreateUser {
         width: 350px;
-        
+
         button {
             width: 100%;
         }

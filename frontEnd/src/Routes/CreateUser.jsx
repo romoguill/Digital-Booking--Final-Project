@@ -8,8 +8,9 @@ import Home from './Home';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header/Header';
 import Footer from '../Components/Footer/Footer';
+import MenuDrawerMobile from '../Components/MenuDrawerMobile/MenuDrawerMobile';
 
-const CreateUser = () => {
+const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
   const [user, setUser] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -94,115 +95,126 @@ const CreateUser = () => {
     <>
       {created ? (
         <>
+          {menuDrawerVisible && (
+            <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
+          )}
           <Home user={user} />
         </>
       ) : (
-        <div className="container-page">
-          <div className="CreateUserContainer">
-            <div className="createUserContent">
-              <Header />
-              <div className="formCreateUser">
-                {/* <Link to={'/'}>
+        <>
+          {menuDrawerVisible && (
+            <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
+          )}
+          <div className="container-page">
+            <div className="CreateUserContainer">
+              <div className="createUserContent">
+                <Header setMenuDrawerVisible={setMenuDrawerVisible} />
+                <div className="formCreateUser">
+                  {/* <Link to={'/'}>
                 <button type="button" class="close">
                   X
                 </button>
               </Link> */}
 
-                <Title text={<h1>Crear cuenta</h1>} />
-                <div className="name-surname">
-                  <div className="form-control">
-                    <Label text="Nombre" />
-                    <Input
-                      className="regular-style-register"
-                      attribute={{
-                        name: 'firstName',
-                        type: 'text',
-                        placeholder: 'Ingrese su nombre',
-                      }}
-                      required
-                      handleChange={handleChange}
-                    />
+                  <Title text={<h1>Crear cuenta</h1>} />
+                  <div className="name-surname">
+                    <div className="form-control">
+                      <Label text="Nombre" />
+                      <Input
+                        className="regular-style-register"
+                        attribute={{
+                          name: 'firstName',
+                          type: 'text',
+                          placeholder: 'Ingrese su nombre',
+                        }}
+                        required
+                        handleChange={handleChange}
+                      />
+                    </div>
+                    <div className="form-control">
+                      <Label text="Apellido" />
+                      <Input
+                        attribute={{
+                          name: 'lastName',
+                          type: 'text',
+                          placeholder: 'Ingrese su apellido',
+                        }}
+                        required
+                        handleChange={handleChange}
+                      />
+                    </div>
                   </div>
-                  <div className="form-control">
-                    <Label text="Apellido" />
-                    <Input
-                      attribute={{
-                        name: 'lastName',
-                        type: 'text',
-                        placeholder: 'Ingrese su apellido',
-                      }}
-                      required
-                      handleChange={handleChange}
-                    />
+
+                  <Label required text="E-mail" />
+                  <Input
+                    className="regular-style-register"
+                    attribute={{
+                      name: 'user',
+                      type: 'email',
+                      placeholder: 'Ingrese un mail',
+                    }}
+                    required
+                    handleChange={handleChange}
+                  />
+
+                  <Label text="Contraseña" />
+                  <Input
+                    attribute={{
+                      name: 'password',
+                      type: 'password',
+                      placeholder: 'Escriba una contraseña',
+                    }}
+                    required
+                    handleChange={handleChange}
+                    param={errors.passwordError}
+                  />
+                  {errors.passwordError && (
+                    <label className="label-error">Mínimo 6 caracteres</label>
+                  )}
+
+                  <Label text="Confirmar contraseña" />
+                  <Input
+                    attribute={{
+                      name: 'passwordAgain',
+                      type: 'password',
+                      placeholder: 'Confirme su contraseña',
+                    }}
+                    required
+                    handleChange={handleChange}
+                    param={passwordAgain}
+                  />
+                  {errors.passwordAgainError && (
+                    <label className="label-error">
+                      Las contraseñas no coinciden
+                    </label>
+                  )}
+
+                  <button
+                    className="button-primary button-primary--full"
+                    onClick={handleSubmit}
+                  >
+                    Crear Cuenta
+                  </button>
+
+                  <div className="login-btn">
+                    <h5 className="text-dark">
+                      ¿Ya tienes una cuenta?
+                      <span>
+                        <Link to={'/login'} className="link-button">
+                          <span className="register-click">
+                            {' '}
+                            Iniciar sesión
+                          </span>
+                        </Link>
+                      </span>
+                    </h5>
                   </div>
-                </div>
-
-                <Label required text="E-mail" />
-                <Input
-                  className="regular-style-register"
-                  attribute={{
-                    name: 'user',
-                    type: 'email',
-                    placeholder: 'Ingrese un mail',
-                  }}
-                  required
-                  handleChange={handleChange}
-                />
-
-                <Label text="Contraseña" />
-                <Input
-                  attribute={{
-                    name: 'password',
-                    type: 'password',
-                    placeholder: 'Escriba una contraseña',
-                  }}
-                  required
-                  handleChange={handleChange}
-                  param={errors.passwordError}
-                />
-                {errors.passwordError && (
-                  <label className="label-error">Mínimo 6 caracteres</label>
-                )}
-
-                <Label text="Confirmar contraseña" />
-                <Input
-                  attribute={{
-                    name: 'passwordAgain',
-                    type: 'password',
-                    placeholder: 'Confirme su contraseña',
-                  }}
-                  required
-                  handleChange={handleChange}
-                  param={passwordAgain}
-                />
-                {errors.passwordAgainError && (
-                  <label className="label-error">
-                    Las contraseñas no coinciden
-                  </label>
-                )}
-
-                <button
-                  className="button-primary button-primary--full"
-                  onClick={handleSubmit}
-                >
-                  Crear Cuenta
-                </button>
-
-                <div className="login-btn">
-                  <h5 className="text-dark">
-                    ¿Ya tienes una cuenta?
-                    <span>
-                      <Link to={'/login'} className="link-button">
-                        <span className="register-click"> Iniciar sesión</span>
-                      </Link>
-                    </span>
-                  </h5>
                 </div>
               </div>
             </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
+        </>
       )}
     </>
   );
