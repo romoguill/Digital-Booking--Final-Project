@@ -20,6 +20,7 @@
 
         img {
             height: 100%;
+            max-height: 400px;
             width: 100%;
             object-fit: cover;
             object-position: center center;
@@ -33,6 +34,7 @@
         flex-direction: column;
         justify-content: space-between;
         flex-basis: 100%;
+        min-width: 300px;
     }
 
     &__head {
@@ -138,3 +140,14 @@
     }
 }
 
+
+@media screen and (max-width: globals.$bp-mobile) {
+    .card-rental {
+        flex-direction: column;
+        height: 500px;
+        
+        &__img {
+            width: 100%;
+        }
+    }
+}
