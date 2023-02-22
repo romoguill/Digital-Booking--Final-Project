@@ -22,8 +22,8 @@ header {
     }
 
     .button-primary:hover{
-      background-color: #F0572D;
-      color: white;
+      background-color: globals.$text-medium;
+      color: globals.$primary-color;
     }
 
     .welcome-user{
