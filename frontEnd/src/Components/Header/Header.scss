@@ -53,14 +53,6 @@ header {
 
 }
 
-@media screen and (max-width: globals.$bp-tablet) {
-  header {
-    .account-actions {
-      display: none;
-    }
-  }
-}
-
 @media screen and (max-width: globals.$bp-menu-drawer) {
   header {
     .account-actions {
