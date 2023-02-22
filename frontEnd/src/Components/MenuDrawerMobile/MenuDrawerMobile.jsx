@@ -1,16 +1,16 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import {
   faFacebook,
   faInstagram,
   faTwitter,
   faLinkedin,
-} from "@fortawesome/free-brands-svg-icons";
-import UserProfile from "../UserProfile/UserProfile";
+} from '@fortawesome/free-brands-svg-icons';
+import UserProfile from '../UserProfile/UserProfile';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import "./MenuDrawerMobile.scss";
+import './MenuDrawerMobile.scss';
 
 function MenuDrawerMobile({ setMenuDrawerVisible, isLogged, user }) {
   function handleMenuDrawerClose() {
@@ -25,51 +25,50 @@ function MenuDrawerMobile({ setMenuDrawerVisible, isLogged, user }) {
       >
         <FontAwesomeIcon icon={faXmark} />
       </button>
-      { isLogged ? (
+      {isLogged ? (
         <>
-        <div className="menu-drawer-mobile__header">
-          <div className="menu-drawer-mobile__container">
-            <div className="user-icon-mobile">
-                <UserProfile name={user} />
-            </div>
-
-            <h2 className="welcome-user">Hola,</h2>
-            <h2 className="welcome-user">{user}!</h2>
-          </div>
-        </div>
-
-        <div className="menu-drawer-mobile__body">
-          <div className="menu-drawer-mobile__container">
-            <p className="logout-drawer">
-              ¿Deseas
-              <Link to="/"
-                    className="link-button"
-                    onClick={handleMenuDrawerClose}>
-                <span>  cerrar sesión?</span>
-              </Link>
-            </p>
-          </div>
-        </div>
-
-        <div className="menu-drawer-mobile__footer">
-          <div className="menu-drawer-mobile__container">
-            <div className="container__social-media">
-              <a href="#">
-                <FontAwesomeIcon icon={faFacebook} />
-              </a>
-              <a href="#">
-                <FontAwesomeIcon icon={faInstagram} />
-              </a>
-              <a href="#">
-                <FontAwesomeIcon icon={faLinkedin} />
-              </a>
-              <a href="#">
-                <FontAwesomeIcon icon={faTwitter} />
-              </a>
+          <div className="menu-drawer-mobile__header">
+            <div className="menu-drawer-mobile__container">
+              <div className="user-icon-mobile">
+                <UserProfile name={user} mobile={true} />
+              </div>
             </div>
           </div>
-        </div>
-      </>
+
+          <div className="menu-drawer-mobile__body">
+            <div className="menu-drawer-mobile__container">
+              <p className="logout-drawer">
+                ¿Deseas
+                <Link
+                  to="/"
+                  className="link-button"
+                  onClick={handleMenuDrawerClose}
+                >
+                  <span> cerrar sesión?</span>
+                </Link>
+              </p>
+            </div>
+          </div>
+
+          <div className="menu-drawer-mobile__footer">
+            <div className="menu-drawer-mobile__container">
+              <div className="container__social-media">
+                <a href="#">
+                  <FontAwesomeIcon icon={faFacebook} />
+                </a>
+                <a href="#">
+                  <FontAwesomeIcon icon={faInstagram} />
+                </a>
+                <a href="#">
+                  <FontAwesomeIcon icon={faLinkedin} />
+                </a>
+                <a href="#">
+                  <FontAwesomeIcon icon={faTwitter} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </>
       ) : (
         <>
           <div className="menu-drawer-mobile__header">
@@ -79,11 +78,11 @@ function MenuDrawerMobile({ setMenuDrawerVisible, isLogged, user }) {
           </div>
           <div className="menu-drawer-mobile__body">
             <div className="menu-drawer-mobile__container">
-              <Link to={"/register"} onClick={handleMenuDrawerClose}>
+              <Link to={'/register'} onClick={handleMenuDrawerClose}>
                 <h3 className="text-dark">Crear cuenta</h3>
               </Link>
               <hr />
-              <Link to={"/login"} onClick={handleMenuDrawerClose}>
+              <Link to={'/login'} onClick={handleMenuDrawerClose}>
                 <h3 className="text-dark">Inciar sesión</h3>
               </Link>
             </div>

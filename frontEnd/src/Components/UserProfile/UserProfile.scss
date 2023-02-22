@@ -1,6 +1,7 @@
 @use '../../sassStyles/globals';
 
 .user-profile {
+  $m: &;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,6 +22,24 @@
       color: globals.$primary-color;
     }
   }
+
+  &.mobile {
+    
+    flex-direction: column;
+    align-items: flex-end;
+
+    #{$m}__info {
+      text-align: right;
+
+      p {
+        color: globals.$text-light;
+      }
+
+      .user-name {
+        color: globals.$text-dark;
+      }
+    }
+  }
 }
 
 .profile-picture {
@@ -36,11 +55,6 @@
   font-weight: globals.$font-weight-md;
 }
 
-@media screen and (max-width: globals.$bp-menu-drawer) {
-  .user-profile {
-    display: none;
-  }
-}
 
 
 
