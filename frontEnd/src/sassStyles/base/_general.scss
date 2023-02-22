@@ -57,6 +57,22 @@ button {
   }
 }
 
+.button-logout {
+  padding: variables.$m-2 variables.$m-5;
+  border: 2px solid variables.$primary-color;
+
+  &--empty {
+    background-color: transparent;
+    color: variables.$primary-color;
+  }
+  
+  &--full {
+    background-color: variables.$primary-color;
+    color: variables.$bg-white;
+  }
+}
+
+
 .button-ghost {
   padding: 0;
   background-color: transparent;

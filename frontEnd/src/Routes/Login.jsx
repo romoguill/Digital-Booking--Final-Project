@@ -72,7 +72,11 @@ const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
       {isLogged ? (
         <>
           {menuDrawerVisible && (
-            <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
+            <MenuDrawerMobile 
+              setMenuDrawerVisible={setMenuDrawerVisible} 
+              user={user} 
+              isLogged={isLogged} 
+            />
           )}
           <div className="container-page">
             <Header
