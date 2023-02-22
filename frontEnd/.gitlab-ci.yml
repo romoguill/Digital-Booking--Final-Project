@@ -27,4 +27,4 @@ pages:
       - public # only allow paths in project root directory for some reason
   only:
     refs:
-      - master # deploy contents in master branch
+      - main # deploy contents in master branch

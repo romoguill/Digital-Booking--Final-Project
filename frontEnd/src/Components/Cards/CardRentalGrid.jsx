@@ -21,7 +21,7 @@ const Card = ({ id, img, category, title, location, description }) => {
           <div className="card-rental__head">
             <div className="card-rental__head--main">
               <div className="upper-title">
-                <h3 className="rental-category text-gray">{category}</h3>
+                <h3 className="rental-category text-gray-light">{category}</h3>
                 <div className="rental-rating--stars">
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
