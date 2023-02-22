@@ -74,15 +74,17 @@ const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
           {menuDrawerVisible && (
             <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
           )}
-          <Header
-            user={user}
-            isLogged={isLogged}
-            setMenuDrawerVisible={setMenuDrawerVisible}
-          />
-          <HomeSearch />
-          <CarrouselCategories />
-          <GridRentals />
-          <Footer />
+          <div className="container-page">
+            <Header
+              user={user}
+              isLogged={isLogged}
+              setMenuDrawerVisible={setMenuDrawerVisible}
+            />
+            <HomeSearch />
+            <CarrouselCategories />
+            <GridRentals />
+            <Footer />
+          </div>
         </>
       ) : (
         <>

@@ -46,7 +46,7 @@ header {
 }
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: globals.$bp-menu-drawer) {
   header {
     .account-actions {
       display: none;

@@ -7,6 +7,8 @@ import {
   faLinkedin,
 } from '@fortawesome/free-brands-svg-icons';
 
+import { Link } from 'react-router-dom';
+
 import './MenuDrawerMobile.scss';
 
 function MenuDrawerMobile({ setMenuDrawerVisible }) {
@@ -29,9 +31,13 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
       </div>
       <div className="menu-drawer-mobile__body">
         <div className="menu-drawer-mobile__container">
-          <h3 className="text-dark">Crear cuenta</h3>
+          <Link to={'/register'} onClick={handleMenuDrawerClose}>
+            <h3 className="text-dark">Crear cuenta</h3>
+          </Link>
           <hr />
-          <h3 className="text-dark">Inciar sesión</h3>
+          <Link to={'/login'} onClick={handleMenuDrawerClose}>
+            <h3 className="text-dark">Inciar sesión</h3>
+          </Link>
         </div>
       </div>
       <div className="menu-drawer-mobile__footer">

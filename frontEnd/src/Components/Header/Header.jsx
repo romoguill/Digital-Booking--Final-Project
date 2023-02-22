@@ -21,13 +21,7 @@ function Header({ user, isLogged, setMenuDrawerVisible }) {
           <Brand />
           {isLogged ? (
             <>
-              <p className="welcome-user">Bienvenido {user} !</p>
               <UserProfile name={user} />
-              <Link to={'/'}>
-                <button className="button-primary button-primary--empty">
-                  Cerrar Sesión
-                </button>
-              </Link>
             </>
           ) : (
             <div className="account-actions">

@@ -1,37 +1,22 @@
-import React from "react";
+import './UserProfile.scss';
 
 function ProfilePicture({ name }) {
   const initials = name
-    .split(" ")
+    .split(' ')
     .map((word) => word.charAt(0))
-    .join("");
+    .join('');
 
-  return (
-    <div
-      style={{
-        backgroundColor: "#F0572D",
-        color: "white",
-        borderRadius: "50%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "40px",
-        height: "40px",
-        fontSize: "20px",
-        fontWeight: "bold",
-        fontFamily: "Roboto, sans-serif",
-      }}
-    >
-      {initials}
-    </div>
-  );
+  return <div className="profile-picture">{initials}</div>;
 }
 
 function UserProfile({ name }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", fontFamily: "Roboto, sans-serif" }}>
+    <div className="user-profile">
       <ProfilePicture name={name} />
-      <div style={{ marginLeft: "10px" }}>{name}</div>
+      <div className="user-profile__info">
+        <p className="text-dark">Hola,</p>
+        <p className="user-name">{name}</p>
+      </div>
     </div>
   );
 }
