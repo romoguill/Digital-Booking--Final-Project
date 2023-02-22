@@ -4,10 +4,14 @@ $bg-dark: rgba(25, 27, 29, 1);
 $bg-medium: rgba(49, 54, 63, 1);
 $bg-light: rgba(223, 228, 234, 1);
 $bg-white: #fff;
+$bg-gray: rgb(247, 247, 247);
 
 $text-dark: rgba(25, 27, 29, 1);
+$text-gray: rgba(56, 59, 88, 1);
 $text-medium: rgba(223, 228, 234, 1);
 $text-light: #fff;
+$text-placeholder: rgba(127, 127, 127, 1);
+$text-link: rgba(66, 133, 244, 1);
 
 // Text
 $font-family-primary: 'Roboto', sans-serif;
@@ -46,3 +50,13 @@ $p-4: 1rem;
 $p-5: 2rem;
 $p-6: 3rem;
 $p-7: 5rem;
+
+// Breakpoints (se pueden usar otros no definidos si la UI lo necesita)
+$bp-laptop: 1200px;
+$bp-tablet: 768px;
+$bp-menu-drawer: 600px;
+$bp-mobile: 480px;
+
+// MISC
+$header-height: 80px;
+$footer-height: 60px;

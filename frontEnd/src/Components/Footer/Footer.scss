@@ -1,11 +1,11 @@
 @use '/src/sassStyles/globals';
 
 footer {
-  position: fixed;
-  bottom: 0;
   background-color: globals.$primary-color;
   width: 100%;
   height: 60px;
+  font-size: globals.$font-size-5;
+  color: globals.$text-light;
   
   .container-main {
     display: flex;
@@ -14,8 +14,17 @@ footer {
     height: 100%;
   }
 
-  .container__social-media {
+  .footer__copyright {
     display: flex;
-    gap: 2rem;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: globals.$bp-mobile) {
+  footer {
+    .container__social-media {
+      display: none;
+    }
   }
 }

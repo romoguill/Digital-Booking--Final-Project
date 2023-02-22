@@ -3,21 +3,57 @@
 header {
   width: 100%;
   background-color: globals.$bg-white;
-  height: 80px;
+  height: globals.$header-height;
   display: flex;
   align-items: center;
   position: fixed;
   top: 0;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 4px 5px rgba(0, 0, 0, 0.12), 0px 1px 10px rgba(0, 0, 0, 0.2);
   
-    .container-header {
+    nav {
       margin: globals.$m-3 0;
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
 
     .account-actions {
       display: flex;
       gap: 10px;
+
+      button {
+        display: inline-block;
+      }
     }
 
+    .button-primary:hover{
+      background-color: #F0572D;
+      color: white;
+    }
+
+    .welcome-user{
+      font-size: 24px;
+      color: #191B1D;
+    }
+
+    .main-menu__hamburger {
+      background-color: transparent;
+      display: none;
+      padding: 0;
+      text-align: right;
+      font-size: 1.5rem;
+    }
+}
+
+
+@media screen and (max-width: globals.$bp-menu-drawer) {
+  header {
+    .account-actions {
+      display: none;
+    }
+
+    .main-menu__hamburger {
+      display: block;
+    }
+  }
 }

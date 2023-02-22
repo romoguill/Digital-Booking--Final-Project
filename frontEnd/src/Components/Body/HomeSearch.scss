@@ -1,9 +1,10 @@
 @use '/src/sassStyles/globals';
 
 .home-search {
+  width: 100%;
   text-align: center;
   background-color: globals.$text-dark;
-  padding-top: calc(globals.$m-3 + 80px); // +80 porque el header tiene 80px
+  padding: globals.$p-3;
   padding-bottom: globals.$m-5;
 
 
@@ -18,5 +19,22 @@
     display: flex;
     justify-content: space-between;
     gap: 10px;
+  }
+}
+
+@media screen and (min-width: globals.$bp-mobile) and (max-width: globals.$bp-tablet) {
+  .home-search {
+    h1 {
+      font-size: 30px;
+    }
+  }
+}
+
+@media screen and (max-width: globals.$bp-mobile) {
+  .home-search {
+    .search-by-location-date {
+      flex-direction: column;
+      max-width: 100%;
+    }
   }
 }

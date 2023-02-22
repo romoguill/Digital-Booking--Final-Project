@@ -1,21 +1,22 @@
-import Header from '../components/header/Header';
-import Body from '../components/body/Body';
-import Footer from '../components/footer/Footer';
-import HomeSearch from '../components/body/HomeSearch';
-import CarrouselCategories from '../components/body/CarrouselCategories';
-import GridRentals from '../components/body/GridRentals';
+import Header from '../Components/Header/Header';
+import Footer from '../Components/Footer/Footer';
+import HomeSearch from '../Components/Body/HomeSearch';
+import CarrouselCategories from '../Components/Body/CarrouselCategories';
+import GridRentals from '../Components/Body/GridRentals';
+import MenuDrawerMobile from '../Components/MenuDrawerMobile/MenuDrawerMobile';
 
-function Home() {
+function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
   return (
-    <>
-      <Header />
+    <div className="container-page">
+      {menuDrawerVisible && (
+        <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
+      )}
+      <Header setMenuDrawerVisible={setMenuDrawerVisible} />
       <HomeSearch />
-      <Body>
-        <CarrouselCategories />
-        <GridRentals />
-      </Body>
+      <CarrouselCategories />
+      <GridRentals />
       <Footer />
-    </>
+    </div>
   );
 }
 

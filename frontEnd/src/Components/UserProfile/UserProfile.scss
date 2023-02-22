@@ -1,0 +1,42 @@
+@use '../../sassStyles/globals';
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    p {
+      font-size: globals.$font-size-3;
+      font-weight: globals.$font-weight-md;
+    }
+    .user-name {
+      color: globals.$primary-color;
+    }
+  }
+}
+
+.profile-picture {
+  background-color: globals.$bg-dark;
+  width: 37px;
+  height: 37px;
+  border-radius: 100%;
+  color: globals.$text-light;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: globals.$font-size-4;
+  font-weight: globals.$font-weight-md;
+}
+
+@media screen and (max-width: globals.$bp-menu-drawer) {
+  .user-profile {
+    display: none;
+  }
+}
+

@@ -1,9 +1,14 @@
 @use '/src/sassStyles/globals';
 
-.section__rentals {
+.grid-rentals {
   background-color: globals.$bg-light;
-
-  h2 {
-    color: globals.$text-dark;
+  
+  &__grid {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
+
+
 }

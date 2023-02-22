@@ -1,7 +1,61 @@
 @use '/src/sassStyles/globals';
 
-.section__categories {
-  h2 {
+.container-categories {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 300px;
+  gap: 15px;
+}
+
+.card-category {
+    border: 1px solid #DFE4EA;
+    box-shadow: 0px 4px 3px 0px globals.$bg-light;
+    -webkit-box-shadow: 0px 4px 3px 0px globals.$bg-light;
+    -moz-box-shadow: 0px 4px 3px 0px globals.$bg-light;
+    border-radius: 10px;
+    background-color: globals.$bg-white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+  h3 {
+    color:globals.$text-dark;
+    font-size: globals.$font-size-3;
+    font-weight: globals.$font-weight-lg;
+  }
+
+  p {
     color: globals.$text-dark;
+    font-weight: globals.$font-weight-md;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center center;
+    border-top-right-radius: globals.$border-radius-lg;
+    border-top-left-radius: globals.$border-radius-lg;
+  }
+
+  .container-img {
+    flex-basis: 100%;
+    overflow: auto;
+  }
+
+  .container-content {
+    padding: globals.$p-2;
+  }
+}
+
+@media screen and (max-width: globals.$bp-laptop) {
+  .container-categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: globals.$bp-mobile) {
+  .container-categories {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
