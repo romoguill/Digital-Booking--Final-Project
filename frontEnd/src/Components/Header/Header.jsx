@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import Brand from './Brand';
 import './Header.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import UserProfile from '../UserProfile/UserProfile';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
@@ -11,7 +11,7 @@ import { UserContext } from '../../Contexts/Context';
 function Header({ user, setMenuDrawerVisible }) {
   const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
 
-  const navigate = useNavigate();
+  const location = useLocation();
 
   function handleOpenDrawerMenu() {
     setMenuDrawerVisible(true);
@@ -40,17 +40,21 @@ function Header({ user, setMenuDrawerVisible }) {
             </>
           ) : (
             <div className="account-actions">
-              <Link to={'/register'}>
-                <button className="button-primary button-primary--empty">
-                  Crear Cuenta
-                </button>
-              </Link>
+              {location.pathname === '/register' || (
+                <Link to={'/register'}>
+                  <button className="button-primary button-primary--empty">
+                    Crear Cuenta
+                  </button>
+                </Link>
+              )}
 
-              <Link to={'/login'}>
-                <button className="button-primary button-primary--empty">
-                  Iniciar sesión
-                </button>
-              </Link>
+              {location.pathname === '/login' || (
+                <Link to={'/login'}>
+                  <button className="button-primary button-primary--empty">
+                    Iniciar sesión
+                  </button>
+                </Link>
+              )}
             </div>
           )}
           <button

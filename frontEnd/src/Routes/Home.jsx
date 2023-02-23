@@ -6,6 +6,7 @@ import GridRentals from '../Components/Body/GridRentals';
 import MenuDrawerMobile from '../Components/MenuDrawerMobile/MenuDrawerMobile';
 import { useContext } from 'react';
 import { UserContext } from '../Contexts/Context';
+import { useLocation } from 'react-router';
 
 function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
   const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
