@@ -12,7 +12,6 @@ function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
 
   return (
     <div className="container-page">
-      {console.log(userAuthInfo)}
       {menuDrawerVisible && (
         <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
       )}

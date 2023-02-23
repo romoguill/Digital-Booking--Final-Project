@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import Brand from './Brand';
 import './Header.scss';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import UserProfile from '../UserProfile/UserProfile';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 

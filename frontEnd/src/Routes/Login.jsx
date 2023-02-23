@@ -16,12 +16,17 @@ const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
-  const [isClosed, setIsClosed] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   let localstorageData = localStorage.getItem('account');
 
   let lsd = JSON.parse(localstorageData);
+
+  const validUserTest = {
+    email: 'john@gmail.com',
+    name: 'John',
+    lastName: 'Doe',
+  };
 
   function handleChange(name, value) {
     if (name === 'usuario') {
@@ -72,10 +77,10 @@ const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
       {isLogged ? (
         <>
           {menuDrawerVisible && (
-            <MenuDrawerMobile 
-              setMenuDrawerVisible={setMenuDrawerVisible} 
-              user={user} 
-              isLogged={isLogged} 
+            <MenuDrawerMobile
+              setMenuDrawerVisible={setMenuDrawerVisible}
+              user={user}
+              isLogged={isLogged}
             />
           )}
           <div className="container-page">
