@@ -23,6 +23,10 @@
         position: relative;
     }
 
+    .name-surname {
+        gap: 10px;
+    }
+
     .wrapper-error {
         position: relative;
         width: 100%;
@@ -57,12 +61,14 @@
         button {
             width: 100%;
         }
+        .name-surname {
+            flex-direction: column;
+            gap: 0;
+        }
     }
 
 
-    .name-surname {
-        flex-direction: column;
-    }
+    
 }
 
 @media screen and (max-width: globals.$bp-mobile) {
