@@ -1,3 +1,6 @@
+import './sassStyles/base/_general.scss';
+import './sassStyles/base/_typography.scss';
+
 import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import Home from './Routes/Home';
