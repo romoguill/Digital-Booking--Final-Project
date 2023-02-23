@@ -37,16 +37,18 @@ function MenuDrawerMobile({ setMenuDrawerVisible, isLogged, user }) {
 
           <div className="menu-drawer-mobile__body">
             <div className="menu-drawer-mobile__container">
-              <p className="logout-drawer">
-                ¿Deseas
-                <Link
-                  to="/"
-                  className="link-button"
-                  onClick={handleMenuDrawerClose}
-                >
-                  <span> cerrar sesión?</span>
-                </Link>
-              </p>
+              <div className="logout-container">
+                <p className="logout-drawer">
+                  ¿Deseas
+                  <Link
+                    to="/"
+                    className="link-button"
+                    onClick={handleMenuDrawerClose}
+                  >
+                    <span> cerrar sesión?</span>
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
 
