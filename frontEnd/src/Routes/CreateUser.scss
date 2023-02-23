@@ -1,5 +1,9 @@
 @use '/src/sassStyles/globals';
 
+.createUserContent {
+    height: 100%;
+}
+
 .formCreateUser{
     display: flex;
     flex-direction: column;
@@ -7,9 +11,11 @@
     align-items: center;
     width: 450px;
     position: relative;
+    height: 100%;
+    margin: auto;
 
     button {
-        margin-top: 4rem;
+        margin-top: 3.5rem
     }
 
     .form-control {
@@ -23,17 +29,8 @@
     }
 }
 
-.createUserContent {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
 
 .CreateUserContainer {
-    display: flex;
     justify-content: center;
     align-items: center;
     background-color: globals.$bg-gray;
@@ -43,7 +40,6 @@
 .name-surname {
     width: 100%;
     display: flex;
-    gap: 10px;
 
     .form-control {
         width: 100%;
