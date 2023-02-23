@@ -175,5 +175,31 @@
       flex-direction: column;
       max-width: 100%;
     }
+
+    // CALENDAR
+    .react-datepicker-popper {
+      width: 96%;
+      
+    }
+
+    .react-datepicker {
+      display: block;
+      margin: 0 
+    }
+
+    .react-datepicker__month-container {
+      float: none;
+      width: 100%;
+      padding-right: 0;
+      border-right: none;
+    }
+
+    .calendar-footer {
+     justify-content: center;
+     
+      .calendar-options {
+        margin-left: 0;
+      }
+    }
   }
 }
