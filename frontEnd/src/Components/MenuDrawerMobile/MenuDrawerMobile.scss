@@ -1,7 +1,7 @@
 @use '../../sassStyles/globals';
 
 .menu-drawer-mobile {
-  z-index: 10;
+  z-index: 999;
   position: fixed;
   right: 0;
   top: 0;
