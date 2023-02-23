@@ -6,9 +6,20 @@
     justify-content: center;
     align-items: center;
     width: 450px;
+    position: relative;
 
     button {
         margin-top: 4rem;
+    }
+
+    .form-control {
+        width: 100%;
+        position: relative;
+    }
+
+    .wrapper-error {
+        position: relative;
+        width: 100%;
     }
 }
 

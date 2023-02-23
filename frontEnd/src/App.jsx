@@ -14,6 +14,7 @@ function App() {
     userInfo: {
       name: undefined,
       lastName: undefined,
+      email: undefined,
     },
   });
 

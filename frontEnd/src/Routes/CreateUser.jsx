@@ -121,7 +121,6 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
                     <div className="form-control">
                       <Label text="Nombre" />
                       <Input
-                        className="regular-style-register"
                         attribute={{
                           name: 'firstName',
                           type: 'text',

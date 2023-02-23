@@ -7,7 +7,7 @@
     width: 100%;
 }
 
-.regular-style{
+.input-form {
 
     height: 35px;
     border-radius: globals.$border-radius-sm;
@@ -20,12 +20,3 @@
     
 }
 
-.input-error{
-    height: 35px;
-    padding: 0 10px 0 20px;
-    box-sizing: border-box;
-    border: 1px solid red;
-    font-size: 14px;
-    outline: none;
-    color: red;
-}

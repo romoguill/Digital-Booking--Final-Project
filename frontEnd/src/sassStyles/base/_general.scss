@@ -86,9 +86,33 @@ input {
   width: 100%;
 }
 
-.input::placeholder {
+.input-error {
+  background-color: variables.$input-error-bg;
+  border: 1px solid variables.$input-error-border;
+}
+
+.input-error-msg {
+  color: variables.$input-error-msg;
+  font-weight: variables.$font-weight-md;
+  position: absolute;
+  right: 0;
+  bottom: -18px;
+}
+
+.input-error-msg.error-form {
+  position: absolute;
+  top: auto;
+  bottom: auto;
+  right: auto;
+  left: auto;
+  transform: translate(25%, 20px);
+
+}
+
+input::placeholder {
   color: variables.$text-placeholder;
 }
+
 
 // CONTAINERS
 .container-page {
