@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Input from '../Components/Login/Input';
 import Title from '../Components/Login/Title';
 import Label from '../Components/Login/Label';
 import '../Routes/CreateUser.scss';
 import { useState } from 'react';
 import Home from './Home';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../Components/Header/Header';
 import Footer from '../Components/Footer/Footer';
 import MenuDrawerMobile from '../Components/MenuDrawerMobile/MenuDrawerMobile';
@@ -22,6 +22,9 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
   const [password, setPassword] = useState('');
   const [passwordAgain, setPasswordAgain] = useState('');
   const [created, setCreated] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState({
     emailError: false,
@@ -31,64 +34,84 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
     passwordAgainError: false,
   });
 
+  useEffect(() => {
+    if (passwordsMatch(password, passwordAgain) || passwordAgain.length === 0) {
+      setErrors((prevErrors) => {
+        return { ...prevErrors, passwordAgainError: false };
+      });
+    } else {
+      setErrors((prevErrors) => {
+        return { ...prevErrors, passwordAgainError: true };
+      });
+    }
+  }, [password, passwordAgain]);
+
   function handleChange(name, value) {
     switch (name) {
       case 'email':
         setEmail(value);
         console.log(email);
         if (isValidEmail(value) || value.length === 0) {
-          setErrors({ ...errors, emailError: false });
+          setErrors((prevErrors) => {
+            return { ...prevErrors, emailError: false };
+          });
         } else {
-          setErrors({ ...errors, emailError: true });
+          setErrors((prevErrors) => {
+            return { ...prevErrors, emailError: true };
+          });
         }
         break;
       case 'firstName':
         setFirstName(value);
-        if (value < 1) {
-          setErrors({ ...errors, firstNameError: true });
+        if (value <= 1) {
+          setErrors((prevErrors) => {
+            return { ...prevErrors, firstNameError: true };
+          });
         } else {
-          setErrors({ ...errors, firstNameError: false });
+          setErrors((prevErrors) => {
+            return { ...prevErrors, firstNameError: false };
+          });
         }
         break;
       case 'lastName':
         setLastName(value);
-        if (value < 1) {
-          setErrors({ ...errors, lastNameError: true });
+        if (value <= 1) {
+          setErrors((prevErrors) => {
+            return { ...prevErrors, lastNameError: true };
+          });
         } else {
-          setErrors({ ...errors, lastNameError: false });
+          setErrors((prevErrors) => {
+            return { ...prevErrors, lastNameError: false };
+          });
         }
         break;
       case 'password':
         setPassword(value);
 
         if (isValidPassword(value) || value.length === 0) {
-          setErrors({ ...errors, passwordError: false });
+          setErrors((prevErrors) => {
+            return { ...prevErrors, passwordError: false };
+          });
         } else {
-          setErrors({ ...errors, passwordError: true });
+          setErrors((prevErrors) => {
+            return { ...prevErrors, passwordError: true };
+          });
         }
         break;
       case 'passwordAgain':
         setPasswordAgain(value);
-        if (passwordsMatch(password, passwordAgain)) {
-          console.log(passwordsMatch(password, passwordAgain));
-          setErrors({ ...errors, passwordAgainError: false });
-        } else {
-          setErrors({
-            ...errors,
-            passwordAgainError: true,
-          });
-        }
+
         break;
     }
   }
 
   function handleSubmit() {
-    let account = { email, firstName, lastName, password };
-    if (account) {
-      let ac = JSON.stringify(account);
-      localStorage.setItem('account', ac);
-      setTimeout(() => setCreated(true), 2000);
-      setCreated(true);
+    const formHasErrors = Object.values(errors).some((value) => value === true);
+
+    if (formHasErrors) {
+      setSubmitError(true);
+    } else {
+      navigate('/login');
     }
   }
 
@@ -111,12 +134,6 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
               <div className="createUserContent">
                 <Header setMenuDrawerVisible={setMenuDrawerVisible} />
                 <div className="formCreateUser">
-                  {/* <Link to={'/'}>
-                <button type="button" class="close">
-                  X
-                </button>
-              </Link> */}
-
                   <Title text={<h1>Crear cuenta</h1>} />
                   <div className="name-surname">
                     <div className="form-control">
@@ -129,8 +146,13 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
                         }}
                         required
                         handleChange={handleChange}
+                        param={errors.firstNameError}
                         value={firstName}
                       />
+
+                      {errors.firstNameError && (
+                        <p className="input-error-msg">Nombre inválido</p>
+                      )}
                     </div>
 
                     <div className="form-control">
@@ -143,8 +165,13 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
                         }}
                         required
                         handleChange={handleChange}
+                        param={errors.lastNameError}
                         value={lastName}
                       />
+
+                      {errors.lastNameError && (
+                        <p className="input-error-msg">Nombre inválido</p>
+                      )}
                     </div>
                   </div>
 
@@ -201,6 +228,14 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
                     {errors.passwordAgainError && (
                       <p className="input-error-msg">
                         Las contraseñas no coinciden
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="wrapper-error">
+                    {submitError && (
+                      <p className="input-error-msg error-form">
+                        Por favor verifique los datos ingresados
                       </p>
                     )}
                   </div>

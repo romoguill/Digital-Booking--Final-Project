@@ -106,11 +106,13 @@ input {
 
 .input-error-msg.error-form {
   position: absolute;
+  width: 100%;
   top: auto;
   bottom: auto;
   right: auto;
   left: auto;
-  transform: translate(25%, 20px);
+  text-align: center;
+  transform: translateY(30px);
 
 }
 
