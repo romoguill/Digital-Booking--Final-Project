@@ -105,3 +105,10 @@
   }
 
 }
+
+
+@media screen and (min-width: globals.$bp-menu-drawer) {
+  .menu-drawer-mobile {
+    display: none;
+  }
+}

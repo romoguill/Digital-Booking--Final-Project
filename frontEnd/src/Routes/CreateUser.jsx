@@ -9,9 +9,14 @@ import { Link } from 'react-router-dom';
 import Header from '../Components/Header/Header';
 import Footer from '../Components/Footer/Footer';
 import MenuDrawerMobile from '../Components/MenuDrawerMobile/MenuDrawerMobile';
+import {
+  isValidEmail,
+  isValidPassword,
+  passwordsMatch,
+} from '../utils/validationForm';
 
 const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
-  const [user, setUser] = useState('');
+  const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +24,7 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
   const [created, setCreated] = useState(false);
 
   const [errors, setErrors] = useState({
-    userError: false,
+    emailError: false,
     firstNameError: false,
     lastNameError: false,
     passwordError: false,
@@ -28,52 +33,48 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
 
   function handleChange(name, value) {
     switch (name) {
-      case 'user':
-        if (value < 1) {
-          setErrors({ ...errors, usernameError: true });
+      case 'email':
+        setEmail(value);
+        console.log(email);
+        if (isValidEmail(value) || value.length === 0) {
+          setErrors({ ...errors, emailError: false });
         } else {
-          setErrors({ ...errors, usernameError: false });
-          setUser(value);
+          setErrors({ ...errors, emailError: true });
         }
         break;
       case 'firstName':
+        setFirstName(value);
         if (value < 1) {
           setErrors({ ...errors, firstNameError: true });
         } else {
           setErrors({ ...errors, firstNameError: false });
-          setFirstName(value);
         }
         break;
       case 'lastName':
+        setLastName(value);
         if (value < 1) {
           setErrors({ ...errors, lastNameError: true });
         } else {
           setErrors({ ...errors, lastNameError: false });
-          setLastName(value);
         }
         break;
       case 'password':
-        if (value < 1) {
-          setErrors({ ...errors, passwordError: true });
-        } else {
+        setPassword(value);
+
+        if (isValidPassword(value) || value.length === 0) {
           setErrors({ ...errors, passwordError: false });
-          setPassword(value);
+        } else {
+          setErrors({ ...errors, passwordError: true });
         }
         break;
       case 'passwordAgain':
-        if (password.length < 6) {
-          setErrors({ ...errors, passwordError: true });
-        } else if (password === value) {
-          setErrors({
-            ...errors,
-            passwordError: false,
-            passwordAgainError: false,
-          });
-          setPasswordAgain(value);
+        setPasswordAgain(value);
+        if (passwordsMatch(password, passwordAgain)) {
+          console.log(passwordsMatch(password, passwordAgain));
+          setErrors({ ...errors, passwordAgainError: false });
         } else {
           setErrors({
             ...errors,
-            passwordError: false,
             passwordAgainError: true,
           });
         }
@@ -82,7 +83,7 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
   }
 
   function handleSubmit() {
-    let account = { user, firstName, lastName, password };
+    let account = { email, firstName, lastName, password };
     if (account) {
       let ac = JSON.stringify(account);
       localStorage.setItem('account', ac);
@@ -128,8 +129,10 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
                         }}
                         required
                         handleChange={handleChange}
+                        value={firstName}
                       />
                     </div>
+
                     <div className="form-control">
                       <Label text="Apellido" />
                       <Input
@@ -140,53 +143,67 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
                         }}
                         required
                         handleChange={handleChange}
+                        value={lastName}
                       />
                     </div>
                   </div>
 
-                  <Label required text="E-mail" />
-                  <Input
-                    className="regular-style-register"
-                    attribute={{
-                      name: 'user',
-                      type: 'email',
-                      placeholder: 'Ingrese un mail',
-                    }}
-                    required
-                    handleChange={handleChange}
-                  />
+                  <div className="form-control">
+                    <Label required text="E-mail" />
+                    <Input
+                      attribute={{
+                        name: 'email',
+                        type: 'email',
+                        placeholder: 'Ingrese un mail',
+                      }}
+                      required
+                      handleChange={handleChange}
+                      param={errors.emailError}
+                      value={email}
+                    />
 
-                  <Label text="Contraseña" />
-                  <Input
-                    attribute={{
-                      name: 'password',
-                      type: 'password',
-                      placeholder: 'Escriba una contraseña',
-                    }}
-                    required
-                    handleChange={handleChange}
-                    param={errors.passwordError}
-                  />
-                  {errors.passwordError && (
-                    <label className="label-error">Mínimo 6 caracteres</label>
-                  )}
+                    {errors.emailError && (
+                      <p className="input-error-msg">Email inválido</p>
+                    )}
+                  </div>
 
-                  <Label text="Confirmar contraseña" />
-                  <Input
-                    attribute={{
-                      name: 'passwordAgain',
-                      type: 'password',
-                      placeholder: 'Confirme su contraseña',
-                    }}
-                    required
-                    handleChange={handleChange}
-                    param={passwordAgain}
-                  />
-                  {errors.passwordAgainError && (
-                    <label className="label-error">
-                      Las contraseñas no coinciden
-                    </label>
-                  )}
+                  <div className="form-control">
+                    <Label text="Contraseña" />
+                    <Input
+                      attribute={{
+                        name: 'password',
+                        type: 'password',
+                        placeholder: 'Escriba una contraseña',
+                      }}
+                      required
+                      handleChange={handleChange}
+                      param={errors.passwordError}
+                      value={password}
+                    />
+                    {errors.passwordError && (
+                      <p className="input-error-msg">Mínimo 6 caracteres</p>
+                    )}
+                  </div>
+
+                  <div className="form-control">
+                    <Label text="Confirmar contraseña" />
+                    <Input
+                      attribute={{
+                        name: 'passwordAgain',
+                        type: 'password',
+                        placeholder: 'Confirme su contraseña',
+                      }}
+                      required
+                      handleChange={handleChange}
+                      param={errors.passwordAgainError}
+                      value={passwordAgain}
+                    />
+                    {errors.passwordAgainError && (
+                      <p className="input-error-msg">
+                        Las contraseñas no coinciden
+                      </p>
+                    )}
+                  </div>
 
                   <button
                     className="button-primary button-primary--full"

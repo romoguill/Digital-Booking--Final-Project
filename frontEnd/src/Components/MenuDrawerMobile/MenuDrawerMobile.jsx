@@ -8,13 +8,25 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import UserProfile from '../UserProfile/UserProfile';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import './MenuDrawerMobile.scss';
+import { useContext } from 'react';
+import { UserContext } from '../../Contexts/Context';
 
 function MenuDrawerMobile({ setMenuDrawerVisible, isLogged, user }) {
+  const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
   function handleMenuDrawerClose() {
     setMenuDrawerVisible(false);
+  }
+
+  function handleLogout() {
+    setUserAuthInfo(false);
+    handleMenuDrawerClose();
   }
 
   return (
@@ -25,90 +37,73 @@ function MenuDrawerMobile({ setMenuDrawerVisible, isLogged, user }) {
       >
         <FontAwesomeIcon icon={faXmark} />
       </button>
-      {isLogged ? (
-        <>
-          <div className="menu-drawer-mobile__header">
-            <div className="menu-drawer-mobile__container">
-              <div className="user-icon-mobile">
-                <UserProfile name={user} mobile={true} />
-              </div>
-            </div>
-          </div>
-
-          <div className="menu-drawer-mobile__body">
-            <div className="menu-drawer-mobile__container">
-              <div className="logout-container">
-                <p className="logout-drawer">
-                  ¿Deseas
-                  <Link
-                    to="/"
-                    className="link-button"
-                    onClick={handleMenuDrawerClose}
-                  >
-                    <span> cerrar sesión?</span>
-                  </Link>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="menu-drawer-mobile__footer">
-            <div className="menu-drawer-mobile__container">
-              <div className="container__social-media">
-                <a href="#">
-                  <FontAwesomeIcon icon={faFacebook} />
-                </a>
-                <a href="#">
-                  <FontAwesomeIcon icon={faInstagram} />
-                </a>
-                <a href="#">
-                  <FontAwesomeIcon icon={faLinkedin} />
-                </a>
-                <a href="#">
-                  <FontAwesomeIcon icon={faTwitter} />
-                </a>
-              </div>
-            </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="menu-drawer-mobile__header">
-            <div className="menu-drawer-mobile__container">
+      <>
+        <div className="menu-drawer-mobile__header">
+          <div className="menu-drawer-mobile__container">
+            {userAuthInfo.isLoggedIn ? (
+              <>
+                <div className="user-icon-mobile">
+                  <UserProfile userInfo={userAuthInfo.userInfo} mobile={true} />
+                </div>
+              </>
+            ) : (
               <h2>MENÚ</h2>
+            )}
+          </div>
+        </div>
+
+        <div className="menu-drawer-mobile__body">
+          <div className="menu-drawer-mobile__container">
+            {userAuthInfo.isLoggedIn ? (
+              <>
+                <div className="logout-container">
+                  <p className="logout-drawer">
+                    ¿Deseas
+                    <Link to="/" className="link-button" onClick={handleLogout}>
+                      <span> cerrar sesión?</span>
+                    </Link>
+                  </p>
+                </div>
+              </>
+            ) : (
+              <>
+                {location.pathname === '/register' || (
+                  <Link to={'/register'} onClick={handleMenuDrawerClose}>
+                    <h3 className="text-dark">Crear cuenta</h3>
+                  </Link>
+                )}
+
+                {location.pathname === '/' && <hr />}
+
+                {location.pathname === '/login' || (
+                  <Link to={'/login'} onClick={handleMenuDrawerClose}>
+                    <h3 className="text-dark">Inciar sesión</h3>
+                  </Link>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="menu-drawer-mobile__footer">
+          <div className="menu-drawer-mobile__container">
+            <div className="container__social-media">
+              <a href="#">
+                <FontAwesomeIcon icon={faFacebook} />
+              </a>
+              <a href="#">
+                <FontAwesomeIcon icon={faInstagram} />
+              </a>
+              <a href="#">
+                <FontAwesomeIcon icon={faLinkedin} />
+              </a>
+              <a href="#">
+                <FontAwesomeIcon icon={faTwitter} />
+              </a>
             </div>
           </div>
-          <div className="menu-drawer-mobile__body">
-            <div className="menu-drawer-mobile__container">
-              <Link to={'/register'} onClick={handleMenuDrawerClose}>
-                <h3 className="text-dark">Crear cuenta</h3>
-              </Link>
-              <hr />
-              <Link to={'/login'} onClick={handleMenuDrawerClose}>
-                <h3 className="text-dark">Inciar sesión</h3>
-              </Link>
-            </div>
-          </div>
-          <div className="menu-drawer-mobile__footer">
-            <div className="menu-drawer-mobile__container">
-              <div className="container__social-media">
-                <a href="#">
-                  <FontAwesomeIcon icon={faFacebook} />
-                </a>
-                <a href="#">
-                  <FontAwesomeIcon icon={faInstagram} />
-                </a>
-                <a href="#">
-                  <FontAwesomeIcon icon={faLinkedin} />
-                </a>
-                <a href="#">
-                  <FontAwesomeIcon icon={faTwitter} />
-                </a>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+        </div>
+      </>
     </aside>
   );
 }

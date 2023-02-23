@@ -141,6 +141,7 @@ const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
                   }}
                   handleChange={handleChange}
                   param={emailError}
+                  value={email}
                 />
                 {emailError && (
                   <p className="input-error-msg">Email inválido</p>
@@ -159,6 +160,7 @@ const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
                   }}
                   handleChange={handleChange}
                   param={passwordError}
+                  value={password}
                 />
 
                 {passwordError && (

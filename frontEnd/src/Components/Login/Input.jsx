@@ -1,10 +1,11 @@
 import React from 'react';
 import './Input.scss';
 
-const Input = ({ attribute, handleChange, param }) => {
+const Input = ({ attribute, handleChange, param, value }) => {
   return (
     <div className="input-container">
       <input
+        value={value}
         id={attribute.id}
         name={attribute.name}
         placeholder={attribute.placeholder}
