@@ -2,13 +2,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import Brand from './Brand';
 import './Header.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import UserProfile from '../UserProfile/UserProfile';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { useContext } from 'react';
+import { UserContext } from '../../Contexts/Context';
 
-function Header({ user, isLogged, setMenuDrawerVisible }) {
+function Header({ user, setMenuDrawerVisible }) {
+  const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
   function handleOpenDrawerMenu() {
     setMenuDrawerVisible(true);
+  }
+
+  function handleLogout() {
+    setUserAuthInfo(false);
   }
 
   return (
@@ -16,11 +26,14 @@ function Header({ user, isLogged, setMenuDrawerVisible }) {
       <div className="container-main">
         <nav className="navbar">
           <Brand />
-          {isLogged ? (
+          {userAuthInfo.isLoggedIn ? (
             <>
-              <UserProfile name={user} />
+              <UserProfile userInfo={userAuthInfo.userInfo} mobile={false} />
               <Link to={'/'}>
-                <button className="button-logout button-primary--empty">
+                <button
+                  className="button-logout button-primary--empty"
+                  onClick={handleLogout}
+                >
                   <FontAwesomeIcon icon={faRightFromBracket} />
                 </button>
               </Link>

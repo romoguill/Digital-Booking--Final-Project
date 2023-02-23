@@ -3,7 +3,7 @@ import Title from '../Components/Login/Title';
 import Label from '../Components/Login/Label';
 import Input from '../Components/Login/Input';
 import Header from '../Components/Header/Header';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.scss';
 import Footer from '../Components/Footer/Footer';
 import HomeSearch from '../Components/Body/HomeSearch';
@@ -19,6 +19,10 @@ import {
 import { UserContext } from '../Contexts/Context';
 
 const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
+  const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
@@ -26,15 +30,13 @@ const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
   const [emailError, setEmailError] = useState(false);
   const [submitError, setSubmitError] = useState(false);
 
-  const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
-
   const authDataStored = JSON.parse(localStorage.getItem('account'));
 
   const validUserTest = {
     email: 'john@gmail.com',
     name: 'John',
     lastName: 'Doe',
-    password: 123456,
+    password: '123456',
   };
 
   function handleChange(name, value) {
@@ -67,6 +69,7 @@ const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
           email: validUserTest.email,
         },
       });
+      navigate('/');
     } else {
       setSubmitError(true);
     }
@@ -118,106 +121,81 @@ const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
 
   return (
     <>
-      {isLogged ? (
-        <>
-          {menuDrawerVisible && (
-            <MenuDrawerMobile
-              setMenuDrawerVisible={setMenuDrawerVisible}
-              user={user}
-              isLogged={isLogged}
-            />
-          )}
-          <div className="container-page">
-            <Header
-              user={user}
-              isLogged={isLogged}
-              setMenuDrawerVisible={setMenuDrawerVisible}
-            />
-            <HomeSearch />
-            <CarrouselCategories />
-            <GridRentals />
-            <Footer />
-          </div>
-        </>
-      ) : (
-        <>
-          {menuDrawerVisible && (
-            <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
-          )}
-          <div className="container-page">
-            <div className="CreateUserContainer">
-              <div className="createUserContent">
-                <Header setMenuDrawerVisible={setMenuDrawerVisible} />
-                <div className="formCreateUser">
-                  <Title text={<h1>Iniciar sesión</h1>} />
-                  <div className="form-control">
-                    <Label text="Usuario" />
-                    <Input
-                      attribute={{
-                        id: 'usuario',
-                        name: 'email',
-                        type: 'text',
-                        placeholder: 'Ingrese su mail',
-                      }}
-                      handleChange={handleChange}
-                      param={emailError}
-                    />
-                    {emailError && (
-                      <p className="input-error-msg">Email inválido</p>
-                    )}
-                  </div>
-
-                  <div className="form-control">
-                    <Label text="Contraseña" />
-                    <Input
-                      className="input-error"
-                      attribute={{
-                        id: 'contraseña',
-                        name: 'password',
-                        type: 'password',
-                        placeholder: 'Ingrese su contraseña',
-                      }}
-                      handleChange={handleChange}
-                      param={passwordError}
-                    />
-
-                    {passwordError && (
-                      <p className="input-error-msg">
-                        Contraseña inválida o incompleta
-                      </p>
-                    )}
-                  </div>
-                  <div className="wrapper-error">
-                    {submitError && (
-                      <p className="input-error-msg error-form">
-                        Por favor vuelva a intentarlo, sus credenciales son
-                        inválidas
-                      </p>
-                    )}
-                  </div>
-
-                  <button
-                    className="button-primary button-primary--full"
-                    onClick={handleSubmit}
-                  >
-                    Ingresar
-                  </button>
-
-                  <h5 className="text-dark">
-                    ¿Aún no tenes cuenta?
-                    <span>
-                      <Link to={'/register'} className="link-button">
-                        <span> Registrate</span>
-                      </Link>
-                    </span>
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <Footer />
-          </div>
-        </>
+      {menuDrawerVisible && (
+        <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
       )}
+      <div className="container-page">
+        <div className="CreateUserContainer">
+          <div className="createUserContent">
+            <Header setMenuDrawerVisible={setMenuDrawerVisible} />
+            <div className="formCreateUser">
+              <Title text={<h1>Iniciar sesión</h1>} />
+              <div className="form-control">
+                <Label text="Usuario" />
+                <Input
+                  attribute={{
+                    id: 'usuario',
+                    name: 'email',
+                    type: 'text',
+                    placeholder: 'Ingrese su mail',
+                  }}
+                  handleChange={handleChange}
+                  param={emailError}
+                />
+                {emailError && (
+                  <p className="input-error-msg">Email inválido</p>
+                )}
+              </div>
+
+              <div className="form-control">
+                <Label text="Contraseña" />
+                <Input
+                  className="input-error"
+                  attribute={{
+                    id: 'contraseña',
+                    name: 'password',
+                    type: 'password',
+                    placeholder: 'Ingrese su contraseña',
+                  }}
+                  handleChange={handleChange}
+                  param={passwordError}
+                />
+
+                {passwordError && (
+                  <p className="input-error-msg">
+                    Contraseña inválida o incompleta
+                  </p>
+                )}
+              </div>
+              <div className="wrapper-error">
+                {submitError && (
+                  <p className="input-error-msg error-form">
+                    Por favor vuelva a intentarlo, sus credenciales son
+                    inválidas
+                  </p>
+                )}
+              </div>
+
+              <button
+                className="button-primary button-primary--full"
+                onClick={handleSubmit}
+              >
+                Ingresar
+              </button>
+
+              <h5 className="text-dark">
+                ¿Aún no tenes cuenta?
+                <span>
+                  <Link to={'/register'} className="link-button">
+                    <span> Registrate</span>
+                  </Link>
+                </span>
+              </h5>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
     </>
   );
 };
