@@ -6,9 +6,14 @@ export function useForm(initialForm, validateForm) {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  const handleBlur = (e) => {};
+  const handleBlur = (e) => {
+    handleChange(e);
+    setErrors(validateForm(form));
+  };
 
   const handleSubmit = (e) => {};
 

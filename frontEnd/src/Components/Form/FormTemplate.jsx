@@ -1,11 +1,24 @@
 import { useForm } from '../../Hooks/useForm';
+import { isValidEmail, isValidPassword } from '../../utils/validationForm';
 
 const initialForm = {
   email: '',
   password: '',
 };
 
-const validationsForm = (form) => {};
+const validationsForm = (form) => {
+  let errors = {};
+
+  if (!isValidEmail(form.email)) {
+    errors.email = 'Email inválido';
+  }
+
+  if (!isValidPassword(form.password)) {
+    errors.password = 'Mínimo 6 caracteres';
+  }
+
+  return errors;
+};
 
 function FormTemplate() {
   const {
@@ -31,6 +44,7 @@ function FormTemplate() {
           value={form.email}
           className="input-form"
         />
+        {errors.email && <p className="input-error-msg">{errors.email}</p>}
       </div>
       <div className="form-control">
         <label htmlFor="password">Contraseña</label>
@@ -43,6 +57,9 @@ function FormTemplate() {
           value={form.password}
           className="input-form"
         />
+        {errors.password && (
+          <p className="input-error-msg">{errors.password}</p>
+        )}
       </div>
     </form>
   );
