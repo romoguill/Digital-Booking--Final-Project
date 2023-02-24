@@ -124,7 +124,7 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
         <div className="CreateUserContainer">
           <div className="createUserContent">
             <Header setMenuDrawerVisible={setMenuDrawerVisible} />
-            <div className="formCreateUser">
+            <form className="formCreateUser">
               <Title text={<h1>Crear cuenta</h1>} />
               <div className="name-surname">
                 <div className="form-control">
@@ -248,7 +248,7 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
                   </span>
                 </h5>
               </div>
-            </div>
+            </form>
           </div>
         </div>
         <Footer />

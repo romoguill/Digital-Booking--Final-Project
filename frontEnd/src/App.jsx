@@ -8,6 +8,7 @@ import Login from './Routes/Login';
 import CreateUser from './Routes/CreateUser';
 
 import { UserContext } from './Contexts/Context';
+import FormTemplate from './Components/Form/FormTemplate';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
@@ -52,6 +53,8 @@ function App() {
               />
             }
           />
+          {/* TODO: eliminar la ruta cuando termine las pruebas del formulario */}
+          <Route path="/form" element={<FormTemplate />} />
         </Routes>
       </div>
     </UserContext.Provider>
