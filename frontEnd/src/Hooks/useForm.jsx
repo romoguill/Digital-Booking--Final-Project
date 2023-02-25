@@ -29,10 +29,8 @@ export function useForm(
     setErrors(validateForm(formData));
 
     if (Object.keys(errors).length === 0) {
-      // TODO : Customizar accion a realizar cuando la respuesta de backend es 200
       try {
         const successfulSubmit = await callbackSubmit(formData);
-        console.log(successfulSubmit);
         if (successfulSubmit) {
           navigate('/');
         } else {

@@ -38,15 +38,13 @@ const validationsForm = (formData) => {
   return errors;
 };
 
+// TODO : Customizar accion a realizar cuando la respuesta de backend es 200
 const callbackSubmit = async (formData) => {
   const response = await fakeCallAPI(formData);
   return response.validCrentials;
 };
 
-const errorMsgOnSubmit =
-  'Por favor vuelva a intentarlo, sus credenciales son inválidas';
-
-function FormLogin() {
+function FormLogin({ errorMsgOnSubmit }) {
   const { formData, errors, handleChange, handleBlur, handleSubmit } = useForm(
     initialFormData,
     validationsForm,
