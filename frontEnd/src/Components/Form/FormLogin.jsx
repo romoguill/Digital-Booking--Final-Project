@@ -16,9 +16,9 @@ const fakeCallAPI = (formData) => {
       formData.email === fakeCredentials.email &&
       formData.password === fakeCredentials.password
     ) {
-      resolve(true);
+      resolve({ validCrentials: true });
     } else {
-      reject(false);
+      resolve({ validCrentials: false });
     }
   });
 };
@@ -38,6 +38,11 @@ const validationsForm = (formData) => {
   return errors;
 };
 
+const callbackSubmit = async (formData) => {
+  const response = await fakeCallAPI(formData);
+  return response.validCrentials;
+};
+
 const errorMsgOnSubmit =
   'Por favor vuelva a intentarlo, sus credenciales son inválidas';
 
@@ -46,7 +51,7 @@ function FormLogin() {
     initialFormData,
     validationsForm,
     errorMsgOnSubmit,
-    fakeCallAPI
+    callbackSubmit
   );
 
   return (
@@ -62,6 +67,7 @@ function FormLogin() {
           value={formData.email}
           className="input-form"
         />
+        {errors.email && <p className="input-error-msg">Email inválido</p>}
       </div>
 
       <div className="form-control">
@@ -77,11 +83,11 @@ function FormLogin() {
         />
       </div>
 
-      <div className="wrapper-error">
-        {errors.submit && (
+      {errors.submit && (
+        <div className="wrapper-error">
           <p className="input-error-msg error-form">{errors.submit}</p>
-        )}
-      </div>
+        </div>
+      )}
 
       <button
         className="button-primary button-primary--full"

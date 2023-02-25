@@ -4,7 +4,12 @@ import { useNavigate } from 'react-router';
 
 // TODO :
 
-export function useForm(initialForm, validateForm, errorMsgOnSubmit, callAPI) {
+export function useForm(
+  initialForm,
+  validateForm,
+  errorMsgOnSubmit,
+  callbackSubmit
+) {
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
 
@@ -26,10 +31,15 @@ export function useForm(initialForm, validateForm, errorMsgOnSubmit, callAPI) {
     if (Object.keys(errors).length === 0) {
       // TODO : Customizar accion a realizar cuando la respuesta de backend es 200
       try {
-        await callAPI(formData);
-        navigate('/');
+        const successfulSubmit = await callbackSubmit(formData);
+        console.log(successfulSubmit);
+        if (successfulSubmit) {
+          navigate('/');
+        } else {
+          setErrors({ ...errors, submit: errorMsgOnSubmit });
+        }
       } catch (e) {
-        setErrors({ ...errors, submit: errorMsgOnSubmit });
+        console.log(e);
       }
     }
   };
