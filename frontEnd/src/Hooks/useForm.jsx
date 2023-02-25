@@ -1,13 +1,11 @@
 import { useState } from 'react';
 
 export function useForm(initialForm, validateForm) {
-  const [form, setForm] = useState(initialForm);
+  const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState(null);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setFormData({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleBlur = (e) => {
@@ -15,13 +13,19 @@ export function useForm(initialForm, validateForm) {
     setErrors(validateForm(form));
   };
 
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors(validateForm(form));
+
+    if (Object.keys(errors).length === 0) {
+    } else {
+      return;
+    }
+  };
 
   return {
-    form,
+    formData,
     errors,
-    loading,
-    response,
     handleChange,
     handleBlur,
     handleSubmit,

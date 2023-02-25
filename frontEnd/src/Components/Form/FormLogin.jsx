@@ -1,19 +1,19 @@
 import { useForm } from '../../Hooks/useForm';
 import { isValidEmail, isValidPassword } from '../../utils/validationForm';
 
-const initialForm = {
+const initialFormData = {
   email: '',
   password: '',
 };
 
-const validationsForm = (form) => {
+const validationsForm = (formData) => {
   let errors = {};
 
-  if (!isValidEmail(form.email)) {
+  if (!isValidEmail(formData.email)) {
     errors.email = 'Email inválido';
   }
 
-  if (!isValidPassword(form.password)) {
+  if (!isValidPassword(formData.password)) {
     errors.password = 'Mínimo 6 caracteres';
   }
 
@@ -21,15 +21,10 @@ const validationsForm = (form) => {
 };
 
 function FormTemplate() {
-  const {
-    form,
-    errors,
-    loading,
-    response,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-  } = useForm(initialForm, validationsForm);
+  const { formData, errors, handleChange, handleBlur, handleSubmit } = useForm(
+    initialFormData,
+    validationsForm
+  );
 
   return (
     <form onSubmit={handleSubmit}>
@@ -41,7 +36,7 @@ function FormTemplate() {
           placeholder="Ingrese su mail"
           onBlur={handleBlur}
           onChange={handleChange}
-          value={form.email}
+          value={formData.email}
           className="input-form"
         />
         {errors.email && <p className="input-error-msg">{errors.email}</p>}
@@ -54,7 +49,7 @@ function FormTemplate() {
           placeholder="Ingrese su contraseña"
           onBlur={handleBlur}
           onChange={handleChange}
-          value={form.password}
+          value={formData.password}
           className="input-form"
         />
         {errors.password && (
