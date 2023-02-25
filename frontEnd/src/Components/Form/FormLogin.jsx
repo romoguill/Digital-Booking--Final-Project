@@ -1,6 +1,14 @@
 import { useForm } from '../../Hooks/useForm';
 import { isValidEmail, isValidPassword } from '../../utils/validationForm';
 
+// TODO : Modificar validacion de formulario cuando tengamos el backend de Autenticacion
+const fakeCredentials = {
+  email: 'john@gmail.com',
+  name: 'John',
+  lastName: 'Doe',
+  password: '123456',
+};
+
 const initialFormData = {
   email: '',
   password: '',
@@ -9,18 +17,17 @@ const initialFormData = {
 const validationsForm = (formData) => {
   let errors = {};
 
-  if (!isValidEmail(formData.email)) {
-    errors.email = 'Email inválido';
-  }
-
-  if (!isValidPassword(formData.password)) {
-    errors.password = 'Mínimo 6 caracteres';
+  if (
+    formData.email != fakeCredentials.email ||
+    formData.password != fakeCredentials.password
+  ) {
+    errors.wrongCredentials = true;
   }
 
   return errors;
 };
 
-function FormTemplate() {
+function FormLogin() {
   const { formData, errors, handleChange, handleBlur, handleSubmit } = useForm(
     initialFormData,
     validationsForm
@@ -41,6 +48,7 @@ function FormTemplate() {
         />
         {errors.email && <p className="input-error-msg">{errors.email}</p>}
       </div>
+
       <div className="form-control">
         <label htmlFor="password">Contraseña</label>
         <input
@@ -60,4 +68,4 @@ function FormTemplate() {
   );
 }
 
-export default FormTemplate;
+export default FormLogin;
