@@ -50,7 +50,16 @@ function UserLoginForm() {
   } = useForm({ mode: 'onBlur' });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={(e) =>
+        handleSubmit(onSubmit)(e).catch(() => {
+          setError('root.responseError', {
+            type: 'custom',
+            message: 'Error en el servidor. Intente más tarde.',
+          });
+        })
+      }
+    >
       <div className="form-control">
         <label htmlFor="email">Email</label>
         <input
