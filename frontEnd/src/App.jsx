@@ -8,8 +8,8 @@ import Login from './Routes/Login';
 import CreateUser from './Routes/CreateUser';
 
 import { UserContext } from './Contexts/Context';
-import FormTemplate from './Components/Form/FormLogin';
-import FormLogin from './Components/Form/FormLogin';
+import FormTemplate from './Components/Form/FormTemplate';
+import FormLogin from './Components/Form/FormTemplate';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
