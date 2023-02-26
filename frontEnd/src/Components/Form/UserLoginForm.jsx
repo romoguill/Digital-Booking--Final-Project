@@ -1,6 +1,9 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 function UserLoginForm() {
+  const navigate = useNavigate();
+
   // TODO : Modificar validacion de formulario cuando tengamos el backend de Autenticacion
   const fakeCredentials = {
     email: 'john@gmail.com',
@@ -11,32 +14,31 @@ function UserLoginForm() {
 
   // TODO : Utilizar una llamada adecuada cuando tengamos el backend
   const fakeCallAPI = (formData) => {
-    return new Promise((resolve) => {
-      if (
+    return new Promise((resolve, reject) => {
+      if (formData.email === 'errorservidor@gmail.com') {
+        reject();
+      } else if (
         formData.email === fakeCredentials.email &&
         formData.password === fakeCredentials.password
       ) {
-        resolve({ validCrentials: true });
+        resolve({ ok: true });
       } else {
-        resolve({ validCrentials: false });
+        resolve({ ok: false });
       }
     });
   };
 
-  // const validationsForm = (formData) => {
-  //   let errors = {};
-
-  //   if (!isValidEmail(formData.email)) {
-  //     errors.email = 'Email inválido';
-  //   }
-
-  //   return errors;
-  // };
-
   // TODO : Customizar accion a realizar cuando la respuesta de backend es 200
-  const callbackSubmit = async (formData) => {
+  const onSubmit = async (formData) => {
     const response = await fakeCallAPI(formData);
-    return response.validCrentials;
+    if (response.ok) {
+      navigate('/');
+    } else {
+      setError('root.responseError', {
+        type: 'custom',
+        message: 'Credenciales inválidas',
+      });
+    }
   };
 
   // useForm hook
@@ -48,7 +50,7 @@ function UserLoginForm() {
   } = useForm({ mode: 'onBlur' });
 
   return (
-    <form onSubmit={handleSubmit((data) => console.log(data))}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="form-control">
         <label htmlFor="email">Email</label>
         <input
@@ -74,11 +76,14 @@ function UserLoginForm() {
         )}
       </div>
 
-      {/* {errors.submit && (
+      {errors?.root?.responseError && (
         <div className="wrapper-error">
-          <p className="input-error-msg error-form">{errors.submit}</p>
+          <p className="input-error-msg error-form">
+            {errors.root.responseError.message}
+          </p>
         </div>
-      )} */}
+      )}
+
       <button className="button-primary button-primary--full">Ingresar</button>
     </form>
   );
