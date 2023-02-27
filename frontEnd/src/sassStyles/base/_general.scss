@@ -50,7 +50,7 @@ img {
   max-width: 100%;
 }
 
-button {
+button, a {
   border: none;
   border-radius: variables.$border-radius-sm;
   padding: 0.5rem 1rem;
@@ -59,9 +59,10 @@ button {
   cursor: pointer;
 }
 
-.button-primary {
+.button-primary, .nav-link {
   padding: variables.$m-2 variables.$m-5;
   border: 2px solid variables.$primary-color;
+  display: block;
 
   &--empty {
     background-color: transparent;
@@ -171,6 +172,8 @@ input::placeholder {
 .hidden {
   display: none;
 }
+
+
 
 @media screen and (max-width: variables.$bp-mobile) {
   .container-main {

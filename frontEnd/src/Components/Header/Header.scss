@@ -15,42 +15,35 @@ header {
   .app-logo {
     width: 100px;
   }
-  
-    nav {
-      margin: globals.$m-3 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
 
-    .account-actions {
-      display: flex;
-      gap: 10px;
+  .account-actions {
+  display: flex;
+  gap: 10px;
 
-      button {
-        display: inline-block;
-      }
+    button {
+      display: inline-block;
     }
+  }
 
-    .button-primary:hover{
-      background-color: globals.$text-medium;
-      color: globals.$primary-color;
-    }
+  .button-primary:hover{
+    background-color: globals.$text-medium;
+    color: globals.$primary-color;
+  }
 
-    .welcome-user{
-      font-size: 20px;
-      color: #191B1D;
-      margin-left: auto;
-      margin-right: 10px;
-    }
+  .welcome-user{
+    font-size: 20px;
+    color: #191B1D;
+    margin-left: auto;
+    margin-right: 10px;
+  }
 
-    .main-menu__hamburger {
-      background-color: transparent;
-      display: none;
-      padding: 0;
-      text-align: right;
-      font-size: 1.5rem;
-    }
+  .main-menu__hamburger {
+    background-color: transparent;
+    display: none;
+    padding: 0;
+    text-align: right;
+    font-size: 1.5rem;
+  }
 
     // .button-logout{
     //   background-color: #F0572D;

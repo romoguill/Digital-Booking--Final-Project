@@ -1,5 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
+import './Navbar.scss';
+
 function Navbar() {
   return (
     <nav>
@@ -8,14 +10,25 @@ function Navbar() {
           <NavLink
             to={'/register'}
             className={({ isActive }) =>
-              isActive ? 'nav-link nav-link--active' : 'nav-link'
+              isActive
+                ? 'nav-link nav-link--empty nav-link--active hidden'
+                : 'nav-link nav-link--empty'
             }
           >
             Crear Cuenta
           </NavLink>
         </li>
         <li>
-          <NavLink to={'/login'}>Iniciar sesión</NavLink>
+          <NavLink
+            to={'/login'}
+            className={({ isActive }) =>
+              isActive
+                ? 'nav-link nav-link--empty nav-link--active hidden'
+                : 'nav-link nav-link--empty'
+            }
+          >
+            Iniciar sesión
+          </NavLink>
         </li>
       </ul>
     </nav>

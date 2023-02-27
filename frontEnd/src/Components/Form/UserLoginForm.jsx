@@ -1,8 +1,11 @@
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { UserContext } from '../../Contexts/Context';
 
 function UserLoginForm() {
   const navigate = useNavigate();
+  const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
 
   // TODO : Modificar validacion de formulario cuando tengamos el backend de Autenticacion
   const fakeCredentials = {
@@ -32,6 +35,14 @@ function UserLoginForm() {
   const onSubmit = async (formData) => {
     const response = await fakeCallAPI(formData);
     if (response.ok) {
+      setUserAuthInfo({
+        isLoggedIn: true,
+        userInfo: {
+          name: fakeCredentials.name,
+          lastName: fakeCredentials.lastName,
+          email: fakeCredentials.email,
+        },
+      });
       navigate('/');
     } else {
       setError('root.responseError', {
