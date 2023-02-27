@@ -30,48 +30,16 @@ function Header({ user, setMenuDrawerVisible }) {
       <Link to={'/'}>
         <img className="app-logo" src={logo} />
       </Link>
-      <Navbar />
-      {/* <nav className="navbar">
-        {userAuthInfo.isLoggedIn ? (
-          <>
-            <UserProfile userInfo={userAuthInfo.userInfo} mobile={false} />
-            <NavLink to={'/'}>
-              <button
-                className="button-logout button-primary--empty"
-                onClick={handleLogout}
-              >
-                <FontAwesomeIcon icon={faRightFromBracket} />
-              </button>
-            </NavLink>
-          </>
-        ) : (
-          <div className="account-actions">
-            {location.pathname === '/register' || (
-              <NavLink
-                to={'/register'}
-                className={({ isActive }) =>
-                  isActive ? 'nav-link nav-link--active' : 'nav-link'
-                }
-              >
-                <button className="button-primary button-primary--empty">
-                  Crear Cuenta
-                </button>
-              </NavLink>
-            )}
-
-            {location.pathname === '/login' || (
-              <NavLink to={'/login'}>
-                <button className="button-primary button-primary--empty">
-                  Iniciar sesión
-                </button>
-              </NavLink>
-            )}
-          </div>
-        )}
+      {userAuthInfo.isLoggedIn ? (
+        <UserProfile userInfo={userAuthInfo.userInfo} />
+      ) : (
+        <Navbar />
+      )}
+      {
         <button className="main-menu__hamburger" onClick={handleOpenDrawerMenu}>
           <FontAwesomeIcon icon={faBars} />
         </button>
-      </nav> */}
+      }
     </header>
   );
 }

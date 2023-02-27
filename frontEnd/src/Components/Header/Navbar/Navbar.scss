@@ -6,6 +6,11 @@ nav {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1rem;
   }
+}
 
+@media screen and (max-width: globals.$bp-menu-drawer) {
+  nav {
+    display: none;
+  }
 }
 
