@@ -1,11 +1,14 @@
+import logo from '../../assets/Images/app-logo-final.png';
+import './Header.scss';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import Brand from './Brand';
-import './Header.scss';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import UserProfile from '../UserProfile/UserProfile';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
+
+import UserProfile from '../UserProfile/UserProfile';
+
 import { UserContext } from '../../Contexts/Context';
 
 function Header({ user, setMenuDrawerVisible }) {
@@ -22,49 +25,51 @@ function Header({ user, setMenuDrawerVisible }) {
   }
 
   return (
-    <header>
-      <div className="container-main">
-        <nav className="navbar">
-          <Brand />
-          {userAuthInfo.isLoggedIn ? (
-            <>
-              <UserProfile userInfo={userAuthInfo.userInfo} mobile={false} />
-              <Link to={'/'}>
-                <button
-                  className="button-logout button-primary--empty"
-                  onClick={handleLogout}
-                >
-                  <FontAwesomeIcon icon={faRightFromBracket} />
+    <header className="container-main">
+      <Link to={'/'}>
+        <img className="app-logo" src={logo} />
+      </Link>
+      <nav className="navbar">
+        {userAuthInfo.isLoggedIn ? (
+          <>
+            <UserProfile userInfo={userAuthInfo.userInfo} mobile={false} />
+            <NavLink to={'/'}>
+              <button
+                className="button-logout button-primary--empty"
+                onClick={handleLogout}
+              >
+                <FontAwesomeIcon icon={faRightFromBracket} />
+              </button>
+            </NavLink>
+          </>
+        ) : (
+          <div className="account-actions">
+            {location.pathname === '/register' || (
+              <NavLink
+                to={'/register'}
+                className={({ isActive }) =>
+                  isActive ? 'nav-link--active' : 'nav-link'
+                }
+              >
+                <button className="button-primary button-primary--empty">
+                  Crear Cuenta
                 </button>
-              </Link>
-            </>
-          ) : (
-            <div className="account-actions">
-              {location.pathname === '/register' || (
-                <Link to={'/register'}>
-                  <button className="button-primary button-primary--empty">
-                    Crear Cuenta
-                  </button>
-                </Link>
-              )}
+              </NavLink>
+            )}
 
-              {location.pathname === '/login' || (
-                <Link to={'/login'}>
-                  <button className="button-primary button-primary--empty">
-                    Iniciar sesión
-                  </button>
-                </Link>
-              )}
-            </div>
-          )}
-          <button
-            className="main-menu__hamburger"
-            onClick={handleOpenDrawerMenu}
-          >
-            <FontAwesomeIcon icon={faBars} />
-          </button>
-        </nav>
-      </div>
+            {location.pathname === '/login' || (
+              <NavLink to={'/login'}>
+                <button className="button-primary button-primary--empty">
+                  Iniciar sesión
+                </button>
+              </NavLink>
+            )}
+          </div>
+        )}
+        <button className="main-menu__hamburger" onClick={handleOpenDrawerMenu}>
+          <FontAwesomeIcon icon={faBars} />
+        </button>
+      </nav>
     </header>
   );
 }
