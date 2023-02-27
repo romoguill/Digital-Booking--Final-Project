@@ -10,6 +10,7 @@ import CreateUser from './Routes/CreateUser';
 import { UserContext } from './Contexts/Context';
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
+import MenuDrawerMobile from './Components/Header/MenuDrawerMobile/MenuDrawerMobile';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
@@ -26,7 +27,11 @@ function App() {
   return (
     <div className="app">
       <UserContext.Provider value={{ userAuthInfo, setUserAuthInfo }}>
-        <Header />
+        {menuDrawerVisible && (
+          <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
+        )}
+
+        <Header setMenuDrawerVisible={setMenuDrawerVisible} />
 
         <Routes>
           <Route

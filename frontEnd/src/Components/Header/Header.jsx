@@ -12,10 +12,8 @@ import UserProfile from '../UserProfile/UserProfile';
 import { UserContext } from '../../Contexts/Context';
 import Navbar from './Navbar/Navbar';
 
-function Header({ user, setMenuDrawerVisible }) {
+function Header({ setMenuDrawerVisible }) {
   const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
-
-  const location = useLocation();
 
   function handleOpenDrawerMenu() {
     setMenuDrawerVisible(true);
@@ -30,11 +28,13 @@ function Header({ user, setMenuDrawerVisible }) {
       <Link to={'/'}>
         <img className="app-logo" src={logo} />
       </Link>
+
       {userAuthInfo.isLoggedIn ? (
         <UserProfile userInfo={userAuthInfo.userInfo} />
       ) : (
         <Navbar />
       )}
+
       {
         <button className="main-menu__hamburger" onClick={handleOpenDrawerMenu}>
           <FontAwesomeIcon icon={faBars} />

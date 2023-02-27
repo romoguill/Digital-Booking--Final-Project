@@ -14,11 +14,10 @@ import './MenuDrawerMobile.scss';
 import { useContext } from 'react';
 import { UserContext } from '../../../Contexts/Context';
 
-function MenuDrawerMobile({ setMenuDrawerVisible, isLogged, user }) {
+function MenuDrawerMobile({ setMenuDrawerVisible }) {
   const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
 
   const location = useLocation();
-  const navigate = useNavigate();
 
   function handleMenuDrawerClose() {
     setMenuDrawerVisible(false);
