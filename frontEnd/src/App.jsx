@@ -8,6 +8,7 @@ import Login from './Routes/Login';
 import CreateUser from './Routes/CreateUser';
 
 import { UserContext } from './Contexts/Context';
+import Header from './Components/Header/Header';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
@@ -22,8 +23,9 @@ function App() {
   });
 
   return (
-    <UserContext.Provider value={{ userAuthInfo, setUserAuthInfo }}>
-      <div className="App">
+    <div className="app">
+      <UserContext.Provider value={{ userAuthInfo, setUserAuthInfo }}>
+        <Header />
         <Routes>
           <Route
             path="/"
@@ -53,8 +55,8 @@ function App() {
             }
           />
         </Routes>
-      </div>
-    </UserContext.Provider>
+      </UserContext.Provider>
+    </div>
   );
 }
 

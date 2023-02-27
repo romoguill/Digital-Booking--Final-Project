@@ -13,7 +13,6 @@ const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
         <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
       )}
       <div className="container-page">
-        <Header setMenuDrawerVisible={setMenuDrawerVisible} />
         <CreateUserForm />
         <Footer />
       </div>

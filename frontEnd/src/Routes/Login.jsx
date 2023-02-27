@@ -11,11 +11,9 @@ const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
         <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
       )}
       <div className="container-page">
-        <Header setMenuDrawerVisible={setMenuDrawerVisible} />
-        <div className="formCreateUser">
-          <h1>Iniciar sesión</h1>
-          <UserLoginForm />
-        </div>
+        <h1>Iniciar sesión</h1>
+        <UserLoginForm />
+
         <Footer />
       </div>
     </>

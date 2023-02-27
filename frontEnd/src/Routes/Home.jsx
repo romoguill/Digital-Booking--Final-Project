@@ -16,7 +16,6 @@ function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
       {menuDrawerVisible && (
         <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
       )}
-      <Header setMenuDrawerVisible={setMenuDrawerVisible} />
       <HomeSearch />
       <CarrouselCategories />
       <GridRentals />
