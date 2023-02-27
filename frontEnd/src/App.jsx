@@ -9,6 +9,7 @@ import CreateUser from './Routes/CreateUser';
 
 import { UserContext } from './Contexts/Context';
 import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
@@ -55,6 +56,7 @@ function App() {
             }
           />
         </Routes>
+        <Footer />
       </UserContext.Provider>
     </div>
   );

@@ -13,8 +13,6 @@ const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
       <div className="container-page">
         <h1>Iniciar sesión</h1>
         <UserLoginForm />
-
-        <Footer />
       </div>
     </>
   );

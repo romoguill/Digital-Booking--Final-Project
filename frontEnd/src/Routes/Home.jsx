@@ -19,7 +19,6 @@ function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
       <HomeSearch />
       <CarrouselCategories />
       <GridRentals />
-      <Footer />
     </div>
   );
 }
