@@ -1,6 +1,5 @@
-import Header from '../Components/Header/Header';
 import './Login.scss';
-import Footer from '../Components/Footer/Footer';
+
 import MenuDrawerMobile from '../Components/MenuDrawerMobile/MenuDrawerMobile';
 import UserLoginForm from '../Components/Form/UserLoginForm';
 

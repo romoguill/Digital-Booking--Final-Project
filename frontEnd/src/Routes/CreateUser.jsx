@@ -1,7 +1,5 @@
-import React from 'react';
-
 import '../Routes/CreateUser.scss';
-import Footer from '../Components/Footer/Footer';
+
 import MenuDrawerMobile from '../Components/MenuDrawerMobile/MenuDrawerMobile';
 import CreateUserForm from '../Components/Form/CreateUserForm';
 
