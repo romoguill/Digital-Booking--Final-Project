@@ -10,6 +10,7 @@ import { useContext } from 'react';
 import UserProfile from '../UserProfile/UserProfile';
 
 import { UserContext } from '../../Contexts/Context';
+import Navbar from './Navbar/Navbar';
 
 function Header({ user, setMenuDrawerVisible }) {
   const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
@@ -29,7 +30,8 @@ function Header({ user, setMenuDrawerVisible }) {
       <Link to={'/'}>
         <img className="app-logo" src={logo} />
       </Link>
-      <nav className="navbar">
+      <Navbar />
+      {/* <nav className="navbar">
         {userAuthInfo.isLoggedIn ? (
           <>
             <UserProfile userInfo={userAuthInfo.userInfo} mobile={false} />
@@ -48,7 +50,7 @@ function Header({ user, setMenuDrawerVisible }) {
               <NavLink
                 to={'/register'}
                 className={({ isActive }) =>
-                  isActive ? 'nav-link--active' : 'nav-link'
+                  isActive ? 'nav-link nav-link--active' : 'nav-link'
                 }
               >
                 <button className="button-primary button-primary--empty">
@@ -69,7 +71,7 @@ function Header({ user, setMenuDrawerVisible }) {
         <button className="main-menu__hamburger" onClick={handleOpenDrawerMenu}>
           <FontAwesomeIcon icon={faBars} />
         </button>
-      </nav>
+      </nav> */}
     </header>
   );
 }
