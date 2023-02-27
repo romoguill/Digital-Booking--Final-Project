@@ -27,6 +27,7 @@ function App() {
     <div className="app">
       <UserContext.Provider value={{ userAuthInfo, setUserAuthInfo }}>
         <Header />
+
         <Routes>
           <Route
             path="/"
@@ -56,6 +57,7 @@ function App() {
             }
           />
         </Routes>
+
         <Footer />
       </UserContext.Provider>
     </div>

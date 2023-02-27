@@ -1,18 +1,16 @@
 import '../Routes/CreateUser.scss';
 
-import MenuDrawerMobile from '../Components/MenuDrawerMobile/MenuDrawerMobile';
+import MenuDrawerMobile from '../Components/Header/MenuDrawerMobile/MenuDrawerMobile';
 import CreateUserForm from '../Components/Form/CreateUserForm';
 
 const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
   return (
-    <>
+    <div className="container-page">
       {menuDrawerVisible && (
         <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
       )}
-      <div className="container-page">
-        <CreateUserForm />
-      </div>
-    </>
+      <CreateUserForm />
+    </div>
   );
 };
 

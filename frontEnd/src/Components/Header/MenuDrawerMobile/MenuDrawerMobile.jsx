@@ -6,13 +6,13 @@ import {
   faTwitter,
   faLinkedin,
 } from '@fortawesome/free-brands-svg-icons';
-import UserProfile from '../UserProfile/UserProfile';
+import UserProfile from '../../UserProfile/UserProfile';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import './MenuDrawerMobile.scss';
 import { useContext } from 'react';
-import { UserContext } from '../../Contexts/Context';
+import { UserContext } from '../../../Contexts/Context';
 
 function MenuDrawerMobile({ setMenuDrawerVisible, isLogged, user }) {
   const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
