@@ -173,6 +173,11 @@ input::placeholder {
   display: none;
 }
 
+li:empty {
+  display: none;
+}
+
+
 
 
 @media screen and (max-width: variables.$bp-mobile) {

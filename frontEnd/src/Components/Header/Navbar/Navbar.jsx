@@ -1,35 +1,27 @@
-import { NavLink } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import './Navbar.scss';
 
 function Navbar() {
+  const location = useLocation();
+
   return (
     <nav>
       <ul>
-        <li>
-          <NavLink
-            to={'/register'}
-            className={({ isActive }) =>
-              isActive
-                ? 'nav-link nav-link--empty nav-link--active hidden'
-                : 'nav-link nav-link--empty'
-            }
-          >
-            Crear Cuenta
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to={'/login'}
-            className={({ isActive }) =>
-              isActive
-                ? 'nav-link nav-link--empty nav-link--active hidden'
-                : 'nav-link nav-link--empty'
-            }
-          >
-            Iniciar sesión
-          </NavLink>
-        </li>
+        {location.pathname === '/register' || (
+          <li>
+            <Link to={'/register'} className="nav-link nav-link--empty">
+              Crear Cuenta
+            </Link>
+          </li>
+        )}
+        {location.pathname === '/login' || (
+          <li>
+            <Link to={'/login'} className="nav-link nav-link--empty">
+              Iniciar sesión
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
