@@ -57,10 +57,17 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
               <>
                 <div className="logout-container">
                   <p className="logout-drawer">
-                    ¿Deseas
-                    <Link to="/" className="link-button" onClick={handleLogout}>
-                      <span> cerrar sesión?</span>
-                    </Link>
+                    ¿Deseas{' '}
+                    <span>
+                      <Link
+                        to="/"
+                        className="link-button"
+                        onClick={handleLogout}
+                      >
+                        cerrar sesión
+                      </Link>
+                    </span>
+                    ?
                   </p>
                 </div>
               </>
@@ -87,16 +94,16 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
         <div className="menu-drawer-mobile__footer">
           <div className="menu-drawer-mobile__container">
             <div className="container__social-media">
-              <a href="#">
+              <a className="social-media-icon" href="#">
                 <FontAwesomeIcon icon={faFacebook} />
               </a>
-              <a href="#">
+              <a className="social-media-icon" href="#">
                 <FontAwesomeIcon icon={faInstagram} />
               </a>
-              <a href="#">
+              <a className="social-media-icon" href="#">
                 <FontAwesomeIcon icon={faLinkedin} />
               </a>
-              <a href="#">
+              <a className="social-media-icon" href="#">
                 <FontAwesomeIcon icon={faTwitter} />
               </a>
             </div>

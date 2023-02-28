@@ -16,16 +16,16 @@ function Footer() {
           <p>© 2023 SPRINGSENSE</p>
         </div>
         <div className="container__social-media">
-          <a href="#">
+          <a className="social-media-icon" href="#">
             <FontAwesomeIcon icon={faFacebook} />
           </a>
-          <a href="#">
+          <a className="social-media-icon" href="#">
             <FontAwesomeIcon icon={faInstagram} />
           </a>
-          <a href="#">
+          <a className="social-media-icon" href="#">
             <FontAwesomeIcon icon={faLinkedin} />
           </a>
-          <a href="#">
+          <a className="social-media-icon" href="#">
             <FontAwesomeIcon icon={faTwitter} />
           </a>
         </div>
