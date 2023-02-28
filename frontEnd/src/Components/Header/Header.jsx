@@ -30,7 +30,12 @@ function Header({ setMenuDrawerVisible }) {
       </Link>
 
       {userAuthInfo.isLoggedIn ? (
-        <UserProfile userInfo={userAuthInfo.userInfo} />
+        <div className="account-options">
+          <UserProfile userInfo={userAuthInfo.userInfo} />
+          <Link to={'/'} onClick={handleLogout}>
+            <FontAwesomeIcon icon={faRightFromBracket} />
+          </Link>
+        </div>
       ) : (
         <Navbar />
       )}

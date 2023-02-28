@@ -51,6 +51,7 @@ img {
 }
 
 button, a {
+  display: inline-block;
   border: none;
   border-radius: variables.$border-radius-sm;
   padding: 0.5rem 1rem;
@@ -62,7 +63,6 @@ button, a {
 .button-primary, .nav-link {
   padding: variables.$p-2 variables.$p-4;
   border: 2px solid variables.$primary-color;
-  display: block;
   min-width: 170px;
   text-align: center;
 
@@ -75,6 +75,11 @@ button, a {
     background-color: variables.$primary-color;
     color: variables.$bg-white;
   }
+}
+
+.nav-link-menu {
+  border: none;
+  padding: 0;
 }
 
 .button-logout {

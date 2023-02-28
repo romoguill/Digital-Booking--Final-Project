@@ -50,11 +50,17 @@ header {
     //   color: white;
     // }
 
+    .account-options {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
 }
 
 @media screen and (max-width: globals.$bp-menu-drawer) {
   header {
-    .account-actions {
+    .account-options {
       display: none;
     }
 
