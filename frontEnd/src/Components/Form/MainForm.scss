@@ -81,8 +81,9 @@
   .show-password-icon {
     position: absolute;
     right: 10px;
-    bottom: 25%;
+    bottom: 50%;
     color: globals.$text-gray-light;
+    transform: translateY(50%);
   }
 
   .input-error-msg.error-form {
