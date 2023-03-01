@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../../Contexts/Context';
 
 import './MainForm.scss';
@@ -108,6 +109,15 @@ function UserLoginForm() {
       )}
 
       <button className="button-primary button-primary--full">Ingresar</button>
+
+      <p>
+        ¿Aún no tenes cuenta?
+        <span>
+          <Link className="small-link" to="/register">
+            Registrate
+          </Link>
+        </span>
+      </p>
     </form>
   );
 }
