@@ -1,15 +1,14 @@
 import '../Routes/CreateUser.scss';
 
-import MenuDrawerMobile from '../Components/Header/MenuDrawerMobile/MenuDrawerMobile';
 import CreateUserForm from '../Components/Form/CreateUserForm';
 
-const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
+const CreateUser = () => {
   return (
-    <div className="container-page center-content">
-      {menuDrawerVisible && (
-        <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
-      )}
-      <CreateUserForm />
+    <div className="container-page center-content bg-light">
+      <div className="main-form__container">
+        <h1 className="main-form__title">Crear cuenta</h1>
+        <CreateUserForm />
+      </div>
     </div>
   );
 };

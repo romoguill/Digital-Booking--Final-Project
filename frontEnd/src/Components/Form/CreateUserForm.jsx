@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
+import './MainForm.scss';
+
 function CreateUserForm() {
   const navigate = useNavigate();
 

@@ -193,7 +193,10 @@ li:empty {
   display: none;
 }
 
-
+// BACKGROUND
+.bg-light {
+  background-color: variables.$bg-gray;
+}
 
 
 @media screen and (max-width: variables.$bp-mobile) {
