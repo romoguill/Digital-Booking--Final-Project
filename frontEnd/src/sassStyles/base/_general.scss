@@ -105,6 +105,10 @@ input {
   width: 100%;
 }
 
+input::-ms-reveal, input::-ms-clear {
+  display: none;
+}
+
 .input-error {
   background-color: variables.$input-error-bg;
   border: 1px solid variables.$input-error-border;

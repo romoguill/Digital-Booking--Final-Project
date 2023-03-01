@@ -2,10 +2,20 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 import './MainForm.scss';
+import { useState } from 'react';
 
 function CreateUserForm() {
   const navigate = useNavigate();
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  function handleShowPassword() {
+    setPasswordVisible(!passwordVisible);
+  }
 
   // TODO : Utilizar una llamada adecuada cuando tengamos el backend
   const fakeCallAPI = (formData) => {
@@ -105,7 +115,17 @@ function CreateUserForm() {
 
       <div className="form-control">
         <label htmlFor="password">Contraseña</label>
-        <input {...register('password', { required: 'Campo requerido' })} />
+        <div className="password-wrapper">
+          <input
+            type={!passwordVisible ? 'password' : 'text'}
+            {...register('password', { required: 'Campo requerido' })}
+          />
+          <FontAwesomeIcon
+            className="show-password-icon"
+            icon={!passwordVisible ? faEye : faEyeSlash}
+            onClick={handleShowPassword}
+          />
+        </div>
 
         {errors.password && (
           <p className="input-error-msg">{errors.password.message}</p>
@@ -115,6 +135,7 @@ function CreateUserForm() {
       <div className="form-control">
         <label htmlFor="passwordConfirm">Confirmar contraseña</label>
         <input
+          type={!passwordVisible ? 'password' : 'text'}
           {...register('passwordConfirm', {
             required: 'Campo requerido',
             validate: (confirmation) =>

@@ -63,6 +63,17 @@
     gap: 10px;
     justify-content: space-between;
   }
+
+  .password-wrapper {
+    position: relative;
+  }
+
+  .show-password-icon {
+    position: absolute;
+    right: 10px;
+    bottom: 25%;
+    color: globals.$text-gray-light;
+  }
 }
 
 @media screen and (max-width: globals.$bp-tablet) {
