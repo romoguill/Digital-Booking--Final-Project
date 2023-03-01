@@ -118,7 +118,13 @@ function CreateUserForm() {
         <div className="password-wrapper">
           <input
             type={!passwordVisible ? 'password' : 'text'}
-            {...register('password', { required: 'Campo requerido' })}
+            {...register('password', {
+              required: 'Campo requerido',
+              minLength: {
+                value: 6,
+                message: 'Debe tener al menos 6 caracteres',
+              },
+            })}
           />
           <FontAwesomeIcon
             className="show-password-icon"

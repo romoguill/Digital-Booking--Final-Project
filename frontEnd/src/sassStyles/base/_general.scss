@@ -114,25 +114,6 @@ input::-ms-reveal, input::-ms-clear {
   border: 1px solid variables.$input-error-border;
 }
 
-.input-error-msg {
-  color: variables.$input-error-msg;
-  font-weight: variables.$font-weight-md;
-  position: absolute;
-  right: 0;
-  bottom: -18px;
-}
-
-.input-error-msg.error-form {
-  position: absolute;
-  width: 100%;
-  top: auto;
-  bottom: auto;
-  right: auto;
-  left: auto;
-  text-align: center;
-  transform: translateY(30px);
-
-}
 
 input::placeholder {
   color: variables.$text-placeholder;
