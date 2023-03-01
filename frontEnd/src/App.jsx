@@ -11,6 +11,8 @@ import { UserContext } from './Contexts/Context';
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import MenuDrawerMobile from './Components/Header/MenuDrawerMobile/MenuDrawerMobile';
+import RentalProducts from './Routes/RentalProduct';
+import NotFound from './Routes/NotFound';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
@@ -34,33 +36,11 @@ function App() {
         <Header setMenuDrawerVisible={setMenuDrawerVisible} />
 
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                menuDrawerVisible={menuDrawerVisible}
-                setMenuDrawerVisible={setMenuDrawerVisible}
-              />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Login
-                menuDrawerVisible={menuDrawerVisible}
-                setMenuDrawerVisible={setMenuDrawerVisible}
-              />
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <CreateUser
-                menuDrawerVisible={menuDrawerVisible}
-                setMenuDrawerVisible={setMenuDrawerVisible}
-              />
-            }
-          />
+          <Route path="/" element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<CreateUser />} />
+          <Route path="products" element={<RentalProducts />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
 
         <Footer />

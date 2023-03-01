@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import UserProfile from '../../UserProfile/UserProfile';
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import './MenuDrawerMobile.scss';
 import { useContext } from 'react';
@@ -57,17 +57,28 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
               <>
                 <div className="logout-container">
                   <p className="logout-drawer">
-                    ¿Deseas
-                    <Link to="/" className="link-button" onClick={handleLogout}>
-                      <span> cerrar sesión?</span>
-                    </Link>
+                    ¿Deseas{' '}
+                    <span>
+                      <Link
+                        to="/"
+                        className="link-button"
+                        onClick={handleLogout}
+                      >
+                        cerrar sesión
+                      </Link>
+                    </span>
+                    ?
                   </p>
                 </div>
               </>
             ) : (
               <>
                 {location.pathname === '/register' || (
-                  <Link to={'/register'} onClick={handleMenuDrawerClose}>
+                  <Link
+                    className="nav-link-menu"
+                    to={'/register'}
+                    onClick={handleMenuDrawerClose}
+                  >
                     <h3 className="text-dark">Crear cuenta</h3>
                   </Link>
                 )}
@@ -75,7 +86,11 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
                 {location.pathname === '/' && <hr />}
 
                 {location.pathname === '/login' || (
-                  <Link to={'/login'} onClick={handleMenuDrawerClose}>
+                  <Link
+                    className="nav-link-menu"
+                    to={'/login'}
+                    onClick={handleMenuDrawerClose}
+                  >
                     <h3 className="text-dark">Inciar sesión</h3>
                   </Link>
                 )}
@@ -87,16 +102,16 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
         <div className="menu-drawer-mobile__footer">
           <div className="menu-drawer-mobile__container">
             <div className="container__social-media">
-              <a href="#">
+              <a className="social-media-icon" href="#">
                 <FontAwesomeIcon icon={faFacebook} />
               </a>
-              <a href="#">
+              <a className="social-media-icon" href="#">
                 <FontAwesomeIcon icon={faInstagram} />
               </a>
-              <a href="#">
+              <a className="social-media-icon" href="#">
                 <FontAwesomeIcon icon={faLinkedin} />
               </a>
-              <a href="#">
+              <a className="social-media-icon" href="#">
                 <FontAwesomeIcon icon={faTwitter} />
               </a>
             </div>

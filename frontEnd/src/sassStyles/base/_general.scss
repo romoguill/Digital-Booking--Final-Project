@@ -1,4 +1,6 @@
 @use '../abstracts/variables';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 
 *,
 *::before,
@@ -8,23 +10,15 @@
     padding: 0;
 }
 
-html, body, #root {
-  height: 100%;
-}
-
 html, body {
 	background: #fff;
 	color: #000;
 }
 
-body {
-  overflow-y: scroll;
-  min-height: 100%;
+body, #root, .app {
+  min-height: 100vh;
 }
 
-#root, .app {
-  min-height: 100%;
-}
 
 .app {
   display: flex;
@@ -51,6 +45,7 @@ img {
 }
 
 button, a {
+  display: inline-block;
   border: none;
   border-radius: variables.$border-radius-sm;
   padding: 0.5rem 1rem;
@@ -60,9 +55,10 @@ button, a {
 }
 
 .button-primary, .nav-link {
-  padding: variables.$m-2 variables.$m-5;
+  padding: variables.$p-2 variables.$p-4;
   border: 2px solid variables.$primary-color;
-  display: block;
+  min-width: 170px;
+  text-align: center;
 
   &--empty {
     background-color: transparent;
@@ -73,6 +69,11 @@ button, a {
     background-color: variables.$primary-color;
     color: variables.$bg-white;
   }
+}
+
+.nav-link-menu {
+  border: none;
+  padding: 0;
 }
 
 .button-logout {
@@ -104,39 +105,31 @@ input {
   width: 100%;
 }
 
+input::-ms-reveal, input::-ms-clear {
+  display: none;
+}
+
 .input-error {
   background-color: variables.$input-error-bg;
   border: 1px solid variables.$input-error-border;
 }
 
-.input-error-msg {
-  color: variables.$input-error-msg;
-  font-weight: variables.$font-weight-md;
-  position: absolute;
-  right: 0;
-  bottom: -18px;
-}
-
-.input-error-msg.error-form {
-  position: absolute;
-  width: 100%;
-  top: auto;
-  bottom: auto;
-  right: auto;
-  left: auto;
-  text-align: center;
-  transform: translateY(30px);
-
-}
 
 input::placeholder {
   color: variables.$text-placeholder;
+}
+
+.main-form__title {
+  color: variables.$primary-color;
+  font-size: variables.$font-size-5;
+  text-align: center;
 }
 
 
 // CONTAINERS
 .container-page {
   flex-grow: 1;
+  flex-basis: 100%;
 }
 
 .container-main {
@@ -148,7 +141,13 @@ input::placeholder {
 
 .container__social-media {
   display: flex;
-  gap: 2rem;
+  gap: 0.5rem;
+}
+
+.center-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 // TEXT
@@ -169,10 +168,22 @@ input::placeholder {
 }
 
 // MISC
+.social-media-icon {
+  font-size: variables.$font-size-5;
+}
+
 .hidden {
   display: none;
 }
 
+li:empty {
+  display: none;
+}
+
+// BACKGROUND
+.bg-light {
+  background-color: variables.$bg-gray;
+}
 
 
 @media screen and (max-width: variables.$bp-mobile) {
