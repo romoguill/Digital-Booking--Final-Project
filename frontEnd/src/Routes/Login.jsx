@@ -1,16 +1,14 @@
 import './Login.scss';
 
-import MenuDrawerMobile from '../Components/Header/MenuDrawerMobile/MenuDrawerMobile';
 import UserLoginForm from '../Components/Form/UserLoginForm';
 
-const Login = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
+const Login = () => {
   return (
-    <div className="container-page">
-      {menuDrawerVisible && (
-        <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
-      )}
-      <h1>Iniciar sesión</h1>
-      <UserLoginForm />
+    <div className="container-page center-content">
+      <div className="main-form__container">
+        <h1 className="main-form__title">Iniciar sesión</h1>
+        <UserLoginForm />
+      </div>
     </div>
   );
 };

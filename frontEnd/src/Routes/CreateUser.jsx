@@ -5,7 +5,7 @@ import CreateUserForm from '../Components/Form/CreateUserForm';
 
 const CreateUser = ({ menuDrawerVisible, setMenuDrawerVisible }) => {
   return (
-    <div className="container-page">
+    <div className="container-page center-content">
       {menuDrawerVisible && (
         <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
       )}

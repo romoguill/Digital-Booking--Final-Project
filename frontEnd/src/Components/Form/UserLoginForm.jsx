@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { UserContext } from '../../Contexts/Context';
 
+import './MainForm.scss';
+
 function UserLoginForm() {
   const navigate = useNavigate();
   const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
@@ -62,6 +64,7 @@ function UserLoginForm() {
 
   return (
     <form
+      className="main-form"
       onSubmit={(e) =>
         handleSubmit(onSubmit)(e).catch(() => {
           setError('root.responseError', {

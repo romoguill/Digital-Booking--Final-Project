@@ -8,23 +8,15 @@
     padding: 0;
 }
 
-html, body, #root {
-  height: 100%;
-}
-
 html, body {
 	background: #fff;
 	color: #000;
 }
 
-body {
-  overflow-y: scroll;
-  min-height: 100%;
+body, #root, .app {
+  min-height: 100vh;
 }
 
-#root, .app {
-  min-height: 100%;
-}
 
 .app {
   display: flex;
@@ -140,10 +132,17 @@ input::placeholder {
   color: variables.$text-placeholder;
 }
 
+.main-form__title {
+  color: variables.$primary-color;
+  font-size: variables.$font-size-5;
+  text-align: center;
+}
+
 
 // CONTAINERS
 .container-page {
   flex-grow: 1;
+  flex-basis: 100%;
 }
 
 .container-main {
@@ -156,6 +155,12 @@ input::placeholder {
 .container__social-media {
   display: flex;
   gap: 0.5rem;
+}
+
+.center-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 // TEXT

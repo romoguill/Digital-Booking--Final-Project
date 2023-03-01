@@ -34,6 +34,7 @@ function CreateUserForm() {
 
   return (
     <form
+      className="main-form"
       onSubmit={(e) =>
         handleSubmit(onSubmit)(e).catch(() => {
           setError('root.responseError', {
