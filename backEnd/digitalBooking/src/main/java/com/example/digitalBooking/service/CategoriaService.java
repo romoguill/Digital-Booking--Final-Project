@@ -44,10 +44,14 @@ public class CategoriaService {
         return repository.findByTitulo(titulo).orElseThrow(CategoriaNotFoundException::new);
     }
 
-    public void update(Categoria categoria) throws CategoriaNotFoundException {
+    public void update(Categoria categoria) throws CategoriaNotFoundException, BadRequestException {
         if (repository.findById(categoria.getId()).isEmpty()) {
             logger.error("No existe un registro en la tabla Categoria con el id: " + categoria.getId());
             throw new CategoriaNotFoundException();
+        }
+        if(repository.findByTitulo(categoria.getTitulo()).isPresent()){
+            logger.error("Ya existe un registro en la tabla Categoria con el titulo: " + categoria.getTitulo());
+            throw new BadRequestException("Ya existe una categoria con el nombre: " + categoria.getTitulo());
         }
         repository.save(categoria);
         logger.info("Se modifico el registro con el id: " + categoria.getId() + " de la tabla Categoria");

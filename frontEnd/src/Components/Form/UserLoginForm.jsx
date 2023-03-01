@@ -1,11 +1,23 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../../Contexts/Context';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
+import './MainForm.scss';
 
 function UserLoginForm() {
   const navigate = useNavigate();
   const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  function handleShowPassword() {
+    setPasswordVisible(!passwordVisible);
+  }
 
   // TODO : Modificar validacion de formulario cuando tengamos el backend de Autenticacion
   const fakeCredentials = {
@@ -62,6 +74,7 @@ function UserLoginForm() {
 
   return (
     <form
+      className="main-form"
       onSubmit={(e) =>
         handleSubmit(onSubmit)(e).catch(() => {
           setError('root.responseError', {
@@ -90,7 +103,17 @@ function UserLoginForm() {
 
       <div className="form-control">
         <label htmlFor="password">Contraseña</label>
-        <input {...register('password', { required: 'Campo requerido' })} />
+        <div className="password-wrapper">
+          <input
+            type={!passwordVisible ? 'password' : 'text'}
+            {...register('password', { required: 'Campo requerido' })}
+          />
+          <FontAwesomeIcon
+            className="show-password-icon"
+            icon={!passwordVisible ? faEye : faEyeSlash}
+            onClick={handleShowPassword}
+          />
+        </div>
         {errors.password && (
           <p className="input-error-msg">{errors.password.message}</p>
         )}
@@ -105,6 +128,15 @@ function UserLoginForm() {
       )}
 
       <button className="button-primary button-primary--full">Ingresar</button>
+
+      <p>
+        ¿Aún no tenes cuenta?
+        <span>
+          <Link className="small-link" to="/register">
+            Registrate
+          </Link>
+        </span>
+      </p>
     </form>
   );
 }

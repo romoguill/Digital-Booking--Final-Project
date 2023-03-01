@@ -1,8 +1,21 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
+import './MainForm.scss';
+import { useState } from 'react';
 
 function CreateUserForm() {
   const navigate = useNavigate();
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  function handleShowPassword() {
+    setPasswordVisible(!passwordVisible);
+  }
 
   // TODO : Utilizar una llamada adecuada cuando tengamos el backend
   const fakeCallAPI = (formData) => {
@@ -34,6 +47,7 @@ function CreateUserForm() {
 
   return (
     <form
+      className="main-form"
       onSubmit={(e) =>
         handleSubmit(onSubmit)(e).catch(() => {
           setError('root.responseError', {
@@ -43,40 +57,42 @@ function CreateUserForm() {
         })
       }
     >
-      <div className="form-control">
-        <label htmlFor="name">Nombre</label>
-        <input
-          {...register('name', {
-            required: 'Campo requerido',
-            pattern: {
-              value:
-                /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/,
-              message: 'Nombre inválido',
-            },
-          })}
-        />
+      <div className="group__name-lastName">
+        <div className="form-control">
+          <label htmlFor="name">Nombre</label>
+          <input
+            {...register('name', {
+              required: 'Campo requerido',
+              pattern: {
+                value:
+                  /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/,
+                message: 'Nombre inválido',
+              },
+            })}
+          />
 
-        {errors.name && (
-          <p className="input-error-msg">{errors.name.message}</p>
-        )}
-      </div>
+          {errors.name && (
+            <p className="input-error-msg">{errors.name.message}</p>
+          )}
+        </div>
 
-      <div className="form-control">
-        <label htmlFor="lastName">Apellido</label>
-        <input
-          {...register('lastName', {
-            required: 'Campo requerido',
-            pattern: {
-              value:
-                /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/,
-              message: 'Apellido inválido',
-            },
-          })}
-        />
+        <div className="form-control">
+          <label htmlFor="lastName">Apellido</label>
+          <input
+            {...register('lastName', {
+              required: 'Campo requerido',
+              pattern: {
+                value:
+                  /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/,
+                message: 'Apellido inválido',
+              },
+            })}
+          />
 
-        {errors.lastName && (
-          <p className="input-error-msg">{errors.lastName.message}</p>
-        )}
+          {errors.lastName && (
+            <p className="input-error-msg">{errors.lastName.message}</p>
+          )}
+        </div>
       </div>
 
       <div className="form-control">
@@ -99,7 +115,23 @@ function CreateUserForm() {
 
       <div className="form-control">
         <label htmlFor="password">Contraseña</label>
-        <input {...register('password', { required: 'Campo requerido' })} />
+        <div className="password-wrapper">
+          <input
+            type={!passwordVisible ? 'password' : 'text'}
+            {...register('password', {
+              required: 'Campo requerido',
+              minLength: {
+                value: 6,
+                message: 'Debe tener al menos 6 caracteres',
+              },
+            })}
+          />
+          <FontAwesomeIcon
+            className="show-password-icon"
+            icon={!passwordVisible ? faEye : faEyeSlash}
+            onClick={handleShowPassword}
+          />
+        </div>
 
         {errors.password && (
           <p className="input-error-msg">{errors.password.message}</p>
@@ -109,6 +141,7 @@ function CreateUserForm() {
       <div className="form-control">
         <label htmlFor="passwordConfirm">Confirmar contraseña</label>
         <input
+          type={!passwordVisible ? 'password' : 'text'}
           {...register('passwordConfirm', {
             required: 'Campo requerido',
             validate: (confirmation) =>
@@ -133,6 +166,15 @@ function CreateUserForm() {
       <button className="button-primary button-primary--full">
         Crear cuenta
       </button>
+
+      <p>
+        ¿Ya tienes una cuenta?
+        <span>
+          <Link className="small-link" to="/login">
+            Iniciar sesión
+          </Link>
+        </span>
+      </p>
     </form>
   );
 }

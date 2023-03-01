@@ -1,9 +1,9 @@
-import logo from '../../assets/Images/app-logo-final.png';
+import logo from '../../assets/Images/logo-digital-booking.png';
 import './Header.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 
