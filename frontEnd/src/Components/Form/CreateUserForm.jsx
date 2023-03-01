@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import './MainForm.scss';
 
@@ -46,40 +47,42 @@ function CreateUserForm() {
         })
       }
     >
-      <div className="form-control">
-        <label htmlFor="name">Nombre</label>
-        <input
-          {...register('name', {
-            required: 'Campo requerido',
-            pattern: {
-              value:
-                /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/,
-              message: 'Nombre inválido',
-            },
-          })}
-        />
+      <div className="group__name-lastName">
+        <div className="form-control">
+          <label htmlFor="name">Nombre</label>
+          <input
+            {...register('name', {
+              required: 'Campo requerido',
+              pattern: {
+                value:
+                  /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/,
+                message: 'Nombre inválido',
+              },
+            })}
+          />
 
-        {errors.name && (
-          <p className="input-error-msg">{errors.name.message}</p>
-        )}
-      </div>
+          {errors.name && (
+            <p className="input-error-msg">{errors.name.message}</p>
+          )}
+        </div>
 
-      <div className="form-control">
-        <label htmlFor="lastName">Apellido</label>
-        <input
-          {...register('lastName', {
-            required: 'Campo requerido',
-            pattern: {
-              value:
-                /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/,
-              message: 'Apellido inválido',
-            },
-          })}
-        />
+        <div className="form-control">
+          <label htmlFor="lastName">Apellido</label>
+          <input
+            {...register('lastName', {
+              required: 'Campo requerido',
+              pattern: {
+                value:
+                  /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/,
+                message: 'Apellido inválido',
+              },
+            })}
+          />
 
-        {errors.lastName && (
-          <p className="input-error-msg">{errors.lastName.message}</p>
-        )}
+          {errors.lastName && (
+            <p className="input-error-msg">{errors.lastName.message}</p>
+          )}
+        </div>
       </div>
 
       <div className="form-control">
@@ -136,6 +139,15 @@ function CreateUserForm() {
       <button className="button-primary button-primary--full">
         Crear cuenta
       </button>
+
+      <p>
+        ¿Ya tienes una cuenta?
+        <span>
+          <Link className="small-link" to="/login">
+            Iniciar sesión
+          </Link>
+        </span>
+      </p>
     </form>
   );
 }

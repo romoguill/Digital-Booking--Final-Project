@@ -11,8 +11,7 @@
   justify-content: space-between;
 
   label {
-    display: inline-block;
-    width: 100%;
+    display: block;
     color: globals.$text-dark;
     font-weight: globals.$font-weight-lg;
     padding-bottom: globals.$m-1;
@@ -25,13 +24,15 @@
       padding: globals.$p-3 globals.$p-4;
       color: globals.$text-dark;
       font-size: globals.$font-size-1;
+      font-family: inherit;
       outline: none;
       box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
+      width: 100%;
   }
 
   button {
     display: block;
-    margin: 0 auto;
+    margin: globals.$m-5 auto 0 auto;
   }
 
   p {
@@ -54,11 +55,25 @@
 
   .form-control {
     margin-block: globals.$m-3;
+    width: 100%;
+  }
+
+  .group__name-lastName {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
   }
 }
 
 @media screen and (max-width: globals.$bp-tablet) {
-  .main-form__container button {
-    width: 100%;
+  .main-form__container {
+    button {
+      width: 100%;
+    }
+
+    .group__name-lastName {
+      display: block;
+    }
+
   }
 }
