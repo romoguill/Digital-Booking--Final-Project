@@ -1,22 +1,80 @@
 @use '/src/sassStyles/globals';
 
 .hero__products {
-  background-color: globals.$bg-search;
-  padding-block: globals.$p-2;
-  color: globals.$text-light;
   
-  .container-main {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
+  &__title {
+    background-color: globals.$bg-search;
+    padding-block: globals.$p-2;
+    color: globals.$text-light;
+
+    .container-main {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h2 {
+      font-size: globals.$font-size-2
+    }
+
+    a {
+      padding: 0;
+    }
+
+    .go-back-icon {
+      font-size: globals.$font-size-5;
+      margin-right: 12px;
+    }
   }
 
-  h2 {
-    font-size: globals.$font-size-2
-  }
+  &__banner {
+    background-color: globals.$bg-gray;
+    padding-block: globals.$p-2;
 
-  .go-back-icon {
-    font-size: globals.$font-size-5;
+    .container-main {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .location-icon {
+      max-width: 10px;
+    }
+
+    .rating {
+      margin-left: auto;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .rating__left {
+      text-align: end;
+    }
+
+    .rating-stars {
+      color: globals.$primary-color;
+    }
+
+    .rating__right {
+      padding: globals.$p-1 globals.$p-3;
+      color: globals.$bg-gray;
+      font-size: globals.$font-size-5;
+      font-weight: globals.$font-weight-lg;
+      background-color: globals.$bg-search;
+      border-radius: globals.$border-radius-lg;
+    }
+
+    p {
+      color: globals.$text-dark;
+      font-size: globals.$font-size-2;
+      font-weight: globals.$font-weight-md;
+    }
+    
   }
+  
+
 }
