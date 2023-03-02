@@ -39,8 +39,9 @@
       gap: 10px;
     }
 
-    .location-icon {
+    .fa-location-dot {
       max-width: 10px;
+      align-self: flex-start;
     }
 
     .rating {
@@ -74,6 +75,19 @@
       font-weight: globals.$font-weight-md;
     }
     
+  }
+
+  &__actions {
+    padding-block: globals.$p-3;
+
+    .container-main {
+      display: flex;
+      gap: 15px;
+    }
+
+    .icon {
+      font-size: globals.$font-size-5;
+    }
   }
   
 

@@ -5,9 +5,9 @@ import {
   faChevronLeft,
   faLocationDot,
   faStar,
-  faShareNodes,
-  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { BsShare } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 function Hero() {
@@ -47,8 +47,8 @@ function Hero() {
       </div>
       <div className="hero__products__actions">
         <div className="container-main">
-          <FontAwesomeIcon icon={faShareNodes} />
-          <FontAwesomeIcon icon={faHeart} />
+          <BsShare className="icon icon-share" />
+          <FontAwesomeIcon className="icon icon-heart" icon={faHeart} />
         </div>
       </div>
     </div>
