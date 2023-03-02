@@ -25,8 +25,7 @@ public class Imagen {
     @Size(min = 1,max = 50)
     private String titulo;
 
-    @Column(nullable = false,length = 255)
+    @Column(nullable = false)
     @NotBlank
-    @Size(min = 1,max = 255)
     private String url;
 }

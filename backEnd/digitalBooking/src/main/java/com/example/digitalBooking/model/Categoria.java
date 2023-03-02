@@ -30,5 +30,6 @@ public class Categoria {
     private String descripcion;
 
     @Column(name = "url_imagen",nullable = false)
+    @NotBlank
     private String urlImagen;
 }
