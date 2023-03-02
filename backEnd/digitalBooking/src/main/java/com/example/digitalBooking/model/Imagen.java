@@ -28,4 +28,8 @@ public class Imagen {
     @Column(nullable = false)
     @NotBlank
     private String url;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
 }
