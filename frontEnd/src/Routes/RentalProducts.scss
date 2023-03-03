@@ -1,0 +1,54 @@
+@use '/src/sassStyles/globals';
+
+.rental-products {
+
+  section {
+    margin-block: globals.$m-5;
+  }
+
+  .section-title {
+    color: globals.$text-gray-dark;
+    margin-bottom: globals.$m-3;
+  }
+
+  p {
+    color: globals.$text-paragraph;
+    font-size: globals.$font-size-2;
+    font-weight: globals.$font-weight-md;
+  }
+
+  .section-divider {
+    border: none;
+    height: 1px;
+    background-color: globals.$primary-color;
+    margin-bottom: globals.$m-2;
+  }
+
+  .product__ammenities__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: max(0.5rem, 5%);
+
+    .item {
+      margin-block: 1rem;
+      min-width: 160px;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 10px;
+
+      h4 {
+        color: globals.$text-paragraph;
+        font-size: globals.$font-size-2;
+        font-weight: globals.$font-weight-md;
+        display: inline-block;
+      }
+
+      .ammenity-icon {
+        color: globals.$primary-color;
+        font-size: globals.$font-size-2;
+      }
+    }
+  }
+
+  
+} 

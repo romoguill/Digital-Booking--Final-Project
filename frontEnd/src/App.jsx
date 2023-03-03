@@ -11,7 +11,7 @@ import { UserContext } from './Contexts/Context';
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import MenuDrawerMobile from './Components/Header/MenuDrawerMobile/MenuDrawerMobile';
-import RentalProducts from './Routes/RentalProduct';
+import RentalProducts from './Routes/RentalProducts';
 import NotFound from './Routes/NotFound';
 
 function App() {
