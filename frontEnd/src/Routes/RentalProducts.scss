@@ -51,6 +51,40 @@
     }
   }
 
+  .booking {
+    background-color: globals.$bg-light;
+    padding-block: globals.$p-4;
+    
+
+    &__body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10%;
+    }
+
+    &__call-to-action {
+      padding: globals.$p-3;
+      border-radius: globals.$border-radius-sm;
+      background-color: globals.$bg-white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+
+      h4 {
+        color: globals.$text-gray-dark;
+        font-size: globals.$font-size-3;
+      }
+
+      button {
+        width: 100%;
+      }
+
+    }
+  }
+
   
 } 
 

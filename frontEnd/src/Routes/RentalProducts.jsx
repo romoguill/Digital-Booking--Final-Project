@@ -64,6 +64,24 @@ function RentalProducts() {
           </div>
         </div>
       </section>
+
+      <section className="booking container-main">
+        <h2 className="booking__title section-title">Fechas disponibles</h2>
+        <div className="booking__body">
+          <div
+            className="calendar"
+            style={{ backgroundColor: 'lime', width: '400px', height: '200px' }}
+          >
+            Calendario
+          </div>
+          <div className="booking__call-to-action">
+            <h4>Agregá tus fechas de viaje para obtener precios exactos</h4>
+            <button className="button-primary button-primary--full">
+              Iniciar reserva
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
