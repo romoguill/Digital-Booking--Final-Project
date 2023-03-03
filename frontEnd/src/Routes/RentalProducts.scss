@@ -25,13 +25,14 @@
   }
 
   .product__ammenities__items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: max(0.5rem, 5%);
+    margin-block: globals.$m-4;
+    display: grid;
+    gap: 1rem 0.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 50px;
 
     .item {
       margin-block: 1rem;
-      min-width: 160px;
       display: flex;
       flex-wrap: nowrap;
       gap: 10px;
@@ -52,3 +53,19 @@
 
   
 } 
+
+@media screen and (max-width: globals.$bp-tablet) {
+  .rental-products {
+    .product__ammenities__items {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media screen and (max-width: globals.$bp-mobile) {
+  .rental-products {
+    .product__ammenities__items {
+      grid-template-columns: 1fr;
+    }
+  }
+}
