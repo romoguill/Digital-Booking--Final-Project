@@ -1,5 +1,7 @@
 package com.example.digitalBooking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,15 +21,15 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "producto")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "categoria"})
 public class Producto {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @Column(nullable = false,length = 50, unique = true)
-        @NotBlank
-        @Size(min = 1,max = 50)
-        private String categoria;
+        @OneToOne
+        @JoinColumn(name = "categoria", referencedColumnName = "idCategoria")
+        private Categoria categoria;
 
         @Column(nullable = false,length = 100)
         @NotBlank
@@ -49,6 +51,7 @@ public class Producto {
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "ciudad_id")
+        @JsonIgnore
         private Ciudad ciudad;
 
         @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
