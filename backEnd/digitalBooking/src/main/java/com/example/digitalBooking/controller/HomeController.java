@@ -1,14 +1,17 @@
 package com.example.digitalBooking.controller;
 
+import com.example.digitalBooking.model.Producto;
+import com.example.digitalBooking.service.ProductoService;
 
-
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
+
 
 
 @AllArgsConstructor
@@ -16,10 +19,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping("/home")
 public class HomeController {
-    @GetMapping("/home")
-    public String home(HttpServletRequest request) { //*temporal hasta unir con Front*//
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://127.0.0.1:5173/");
-        return "redirect:" + builder.toUriString();
+    private final ProductoService service;
+    @GetMapping("/")
+    public ResponseEntity<List<Producto>> home(){
+        return ResponseEntity.ok(service.getAll());
     }
-
 }

@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @AllArgsConstructor
 @Service
 public class ProductoService {
@@ -37,6 +39,24 @@ public class ProductoService {
     }
     public Producto getByTitulo(String titulo) throws ProductoNotFoundException {
         return repository.findByTitulo(titulo).orElseThrow(ProductoNotFoundException::new);
+    }
+
+
+    public List<Producto> filterCategoria(String categoria){
+
+        if (repository.FilterCategoria(categoria).isEmpty()) {
+            logger.info("La tabla Producto no tiene registros");
+            return null;
+        }
+        return repository.FilterCategoria(categoria);
+    }
+    public List<Producto> filterCiudad(String ciudad){
+
+        if (repository.FilterCiudad(ciudad).isEmpty()) {
+            logger.info("La tabla Producto no tiene registros o no se encontro ciudad");
+            return null;
+        }
+        return repository.FilterCiudad(ciudad);
     }
 
     public void update(Producto producto) throws ProductoNotFoundException {
