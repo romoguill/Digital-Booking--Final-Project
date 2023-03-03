@@ -4,6 +4,7 @@ import { FaWifi } from 'react-icons/fa';
 
 import GalleryProduct from '../Components/RentalProducts/GalleryProduct';
 import Hero from '../Components/RentalProducts/Hero';
+import Map from '../Components/RentalProducts/Map';
 
 function RentalProducts() {
   return (
@@ -81,6 +82,13 @@ function RentalProducts() {
             </button>
           </div>
         </div>
+      </section>
+
+      <section className="location container-main">
+        <h2 className="section-title">¿Dónde vas a estar?</h2>
+        <hr className="section-divider" />
+        <p className="location-address">Buenos Aires, Argentina</p>
+        <Map />
       </section>
     </div>
   );
