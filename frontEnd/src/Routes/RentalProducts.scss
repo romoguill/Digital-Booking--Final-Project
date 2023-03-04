@@ -9,6 +9,7 @@
   .section-title {
     color: globals.$text-gray-dark;
     margin-bottom: globals.$m-3;
+    font-size: globals.$font-size-4;
   }
 
   p {
@@ -82,6 +83,28 @@
         width: 100%;
       }
 
+    }
+  }
+
+  .policy {
+    .policy__items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4rem;
+
+      .item {
+        flex-basis: 400px;
+      }
+
+      h4 {
+        color: globals.$text-location;
+        margin-bottom: globals.$m-4;
+        font-size: globals.$font-size-3;
+      }
+
+      p {
+        padding-block: globals.$p-2;
+      }
     }
   }
 

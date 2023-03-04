@@ -90,6 +90,35 @@ function RentalProducts() {
         <p className="location-address">Buenos Aires, Argentina</p>
         <Map />
       </section>
+
+      <section className="policy container-main">
+        <h2 className="section-title">¿Qué tenés que saber?</h2>
+        <hr className="section-divider" />
+        <div className="policy__items">
+          <div className="item">
+            <h4>Normas de las casa</h4>
+            <p>Check-out: 10:00</p>
+            <p>No se permiten fiestas</p>
+            <p>No fumar</p>
+          </div>
+          <div className="item">
+            <h4>Salud y seguridad</h4>
+            <p>
+              Se aplican las pautas de distanciamiento social y otras normas
+              relacionadas con el coronavirus
+            </p>
+            <p>Detector de humo</p>
+            <p>No fumar</p>
+          </div>
+          <div className="item">
+            <h4>Política de cancelación</h4>
+            <p>
+              Agregá las fechas de tu viaje para obtener los detalles de
+              cancelación de esta estadía.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
