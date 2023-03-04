@@ -21,5 +21,10 @@ public class GlobalHandleException {
     public ResponseEntity<String> categoriaNotFound(CategoriaNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
+    /*Producto*/
+    @ExceptionHandler({ProductoNotFoundException.class})
+    public ResponseEntity<String> ProductoNotFoundException(ProductoNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
 
 }

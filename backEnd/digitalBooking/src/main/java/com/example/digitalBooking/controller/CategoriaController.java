@@ -41,7 +41,7 @@ public class CategoriaController {
     }
 
     @PutMapping("/editar")
-    public ResponseEntity<String> update(@RequestBody Categoria categoria) throws CategoriaNotFoundException {
+    public ResponseEntity<String> update(@RequestBody Categoria categoria) throws CategoriaNotFoundException, BadRequestException {
         service.update(categoria);
         return new ResponseEntity<>("Se edito la categoria correctamente",HttpStatus.OK);
     }
