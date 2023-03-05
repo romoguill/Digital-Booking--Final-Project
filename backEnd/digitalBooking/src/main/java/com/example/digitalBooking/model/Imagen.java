@@ -1,6 +1,5 @@
 package com.example.digitalBooking.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -14,28 +13,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "categorias")
-public class Categoria {
+@Table(name = "imagenes")
+public class Imagen {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCategoria;
+    private Long idImagen;
 
     @Column(nullable = false,length = 50, unique = true)
     @NotBlank
     @Size(min = 1,max = 50)
     private String titulo;
 
-    @Column(nullable = false,length = 100)
+    @Column(nullable = false)
     @NotBlank
-    @Size(min = 1,max = 100)
-    private String descripcion;
+    private String url;
 
-    @Column(name = "url_imagen",nullable = false)
-    @NotBlank
-    private String urlImagen;
-
-
-    @OneToOne(mappedBy = "categoria")
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto_id")
     private Producto producto;
 }
