@@ -3,6 +3,7 @@ package com.example.digitalBooking.controller;
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
 import com.example.digitalBooking.model.Producto;
+import com.example.digitalBooking.model.ProductoDTO;
 import com.example.digitalBooking.service.ProductoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @AllArgsConstructor
 @CrossOrigin
 @RestController
@@ -17,7 +19,6 @@ import java.util.List;
 public class ProductoController {
 
     private final ProductoService service;
-
 
     @PostMapping("/crear")
     public ResponseEntity<String> create(@RequestBody Producto producto) throws BadRequestException {
@@ -28,8 +29,8 @@ public class ProductoController {
     @GetMapping("/todas")
     public ResponseEntity<List<Producto>> getAll(){return ResponseEntity.ok(service.getAll());}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Producto> getById(@PathVariable Long id) throws ProductoNotFoundException {
+    @GetMapping("/id={id}")
+    public ResponseEntity<ProductoDTO> getById(@PathVariable Long id) throws ProductoNotFoundException {
         return  ResponseEntity.ok(service.getById(id));
     }
 

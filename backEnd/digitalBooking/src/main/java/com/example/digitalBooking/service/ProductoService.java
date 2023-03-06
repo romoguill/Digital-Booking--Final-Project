@@ -2,14 +2,18 @@ package com.example.digitalBooking.service;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
+import com.example.digitalBooking.model.Imagen;
 import com.example.digitalBooking.model.Producto;
+import com.example.digitalBooking.model.ProductoDTO;
 import com.example.digitalBooking.repository.ProductoRepository;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service
@@ -34,8 +38,14 @@ public class ProductoService {
         }
         return repository.findAll();
     }
-    public Producto getById(Long id) throws ProductoNotFoundException {
-        return repository.findById(id).orElseThrow(ProductoNotFoundException::new);
+    public ProductoDTO getById(Long id) throws ProductoNotFoundException {
+        Optional<Producto> optionalProducto = repository.findByIdWithImagenes(id);
+        if(optionalProducto.isEmpty()){
+            throw new ProductoNotFoundException();
+        }
+        Producto producto = optionalProducto.get();
+        Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
+        return new ProductoDTO(producto,imagenes);
     }
     public Producto getByTitulo(String titulo) throws ProductoNotFoundException {
         return repository.findByTitulo(titulo).orElseThrow(ProductoNotFoundException::new);
@@ -44,19 +54,19 @@ public class ProductoService {
 
     public List<Producto> filterCategoria(String categoria){
 
-        if (repository.FilterCategoria(categoria).isEmpty()) {
-            logger.info("La tabla Producto no tiene registros");
+        if (repository.filterCategoria(categoria).isEmpty()) {
+            logger.info("No hay registro de productos en esa categoria o no se encontro categoria");
             return null;
         }
-        return repository.FilterCategoria(categoria);
+        return repository.filterCategoria(categoria);
     }
     public List<Producto> filterCiudad(String ciudad){
 
-        if (repository.FilterCiudad(ciudad).isEmpty()) {
-            logger.info("La tabla Producto no tiene registros o no se encontro ciudad");
+        if (repository.filterCiudad(ciudad).isEmpty()) {
+            logger.info("No hay registro de productos en esa ciudad o no se encontro ciudad");
             return null;
         }
-        return repository.FilterCiudad(ciudad);
+        return repository.filterCiudad(ciudad);
     }
 
     public void update(Producto producto) throws ProductoNotFoundException {

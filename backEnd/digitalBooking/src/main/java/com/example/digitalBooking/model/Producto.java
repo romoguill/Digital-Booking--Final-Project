@@ -1,7 +1,7 @@
 package com.example.digitalBooking.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,8 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Getter
@@ -20,16 +20,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "producto")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "categoria"})
+@Table(name = "productos")
 public class Producto {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
-
-        @OneToOne
-        @JoinColumn(name = "categoria", referencedColumnName = "idCategoria")
-        private Categoria categoria;
 
         @Column(nullable = false,length = 100)
         @NotBlank
@@ -49,17 +44,32 @@ public class Producto {
         @NotNull
         private Integer longitud;
 
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "ciudad_id")
-        @JsonIgnore
+        @ManyToOne
+        @JoinColumn(name = "id_ciudad",nullable = false)
         private Ciudad ciudad;
 
-        @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-        private List<Imagen> imagenes = new ArrayList<>();
-
         @ManyToOne
-        @JoinColumn(name = "caracteristica_id")
-        private Caracteristica Caracteristica;
+        @JoinColumn(name = "id_categoria",nullable = false)
+        private Categoria categoria;
 
+        @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+        @JsonIgnore
+        private Set<Imagen> imagenes = new HashSet<>();
+
+        public void addImagen(Imagen imagen) {
+                imagenes.add(imagen);
+                imagen.setProducto(this);
+        }
+
+        public void removeImagen(Imagen imagen) {imagenes.remove(imagen);}
+
+        @ManyToMany(cascade = {CascadeType.MERGE})
+        private Set<Caracteristica> caracteristicas = new HashSet<>();
+
+        public void addCaracteristica(Caracteristica caracteristica) {caracteristicas.add(caracteristica);}
+
+        public void removeCaracteristica(Caracteristica caracteristica) {
+                caracteristicas.remove(caracteristica);
+        }
 
 }

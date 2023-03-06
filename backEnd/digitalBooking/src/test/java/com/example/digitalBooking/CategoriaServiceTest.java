@@ -32,7 +32,7 @@ public class CategoriaServiceTest {
     private Categoria categoria;
 
     @BeforeEach
-    void setUp(){  categoria = new Categoria(1L, "Departamentos", "Lindos departamentos", "url");}
+    void setUp(){  categoria = new Categoria(1L, "Departamentos", "Lindos departamentos", "url",null);}
 
     @Test
     @DisplayName("WHEN we create a categoria then don´t throws any exception")
