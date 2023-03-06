@@ -24,27 +24,32 @@ function Header({ setMenuDrawerVisible }) {
   }
 
   return (
-    <header className="container-main">
-      <Link to={'/'}>
-        <img className="app-logo" src={logo} />
-      </Link>
+    <header>
+      <div className="container-main">
+        <Link className="app-logo-link" to={'/'}>
+          <img className="app-logo" src={logo} />
+        </Link>
 
-      {userAuthInfo.isLoggedIn ? (
-        <div className="account-options">
-          <UserProfile userInfo={userAuthInfo.userInfo} />
-          <Link to={'/'} onClick={handleLogout}>
-            <FontAwesomeIcon icon={faRightFromBracket} />
-          </Link>
-        </div>
-      ) : (
-        <Navbar />
-      )}
+        {userAuthInfo.isLoggedIn ? (
+          <div className="account-options">
+            <UserProfile userInfo={userAuthInfo.userInfo} />
+            <Link to={'/'} onClick={handleLogout}>
+              <FontAwesomeIcon icon={faRightFromBracket} />
+            </Link>
+          </div>
+        ) : (
+          <Navbar />
+        )}
 
-      {
-        <button className="main-menu__hamburger" onClick={handleOpenDrawerMenu}>
-          <FontAwesomeIcon icon={faBars} />
-        </button>
-      }
+        {
+          <button
+            className="main-menu__hamburger"
+            onClick={handleOpenDrawerMenu}
+          >
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+        }
+      </div>
     </header>
   );
 }

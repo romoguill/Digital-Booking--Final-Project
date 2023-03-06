@@ -1,21 +1,23 @@
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 import './HomeSearch.scss';
-import classNames from "classnames";
-import React, { useState, forwardRef } from "react";
-import es from "date-fns/locale/es";
-import axios from "axios";
-import AsyncSelect from "react-select/async";
-import { createFilter, components } from "react-select";
-import DatePicker, { registerLocale, CalendarContainer } from "react-datepicker";
+import classNames from 'classnames';
+import React, { useState, forwardRef } from 'react';
+import es from 'date-fns/locale/es';
+import axios from 'axios';
+import AsyncSelect from 'react-select/async';
+import { createFilter, components } from 'react-select';
+import DatePicker, {
+  registerLocale,
+  CalendarContainer,
+} from 'react-datepicker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 
-registerLocale("es", es);
+registerLocale('es', es);
 
 function HomeSearch() {
   const calRef = React.useRef();
-  const [location, setLocation] = useState(null);
   const [dates, setDates] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -31,35 +33,45 @@ function HomeSearch() {
     </components.Control>
   );
 
-  const CustomLocationOption = props => (
+  const CustomLocationOption = (props) => (
     <components.Option {...props}>
       <div className="search-location-option">
         <span className="search-location-option-icon">
           <FontAwesomeIcon icon={faLocationDot} />
         </span>
         <p className="search-location-option-value">
-          <span className="search-location-option-city">{props.data.label}</span><br />
+          <span className="search-location-option-city">
+            {props.data.label}
+          </span>
+          <br />
           {props.data.country}
         </p>
       </div>
     </components.Option>
-);
+  );
 
   const CustomLoadLocationOptions = (query, callback) => {
-    axios(`src/Common/JSON/ciudades.json?s=${query}`)
-      .then((response) => {
-        callback(response.data.map(({ id, name, country }) => ({
+    axios(`src/Common/JSON/ciudades.json?s=${query}`).then((response) => {
+      callback(
+        response.data.map(({ id, name, country }) => ({
           value: id,
           label: name,
-          country: country
-        })));
-      });
-  }
+          country: country,
+        }))
+      );
+    });
+  };
 
   const CustomCalendarInput = forwardRef(({ value, onClick }, ref) => (
     <div className="search-dates">
       <FontAwesomeIcon icon={faCalendarDay} />
-      <input onClick={onClick} ref={ref} value={value} placeholder="Check In - Check Out" onChange={setDates} />
+      <input
+        onClick={onClick}
+        ref={ref}
+        value={value}
+        placeholder="Check In - Check Out"
+        onChange={setDates}
+      />
     </div>
   ));
 
@@ -94,21 +106,18 @@ function HomeSearch() {
             options={[]}
             filterOption={createFilter({ ignoreAccents: true })}
             loadOptions={CustomLoadLocationOptions}
-            components={{ Control: CustomLocationControl, Option: CustomLocationOption, DropdownIndicator: () => null, IndicatorSeparator: () => null }}
+            components={{
+              Control: CustomLocationControl,
+              Option: CustomLocationOption,
+              DropdownIndicator: () => null,
+              IndicatorSeparator: () => null,
+            }}
             placeholder="¿A dónde vamos?"
             classNames={{
               control: ({ isDisabled, isFocused }) =>
-                classNames(
-                  "search-location"
-                ),
-              valueContainer: (state) =>
-                classNames(
-                  "search-location-value"
-                ),
-              menu: (state) =>
-                classNames(
-                  "search-location-menu"
-                ),
+                classNames('search-location'),
+              valueContainer: (state) => classNames('search-location-value'),
+              menu: (state) => classNames('search-location-menu'),
               option: ({ isDisabled, isFocused, isSelected }) =>
                 classNames(
                   isSelected && 'search-location-option-selected',
