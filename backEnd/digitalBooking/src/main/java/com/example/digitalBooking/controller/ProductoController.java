@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @AllArgsConstructor
 @CrossOrigin
 @RestController
@@ -27,7 +28,7 @@ public class ProductoController {
     }
 
     @GetMapping("/todas")
-    public ResponseEntity<List<Producto>> getAll(){return ResponseEntity.ok(service.getAll());}
+    public ResponseEntity<List<ProductoDTO>> getAll(){return ResponseEntity.ok(service.getAll());}
 
     @GetMapping("/id={id}")
     public ResponseEntity<ProductoDTO> getById(@PathVariable Long id) throws ProductoNotFoundException {
@@ -35,13 +36,13 @@ public class ProductoController {
     }
 
     @GetMapping("/filterCat={categoria}")
-    public ResponseEntity<List<Producto>> filterCategoria(@PathVariable String categoria)  {
+    public ResponseEntity<List<ProductoDTO>> filterCategoria(@PathVariable String categoria)  {
         return  ResponseEntity.ok(service.filterCategoria(categoria));
     }
 
 
     @GetMapping("/filterCity={ciudad}")
-    public ResponseEntity<List<Producto>> filterCiudad(@PathVariable String ciudad)  {
+    public ResponseEntity<List<ProductoDTO>> filterCiudad(@PathVariable String ciudad)  {
         return  ResponseEntity.ok(service.filterCiudad(ciudad));
     }
 

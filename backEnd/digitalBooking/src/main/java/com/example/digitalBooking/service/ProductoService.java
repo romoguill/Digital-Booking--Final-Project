@@ -10,16 +10,14 @@ import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @AllArgsConstructor
 @Service
 public class ProductoService {
     private final ProductoRepository repository;
     private static final Logger logger = Logger.getLogger(ProductoService.class);
+
 
     public void create(Producto producto) throws BadRequestException {
         if (repository.findByTitulo(producto.getTitulo()).isPresent()) {
@@ -31,15 +29,23 @@ public class ProductoService {
         logger.info("Se creo un nuevo producto: " + producto.getTitulo());
     }
 
-    public List<Producto> getAll(){
-        if (repository.findAll().isEmpty()) {
+    public List<ProductoDTO> getAll(){
+        var productos = repository.findAllWithImagenes();
+        if (productos.isEmpty()) {
             logger.info("La tabla Producto no tiene registros");
             return null;
         }
-        return repository.findAll();
+
+        List<ProductoDTO> listaDTO = new ArrayList<>();
+        for (Producto producto: productos) {
+            Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
+            ProductoDTO prod = new ProductoDTO(producto,imagenes);
+            listaDTO.add(prod);
+        }
+        return listaDTO;
     }
     public ProductoDTO getById(Long id) throws ProductoNotFoundException {
-        Optional<Producto> optionalProducto = repository.findByIdWithImagenes(id);
+        var optionalProducto = repository.findByIdWithImagenes(id);
         if(optionalProducto.isEmpty()){
             throw new ProductoNotFoundException();
         }
@@ -52,21 +58,34 @@ public class ProductoService {
     }
 
 
-    public List<Producto> filterCategoria(String categoria){
-
-        if (repository.filterCategoria(categoria).isEmpty()) {
+    public List<ProductoDTO> filterCategoria(String categoria){
+        var productos = repository.filterCategoria(categoria);
+        if (productos.isEmpty()) {
             logger.info("No hay registro de productos en esa categoria o no se encontro categoria");
             return null;
         }
-        return repository.filterCategoria(categoria);
+        List<ProductoDTO> listaDTO = new ArrayList<>();
+        for (Producto producto: productos) {
+            Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
+            ProductoDTO prod = new ProductoDTO(producto,imagenes);
+            listaDTO.add(prod);
+        }
+        return listaDTO;
     }
-    public List<Producto> filterCiudad(String ciudad){
+    public List<ProductoDTO> filterCiudad(String ciudad){
 
-        if (repository.filterCiudad(ciudad).isEmpty()) {
+        var productos = repository.filterCiudad(ciudad);
+        if (productos.isEmpty()) {
             logger.info("No hay registro de productos en esa ciudad o no se encontro ciudad");
             return null;
         }
-        return repository.filterCiudad(ciudad);
+        List<ProductoDTO> listaDTO = new ArrayList<>();
+        for (Producto producto: productos) {
+            Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
+            ProductoDTO prod = new ProductoDTO(producto,imagenes);
+            listaDTO.add(prod);
+        }
+        return listaDTO;
     }
 
     public void update(Producto producto) throws ProductoNotFoundException {
