@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,7 +21,7 @@ import lombok.Setter;
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCategoria;
+    private Long id;
 
     @Column(nullable = false,length = 50, unique = true)
     @NotBlank
@@ -35,7 +38,14 @@ public class Categoria {
     private String urlImagen;
 
 
-    @OneToOne(mappedBy = "categoria")
+    @OneToMany(mappedBy = "categoria",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
     @JsonIgnore
-    private Producto producto;
+    private Set<Producto> productos= new HashSet<>();
+
+    public void addProducto(Producto producto) {
+        productos.add(producto);
+        producto.setCategoria(this);
+    }
+
+    public void removeProducto(Producto producto) {productos.remove(producto);}
 }

@@ -1,6 +1,7 @@
 package com.example.digitalBooking.controller;
 
-import com.example.digitalBooking.model.Producto;
+
+import com.example.digitalBooking.model.ProductoDTO;
 import com.example.digitalBooking.service.ProductoService;
 
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ import java.util.List;
 public class HomeController {
     private final ProductoService service;
     @GetMapping("/")
-    public ResponseEntity<List<Producto>> home(){
+    public ResponseEntity<List<ProductoDTO>> home(){
         return ResponseEntity.ok(service.getAll());
     }
 }
