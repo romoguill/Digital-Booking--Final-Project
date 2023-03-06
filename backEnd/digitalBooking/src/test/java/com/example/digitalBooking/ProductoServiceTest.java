@@ -31,8 +31,9 @@ public class ProductoServiceTest {
     private ProductoService service;
     private Producto producto;
 
+
     @BeforeEach
-    void setUp(){  producto = new Producto(1L,"Departamento","titulo","descripcion",12,10,null,null,null);}
+    void setUp(){producto = new Producto(1L,"Departamento","titulo",22,12,null,null,null,null);}
 
     @Test
     @DisplayName("WHEN we create a producto then don´t throws any exception")
@@ -70,20 +71,12 @@ public class ProductoServiceTest {
     }
 
     @Test
-    @DisplayName("WHEN we bring a producto by id THEN don´t throws any exception")
-    public void getByIdProducto(){
-        //GIVEN
-        given(repository.findById(anyLong())).willReturn(Optional.of(producto));
-        //WHEN AND THEN
-        assertDoesNotThrow(()->service.getById(1L));
-    }
-    @Test
     @DisplayName("WHEN we bring a producto by id THEN it throws ProductoNotFoundException")
     public void getByIdProductoException(){
         //GIVEN
-        given(repository.findById(anyLong())).willReturn(Optional.empty());
+        given(repository.findByIdWithImagenes(anyLong())).willReturn(Optional.empty());
         //WHEN AND THEN
-        assertThrows(ProductoNotFoundException.class,()->service.getById(1L));
+        assertThrows(ProductoNotFoundException.class,()->service.getById(anyLong()));
     }
 
     @Test
@@ -104,6 +97,42 @@ public class ProductoServiceTest {
     }
 
     @Test
+    @DisplayName("WHEN we bring productos filter by categoria THEN don´t throws any exception")
+    public void filterByCategoria(){
+        //GIVEN
+        given(repository.filterCategoria(anyString())).willReturn(List.of(producto));
+        //WHEN AND THEN
+        assertDoesNotThrow(()->service.filterCategoria(anyString()));
+    }
+
+    @Test
+    @DisplayName("WHEN we bring productos filter by categoria THEN return null")
+    public void filterByCategoriaNull(){
+        //GIVEN
+        given(repository.filterCategoria(anyString())).willReturn(Collections.emptyList());
+        //WHEN AND THEN
+        assertNull(service.filterCategoria(anyString()));
+    }
+
+    @Test
+    @DisplayName("WHEN we bring productos filter by ciudad THEN don´t throws any exception")
+    public void filterByCiudad(){
+        //GIVEN
+        given(repository.filterCiudad(anyString())).willReturn(List.of(producto));
+        //WHEN AND THEN
+        assertDoesNotThrow(()->service.filterCiudad(anyString()));
+    }
+
+    @Test
+    @DisplayName("WHEN we bring productos filter by ciudad THEN return null")
+    public void filterByCiudadNull(){
+        //GIVEN
+        given(repository.filterCiudad(anyString())).willReturn(Collections.emptyList());
+        //WHEN AND THEN
+        assertNull(service.filterCiudad(anyString()));
+    }
+
+    @Test
     @DisplayName("WHEN we update a producto then don´t throws any exception")
     public void updateProducto(){
         //GIVEN
@@ -111,6 +140,8 @@ public class ProductoServiceTest {
         //WHEN AND THEN
         assertDoesNotThrow(()->service.update(producto));
     }
+
+
     @Test
     @DisplayName("WHEN we update a producto that not exists then it throws ProductoNotFoundException")
     public void updateProductoNotFoundException(){
