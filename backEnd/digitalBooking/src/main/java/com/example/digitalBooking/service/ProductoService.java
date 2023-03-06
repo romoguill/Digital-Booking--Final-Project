@@ -2,20 +2,22 @@ package com.example.digitalBooking.service;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
+import com.example.digitalBooking.model.Imagen;
 import com.example.digitalBooking.model.Producto;
+import com.example.digitalBooking.model.ProductoDTO;
 import com.example.digitalBooking.repository.ProductoRepository;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @AllArgsConstructor
 @Service
 public class ProductoService {
     private final ProductoRepository repository;
     private static final Logger logger = Logger.getLogger(ProductoService.class);
+
 
     public void create(Producto producto) throws BadRequestException {
         if (repository.findByTitulo(producto.getTitulo()).isPresent()) {
@@ -27,36 +29,63 @@ public class ProductoService {
         logger.info("Se creo un nuevo producto: " + producto.getTitulo());
     }
 
-    public List<Producto> getAll(){
-        if (repository.findAll().isEmpty()) {
+    public List<ProductoDTO> getAll(){
+        var productos = repository.findAllWithImagenes();
+        if (productos.isEmpty()) {
             logger.info("La tabla Producto no tiene registros");
             return null;
         }
-        return repository.findAll();
+
+        List<ProductoDTO> listaDTO = new ArrayList<>();
+        for (Producto producto: productos) {
+            Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
+            ProductoDTO prod = new ProductoDTO(producto,imagenes);
+            listaDTO.add(prod);
+        }
+        return listaDTO;
     }
-    public Producto getById(Long id) throws ProductoNotFoundException {
-        return repository.findById(id).orElseThrow(ProductoNotFoundException::new);
+    public ProductoDTO getById(Long id) throws ProductoNotFoundException {
+        var optionalProducto = repository.findByIdWithImagenes(id);
+        if(optionalProducto.isEmpty()){
+            throw new ProductoNotFoundException();
+        }
+        Producto producto = optionalProducto.get();
+        Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
+        return new ProductoDTO(producto,imagenes);
     }
     public Producto getByTitulo(String titulo) throws ProductoNotFoundException {
         return repository.findByTitulo(titulo).orElseThrow(ProductoNotFoundException::new);
     }
 
 
-    public List<Producto> filterCategoria(String categoria){
-
-        if (repository.FilterCategoria(categoria).isEmpty()) {
-            logger.info("La tabla Producto no tiene registros");
+    public List<ProductoDTO> filterCategoria(String categoria){
+        var productos = repository.filterCategoria(categoria);
+        if (productos.isEmpty()) {
+            logger.info("No hay registro de productos en esa categoria o no se encontro categoria");
             return null;
         }
-        return repository.FilterCategoria(categoria);
+        List<ProductoDTO> listaDTO = new ArrayList<>();
+        for (Producto producto: productos) {
+            Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
+            ProductoDTO prod = new ProductoDTO(producto,imagenes);
+            listaDTO.add(prod);
+        }
+        return listaDTO;
     }
-    public List<Producto> filterCiudad(String ciudad){
+    public List<ProductoDTO> filterCiudad(String ciudad){
 
-        if (repository.FilterCiudad(ciudad).isEmpty()) {
-            logger.info("La tabla Producto no tiene registros o no se encontro ciudad");
+        var productos = repository.filterCiudad(ciudad);
+        if (productos.isEmpty()) {
+            logger.info("No hay registro de productos en esa ciudad o no se encontro ciudad");
             return null;
         }
-        return repository.FilterCiudad(ciudad);
+        List<ProductoDTO> listaDTO = new ArrayList<>();
+        for (Producto producto: productos) {
+            Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
+            ProductoDTO prod = new ProductoDTO(producto,imagenes);
+            listaDTO.add(prod);
+        }
+        return listaDTO;
     }
 
     public void update(Producto producto) throws ProductoNotFoundException {

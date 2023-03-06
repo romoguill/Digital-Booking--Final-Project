@@ -1,5 +1,7 @@
 package com.example.digitalBooking.model;
 
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -18,7 +20,7 @@ public class Imagen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idImagen;
+    private Long id;
 
     @Column(nullable = false,length = 50, unique = true)
     @NotBlank
@@ -29,7 +31,8 @@ public class Imagen {
     @NotBlank
     private String url;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "producto_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Producto producto;
 }
