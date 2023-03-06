@@ -11,7 +11,7 @@ import { UserContext } from './Contexts/Context';
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import MenuDrawerMobile from './Components/Header/MenuDrawerMobile/MenuDrawerMobile';
-import RentalProducts from './Routes/RentalProduct';
+import RentalProducts from './Routes/RentalProducts';
 import NotFound from './Routes/NotFound';
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<CreateUser />} />
-          <Route path="products" element={<RentalProducts />} />
+          <Route path="products/:id" element={<RentalProducts />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
