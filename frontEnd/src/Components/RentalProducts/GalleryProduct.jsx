@@ -8,10 +8,21 @@ import product5 from '../../assets/Images/product-5.png';
 
 import { register } from 'swiper/element/bundle';
 import DesktopCarrousel from './Carrousel/DesktopCarrousel';
+import { useState } from 'react';
 // register Swiper custom elements
 register();
 
 function GalleryProduct() {
+  const [carrouselVisible, setCarrouselVisible] = useState(false);
+
+  const handleCloseCarrousel = () => {
+    setCarrouselVisible(false);
+  };
+
+  const handleOpenCarrousel = () => {
+    setCarrouselVisible(true);
+  };
+
   return (
     <>
       <section className="gallery container-main">
@@ -20,8 +31,14 @@ function GalleryProduct() {
         <img src={product3} />
         <img src={product4} />
         <img src={product5} />
+
+        <button className="open-carrousel" onClick={handleOpenCarrousel}>
+          Ver más
+        </button>
       </section>
-      <DesktopCarrousel />
+      {carrouselVisible && (
+        <DesktopCarrousel handleCloseCarrousel={handleCloseCarrousel} />
+      )}
     </>
   );
 }
