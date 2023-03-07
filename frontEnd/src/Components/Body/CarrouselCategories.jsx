@@ -1,25 +1,37 @@
 import { useEffect, useState } from 'react';
 import './CarrouselCategories.scss';
 import CategoriaCard from './CategoriaCard';
+import axios from 'axios';
 
 function CarrouselCategories() {
-  const [categorias, setCategorias] = useState([]);
+  const [Categorias, setCategorias] = useState([]);
   const [error, setError] = useState();
 
-  useEffect(() => {
-    const options = { method: 'GET' };
+  const ENDPOINT_GET_CATEGORIAS = "http://localhost:8080/categoria/todas"
 
-    fetch('http://localhost:8080/categoria/todas', options)
-      .then((response) => {
-        if (!response.ok) throw new Error();
-        return response.json();
-      })
-      .then((response) => setCategorias(response))
-      .catch((e) => {
-        setError('No se pudo recuperar la informacion');
-        console.error(e);
-      });
+  useEffect(() => {
+    const fetchData = async () => {
+      axios(ENDPOINT_GET_CATEGORIAS)
+      .then((res) => setCategorias(res.data))
+    };
+    fetchData();
   }, []);
+
+
+  // useEffect(() => {
+  //   const options = { method: 'GET' };
+
+  //   fetch('http://localhost:8080/categoria/todas', options)
+  //     .then((response) => {
+  //       if (!response.ok) throw new Error();
+  //       return response.json();
+  //     })
+  //     .then((response) => setCategorias(response))
+  //     .catch((e) => {
+  //       setError('No se pudo recuperar la informacion');
+  //       console.error(e);
+  //     });
+  // }, []);
 
   // TODO: Eliminar el codigo relevante a las pruebas estaticas
 
@@ -64,6 +76,16 @@ function CarrouselCategories() {
           Buscar por tipo de alojamiento
         </h2>
         <div className="container-categories">
+          {/* {Categorias.map((item) => {
+            <CategoriaCard 
+              key={item.id}
+              id={item.id}
+              titulo={item.titulo}
+              descripcion={item.descripcion}
+              imagen={item.urlImagen}
+            />
+          })
+          } */}
           <CategoriaCard key={dataPrueba[0].id} data={dataPrueba[0].data} />
           <CategoriaCard key={dataPrueba[1].id} data={dataPrueba[1].data} />
           <CategoriaCard key={dataPrueba[2].id} data={dataPrueba[2].data} />
