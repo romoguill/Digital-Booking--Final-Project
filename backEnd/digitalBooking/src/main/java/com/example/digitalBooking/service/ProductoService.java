@@ -2,9 +2,7 @@ package com.example.digitalBooking.service;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
-import com.example.digitalBooking.model.Imagen;
-import com.example.digitalBooking.model.Producto;
-import com.example.digitalBooking.model.ProductoDTO;
+import com.example.digitalBooking.model.*;
 import com.example.digitalBooking.repository.ProductoRepository;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
@@ -31,6 +29,22 @@ public class ProductoService {
 
     public List<ProductoDTO> getAll(){
         var productos = repository.findAllWithImagenes();
+        if (productos.isEmpty()) {
+            logger.info("La tabla Producto no tiene registros");
+            return null;
+        }
+
+        List<ProductoDTO> listaDTO = new ArrayList<>();
+        for (Producto producto: productos) {
+            Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
+            ProductoDTO prod = new ProductoDTO(producto,imagenes);
+            listaDTO.add(prod);
+        }
+        return listaDTO;
+    }
+
+    public List<ProductoDTO> getAllRand(){
+        var productos = repository.findAllWithImagenesRand();
         if (productos.isEmpty()) {
             logger.info("La tabla Producto no tiene registros");
             return null;

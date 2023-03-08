@@ -17,6 +17,9 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     @Query("SELECT DISTINCT p FROM Producto p LEFT JOIN FETCH p.imagenes")
     List<Producto> findAllWithImagenes();
 
+    @Query("SELECT DISTINCT p FROM Producto p LEFT JOIN FETCH p.imagenes ORDER BY RAND()")
+    List<Producto> findAllWithImagenesRand();
+
     @Query("SELECT p FROM Producto p WHERE p.titulo = :titulo")
     Optional<Producto> findByTitulo (@Param("titulo") String titulo);
 

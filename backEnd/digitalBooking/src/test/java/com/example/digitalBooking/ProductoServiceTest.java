@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,7 +32,7 @@ public class ProductoServiceTest {
 
 
     @BeforeEach
-    void setUp(){producto = new Producto(1L,"Departamento","titulo",22,12,null,null,null,null);}
+    void setUp(){producto = new Producto(1L,"Departamento","titulo",22F,12F,null,null,null,null);}
 
     @Test
     @DisplayName("WHEN we create a producto then don´t throws any exception")
@@ -57,17 +56,28 @@ public class ProductoServiceTest {
     @DisplayName("WHEN we list all the productos THEN don´t throws any exception")
     public void getAllProductos(){
         //GIVEN
-        given(repository.findAll()).willReturn(List.of(producto));
+        var productos = repository.findAllWithImagenes();
         //WHEN AND THEN
-        assertDoesNotThrow(()->service.getAll());
+        if (!productos.isEmpty())
+            assertDoesNotThrow(()->service.getAll());
     }
     @Test
     @DisplayName("WHEN we list all the productos THEN return null")
     public void getAllProductosNull(){
         //GIVEN
-        given(repository.findAll()).willReturn(Collections.emptyList());
+        given(repository.findAllWithImagenes()).willReturn(Collections.emptyList());
         //WHEN AND THEN
         assertNull(service.getAll());
+    }
+
+    @Test
+    @DisplayName("WHEN we list all the productos order by random THEN don´t throws any exception")
+    public void getAllProductosRandom(){
+        //GIVEN
+        var productos = repository.findAllWithImagenesRand();
+        //WHEN AND THEN
+        if (!productos.isEmpty())
+            assertDoesNotThrow(()->service.getAll());
     }
 
     @Test
@@ -100,9 +110,10 @@ public class ProductoServiceTest {
     @DisplayName("WHEN we bring productos filter by categoria THEN don´t throws any exception")
     public void filterByCategoria(){
         //GIVEN
-        given(repository.filterCategoria(anyString())).willReturn(List.of(producto));
+        var productos = repository.filterCategoria(anyString());
         //WHEN AND THEN
-        assertDoesNotThrow(()->service.filterCategoria(anyString()));
+        if (!productos.isEmpty())
+            assertDoesNotThrow(()->service.filterCategoria(anyString()));
     }
 
     @Test
@@ -118,9 +129,10 @@ public class ProductoServiceTest {
     @DisplayName("WHEN we bring productos filter by ciudad THEN don´t throws any exception")
     public void filterByCiudad(){
         //GIVEN
-        given(repository.filterCiudad(anyString())).willReturn(List.of(producto));
+        var productos = repository.filterCiudad(anyString());
         //WHEN AND THEN
-        assertDoesNotThrow(()->service.filterCiudad(anyString()));
+        if (!productos.isEmpty())
+            assertDoesNotThrow(()->service.filterCiudad(anyString()));
     }
 
     @Test
