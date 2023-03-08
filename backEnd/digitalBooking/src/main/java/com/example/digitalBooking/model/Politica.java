@@ -1,6 +1,5 @@
 package com.example.digitalBooking.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -18,23 +17,28 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "caracteristicas")
-public class Caracteristica {
+@Table(name = "politicas")
+public class Politica {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false,length = 100)
     @NotBlank
-    @Size(min = 1,max = 100)
+    @Size(max=100)
     private String titulo;
+
+    @Column(nullable = false)
+    @NotBlank
+    private String descripcion;
 
     @Column(nullable = false)
     @NotBlank
     private String url;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "caracteristicas")
+    @ManyToMany(mappedBy = "politicas")
     private Set<Producto> productos = new HashSet<>();
 
     public void addProducto(Producto producto) {
