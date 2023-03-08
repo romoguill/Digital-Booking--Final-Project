@@ -58,10 +58,10 @@
     
 
     &__body {
-      display: flex;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
       align-items: center;
-      justify-content: space-between;
-      gap: 10%;
+      gap: 4rem;
     }
 
     &__call-to-action {
@@ -111,10 +111,39 @@
   
 } 
 
+@media screen and (max-width: globals.$bp-laptop) {
+  .rental-products {
+    .booking .booking__body {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+
+      .booking__call-to-action {
+        flex-direction: row;
+
+        button {
+          flex: 0 1 300px;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: globals.$bp-tablet) {
   .rental-products {
     .product__ammenities__items {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .booking .booking__body {
+      .booking__call-to-action {
+        flex-direction: column;
+
+        button {
+          // flex-basis: ;
+          flex: 1;
+        }
+      }
+
     }
   }
 }

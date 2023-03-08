@@ -56,7 +56,6 @@ function GalleryProduct() {
       ) : (
         <>
           <MobileCarrousel />
-          {console.log('hola')}
         </>
       )}
     </>

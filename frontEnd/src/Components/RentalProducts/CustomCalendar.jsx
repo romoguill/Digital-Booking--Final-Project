@@ -2,10 +2,21 @@ import Calendar from 'react-calendar';
 import './CustomCalendar.scss';
 
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import useWindowSize from '../../Hooks/useWindowSize';
 
 function CustomCalendar() {
   const [value, setValue] = useState(new Date());
+
+  // TODO : Traer el valor de los bp de sass a react
+  const windowSize = useWindowSize();
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    windowSize.width <= 768 ? setIsMobile(true) : setIsMobile(false);
+  }, [windowSize]);
 
   function onChange(nextValue) {
     setValue(nextValue);
@@ -36,7 +47,7 @@ function CustomCalendar() {
           formatShortWeekday={(locale, date) =>
             date.toLocaleDateString(locale, { weekday: 'narrow' })
           }
-          showDoubleView={true}
+          showDoubleView={!isMobile ? true : false}
           // showNavigation={false}
           // activeStartDate={new Date('2022-03-04')}
         />

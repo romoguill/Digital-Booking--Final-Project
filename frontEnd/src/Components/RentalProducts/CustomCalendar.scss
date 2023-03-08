@@ -1,10 +1,10 @@
 @use '/src/sassStyles/globals';
 
 .calendar {
-  width: 750px;
   background-color: globals.$bg-white;
   padding: 0.5rem 2rem;
   border-radius: globals.$border-radius-sm;
+  min-width: 600px;
 
   button {
     font-size: globals.$font-size-1;
@@ -55,7 +55,8 @@
   }
 }
 .react-calendar--doubleView {
-  width: 700px;
+  // width: 700px;
+  max-width: 100%;
 }
 .react-calendar--doubleView .react-calendar__viewContainer {
   display: flex;
