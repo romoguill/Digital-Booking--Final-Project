@@ -54,7 +54,6 @@
 
                 h3 {
                     font-size: globals.$font-size-2;
-                    opacity: 0.5;
                 }
 
                 .rental-rating--stars {
@@ -135,7 +134,7 @@
     
     .button--read-more {
         padding: globals.$p-3;
-        border-radius: globals.$border-radius-lg;
+        border-radius: globals.$border-radius-sm;
         width: 100%;
     }
 }

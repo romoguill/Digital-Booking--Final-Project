@@ -4,8 +4,7 @@
   width: 100%;
   text-align: center;
   background-color: globals.$bg-search;
-  padding-top: calc(globals.$m-5 + 5rem); // +80 porque el header tiene 80px. 5rem = 80px
-  padding-bottom: globals.$m-6;
+  padding: globals.$p-5 0;
 
   h1 {
     font-size: globals.$font-size-6;
@@ -175,6 +174,32 @@
     .search-by-location-date {
       flex-direction: column;
       max-width: 100%;
+    }
+
+    // CALENDAR
+    .react-datepicker-popper {
+      width: 96%;
+      
+    }
+
+    .react-datepicker {
+      display: block;
+      margin: 0 
+    }
+
+    .react-datepicker__month-container {
+      float: none;
+      width: 100%;
+      padding-right: 0;
+      border-right: none;
+    }
+
+    .calendar-footer {
+     justify-content: center;
+     
+      .calendar-options {
+        margin-left: 0;
+      }
     }
   }
 }

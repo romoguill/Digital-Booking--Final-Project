@@ -9,11 +9,11 @@ import {
 
 import './CardRentalGrid.scss';
 
-const Card = ({ id, img, category, title, location, description }) => {
+const Card = ({ id, imagen, img_name, categoria, titulo, ciudad, descripcion }) => {
   return (
-    <div className="card-rental">
+    <div key={id} className="card-rental">
       <div className="card-rental__img">
-        <img src={img} alt="foto alquiler" className="depto-img" />
+        <img src={imagen} alt={img_name} className="depto-img" />
       </div>
 
       <div className="card-rental__info">
@@ -21,7 +21,7 @@ const Card = ({ id, img, category, title, location, description }) => {
           <div className="card-rental__head">
             <div className="card-rental__head--main">
               <div className="upper-title">
-                <h3 className="rental-category text-gray">{category}</h3>
+                <h3 className="rental-category text-gray-light">{categoria}</h3>
                 <div className="rental-rating--stars">
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
@@ -30,7 +30,7 @@ const Card = ({ id, img, category, title, location, description }) => {
                   <FontAwesomeIcon icon={faStarHalf} />
                 </div>
               </div>
-              <h2 className="rental-name text-dark">{title}</h2>
+              <h2 className="rental-name text-dark">{titulo}</h2>
             </div>
             <div className="rental-rating--score">
               <p className="score--number">8</p>
@@ -43,7 +43,7 @@ const Card = ({ id, img, category, title, location, description }) => {
               <span>
                 <FontAwesomeIcon icon={faLocationDot} />
               </span>
-              <span>{location}</span>
+              <span>{ciudad}</span>
               <span className="show-map">
                 <a href="#">MOSTRAR EN EL MAPA</a>
               </span>
@@ -56,7 +56,7 @@ const Card = ({ id, img, category, title, location, description }) => {
 
           <div className="card-rental__body">
             <p className="text-dark">
-              {description}
+              {descripcion}
               <span className="more-description">
                 <a>más...</a>
               </span>

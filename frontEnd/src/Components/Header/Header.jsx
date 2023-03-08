@@ -1,55 +1,54 @@
+import logo from '../../assets/Images/logo-digital-booking.png';
+import './Header.scss';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { useContext } from 'react';
 
-import Brand from './Brand';
-import './Header.scss';
-import { Link, Route } from 'react-router-dom';
-import { useState } from 'react';
-import Home from '../../Routes/Home';
 import UserProfile from '../UserProfile/UserProfile';
 
-function Header({ user, isLogged, setMenuDrawerVisible }) {
+import { UserContext } from '../../Contexts/Context';
+import Navbar from './Navbar/Navbar';
+
+function Header({ setMenuDrawerVisible }) {
+  const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
+
   function handleOpenDrawerMenu() {
     setMenuDrawerVisible(true);
+  }
+
+  function handleLogout() {
+    setUserAuthInfo(false);
   }
 
   return (
     <header>
       <div className="container-main">
-        <nav className="navbar">
-          <Brand />
-          {isLogged ? (
-            <>
-              <p className="welcome-user">Bienvenido {user} !</p>
-              <UserProfile name={user} />
-              <Link to={'/'}>
-                <button className="button-primary button-primary--empty">
-                  Cerrar Sesión
-                </button>
-              </Link>
-            </>
-          ) : (
-            <div className="account-actions">
-              <Link to={'/register'}>
-                <button className="button-primary button-primary--empty">
-                  Crear Cuenta
-                </button>
-              </Link>
+        <Link className="app-logo-link" to={'/'}>
+          <img className="app-logo" src={logo} />
+        </Link>
 
-              <Link to={'/login'}>
-                <button className="button-primary button-primary--empty">
-                  Iniciar sesión
-                </button>
-              </Link>
-            </div>
-          )}
+        {userAuthInfo.isLoggedIn ? (
+          <div className="account-options">
+            <UserProfile userInfo={userAuthInfo.userInfo} />
+            <Link to={'/'} onClick={handleLogout}>
+              <FontAwesomeIcon icon={faRightFromBracket} />
+            </Link>
+          </div>
+        ) : (
+          <Navbar />
+        )}
+
+        {
           <button
             className="main-menu__hamburger"
             onClick={handleOpenDrawerMenu}
           >
             <FontAwesomeIcon icon={faBars} />
           </button>
-        </nav>
+        }
       </div>
     </header>
   );

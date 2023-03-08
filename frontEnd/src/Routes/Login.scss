@@ -1,28 +1,6 @@
 @use '/src/sassStyles/globals';
 
 // TODO: Unificar estilos los contenedores de Crear usuario y login
-.formCreateUser{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 450px;
-
-    button {
-        margin-top: 4rem;
-    }
-}
-
-.createUserContent {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-
 
 .button-login:hover{
     transition: 0.3s;
@@ -80,17 +58,6 @@
     cursor: pointer;
 }
 
-
-h1 {
-    font-size: xx-large;
-    margin-bottom: 20px;
-}
-
-h5{
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #F3F1ED;
-}
 
 .register-click{
     font-weight: 600;

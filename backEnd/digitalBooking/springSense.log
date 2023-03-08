@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 [2023-02-1710:31:35] [ INFO ] [CategoriaService:35] La tabla Categoria no tiene registros
 [2023-02-1710:32:08] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Departamentos
@@ -5,3 +6,10 @@
 [2023-02-1711:38:16] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Bed and breakfast
 [2023-02-1711:39:47] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Hostels
 [2023-02-1712:14:16] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Hoteles
+[2023-02-2315:54:11] [ INFO ] [CategoriaService:35] La tabla Categoria no tiene registros
+[2023-02-2315:54:40] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: testCrear
+[2023-02-2316:45:01] [ INFO ] [CategoriaService:62] Se elimino el registro con el id: 1 de la tabla Categoria
+[2023-02-2316:45:07] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: testCrear
+[2023-02-2316:45:20] [ INFO ] [CategoriaService:53] Se modifico el registro con el id: 2 de la tabla Categoria
+=======
+>>>>>>> bdd26edc807c72b7623e773d6a22d857c5ac0a69

@@ -3,50 +3,89 @@
 header {
   width: 100%;
   background-color: globals.$bg-white;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  position: fixed;
+  height: globals.$header-height;
+  position: sticky;
   top: 0;
-  
-    nav {
-      margin: globals.$m-3 0;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 4px 5px rgba(0, 0, 0, 0.12), 0px 1px 10px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+
+  .container-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  .app-logo-link {
+    padding: 0;
+  }
+
+  .app-logo {
+    width: 100px;
+  }
+
+  .account-actions {
+    display: flex;
+    gap: 10px;
+
+    button {
+      display: inline-block;
+    }
+  }
+
+  .button-primary:hover{
+    background-color: globals.$text-medium;
+    color: globals.$primary-color;
+  }
+
+  .welcome-user{
+    font-size: 20px;
+    color: #191B1D;
+    margin-left: auto;
+    margin-right: 10px;
+  }
+
+  .main-menu__hamburger {
+    background-color: transparent;
+    display: none;
+    padding: 0;
+    text-align: right;
+    font-size: 1.5rem;
+  }
+
+    // .button-logout{
+    //   background-color: #F0572D;
+    //   color: white;
+    // }
+
+    .account-options {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 1rem;
     }
 
-    .account-actions {
-      display: flex;
-      gap: 10px;
-    }
-
-    .button-primary:hover{
-      background-color: globals.$text-medium;
-      color: globals.$primary-color;
-    }
-
-    .welcome-user{
-      font-size: 24px;
-      color: #191B1D;
-    }
-
-    .main-menu__hamburger {
-      background-color: transparent;
-      display: none;
-      padding-right: 0;
-    }
 }
 
-
-@media screen and (max-width: globals.$bp-mobile) {
+@media screen and (max-width: globals.$bp-menu-drawer) {
   header {
-    .account-actions {
+    .account-options {
       display: none;
     }
 
     .main-menu__hamburger {
       display: block;
+    }
+
+    .welcome-user{
+      display: none;
+    }
+
+    .button-logout{
+      display: none;
+    }
+
+    .user-profile {
+      display: none;
     }
   }
 }

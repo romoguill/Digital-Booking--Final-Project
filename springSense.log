@@ -1,0 +1,16 @@
+[2023-03-0308:08:01] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Departamento
+[2023-03-0308:08:39] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Casa
+[2023-03-0308:08:57] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Country
+[2023-03-0309:42:05] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: casa grande
+[2023-03-0309:43:40] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Departamento
+[2023-03-0309:43:54] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Casa
+[2023-03-0309:44:13] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Country
+[2023-03-0309:54:50] [ INFO ] [ProductoService:27] Se creo un nuevo producto: depa en la ciudad
+[2023-03-0309:58:48] [ ERROR] [ProductoService:22] Ya existe una producto con el nombre: depa en la ciudad
+[2023-03-0309:59:04] [ INFO ] [ProductoService:27] Se creo un nuevo producto: casa quinta
+[2023-03-0312:03:01] [ INFO ] [ProductoService:54] La tabla Producto no tiene registros
+[2023-03-0312:03:27] [ INFO ] [ProductoService:54] La tabla Producto no tiene registros
+[2023-03-0312:04:48] [ INFO ] [ProductoService:54] La tabla Producto no tiene registros
+[2023-03-0312:16:55] [ INFO ] [ProductoService:54] La tabla Producto no tiene registros
+[2023-03-0312:21:02] [ INFO ] [ProductoService:54] La tabla Producto no tiene registros
+[2023-03-0312:53:52] [ INFO ] [ProductoService:54] La tabla Producto no tiene registros

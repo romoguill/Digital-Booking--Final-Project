@@ -1,4 +1,6 @@
 @use '../abstracts/variables';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 
 *,
 *::before,
@@ -9,14 +11,23 @@
 }
 
 html, body {
-	min-height: 100%;
 	background: #fff;
 	color: #000;
 }
 
+body, #root, .app {
+  min-height: 100vh;
+}
+
+
+.app {
+  display: flex;
+  flex-direction: column;
+}
+
 section {
   padding-top: variables.$p-3;
-  padding-bottom: variables.$p-3;
+  padding-bottom: variables.$p-5;
 }
 
 ul {
@@ -33,16 +44,40 @@ img {
   max-width: 100%;
 }
 
-button {
+button, a {
+  display: inline-block;
   border: none;
   border-radius: variables.$border-radius-sm;
   padding: 0.5rem 1rem;
   font-size: variables.$font-size-3;
   font-weight: variables.$font-weight-lg;
   cursor: pointer;
+  font-family: inherit;
 }
 
-.button-primary {
+.button-primary, .nav-link {
+  padding: variables.$p-2 variables.$p-4;
+  border: 2px solid variables.$primary-color;
+  min-width: 170px;
+  text-align: center;
+
+  &--empty {
+    background-color: transparent;
+    color: variables.$primary-color;
+  }
+  
+  &--full {
+    background-color: variables.$primary-color;
+    color: variables.$bg-white;
+  }
+}
+
+.nav-link-menu {
+  border: none;
+  padding: 0;
+}
+
+.button-logout {
   padding: variables.$m-2 variables.$m-5;
   border: 2px solid variables.$primary-color;
 
@@ -57,6 +92,7 @@ button {
   }
 }
 
+
 .button-ghost {
   padding: 0;
   background-color: transparent;
@@ -70,11 +106,33 @@ input {
   width: 100%;
 }
 
-.input::placeholder {
+input::-ms-reveal, input::-ms-clear {
+  display: none;
+}
+
+.input-error {
+  background-color: variables.$input-error-bg;
+  border: 1px solid variables.$input-error-border;
+}
+
+
+input::placeholder {
   color: variables.$text-placeholder;
 }
 
+.main-form__title {
+  color: variables.$primary-color;
+  font-size: variables.$font-size-5;
+  text-align: center;
+}
+
+
 // CONTAINERS
+.container-page {
+  flex-grow: 1;
+  flex-basis: 100%;
+}
+
 .container-main {
   width: 100%;
   max-width: 1800px;
@@ -84,7 +142,24 @@ input {
 
 .container__social-media {
   display: flex;
-  gap: 2rem;
+  gap: 0.5rem;
+}
+
+.center-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 50vw;
+  min-height: 300px;
+  max-height: 600px;
+
+  button, a {
+    padding: 0;
+  }
 }
 
 // TEXT
@@ -96,14 +171,34 @@ input {
   color: variables.$text-gray;
 }
 
+.text-gray-light {
+  color: variables.$text-gray-light;
+}
+
 .section-header {
   margin-bottom: variables.$m-3;
 }
 
 // MISC
+.social-media-icon {
+  font-size: variables.$font-size-5;
+}
+
 .hidden {
   display: none;
 }
+
+li:empty {
+  display: none;
+}
+
+// BACKGROUND
+.bg-light {
+  background-color: variables.$bg-gray;
+}
+
+
+
 
 @media screen and (max-width: variables.$bp-mobile) {
   .container-main {

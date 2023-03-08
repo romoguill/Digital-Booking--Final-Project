@@ -1,38 +1,49 @@
 @use '/src/sassStyles/globals';
 
+.createUserContent {
+    height: 100%;
+}
+
 .formCreateUser{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 450px;
+    position: relative;
+    height: 100%;
+    margin: auto;
 
     button {
-        margin-top: 4rem;
+        margin-top: 3.5rem
+    }
+
+    .form-control {
+        width: 100%;
+        position: relative;
+    }
+
+    .name-surname {
+        gap: 10px;
+    }
+
+    .wrapper-error {
+        position: relative;
+        width: 100%;
     }
 }
 
-.createUserContent {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
 
 .CreateUserContainer {
-    display: flex;
     justify-content: center;
     align-items: center;
     background-color: globals.$bg-gray;
-    height: 100vh;
+    height: calc(100vh - globals.$footer-height - globals.$header-height);
 }
 
 .name-surname {
     width: 100%;
     display: flex;
-    gap: 10px;
 
     .form-control {
         width: 100%;
@@ -46,15 +57,18 @@
 @media screen and (max-width: globals.$bp-tablet) {
     .formCreateUser {
         width: 350px;
+
+        button {
+            width: 100%;
+        }
+        .name-surname {
+            flex-direction: column;
+            gap: 0;
+        }
     }
 
-    button {
-        width: 100%;
-    }
 
-    .name-surname {
-        flex-direction: column;
-    }
+    
 }
 
 @media screen and (max-width: globals.$bp-mobile) {
