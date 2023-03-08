@@ -32,7 +32,7 @@ public class ProductoServiceTest {
 
 
     @BeforeEach
-    void setUp(){producto = new Producto(1L,"Departamento","titulo",22F,12F,null,null,null,null);}
+    void setUp(){producto = new Producto(1L,"Departamento","titulo",22F,12F,null,null,null,null,null);}
 
     @Test
     @DisplayName("WHEN we create a producto then don´t throws any exception")
