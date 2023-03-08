@@ -8,12 +8,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/free-mode';
+import 'swiper/css/pagination';
 import './MobileCarrousel.scss';
 
 function MobileCarrousel() {
   return (
-    <section className="carrousel-modal">
+    <section className="carrousel-mobile">
       <div className="carrousel-container">
         <Swiper
           autoplay={{
@@ -25,7 +25,7 @@ function MobileCarrousel() {
           }}
           loop={true}
           spaceBetween={10}
-          modules={[, Pagination, Autoplay]}
+          modules={[Pagination, Autoplay]}
           className="swiper-main"
         >
           <SwiperSlide>

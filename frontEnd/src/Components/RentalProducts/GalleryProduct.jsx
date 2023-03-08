@@ -54,7 +54,10 @@ function GalleryProduct() {
           )}
         </>
       ) : (
-        <MobileCarrousel />
+        <>
+          <MobileCarrousel />
+          {console.log('hola')}
+        </>
       )}
     </>
   );
