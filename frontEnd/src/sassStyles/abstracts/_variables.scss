@@ -5,7 +5,7 @@ $bg-medium: rgba(49, 54, 63, 1);
 $bg-light: rgba(223, 228, 234, 1);
 $bg-white: #fff;
 $bg-gray: rgb(247, 247, 247);
-$bg-search: rgba(84, 87, 118, 1);
+$bg-search: rgba(84, 87, 118);
 $input-error-bg: rgba(255, 225, 225, 1);
 $input-error-border:  rgba(255, 0, 0, 1);
 $input-error-msg: rgba(255, 0, 0, 1);
@@ -69,3 +69,7 @@ $bp-mobile: 480px;
 // MISC
 $header-height: 80px;
 $footer-height: 60px;
+
+:export {
+  bpTablet: $bp-tablet;
+}

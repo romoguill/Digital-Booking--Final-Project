@@ -6,6 +6,7 @@ footer {
   height: 60px;
   font-size: globals.$font-size-5;
   color: globals.$text-light;
+  z-index: 99999;
   
   .container-main {
     display: flex;

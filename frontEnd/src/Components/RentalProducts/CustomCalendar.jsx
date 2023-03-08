@@ -1,47 +1,109 @@
 import Calendar from 'react-calendar';
+import { Navigation } from 'react-calendar';
 import './CustomCalendar.scss';
 
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+import useWindowSize from '../../Hooks/useWindowSize';
 
 function CustomCalendar() {
   const [value, setValue] = useState(new Date());
+  const [actualDate, setActualDate] = useState(null);
+  const [nextDate, setNextDate] = useState(null);
 
-  function onChange(nextValue) {
-    setValue(nextValue);
-    console.log(nextValue);
-  }
+  const calendarRef = useRef();
+
+  // TODO : Traer el valor de los bp de sass a react
+  const windowSize = useWindowSize();
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    windowSize.width <= 768 ? setIsMobile(true) : setIsMobile(false);
+  }, [windowSize]);
+
+  useEffect(() => {
+    setActualDate(
+      calendarRef.current.querySelector(
+        '.react-calendar__navigation__label__labelText--from'
+      ).textContent
+    );
+    setNextDate(
+      calendarRef.current.querySelector(
+        '.react-calendar__navigation__label__labelText--to'
+      ).textContent
+    );
+  }, []);
 
   const handleGoToNextMonth = () => {
-    return;
+    calendarRef.current
+      .querySelector('.react-calendar__navigation__next-button')
+      .click();
+    setActualDate(
+      calendarRef.current.querySelector(
+        '.react-calendar__navigation__label__labelText--from'
+      ).textContent
+    );
+
+    setNextDate(
+      calendarRef.current.querySelector(
+        '.react-calendar__navigation__label__labelText--to'
+      ).textContent
+    );
   };
 
   const handleGoToPrevMonth = () => {
-    return;
+    calendarRef.current
+      .querySelector('.react-calendar__navigation__prev-button')
+      .click();
+
+    setActualDate(
+      calendarRef.current.querySelector(
+        '.react-calendar__navigation__label__labelText--from'
+      ).textContent
+    );
+
+    setNextDate(
+      calendarRef.current.querySelector(
+        '.react-calendar__navigation__label__labelText--to'
+      ).textContent
+    );
   };
+
+  const onChange = (nextValue) => {
+    setValue(nextValue);
+  };
+
   return (
     <div className="calendar">
       <div className="months-container">
-        <h5>Marzo</h5>
-        <h5>Abril</h5>
+        <h5>
+          {actualDate && actualDate[0].toUpperCase() + actualDate.slice(1)}
+        </h5>
+        {!isMobile && (
+          <h5>{nextDate && nextDate[0].toUpperCase() + nextDate.slice(1)}</h5>
+        )}
       </div>
       <div className="calendar-container">
-        <button>
-          <FaChevronLeft onClick={handleGoToPrevMonth} />
+        <button onClick={handleGoToPrevMonth}>
+          <FaChevronLeft />
         </button>
         <Calendar
+          showNavigation={true}
           value={value}
           onChange={onChange}
+          // onChange={onChange}
           locale="es"
           formatShortWeekday={(locale, date) =>
             date.toLocaleDateString(locale, { weekday: 'narrow' })
           }
-          showDoubleView={true}
-          // showNavigation={false}
-          // activeStartDate={new Date('2022-03-04')}
+          showDoubleView={!isMobile ? true : false}
+          inputRef={calendarRef}
         />
-        <button>
-          <FaChevronRight onClick={handleGoToNextMonth} />
+
+        <button onClick={handleGoToNextMonth}>
+          <FaChevronRight />
         </button>
       </div>
     </div>
