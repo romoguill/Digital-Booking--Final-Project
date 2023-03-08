@@ -38,11 +38,11 @@ public class Producto {
 
         @Column(nullable = false)
         @NotNull
-        private Integer latitud;
+        private Float latitud;
 
         @Column(nullable = false)
         @NotNull
-        private Integer longitud;
+        private Float longitud;
 
         @ManyToOne
         @JoinColumn(name = "id_ciudad",nullable = false)

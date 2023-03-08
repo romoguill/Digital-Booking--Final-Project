@@ -30,6 +30,9 @@ public class ProductoController {
     @GetMapping("/todas")
     public ResponseEntity<List<ProductoDTO>> getAll(){return ResponseEntity.ok(service.getAll());}
 
+    @GetMapping("/todasRandom")
+    public ResponseEntity<List<ProductoDTO>> getAllRand(){return ResponseEntity.ok(service.getAllRand());}
+
     @GetMapping("/id={id}")
     public ResponseEntity<ProductoDTO> getById(@PathVariable Long id) throws ProductoNotFoundException {
         return  ResponseEntity.ok(service.getById(id));
