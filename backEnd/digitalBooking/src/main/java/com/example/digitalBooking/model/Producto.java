@@ -72,4 +72,13 @@ public class Producto {
                 caracteristicas.remove(caracteristica);
         }
 
+        @ManyToMany(cascade = {CascadeType.MERGE})
+        private Set<Politica> politicas = new HashSet<>();
+
+        public void addCaracteristica(Politica politica) {politicas.add(politica);}
+
+        public void removeCaracteristica(Politica politica) {
+                politicas.remove(politica);
+        }
+
 }

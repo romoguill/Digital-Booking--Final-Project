@@ -18,15 +18,6 @@ function GridRentals() {
     fetchData();
   }, []);
 
-  // peticionGet = () => {
-  //   axios.get(ENDPOINT_GET_PRODUCTOS)
-  //     .then(response => {
-  //       this.setState({ data: response.data })
-  //     }).catch(err => {
-  //       console.log(err.message)
-  //     })
-  // };
-
   return (
     <section className="grid-rentals">
       <div className="container-main">

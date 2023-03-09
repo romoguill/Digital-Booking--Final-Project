@@ -1,34 +1,62 @@
 import './RentalProducts.scss';
 
-import { FaWifi } from 'react-icons/fa';
+import { faClock, faWheelchair, faUtensils, faCar, faBanSmoking, faSwimmer, faShieldHalved, faJugDetergent, faSpa, faWifi, faBorderNone } from '@fortawesome/free-solid-svg-icons';
 
 import GalleryProduct from '../Components/RentalProducts/GalleryProduct';
 import Hero from '../Components/RentalProducts/Hero';
 import Map from '../Components/RentalProducts/Map';
 import CustomCalendar from '../Components/RentalProducts/CustomCalendar';
+import { Navigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function RentalProducts() {
+  const params = useParams();
+  const [noFound, setNoFound] = useState(false);
+  const [producto, setProducto] = useState({});
+  const [imagenes, setImagenes] = useState([]);
+  const iconComponents = {
+    0: faBorderNone,
+    1: faClock,
+    2: faWheelchair,
+    3: faUtensils,
+    4: faCar,
+    5: faBanSmoking,
+    6: faSwimmer,
+    7: faUtensils,
+    8: faShieldHalved,
+    9: faJugDetergent,
+    10: faSpa,
+    11: faWifi,
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      axios(`http://localhost:8080/productos/id=${params.id}`).then((res) => {
+        setProducto(res.data.producto);
+        setImagenes(res.data.imagenes);
+      }).catch((res) => {
+        if(res.response.status == 404) {
+          setNoFound(true)
+        }
+      });
+    };
+    fetchData();
+  }, [])
+
   return (
     <div className="rental-products container-page">
-      <Hero />
-      <GalleryProduct />
+      {noFound && <Navigate replace to="/404" />}
+      <Hero producto={producto} imagenes={imagenes} />
+      <GalleryProduct producto={producto} imagenes={imagenes} />
 
       <section className="product__description container-main">
         <h2 className="product__description__title section-title">
-          Alójate en el corazón de Buenos Aires
+          Alójate en el corazón de {producto.ciudad && producto.ciudad.nombre}
         </h2>
         <p className="product__description__body">
-          Está situado a solo unas calles de la avenida Alvear, de la avenida
-          Quintana, del parque San Martín y del distrito de Recoleta. En las
-          inmediaciones también hay varios lugares de interés, como la calle
-          Florida, el centro comercial Galerías Pacífico, la zona de Puerto
-          Madero, la plaza de Mayo y el palacio Municipal. Nuestros clientes
-          dicen que esta parte de Buenos Aires es su favorita, según los
-          comentarios independientes. El Hotel es un hotel sofisticado de 4
-          estrellas que goza de una ubicación tranquila, a poca distancia de
-          prestigiosas galerías de arte, teatros, museos y zonas comerciales.
-          Además, hay WiFi gratuita. El establecimiento sirve un desayuno
-          variado de 07:00 a 10:30.
+          {producto.descripcion}
         </p>
       </section>
 
@@ -36,41 +64,21 @@ function RentalProducts() {
         <h2 className="section-title">¿Qué ofrece este lugar?</h2>
         <hr className="section-divider" />
         <div className="product__ammenities__items">
-          <div className="item">
-            <FaWifi className="ammenity-icon" />
-            <h4>Wifi</h4>
-          </div>
-          <div className="item">
-            <FaWifi className="ammenity-icon" />
-            <h4>Wifi</h4>
-          </div>
-          <div className="item">
-            <FaWifi className="ammenity-icon" />
-            <h4>Wifi</h4>
-          </div>
-          <div className="item">
-            <FaWifi className="ammenity-icon" />
-            <h4>Wifi</h4>
-          </div>
-          <div className="item">
-            <FaWifi className="ammenity-icon" />
-            <h4>Wifi</h4>
-          </div>
-          <div className="item">
-            <FaWifi className="ammenity-icon" />
-            <h4>Wifi</h4>
-          </div>
-          <div className="item">
-            <FaWifi className="ammenity-icon" />
-            <h4>Wifi</h4>
-          </div>
+          {producto.caracteristicas && producto.caracteristicas.map((item, i) => {
+            return (
+              <div className="item" key={i}>
+                <FontAwesomeIcon icon={iconComponents[item.id]? iconComponents[item.id] : iconComponents[0] } className="ammenity-icon" />
+                <h4>{item.titulo}</h4>
+              </div>
+            );
+          })}
         </div>
       </section>
 
       <section className="booking container-main">
         <h2 className="booking__title section-title">Fechas disponibles</h2>
         <div className="booking__body">
-          <CustomCalendar />
+          <CustomCalendar producto={producto} imagenes={imagenes} />
           <div className="booking__call-to-action">
             <h4>Agregá tus fechas de viaje para obtener precios exactos</h4>
             <button className="button-primary button-primary--full">
@@ -83,36 +91,22 @@ function RentalProducts() {
       <section className="location container-main">
         <h2 className="section-title">¿Dónde vas a estar?</h2>
         <hr className="section-divider" />
-        <p className="location-address">Buenos Aires, Argentina</p>
-        <Map />
+        <p className="location-address">{producto.ciudad && producto.ciudad.nombre}, Argentina</p>
+        <Map producto={producto} imagenes={imagenes} />
       </section>
 
       <section className="policy container-main">
         <h2 className="section-title">¿Qué tenés que saber?</h2>
         <hr className="section-divider" />
         <div className="policy__items">
-          <div className="item">
-            <h4>Normas de las casa</h4>
-            <p>Check-out: 10:00</p>
-            <p>No se permiten fiestas</p>
-            <p>No fumar</p>
-          </div>
-          <div className="item">
-            <h4>Salud y seguridad</h4>
-            <p>
-              Se aplican las pautas de distanciamiento social y otras normas
-              relacionadas con el coronavirus
-            </p>
-            <p>Detector de humo</p>
-            <p>No fumar</p>
-          </div>
-          <div className="item">
-            <h4>Política de cancelación</h4>
-            <p>
-              Agregá las fechas de tu viaje para obtener los detalles de
-              cancelación de esta estadía.
-            </p>
-          </div>
+          {producto.politicas && producto.politicas.map((item, i) => {
+            return (
+              <div className="item" key={i}>
+                <h4><img src={item.url} className="politica-icon" /> {item.titulo}</h4>
+                <p>{item.descripcion}</p>
+              </div>
+            );
+          })}
         </div>
       </section>
     </div>

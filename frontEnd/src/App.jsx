@@ -1,7 +1,7 @@
 import './sassStyles/base/_general.scss';
 import './sassStyles/base/_typography.scss';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import Home from './Routes/Home';
 import Login from './Routes/Login';
@@ -37,10 +37,12 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="home" element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<CreateUser />} />
-          <Route path="products/:id" element={<RentalProducts />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="producto/:id" element={<RentalProducts />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<Navigate replace to="/404" />} />
         </Routes>
 
         <Footer />
