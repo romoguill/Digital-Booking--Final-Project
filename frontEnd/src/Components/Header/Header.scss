@@ -4,59 +4,71 @@ header {
   width: 100%;
   background-color: globals.$bg-white;
   height: globals.$header-height;
-  display: flex;
-  align-items: center;
-  position: fixed;
+  position: sticky;
   top: 0;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14), 0px 4px 5px rgba(0, 0, 0, 0.12), 0px 1px 10px rgba(0, 0, 0, 0.2);
-  z-index: 100;
-  
-    nav {
-      margin: globals.$m-3 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+  z-index: 999999;
 
-    .account-actions {
-      display: flex;
-      gap: 10px;
+  .container-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
 
-      button {
-        display: inline-block;
-      }
-    }
+  .app-logo-link {
+    padding: 0;
+  }
 
-    .button-primary:hover{
-      background-color: globals.$text-medium;
-      color: globals.$primary-color;
-    }
+  .app-logo {
+    width: 100px;
+  }
 
-    .welcome-user{
-      font-size: 20px;
-      color: #191B1D;
-      margin-left: auto;
-      margin-right: 10px;
-    }
+  .account-actions {
+    display: flex;
+    gap: 10px;
 
-    .main-menu__hamburger {
-      background-color: transparent;
-      display: none;
-      padding: 0;
-      text-align: right;
-      font-size: 1.5rem;
+    button {
+      display: inline-block;
     }
+  }
+
+  .button-primary:hover{
+    background-color: globals.$text-medium;
+    color: globals.$primary-color;
+  }
+
+  .welcome-user{
+    font-size: 20px;
+    color: #191B1D;
+    margin-left: auto;
+    margin-right: 10px;
+  }
+
+  .main-menu__hamburger {
+    background-color: transparent;
+    display: none;
+    padding: 0;
+    text-align: right;
+    font-size: 1.5rem;
+  }
 
     // .button-logout{
     //   background-color: #F0572D;
     //   color: white;
     // }
 
+    .account-options {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
 }
 
 @media screen and (max-width: globals.$bp-menu-drawer) {
   header {
-    .account-actions {
+    .account-options {
       display: none;
     }
 

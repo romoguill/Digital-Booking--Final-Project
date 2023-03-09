@@ -35,13 +35,17 @@ public class CategoriaController {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id={id}")
     public ResponseEntity<Categoria> getById(@PathVariable Long id) throws CategoriaNotFoundException {
         return  ResponseEntity.ok(service.getById(id));
     }
+    @GetMapping("/titulo={titulo}")
+    public ResponseEntity<Categoria> getByTitulo(@PathVariable String titulo) throws CategoriaNotFoundException {
+        return  ResponseEntity.ok(service.getByTitulo(titulo));
+    }
 
     @PutMapping("/editar")
-    public ResponseEntity<String> update(@RequestBody Categoria categoria) throws CategoriaNotFoundException {
+    public ResponseEntity<String> update(@RequestBody Categoria categoria) throws CategoriaNotFoundException{
         service.update(categoria);
         return new ResponseEntity<>("Se edito la categoria correctamente",HttpStatus.OK);
     }

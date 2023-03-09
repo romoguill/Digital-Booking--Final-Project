@@ -1,7 +1,7 @@
-@use '../../sassStyles/globals';
+@use '/src/sassStyles/globals';
 
 .menu-drawer-mobile {
-  z-index: 999;
+  z-index: 9999999;
   position: fixed;
   right: 0;
   top: 0;
@@ -87,6 +87,11 @@
     hr {
       margin: 1rem 0;
     }
+
+    .link-button {
+      padding: 0;
+      font-size: inherit;
+    }
   }
 
   &__footer {
@@ -99,8 +104,8 @@
       color: globals.$text-dark;
     }
 
-    .container__social-media {
-      gap: 1.5rem;
+    .social-media-icon {
+      padding-inline: 0.3rem;
     }
   }
 

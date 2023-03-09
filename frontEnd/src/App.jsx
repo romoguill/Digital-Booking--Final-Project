@@ -1,13 +1,18 @@
 import './sassStyles/base/_general.scss';
 import './sassStyles/base/_typography.scss';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import Home from './Routes/Home';
 import Login from './Routes/Login';
 import CreateUser from './Routes/CreateUser';
 
 import { UserContext } from './Contexts/Context';
+import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
+import MenuDrawerMobile from './Components/Header/MenuDrawerMobile/MenuDrawerMobile';
+import RentalProducts from './Routes/RentalProducts';
+import NotFound from './Routes/NotFound';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
@@ -22,39 +27,27 @@ function App() {
   });
 
   return (
-    <UserContext.Provider value={{ userAuthInfo, setUserAuthInfo }}>
-      <div className="App">
+    <div className="app">
+      <UserContext.Provider value={{ userAuthInfo, setUserAuthInfo }}>
+        {menuDrawerVisible && (
+          <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
+        )}
+
+        <Header setMenuDrawerVisible={setMenuDrawerVisible} />
+
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                menuDrawerVisible={menuDrawerVisible}
-                setMenuDrawerVisible={setMenuDrawerVisible}
-              />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Login
-                menuDrawerVisible={menuDrawerVisible}
-                setMenuDrawerVisible={setMenuDrawerVisible}
-              />
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <CreateUser
-                menuDrawerVisible={menuDrawerVisible}
-                setMenuDrawerVisible={setMenuDrawerVisible}
-              />
-            }
-          />
+          <Route path="/" element={<Home />} />
+          <Route path="home" element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<CreateUser />} />
+          <Route path="producto/:id" element={<RentalProducts />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<Navigate replace to="/404" />} />
         </Routes>
-      </div>
-    </UserContext.Provider>
+
+        <Footer />
+      </UserContext.Provider>
+    </div>
   );
 }
 

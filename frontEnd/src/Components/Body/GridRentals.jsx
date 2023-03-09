@@ -5,11 +5,15 @@ import axios from 'axios';
 import './GridRentals.scss';
 
 function GridRentals() {
+
+  const ENDPOINT_GET_PRODUCTOS = "http://localhost:8080/productos/todas"
+
   const [Deptos, setDeptos] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      axios('src/Common/JSON/deptos.json').then((res) => setDeptos(res.data));
+      axios(ENDPOINT_GET_PRODUCTOS)
+      .then((res) => setDeptos(res.data));
     };
     fetchData();
   }, []);
@@ -22,13 +26,14 @@ function GridRentals() {
           {Deptos.map((item) => {
             return (
               <Card
-                key={item.id}
-                id={item.id}
-                img={item.img}
-                category={item.category}
-                title={item.title}
-                location={item.location}
-                description={item.description}
+                key={item.producto.id}
+                id={item.producto.id}
+                imagen={item.imagenes[0].url}
+                img_name={item.imagenes[0].titulo}
+                categoria={item.producto.categoria.titulo}
+                titulo={item.producto.titulo}
+                ciudad={item.producto.ciudad.nombre}
+                descripcion={item.producto.descripcion}
               />
             );
           })}
