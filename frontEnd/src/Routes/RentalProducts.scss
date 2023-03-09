@@ -55,7 +55,6 @@
   .booking {
     background-color: globals.$bg-light;
     padding-block: globals.$p-4;
-    
 
     &__body {
       display: grid;
@@ -108,8 +107,12 @@
     }
   }
 
-  
-} 
+  .politica-icon {
+    max-width: 1.2rem;
+    display: inline-block;
+    margin-bottom: -0.2rem;
+  }
+}
 
 @media screen and (max-width: globals.$bp-laptop) {
   .rental-products {

@@ -32,8 +32,6 @@ function RentalProducts() {
       axios(`http://localhost:8080/productos/id=${params.id}`).then((res) => {
         setProducto(res.data.producto);
         setImagenes(res.data.imagenes);
-        console.log(producto);
-        console.log(imagenes);
       });
     };
     fetchData();
@@ -57,9 +55,9 @@ function RentalProducts() {
         <h2 className="section-title">¿Qué ofrece este lugar?</h2>
         <hr className="section-divider" />
         <div className="product__ammenities__items">
-          {producto.caracteristicas && producto.caracteristicas.map((item) => {
+          {producto.caracteristicas && producto.caracteristicas.map((item, i) => {
             return (
-              <div className="item">
+              <div className="item" key={i}>
                 <FontAwesomeIcon icon={iconComponents[item.id]? iconComponents[item.id] : iconComponents[0] } className="ammenity-icon" />
                 <h4>{item.titulo}</h4>
               </div>
@@ -92,28 +90,14 @@ function RentalProducts() {
         <h2 className="section-title">¿Qué tenés que saber?</h2>
         <hr className="section-divider" />
         <div className="policy__items">
-          <div className="item">
-            <h4>Normas de las casa</h4>
-            <p>Check-out: 10:00</p>
-            <p>No se permiten fiestas</p>
-            <p>No fumar</p>
-          </div>
-          <div className="item">
-            <h4>Salud y seguridad</h4>
-            <p>
-              Se aplican las pautas de distanciamiento social y otras normas
-              relacionadas con el coronavirus
-            </p>
-            <p>Detector de humo</p>
-            <p>No fumar</p>
-          </div>
-          <div className="item">
-            <h4>Política de cancelación</h4>
-            <p>
-              Agregá las fechas de tu viaje para obtener los detalles de
-              cancelación de esta estadía.
-            </p>
-          </div>
+          {producto.politicas && producto.politicas.map((item, i) => {
+            return (
+              <div className="item" key={i}>
+                <h4><img src={item.url} className="politica-icon" /> {item.titulo}</h4>
+                <p>{item.descripcion}</p>
+              </div>
+            );
+          })}
         </div>
       </section>
     </div>

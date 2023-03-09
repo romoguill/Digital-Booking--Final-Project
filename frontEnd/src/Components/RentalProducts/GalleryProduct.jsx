@@ -31,7 +31,7 @@ function GalleryProduct({ producto, imagenes }) {
           <section className="gallery container-main">
             {imagenes.map((item, i) => {
             return (
-              <div className="item">
+              <div className="item" key={i}>
                 <img src={item.url} className={i === 0? 'main-picture' : ''} />
               </div>
             );
