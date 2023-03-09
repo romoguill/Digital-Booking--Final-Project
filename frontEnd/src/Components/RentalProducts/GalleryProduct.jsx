@@ -29,11 +29,9 @@ function GalleryProduct({ producto, imagenes }) {
       {!isMobile ? (
         <>
           <section className="gallery container-main">
-            {imagenes.map((item, i) => {
+            {imagenes.slice(0, 5).map((item, i) => {
             return (
-              <div className="item" key={i}>
-                <img src={item.url} className={i === 0? 'main-picture' : ''} />
-              </div>
+              <img src={item.url} key={i} className={i === 0? 'main-picture' : ''} />
             );
           })}
             <button className="open-carrousel" onClick={handleOpenCarrousel}>
