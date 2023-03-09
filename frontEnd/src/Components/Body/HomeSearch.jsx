@@ -1,7 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css';
 import './HomeSearch.scss';
 import classNames from 'classnames';
-import React, { useState, forwardRef } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import es from 'date-fns/locale/es';
 import axios from 'axios';
 import AsyncSelect from 'react-select/async';
@@ -13,6 +13,7 @@ import DatePicker, {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
+import Ciudad from './Ciudad';
 
 registerLocale('es', es);
 
@@ -25,6 +26,48 @@ function HomeSearch() {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+  };
+
+  // const [Ciudades, setCiudad] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     axios(ENDPOINT_GET_CIUDADES)
+  //     .then((res) => setCiudad(res.data))
+  //   };
+  //   fetchData();
+  // }, []);
+
+  const ENDPOINT_GET_CIUDADES = "http://localhost:8080/ciudades/todas"
+  const [ciudad, setCiudad] = useState([]);
+
+  useEffect(() => {
+    axios(ENDPOINT_GET_CIUDADES)
+      .then(response => {
+        const ciudades = response.data.map(ciudad => ({
+          label: ciudad.nombre,
+          value: ciudad.id
+        }));
+        setCiudad(ciudades);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  const loadOptionsCiudades = (callback) => {
+    axios(ENDPOINT_GET_CIUDADES)
+      .then(response => {
+        const ciudades = response.data.map(ciudad => ({
+          label: ciudad.nombre,
+          value: ciudad.id
+        }));
+        callback(ciudades);
+      })
+      .catch(error => {
+        console.log(error);
+        callback([]);
+      });
   };
 
   const CustomLocationControl = ({ children, ...props }) => (
@@ -50,17 +93,17 @@ function HomeSearch() {
     </components.Option>
   );
 
-  const CustomLoadLocationOptions = (query, callback) => {
-    axios(`src/Common/JSON/ciudades.json?s=${query}`).then((response) => {
-      callback(
-        response.data.map(({ id, name, country }) => ({
-          value: id,
-          label: name,
-          country: country,
-        }))
-      );
-    });
-  };
+  // const CustomLoadLocationOptions = (query, callback) => {
+  //   axios(`src/Common/JSON/ciudades.json?s=${query}`).then((response) => {
+  //     callback(
+  //       response.data.map(({ id, name, country }) => ({
+  //         value: id,
+  //         label: name,
+  //         country: country,
+  //       }))
+  //     );
+  //   });
+  // };
 
   const CustomCalendarInput = forwardRef(({ value, onClick }, ref) => (
     <div className="search-dates">
@@ -103,9 +146,9 @@ function HomeSearch() {
         <h1>Busca ofertas de casas, departamentos y mucho más</h1>
         <form className="search-by-location-date">
           <AsyncSelect
-            options={[]}
+            options={ciudad}
             filterOption={createFilter({ ignoreAccents: true })}
-            loadOptions={CustomLoadLocationOptions}
+            loadOptions={loadOptionsCiudades}
             components={{
               Control: CustomLocationControl,
               Option: CustomLocationOption,
