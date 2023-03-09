@@ -1,30 +1,34 @@
 import './RentalProducts.scss';
 
-import { faWifi, faClock, faCar, faSwimmer, faPaw, faSpa, faUtensils, faBorderNone } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faWheelchair, faUtensils, faCar, faBanSmoking, faSwimmer, faShieldHalved, faJugDetergent, faSpa, faWifi, faBorderNone } from '@fortawesome/free-solid-svg-icons';
 
 import GalleryProduct from '../Components/RentalProducts/GalleryProduct';
 import Hero from '../Components/RentalProducts/Hero';
 import Map from '../Components/RentalProducts/Map';
 import CustomCalendar from '../Components/RentalProducts/CustomCalendar';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function RentalProducts() {
   const params = useParams();
+  const [noFound, setNoFound] = useState(false);
   const [producto, setProducto] = useState({});
   const [imagenes, setImagenes] = useState([]);
   const iconComponents = {
     0: faBorderNone,
     1: faClock,
+    2: faWheelchair,
     3: faUtensils,
     4: faCar,
+    5: faBanSmoking,
     6: faSwimmer,
     7: faUtensils,
+    8: faShieldHalved,
+    9: faJugDetergent,
     10: faSpa,
     11: faWifi,
-    12: faPaw,
   };
 
   useEffect(() => {
@@ -32,6 +36,10 @@ function RentalProducts() {
       axios(`http://localhost:8080/productos/id=${params.id}`).then((res) => {
         setProducto(res.data.producto);
         setImagenes(res.data.imagenes);
+      }).catch((res) => {
+        if(res.response.status == 404) {
+          setNoFound(true)
+        }
       });
     };
     fetchData();
@@ -39,6 +47,7 @@ function RentalProducts() {
 
   return (
     <div className="rental-products container-page">
+      {noFound && <Navigate replace to="/404" />}
       <Hero producto={producto} imagenes={imagenes} />
       <GalleryProduct producto={producto} imagenes={imagenes} />
 

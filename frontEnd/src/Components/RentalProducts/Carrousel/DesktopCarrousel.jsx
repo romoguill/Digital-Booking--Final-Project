@@ -37,10 +37,10 @@ function DesktopCarrousel({ handleCloseCarrousel, producto, imagenes }) {
             }}
             className="swiper-main"
           >
-            {imagenes.map((item) => {
+            {imagenes.map((item, i) => {
               return (
                 <SwiperSlide>
-                  <img src={item.url} />
+                  <img src={item.url} key={i} />
                 </SwiperSlide>
             )})}
           </Swiper>
@@ -56,10 +56,10 @@ function DesktopCarrousel({ handleCloseCarrousel, producto, imagenes }) {
               modules={[FreeMode, Navigation, Thumbs]}
               className="swiper-thumbs"
             >
-              {imagenes.map((item) => {
+              {imagenes.map((item, i) => {
                 return (
                   <SwiperSlide>
-                    <img src={item.url} />
+                    <img src={item.url} key={i} />
                   </SwiperSlide>
               )})}
             </Swiper>

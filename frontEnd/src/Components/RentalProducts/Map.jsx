@@ -2,13 +2,15 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
 
-function CustomMarker({ latitud, longitud }) {
-  const map = useMap()
-  map.setView([longitud, latitud], map.getZoom());
+function CustomMarker({ latitud, longitud, titulo }) {
+  const map = useMap();
+  const ubicacion = [longitud, latitud];
+
+  map.setView(ubicacion, map.getZoom());
 
   return (
-    <Marker position={[longitud, latitud]}>
-      <Popup></Popup>
+    <Marker position={ubicacion}>
+      <Popup>{titulo}</Popup>
     </Marker>
   );
 }
@@ -38,7 +40,7 @@ function Map({ producto, imagenes }) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <CustomMarker latitud={latitud} longitud={longitud} />
+      <CustomMarker latitud={latitud} longitud={longitud} titulo={producto.titulo} />
     </MapContainer>
   );
 }
