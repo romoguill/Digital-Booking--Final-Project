@@ -3,9 +3,13 @@
 .gallery {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(2, minmax(200px, 1fr));
+  // grid-template-rows: repeat(2, 250px);
   gap: 10px;
   position: relative;
+  height: 40vw;
+  min-height: 400px;
+  max-height: 500px;
 
   .main-picture {
     grid-column:  1 / 3;

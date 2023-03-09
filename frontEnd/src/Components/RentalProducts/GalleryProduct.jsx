@@ -30,16 +30,24 @@ function GalleryProduct({ producto, imagenes }) {
         <>
           <section className="gallery container-main">
             {imagenes.slice(0, 5).map((item, i) => {
-            return (
-              <img src={item.url} key={i} className={i === 0? 'main-picture' : ''} />
-            );
-          })}
+              return (
+                <img
+                  src={item.url}
+                  key={i}
+                  className={i === 0 ? 'main-picture' : ''}
+                />
+              );
+            })}
             <button className="open-carrousel" onClick={handleOpenCarrousel}>
               Ver más
             </button>
           </section>
           {carrouselVisible && (
-            <DesktopCarrousel handleCloseCarrousel={handleCloseCarrousel} producto={producto} imagenes={imagenes} />
+            <DesktopCarrousel
+              handleCloseCarrousel={handleCloseCarrousel}
+              producto={producto}
+              imagenes={imagenes}
+            />
           )}
         </>
       ) : (
