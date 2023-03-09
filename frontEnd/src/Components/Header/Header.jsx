@@ -26,7 +26,7 @@ function Header({ setMenuDrawerVisible }) {
   return (
     <header>
       <div className="container-main">
-        <Link className="app-logo-link" to={'/'}>
+        <Link className="app-logo-link" to={'/home'}>
           <img className="app-logo" src={logo} />
         </Link>
 
