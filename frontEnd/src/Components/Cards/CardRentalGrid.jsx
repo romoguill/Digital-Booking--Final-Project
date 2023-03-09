@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import {
   faStar,
   faStarHalf,
@@ -65,9 +66,9 @@ const Card = ({ id, imagen, img_name, categoria, titulo, ciudad, descripcion }) 
         </div>
 
         <div className="card-rental__action">
-          <button className="button--read-more button-primary button-primary--full">
-            ver más
-          </button>
+          <Link className="button--read-more button-primary button-primary--full" to={`/producto/${id}`}>
+            Ver más
+          </Link>
         </div>
       </div>
     </div>

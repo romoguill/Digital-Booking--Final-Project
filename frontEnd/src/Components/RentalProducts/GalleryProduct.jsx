@@ -1,20 +1,10 @@
 import './GalleryProduct.scss';
-import variables from '../../sassStyles/abstracts/_variables.scss';
-
-import product1 from '../../assets/Images/product-1.png';
-import product2 from '../../assets/Images/product-2.png';
-import product3 from '../../assets/Images/product-3.png';
-import product4 from '../../assets/Images/product-4.png';
-import product5 from '../../assets/Images/product-5.png';
-
 import DesktopCarrousel from './Carrousel/DesktopCarrousel';
 import { useEffect, useState } from 'react';
-
 import useWindowSize from '../../Hooks/useWindowSize';
-import { useAsyncError } from 'react-router';
 import MobileCarrousel from './Carrousel/MobileCarrousel';
 
-function GalleryProduct() {
+function GalleryProduct({ producto, imagenes }) {
   const [carrouselVisible, setCarrouselVisible] = useState(false);
 
   const [isMobile, setIsMobile] = useState(false);
@@ -39,23 +29,24 @@ function GalleryProduct() {
       {!isMobile ? (
         <>
           <section className="gallery container-main">
-            <img className="main-picture" src={product1} />
-            <img src={product2} />
-            <img src={product3} />
-            <img src={product4} />
-            <img src={product5} />
-
+            {imagenes.map((item, i) => {
+            return (
+              <div className="item">
+                <img src={item.url} className={i === 0? 'main-picture' : ''} />
+              </div>
+            );
+          })}
             <button className="open-carrousel" onClick={handleOpenCarrousel}>
               Ver más
             </button>
           </section>
           {carrouselVisible && (
-            <DesktopCarrousel handleCloseCarrousel={handleCloseCarrousel} />
+            <DesktopCarrousel handleCloseCarrousel={handleCloseCarrousel} producto={producto} imagenes={imagenes} />
           )}
         </>
       ) : (
         <>
-          <MobileCarrousel />
+          <MobileCarrousel producto={producto} imagenes={imagenes} />
         </>
       )}
     </>

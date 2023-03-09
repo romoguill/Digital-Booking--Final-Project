@@ -50,13 +50,29 @@ function HomeSearch() {
     </components.Option>
   );
 
+  const CustomNoOptionsMessage = (props) => (
+    <components.NoOptionsMessage {...props}>
+      <div className="search-location-messages">
+        Ingrese el nombre de la ciudad
+      </div>
+    </components.NoOptionsMessage>
+  );
+
+  const CustomLoadingMessage = (props) => (
+    <components.LoadingMessage {...props}>
+      <div className="search-location-messages">
+        Cargando...
+      </div>
+    </components.LoadingMessage>
+  );
+
   const CustomLoadLocationOptions = (query, callback) => {
-    axios(`src/Common/JSON/ciudades.json?s=${query}`).then((response) => {
+    axios("http://localhost:8080/ciudades/todas").then((response) => {
       callback(
-        response.data.map(({ id, name, country }) => ({
+        response.data.map(({ id, nombre, country }) => ({
           value: id,
-          label: name,
-          country: country,
+          label: nombre,
+          country: "Argentina",
         }))
       );
     });
@@ -111,6 +127,8 @@ function HomeSearch() {
               Option: CustomLocationOption,
               DropdownIndicator: () => null,
               IndicatorSeparator: () => null,
+              NoOptionsMessage: CustomNoOptionsMessage,
+              LoadingMessage: CustomLoadingMessage,
             }}
             placeholder="¿A dónde vamos?"
             classNames={{

@@ -10,14 +10,14 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { BsShare } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
-function Hero() {
+function Hero({ producto, imagenes }) {
   return (
     <div className="hero__products">
       <div className="hero__products__title">
         <div className="container-main">
           <div className="hero__products__title__detail">
             <h2>HOTEL</h2>
-            <h1>Hermitage Hotel</h1>
+            <h1>{producto.titulo}</h1>
           </div>
           <Link to="/">
             <FontAwesomeIcon className="go-back-icon" icon={faChevronLeft} />
@@ -28,7 +28,7 @@ function Hero() {
         <div className="container-main">
           <FontAwesomeIcon icon={faLocationDot} />
           <div className="location">
-            <p>Buenos Aires, Ciudad Autónoma de Buenos Aires, Argentina</p>
+            <p>{producto.ciudad && producto.ciudad.nombre}, Argentina</p>
             <p>A 940 m del centro </p>
           </div>
           <div className="rating">
