@@ -42,7 +42,8 @@ function DesktopCarrousel({ handleCloseCarrousel, producto, imagenes }) {
                 <SwiperSlide>
                   <img src={item.url} key={i} />
                 </SwiperSlide>
-            )})}
+              );
+            })}
           </Swiper>
 
           <div className="wrapper-thumbs">
@@ -61,7 +62,8 @@ function DesktopCarrousel({ handleCloseCarrousel, producto, imagenes }) {
                   <SwiperSlide>
                     <img src={item.url} key={i} />
                   </SwiperSlide>
-              )})}
+                );
+              })}
             </Swiper>
           </div>
         </div>

@@ -10,28 +10,32 @@ section.carrousel-modal {
   padding: 0;
   margin: 0;
   background-color: rgba(globals.$bg-search, .7);
-
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   .carrousel-container {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+  }
 
-    .carrousel {
-      border-radius: globals.$border-radius-lg;
-      overflow: hidden;
-      position: relative;
+  .carrousel {
+    border-radius: globals.$border-radius-lg;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 
-      .close-carrousel {
-        color: globals.$bg-white;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-        cursor: pointer;
-      }
+    .close-carrousel {
+      color: globals.$bg-white;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      cursor: pointer;
     }
+  }
 
     img {
       width: 100%;
@@ -43,6 +47,7 @@ section.carrousel-modal {
     .swiper-pagination {
       background-color: globals.$bg-white;
       text-align: center;
+      bottom: 0;
       padding-top: 10px;
     }
 
@@ -71,9 +76,10 @@ section.carrousel-modal {
 
         img {
           border-radius: globals.$border-radius-lg;
+          height: 100px;
         }
       }
     }
-  }
+
 
 }
