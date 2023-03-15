@@ -23,7 +23,7 @@ public class Ciudad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,length = 50)
+    @Column(nullable = false,length = 50,unique = true)
     @NotBlank
     @Size(min = 1,max = 50)
     private String nombre;

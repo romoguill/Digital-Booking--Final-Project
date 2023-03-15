@@ -24,7 +24,7 @@ public class Caracteristica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,length = 100)
+    @Column(nullable = false,length = 100,unique = true)
     @NotBlank
     @Size(min = 1,max = 100)
     private String titulo;

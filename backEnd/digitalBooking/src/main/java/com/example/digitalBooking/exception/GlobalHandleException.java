@@ -27,4 +27,27 @@ public class GlobalHandleException {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
+    /*Ciudad*/
+    @ExceptionHandler({CiudadNotFoundException.class})
+    public ResponseEntity<String> CiudadNotFoundException(CiudadNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    /*Politica*/
+    @ExceptionHandler({PoliticaNotFoundException.class})
+    public ResponseEntity<String> PoliticaNotFoundException(PoliticaNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    /*Imagen*/
+    @ExceptionHandler({ImagenNotFoundException.class})
+    public ResponseEntity<String> ImagenNotFoundException(ImagenNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+    /*Imagen*/
+    @ExceptionHandler({CaracteristicaNotFoundException.class})
+    public ResponseEntity<String> CaracteristicaNotFoundException(CaracteristicaNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
 }
