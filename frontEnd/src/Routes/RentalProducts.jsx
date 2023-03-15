@@ -22,6 +22,7 @@ import { Navigate, useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ProductPolicies from '../Components/ProductPolicies';
 
 function RentalProducts() {
   const params = useParams();
@@ -120,24 +121,7 @@ function RentalProducts() {
         <Map producto={producto} imagenes={imagenes} />
       </section>
 
-      <section className="policy container-main">
-        <h2 className="section-title">¿Qué tenés que saber?</h2>
-        <hr className="section-divider" />
-        <div className="policy__items">
-          {producto.politicas &&
-            producto.politicas.map((item, i) => {
-              return (
-                <div className="item" key={i}>
-                  <h4>
-                    <img src={item.url} className="politica-icon" />{' '}
-                    {item.titulo}
-                  </h4>
-                  <p>{item.descripcion}</p>
-                </div>
-              );
-            })}
-        </div>
-      </section>
+      <ProductPolicies productPolicies={producto.politicas} />
     </div>
   );
 }

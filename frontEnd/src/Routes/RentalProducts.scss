@@ -84,34 +84,6 @@
 
     }
   }
-
-  .policy {
-    .policy__items {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4rem;
-
-      .item {
-        flex-basis: 400px;
-      }
-
-      h4 {
-        color: globals.$text-location;
-        margin-bottom: globals.$m-4;
-        font-size: globals.$font-size-3;
-      }
-
-      p {
-        padding-block: globals.$p-2;
-      }
-    }
-  }
-
-  .politica-icon {
-    max-width: 1.2rem;
-    display: inline-block;
-    margin-bottom: -0.2rem;
-  }
 }
 
 @media screen and (max-width: globals.$bp-laptop) {

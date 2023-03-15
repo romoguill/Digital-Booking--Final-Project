@@ -11,6 +11,7 @@ import CustomCalendar from '../Components/RentalProducts/CustomCalendar';
 import { useEffect, useState } from 'react';
 import { useAsyncError, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ProductPolicies from '../Components/ProductPolicies';
 
 function Booking() {
   const params = useParams();
@@ -18,6 +19,7 @@ function Booking() {
   const [productName, setProductName] = useState(null);
   const [mainImageUrl, setMainImageUrl] = useState(null);
   const [productLocation, setProductLocation] = useState(null);
+  const [productPolicies, setProductPolicies] = useState(null);
 
   const selectOptions = [...Array(24).keys()];
 
@@ -31,6 +33,7 @@ function Booking() {
       setProductName(data.producto.titulo);
       setMainImageUrl(data.imagenes[0].url);
       setProductLocation(data.producto.ciudad.nombre);
+      setProductPolicies(data.producto.politicas);
       console.log(data);
     };
     fetchData();
@@ -109,6 +112,8 @@ function Booking() {
           </div>
         </section>
       </section>
+
+      <ProductPolicies productPolicies={productPolicies} />
     </div>
   );
 }
