@@ -1,0 +1,27 @@
+@use '/src/sassStyles/globals';
+
+.hero__products__title {
+  background-color: globals.$bg-search;
+  padding-block: globals.$p-2;
+  color: globals.$text-light;
+
+  .container-main {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  h2 {
+    font-size: globals.$font-size-2
+  }
+
+  a {
+    padding: 0;
+  }
+
+  .go-back-icon {
+    font-size: globals.$font-size-5;
+    margin-right: 12px;
+  }
+}

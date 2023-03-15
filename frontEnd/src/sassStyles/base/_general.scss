@@ -30,6 +30,12 @@ section {
   padding-bottom: variables.$p-5;
 }
 
+.section-title {
+  color: variables.$text-gray-dark;
+  margin-bottom: variables.$m-3;
+  font-size: variables.$font-size-4;
+}
+
 ul {
   list-style: none;
 }
