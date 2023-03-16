@@ -40,6 +40,7 @@ cache:
   image: maven:3.8.3-openjdk-17
   stage: test
   script:
+    - cd "$CI_PROJECT_DIR/backEnd/digitalBooking"
     - 'mvn $MAVEN_CLI_OPTS verify'
   only:
     - develop
@@ -51,7 +52,3 @@ cache:
 back-test:jdk17:
   extends:
     - .verify
-
-default:
-  before_script:
-    - cd "$CI_PROJECT_DIR/backEnd/digitalBooking"
