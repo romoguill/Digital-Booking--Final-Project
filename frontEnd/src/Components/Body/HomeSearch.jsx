@@ -13,7 +13,6 @@ import DatePicker, {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
-import Ciudad from './Ciudad';
 
 registerLocale('es', es);
 

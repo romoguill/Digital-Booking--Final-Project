@@ -5,6 +5,9 @@ import MenuDrawerMobile from '../Components/Header/MenuDrawerMobile/MenuDrawerMo
 import { useContext } from 'react';
 import { UserContext } from '../Contexts/Context';
 
+import Booking from './Booking';
+import BookingSuccess from './BookingSuccess';
+
 function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
   const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
 
@@ -13,9 +16,11 @@ function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
       {menuDrawerVisible && (
         <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
       )}
-      <HomeSearch />
+      {/* <HomeSearch />
       <CarrouselCategories />
-      <GridRentals />
+      <GridRentals /> */}
+      {/* <BookingSuccess /> */}
+      <Booking />
     </div>
   );
 }
