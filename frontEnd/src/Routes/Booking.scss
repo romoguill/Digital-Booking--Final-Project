@@ -1,0 +1,107 @@
+@use '/src/sassStyles/globals';
+
+.booking-wrapper {
+  background-color: globals.$bg-light;
+  margin-bottom: globals.$m-4;
+}
+
+.booking {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 3fr 1fr;
+
+
+  &__calendar {
+    grid-column: 1 / 2;
+  }
+
+  &__checkin-checkout {
+    grid-column: 1/ 2;
+
+    h4 {
+      color: globals.$text-dark;
+      margin-bottom: globals.$m-3;
+    }
+
+    p {
+      font-weight: globals.$font-weight-md;
+    }
+
+    span {
+      padding-right: globals.$p-1;
+    }
+
+    .wrapper-select {
+      width: 400px;
+      border: 1px solid globals.$bg-light;
+      border-radius: globals.$border-radius-sm;
+      // display: flex;
+      // justify-content: space-between;
+      // align-items: center;
+      margin-top: globals.$m-2;
+      padding-right: globals.$p-2;
+      position: relative;
+
+      select {
+        border: none;
+        height: 100%;
+        width: 100%;
+        appearance: none;
+        outline: transparent;
+        padding: globals.$p-1;
+
+        &::-ms-expand {
+          display: none;
+        }
+      }
+
+      .dropdown-button {
+        color: globals.$primary-color;
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        transform: translateY(-50%);
+      }
+
+
+    }
+
+  }
+
+  &__details {
+    margin-top: 36px; // para que esta seccion quede a nivel del formulario y no del titulo
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+
+    .section-wrapper {
+      height: 100%;
+    }
+
+    img {
+      width: calc(100% + 2 * globals.$p-4); // expandir el ancho al doble de padding
+      margin-left: - globals.$m-4; // mover hacia la izquierda asi queda centrada la imagen
+      max-width: none;
+    }
+
+    .rental-category {
+      font-size: globals.$font-size-2;
+      color: rgba(globals.$text-dark, 0.5);
+    }
+
+    .rental-name {
+      font-size: globals.$font-size-5;
+      color: globals.$text-dark;
+    }
+  }
+
+  .section-wrapper {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: globals.$border-radius-lg;
+    background-color: globals.$bg-white;
+    padding: globals.$p-4;
+  }
+
+  p {
+    color: globals.$text-dark;
+  }
+}

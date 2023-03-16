@@ -1,8 +1,11 @@
+import './Booking.scss';
+
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
 import {
   faStar,
   faStarHalf,
   faLocationDot,
+  faAngleDown,
 } from '@fortawesome/free-solid-svg-icons';
 
 import BannerProductTitle from '../Components/BannerProductTitle';
@@ -43,76 +46,87 @@ function Booking() {
     <div className="container-page">
       <BannerProductTitle titulo={productName} categoria={productCategory} />
 
-      <section className="booking">
-        <section className="booking__form container-main">
-          <h2 className="section-title">Completá tus datos</h2>
-          <div className="section-wrapper">
-            {/* TODO : Aca va el form de reservas */}
-          </div>
-        </section>
-
-        <section className="booking__calendar container-main">
-          <h2 className="section-title">Seleccioná tu fecha de reserva</h2>
-          <div className="section-wrapper">
-            <CustomCalendar />
-          </div>
-        </section>
-
-        <section className="booking__chekin-chekout container-main">
-          <h2 className="section-title">Tu horario de llegada</h2>
-          <div className="section-wrapper">
-            <h4>
-              <span>
-                <FontAwesomeIcon icon={faCircleCheck} />
-              </span>
-              Tu habitación va a estar lista para el check-in entre las 10:00 AM
-              y las 11:00 PM
-            </h4>
-            <p>Indicá tu horario estimado de llegada </p>
-            <select name="checkin-hour">
-              {selectOptions.map((option) => (
-                <option key={option}>{option}</option>
-              ))}
-            </select>
-          </div>
-        </section>
-
-        <section className="booking__details container-main">
-          <div className="section-wrapper">
-            <h2 className="section-title">Detalle de la reserva</h2>
-            <img src={mainImageUrl} alt="" />
-            <h3>{productCategory}</h3>
-            <h2>{productName}</h2>
-            <div className="rental-rating--stars">
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStarHalf} />
+      <div className="booking-wrapper">
+        <section className="booking container-main">
+          <section className="booking__form">
+            <h2 className="section-title">Completá tus datos</h2>
+            <div className="section-wrapper">
+              {/* TODO : Aca va el form de reservas */}
+              Formulario
             </div>
-            <p className="rental-location text-dark">
-              <span>
-                <FontAwesomeIcon icon={faLocationDot} />
-              </span>
-              <span>{productLocation}</span>
-            </p>
-            <hr />
-            <div className="checkin">
-              <h4>Check in</h4>
-              <p>__/__/__</p>
-            </div>
-            <div className="checkout">
-              <h4>Check in</h4>
-              <p>__/__/__</p>
-            </div>
+          </section>
 
-            <button className="button-primary button-primary--full">
-              Confirmar reserva
-            </button>
-          </div>
+          <section className="booking__calendar">
+            <h2 className="section-title">Seleccioná tu fecha de reserva</h2>
+            <div className="section-wrapper">
+              <CustomCalendar />
+            </div>
+          </section>
+
+          <section className="booking__checkin-checkout">
+            <h2 className="section-title">Tu horario de llegada</h2>
+            <div className="section-wrapper">
+              <h4>
+                <span>
+                  <FontAwesomeIcon icon={faCircleCheck} />
+                </span>
+                Tu habitación va a estar lista para el check-in entre las 10:00
+                AM y las 11:00 PM
+              </h4>
+              <p>Indicá tu horario estimado de llegada </p>
+              <div className="wrapper-select">
+                <select name="checkin-hour">
+                  <option value="" disabled selected>
+                    Seleccionar hora de llegada
+                  </option>
+                  {selectOptions.map((option) => (
+                    <option key={option}>{option}</option>
+                  ))}
+                </select>
+                <FontAwesomeIcon
+                  icon={faAngleDown}
+                  className="dropdown-button"
+                />
+              </div>
+            </div>
+          </section>
+
+          <section className="booking__details">
+            <div className="section-wrapper">
+              <h2 className="section-title">Detalle de la reserva</h2>
+              <img src={mainImageUrl} alt="" />
+              <h3 className="rental-category">{productCategory}</h3>
+              <h2 className="rental-name">{productName}</h2>
+              <div className="rental-rating--stars">
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStarHalf} />
+              </div>
+              <p className="rental-location text-dark">
+                <span>
+                  <FontAwesomeIcon icon={faLocationDot} />
+                </span>
+                <span>{productLocation}</span>
+              </p>
+              <hr />
+              <div className="checkin">
+                <h4>Check in</h4>
+                <p>__/__/__</p>
+              </div>
+              <div className="checkout">
+                <h4>Check in</h4>
+                <p>__/__/__</p>
+              </div>
+
+              <button className="button-primary button-primary--full">
+                Confirmar reserva
+              </button>
+            </div>
+          </section>
         </section>
-      </section>
-
+      </div>
       <ProductPolicies productPolicies={productPolicies} />
     </div>
   );

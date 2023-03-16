@@ -55,6 +55,7 @@
   .booking {
     background-color: globals.$bg-light;
     padding-block: globals.$p-4;
+    display: block;
 
     &__body {
       display: grid;
