@@ -13,6 +13,7 @@ import Footer from './Components/Footer/Footer';
 import MenuDrawerMobile from './Components/Header/MenuDrawerMobile/MenuDrawerMobile';
 import RentalProducts from './Routes/RentalProducts';
 import NotFound from './Routes/NotFound';
+import Booking from './Routes/Booking';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
@@ -41,6 +42,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<CreateUser />} />
           <Route path="producto/:id" element={<RentalProducts />} />
+          <Route path="producto/:id/reserva" element={<Booking />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<Navigate replace to="/404" />} />
         </Routes>
