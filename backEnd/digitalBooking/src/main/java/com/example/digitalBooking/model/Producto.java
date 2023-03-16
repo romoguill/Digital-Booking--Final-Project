@@ -81,4 +81,15 @@ public class Producto {
                 politicas.remove(politica);
         }
 
+        @OneToMany(mappedBy = "producto",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+        @JsonIgnore
+        private Set<Reserva> reservas= new HashSet<>();
+
+        public void addReserva(Reserva reserva) {
+                reservas.add(reserva);
+                reserva.setProducto(this);
+        }
+
+        public void removeReserva(Reserva reserva) {reservas.remove(reserva);}
+
 }

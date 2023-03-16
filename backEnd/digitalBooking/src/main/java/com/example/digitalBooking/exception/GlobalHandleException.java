@@ -3,6 +3,7 @@ package com.example.digitalBooking.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -47,6 +48,12 @@ public class GlobalHandleException {
     /*Imagen*/
     @ExceptionHandler({CaracteristicaNotFoundException.class})
     public ResponseEntity<String> CaracteristicaNotFoundException(CaracteristicaNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    /*Usuario*/
+    @ExceptionHandler({UsuarioNotFoundException.class})
+    public ResponseEntity<String> UsernameNotFoundException(UsuarioNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 

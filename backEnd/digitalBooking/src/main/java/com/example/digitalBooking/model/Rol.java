@@ -26,4 +26,11 @@ public class Rol {
     @OneToMany(mappedBy = "rol",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Usuario> usuarios= new HashSet<>();
+
+    public void addUsuario(Usuario usuario) {
+        usuarios.add(usuario);
+        usuario.setRol(this);
+    }
+
+    public void removeUsuario(Usuario usuario) {usuarios.remove(usuario);}
 }

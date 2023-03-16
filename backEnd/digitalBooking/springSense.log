@@ -10,3 +10,40 @@
 [2023-03-1514:41:15] [ INFO ] [CategoriaService:28] Se creo una nueva caracteristica: hola
 [2023-03-1514:43:19] [ INFO ] [CategoriaService:51] Se modifico el registro con el id: 2 de la tabla Caracteristica
 [2023-03-1514:43:30] [ INFO ] [CategoriaService:60] Se elimino el registro con el id: 2 de la tabla Caracteristica
+[2023-03-1615:41:02] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Hoteles
+[2023-03-1615:41:14] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Salta
+[2023-03-1615:41:25] [ INFO ] [CategoriaService:27] Se creo una nueva politica: politica44
+[2023-03-1615:41:32] [ INFO ] [CategoriaService:28] Se creo una nueva caracteristica: hola
+[2023-03-1615:42:05] [ INFO ] [ProductoService:27] Se creo un nuevo producto: holagg
+[2023-03-1615:44:38] [ INFO ] [CategoriaService:25] Se creo una nueva imagen: imagen888
+[2023-03-1615:46:27] [ ERROR] [ProductoService:22] Ya existe una producto con el nombre: holagg
+[2023-03-1615:46:31] [ INFO ] [ProductoService:27] Se creo un nuevo producto: holagkkg
+[2023-03-1615:48:27] [ INFO ] [CategoriaService:25] Se creo una nueva imagen: imagenjjj888
+[2023-03-1615:51:12] [ INFO ] [ProductoService:27] Se creo un nuevo producto: holagkkaaag
+[2023-03-1615:52:08] [ ERROR] [ProductoService:22] Ya existe una producto con el nombre: holagkkaaag
+[2023-03-1615:52:13] [ INFO ] [ProductoService:27] Se creo un nuevo producto: holagkkaaaaaaaaaaaaaag
+[2023-03-1616:09:47] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Hoteles
+[2023-03-1616:09:52] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Salta
+[2023-03-1616:10:06] [ ERROR] [CategoriaService:23] Ya existe una ciudad con el nombre: Salta
+[2023-03-1616:10:12] [ INFO ] [CategoriaService:32] La tabla Politica no tiene registros
+[2023-03-1616:10:19] [ INFO ] [CategoriaService:27] Se creo una nueva politica: politica44
+[2023-03-1616:10:56] [ INFO ] [CategoriaService:28] Se creo una nueva caracteristica: hola
+[2023-03-1616:12:04] [ INFO ] [ProductoService:27] Se creo un nuevo producto: holagg
+[2023-03-1616:25:13] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Hoteles
+[2023-03-1616:25:17] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Salta
+[2023-03-1616:25:23] [ INFO ] [CategoriaService:27] Se creo una nueva politica: politica
+[2023-03-1616:25:28] [ INFO ] [CategoriaService:28] Se creo una nueva caracteristica: titulo
+[2023-03-1616:25:33] [ INFO ] [ProductoService:27] Se creo un nuevo producto: Titulo PRODUCTO
+[2023-03-1619:38:26] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Hoteles
+[2023-03-1619:38:33] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Salta
+[2023-03-1619:38:37] [ INFO ] [CategoriaService:27] Se creo una nueva politica: politica
+[2023-03-1619:38:42] [ ERROR] [CategoriaService:22] Ya existe una politica con el titulo: politica
+[2023-03-1619:39:16] [ INFO ] [CategoriaService:33] La tabla Caracteristica no tiene registros
+[2023-03-1619:39:19] [ INFO ] [CategoriaService:28] Se creo una nueva caracteristica: titulo
+[2023-03-1619:40:38] [ INFO ] [ProductoService:27] Se creo un nuevo producto: Titulo PRODUCTO
+[2023-03-1619:42:37] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Hoteles
+[2023-03-1619:42:43] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Salta
+[2023-03-1619:42:48] [ INFO ] [CategoriaService:27] Se creo una nueva politica: politica
+[2023-03-1619:42:53] [ INFO ] [CategoriaService:28] Se creo una nueva caracteristica: titulo
+[2023-03-1619:43:03] [ INFO ] [ProductoService:27] Se creo un nuevo producto: Titulo PRODUCTO
+[2023-03-1619:43:28] [ INFO ] [CategoriaService:25] Se creo una nueva imagen: imagen888

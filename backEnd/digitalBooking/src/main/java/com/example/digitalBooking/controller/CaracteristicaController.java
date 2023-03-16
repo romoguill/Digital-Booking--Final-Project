@@ -2,11 +2,8 @@ package com.example.digitalBooking.controller;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.CaracteristicaNotFoundException;
-import com.example.digitalBooking.exception.CategoriaNotFoundException;
 import com.example.digitalBooking.model.Caracteristica;
-import com.example.digitalBooking.model.Categoria;
 import com.example.digitalBooking.service.CaracteristicaService;
-import com.example.digitalBooking.service.CategoriaService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
