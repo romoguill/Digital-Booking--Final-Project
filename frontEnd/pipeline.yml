@@ -1,0 +1,15 @@
+image: node:16-alpine
+
+stages:
+  - test
+
+test:
+  stage: test
+  script:
+    - npm i npm@latest -g
+    - npm i
+    - npm run test
+
+default:
+  before_script:
+    - cd "$CI_PROJECT_DIR/frontEnd"
