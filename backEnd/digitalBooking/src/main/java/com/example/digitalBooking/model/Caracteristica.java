@@ -1,15 +1,11 @@
 package com.example.digitalBooking.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,12 +21,9 @@ public class Caracteristica {
     private Long id;
 
     @Column(nullable = false,length = 100,unique = true)
-    @NotBlank
-    @Size(min = 1,max = 100)
     private String titulo;
 
     @Column(nullable = false)
-    @NotBlank
     private String url;
 
     @JsonIgnore

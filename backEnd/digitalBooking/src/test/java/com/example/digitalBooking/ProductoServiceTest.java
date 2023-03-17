@@ -3,6 +3,7 @@ package com.example.digitalBooking;
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
 import com.example.digitalBooking.model.Producto;
+import com.example.digitalBooking.model.dto.RequestProductoDTO;
 import com.example.digitalBooking.repository.ProductoRepository;
 import com.example.digitalBooking.service.ProductoService;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -28,11 +30,17 @@ public class ProductoServiceTest {
 
     @InjectMocks
     private ProductoService service;
-    private Producto producto;
+    private Producto producto = new Producto();
+
+    private RequestProductoDTO requestProductoDTO;
+
+
 
 
     @BeforeEach
-    void setUp(){producto = new Producto(1L,"Departamento","titulo",22F,12F,null,null,null,null,null);}
+    void setUp(){
+        requestProductoDTO = new RequestProductoDTO(1L,"Departamento","titulo",22F,
+            12F, null,null,Set.of(1L), Set.of(1L));}
 
     @Test
     @DisplayName("WHEN we create a producto then don´t throws any exception")
@@ -40,7 +48,7 @@ public class ProductoServiceTest {
         //GIVEN
         given(repository.findByTitulo(anyString())).willReturn(Optional.empty());
         //WHEN AND THEN
-        assertDoesNotThrow(()->service.create(producto));
+        assertDoesNotThrow(()->service.create(requestProductoDTO));
     }
 
     @Test
@@ -49,7 +57,7 @@ public class ProductoServiceTest {
         //GIVEN
         given(repository.findByTitulo(anyString())).willReturn(Optional.of(producto));
         //WHEN AND THEN
-        assertThrows(BadRequestException.class,()->service.create(producto));
+        assertThrows(BadRequestException.class,()->service.create(requestProductoDTO));
     }
 
     @Test
@@ -150,7 +158,7 @@ public class ProductoServiceTest {
         //GIVEN
         given(repository.findById(anyLong())).willReturn(Optional.of(producto));
         //WHEN AND THEN
-        assertDoesNotThrow(()->service.update(producto));
+        assertDoesNotThrow(()->service.update(requestProductoDTO));
     }
 
 
@@ -160,7 +168,7 @@ public class ProductoServiceTest {
         //GIVEN
         given(repository.findById(anyLong())).willReturn(Optional.empty());
         //WHEN AND THEN
-        assertThrows(ProductoNotFoundException.class,()->service.update(producto));
+        assertThrows(ProductoNotFoundException.class,()->service.update(requestProductoDTO));
     }
 
     @Test
@@ -172,11 +180,11 @@ public class ProductoServiceTest {
         assertDoesNotThrow(()->service.deleteById(1L));
     }
     @Test
-    @DisplayName("WHEN we delete producto that is not present in the db THEN it throws BadRequestException")
+    @DisplayName("WHEN we delete producto that is not present in the db THEN it throws ProductoNotFoundException")
     public void deleteByIdProductoException(){
         //GIVEN
         given(repository.findById(anyLong())).willReturn(Optional.empty());
         //WHEN AND THEN
-        assertThrows(BadRequestException.class,()-> service.deleteById(5L));
+        assertThrows(ProductoNotFoundException.class,()-> service.deleteById(5L));
     }
 }

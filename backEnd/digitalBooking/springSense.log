@@ -1,49 +1,31 @@
-[2023-03-1514:18:18] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Salta
-[2023-03-1514:20:31] [ INFO ] [CategoriaService:52] Se modifico el registro con el id: 1 de la tabla Ciudad
-[2023-03-1514:22:11] [ ERROR] [CategoriaService:57] No existe un registro en la tabla Ciudad con el id: 4
-[2023-03-1514:24:05] [ INFO ] [CategoriaService:27] Se creo una nueva politica: politica44
-[2023-03-1514:26:32] [ INFO ] [CategoriaService:50] Se modifico el registro con el id: 2 de la tabla Politica
-[2023-03-1514:29:12] [ INFO ] [CategoriaService:59] Se elimino el registro con el id: 1 de la tabla Politica
-[2023-03-1514:30:47] [ INFO ] [CategoriaService:25] Se creo una nueva imagen: imagen888
-[2023-03-1514:32:12] [ INFO ] [CategoriaService:48] Se modifico el registro con el id: 4 de la tabla Imagen
-[2023-03-1514:32:28] [ INFO ] [CategoriaService:57] Se elimino el registro con el id: 3 de la tabla Imagen
-[2023-03-1514:41:15] [ INFO ] [CategoriaService:28] Se creo una nueva caracteristica: hola
-[2023-03-1514:43:19] [ INFO ] [CategoriaService:51] Se modifico el registro con el id: 2 de la tabla Caracteristica
-[2023-03-1514:43:30] [ INFO ] [CategoriaService:60] Se elimino el registro con el id: 2 de la tabla Caracteristica
-[2023-03-1615:41:02] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Hoteles
-[2023-03-1615:41:14] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Salta
-[2023-03-1615:41:25] [ INFO ] [CategoriaService:27] Se creo una nueva politica: politica44
-[2023-03-1615:41:32] [ INFO ] [CategoriaService:28] Se creo una nueva caracteristica: hola
-[2023-03-1615:42:05] [ INFO ] [ProductoService:27] Se creo un nuevo producto: holagg
-[2023-03-1615:44:38] [ INFO ] [CategoriaService:25] Se creo una nueva imagen: imagen888
-[2023-03-1615:46:27] [ ERROR] [ProductoService:22] Ya existe una producto con el nombre: holagg
-[2023-03-1615:46:31] [ INFO ] [ProductoService:27] Se creo un nuevo producto: holagkkg
-[2023-03-1615:48:27] [ INFO ] [CategoriaService:25] Se creo una nueva imagen: imagenjjj888
-[2023-03-1615:51:12] [ INFO ] [ProductoService:27] Se creo un nuevo producto: holagkkaaag
-[2023-03-1615:52:08] [ ERROR] [ProductoService:22] Ya existe una producto con el nombre: holagkkaaag
-[2023-03-1615:52:13] [ INFO ] [ProductoService:27] Se creo un nuevo producto: holagkkaaaaaaaaaaaaaag
-[2023-03-1616:09:47] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Hoteles
-[2023-03-1616:09:52] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Salta
-[2023-03-1616:10:06] [ ERROR] [CategoriaService:23] Ya existe una ciudad con el nombre: Salta
-[2023-03-1616:10:12] [ INFO ] [CategoriaService:32] La tabla Politica no tiene registros
-[2023-03-1616:10:19] [ INFO ] [CategoriaService:27] Se creo una nueva politica: politica44
-[2023-03-1616:10:56] [ INFO ] [CategoriaService:28] Se creo una nueva caracteristica: hola
-[2023-03-1616:12:04] [ INFO ] [ProductoService:27] Se creo un nuevo producto: holagg
-[2023-03-1616:25:13] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Hoteles
-[2023-03-1616:25:17] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Salta
-[2023-03-1616:25:23] [ INFO ] [CategoriaService:27] Se creo una nueva politica: politica
-[2023-03-1616:25:28] [ INFO ] [CategoriaService:28] Se creo una nueva caracteristica: titulo
-[2023-03-1616:25:33] [ INFO ] [ProductoService:27] Se creo un nuevo producto: Titulo PRODUCTO
-[2023-03-1619:38:26] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Hoteles
-[2023-03-1619:38:33] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Salta
-[2023-03-1619:38:37] [ INFO ] [CategoriaService:27] Se creo una nueva politica: politica
-[2023-03-1619:38:42] [ ERROR] [CategoriaService:22] Ya existe una politica con el titulo: politica
-[2023-03-1619:39:16] [ INFO ] [CategoriaService:33] La tabla Caracteristica no tiene registros
-[2023-03-1619:39:19] [ INFO ] [CategoriaService:28] Se creo una nueva caracteristica: titulo
-[2023-03-1619:40:38] [ INFO ] [ProductoService:27] Se creo un nuevo producto: Titulo PRODUCTO
-[2023-03-1619:42:37] [ INFO ] [CategoriaService:30] Se creo una nueva categoria: Hoteles
-[2023-03-1619:42:43] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Salta
-[2023-03-1619:42:48] [ INFO ] [CategoriaService:27] Se creo una nueva politica: politica
-[2023-03-1619:42:53] [ INFO ] [CategoriaService:28] Se creo una nueva caracteristica: titulo
-[2023-03-1619:43:03] [ INFO ] [ProductoService:27] Se creo un nuevo producto: Titulo PRODUCTO
-[2023-03-1619:43:28] [ INFO ] [CategoriaService:25] Se creo una nueva imagen: imagen888
+[2023-03-1714:22:06] [ INFO ] [CategoriaService:39] La tabla Ciudad no tiene registros
+[2023-03-1714:22:15] [ INFO ] [CategoriaService:75] Se elimino el registro con el id: 1 de la tabla Categoria
+[2023-03-1714:22:15] [ INFO ] [CategoriaService:69] Se modifico el registro con el id: 1 de la tabla Categoria
+[2023-03-1714:22:15] [ ERROR] [CategoriaService:65] No existe un registro en la tabla Categoria con el id: 1
+[2023-03-1714:22:15] [ INFO ] [CategoriaService:35] La tabla Categoria no tiene registros
+[2023-03-1714:22:15] [ INFO ] [CategoriaService:29] Se creo una nueva categoria: Departamentos
+[2023-03-1714:22:15] [ ERROR] [CategoriaService:49] No existe una categoria con el id:1
+[2023-03-1714:22:15] [ ERROR] [CategoriaService:25] Ya existe una categoria con el titulo: Departamentos
+[2023-03-1714:22:15] [ ERROR] [CategoriaService:57] No existe una categoria con el titulo:titulo
+[2023-03-1714:22:50] [ INFO ] [CategoriaService:75] Se elimino el registro con el id: 1 de la tabla Categoria
+[2023-03-1714:22:50] [ INFO ] [CategoriaService:69] Se modifico el registro con el id: 1 de la tabla Categoria
+[2023-03-1714:22:50] [ ERROR] [CategoriaService:65] No existe un registro en la tabla Categoria con el id: 1
+[2023-03-1714:22:51] [ INFO ] [CategoriaService:35] La tabla Categoria no tiene registros
+[2023-03-1714:22:51] [ INFO ] [CategoriaService:29] Se creo una nueva categoria: Departamentos
+[2023-03-1714:22:51] [ ERROR] [CategoriaService:49] No existe una categoria con el id:1
+[2023-03-1714:22:51] [ ERROR] [CategoriaService:25] Ya existe una categoria con el titulo: Departamentos
+[2023-03-1714:22:51] [ ERROR] [CategoriaService:57] No existe una categoria con el titulo:titulo
+[2023-03-1714:23:11] [ INFO ] [ProductoService:88] No hay registro de productos en esa ciudad o no se encontro ciudad
+[2023-03-1714:23:11] [ INFO ] [ProductoService:36] La tabla Producto no tiene registros
+[2023-03-1714:23:11] [ ERROR] [ProductoService:100] No existe un registro en la tabla Producto con el id: 1
+[2023-03-1714:23:11] [ ERROR] [ProductoService:25] Ya existe una producto con el titulo: Departamento
+[2023-03-1714:23:11] [ INFO ] [ProductoService:75] No hay registro de productos en esa categoria o no se encontro categoria
+[2023-03-1714:23:11] [ INFO ] [ProductoService:110] Se elimino el registro con el id: 1 de la tabla Productos
+[2023-03-1714:29:34] [ INFO ] [ProductoService:88] No hay registro de productos en esa ciudad o no se encontro ciudad
+[2023-03-1714:29:34] [ INFO ] [ProductoService:36] La tabla Producto no tiene registros
+[2023-03-1714:29:34] [ ERROR] [ProductoService:100] No existe un registro en la tabla Producto con el id: 1
+[2023-03-1714:29:34] [ INFO ] [ProductoService:104] Se modifico el registro con el id: 1 de la tabla Producto
+[2023-03-1714:29:34] [ INFO ] [ProductoService:30] Se creo un nuevo producto: Departamento
+[2023-03-1714:29:34] [ ERROR] [ProductoService:25] Ya existe una producto con el titulo: Departamento
+[2023-03-1714:29:34] [ INFO ] [ProductoService:75] No hay registro de productos en esa categoria o no se encontro categoria
+[2023-03-1714:29:34] [ INFO ] [ProductoService:110] Se elimino el registro con el id: 1 de la tabla Productos

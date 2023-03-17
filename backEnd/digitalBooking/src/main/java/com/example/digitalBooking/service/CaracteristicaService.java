@@ -2,14 +2,14 @@ package com.example.digitalBooking.service;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.CaracteristicaNotFoundException;
-import com.example.digitalBooking.exception.CategoriaNotFoundException;
 import com.example.digitalBooking.model.Caracteristica;
-import com.example.digitalBooking.model.Categoria;
+import com.example.digitalBooking.model.dto.CaracteristicaDTO;
 import com.example.digitalBooking.repository.CaracteristicaRepository;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -18,45 +18,70 @@ public class CaracteristicaService {
     private final CaracteristicaRepository repository;
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
 
-    public void create(Caracteristica caracteristica) throws BadRequestException {
-        if (repository.findByTitulo(caracteristica.getTitulo()).isPresent()) {
-            logger.error("Ya existe una caracteristica con el nombre: " + caracteristica.getTitulo());
-            throw new BadRequestException("Ya existe una caracteristica con el nombre: " + caracteristica.getTitulo());
+    public void create(CaracteristicaDTO caracteristicaDTO) throws BadRequestException {
+        if (repository.findByTitulo(caracteristicaDTO.titulo()).isPresent()) {
+            logger.error("Ya existe una caracteristica con el titulo: " + caracteristicaDTO.titulo());
+            throw new BadRequestException("Ya existe una caracteristica con el titulo: " + caracteristicaDTO.titulo());
         }
-
-        repository.save(caracteristica);
-        logger.info("Se creo una nueva caracteristica: " + caracteristica.getTitulo());
+        repository.save(mapToCaracteristica(caracteristicaDTO));
+        logger.info("Se creo una nueva caracteristica: " + caracteristicaDTO.titulo());
     }
 
-    public List<Caracteristica> getAll(){
-        if (repository.findAll().isEmpty()) {
+    public List<CaracteristicaDTO> getAll(){
+        var caracteristicas = repository.findAll();
+        if (caracteristicas.isEmpty()) {
             logger.info("La tabla Caracteristica no tiene registros");
             return null;
         }
-        return repository.findAll();
-    }
-    public Caracteristica getById(Long id) throws CaracteristicaNotFoundException {
-        return repository.findById(id).orElseThrow(CaracteristicaNotFoundException::new);
-    }
-    public Caracteristica getByTitulo(String titulo) throws CaracteristicaNotFoundException {
-        return repository.findByTitulo(titulo).orElseThrow(CaracteristicaNotFoundException::new);
-    }
 
-    public void update(Caracteristica caracteristica) throws CaracteristicaNotFoundException {
-        if (repository.findById(caracteristica.getId()).isEmpty()) {
-            logger.error("No existe un registro en la tabla Caracteristica con el id: " + caracteristica.getId());
+        List<CaracteristicaDTO> listaDTO = new ArrayList<>();
+        for (Caracteristica caracteristica: caracteristicas) {
+            listaDTO.add(mapToDTO(caracteristica));
+        }
+
+        return listaDTO;
+    }
+    public CaracteristicaDTO getById(Long id) throws CaracteristicaNotFoundException {
+        var optional = repository.findById(id);
+        if (optional.isEmpty()) {
+            logger.error("No existe una caracteristica con el id:" + id);
             throw new CaracteristicaNotFoundException();
         }
-        repository.save(caracteristica);
-        logger.info("Se modifico el registro con el id: " + caracteristica.getId() + " de la tabla Caracteristica");
+        return mapToDTO(optional.get());
+    }
+    public CaracteristicaDTO getByTitulo(String titulo) throws CaracteristicaNotFoundException {
+        var optional = repository.findByTitulo(titulo);
+        if (optional.isEmpty()) {
+            logger.error("No existe una caracteristica con el titulo:" + titulo);
+            throw new CaracteristicaNotFoundException();
+        }
+        return mapToDTO(optional.get());
     }
 
-    public void deleteById(Long id) throws BadRequestException {
-        if (repository.findById(id).isEmpty()) {
-            logger.error("No existe un registro en la tabla Caracteristica con el id: " + id);
-            throw new BadRequestException("La caracteristica con el id: " + id + " no existe en la base de datos.");
+    public void update(CaracteristicaDTO caracteristicaDTO) throws CaracteristicaNotFoundException {
+        if (repository.findById(caracteristicaDTO.id()).isEmpty()) {
+            logger.error("No existe un registro en la tabla Caracteristica con el id: " + caracteristicaDTO.id());
+            throw new CaracteristicaNotFoundException();
         }
+        repository.save(mapToCaracteristica(caracteristicaDTO));
+        logger.info("Se modifico el registro con el id: " + caracteristicaDTO.id() + " de la tabla Caracteristica");
+    }
+
+    public void deleteById(Long id) throws CaracteristicaNotFoundException {
+        if(repository.findById(id).isEmpty()) throw new CaracteristicaNotFoundException();
         repository.deleteById(id);
-        logger.info("Se elimino el registro con el id: " + id + " de la tabla Caracteristica");
+        logger.info("Se elimino el registro con el id: " + id + " de la tabla Caracteristicas");
+    }
+
+    private Caracteristica mapToCaracteristica(CaracteristicaDTO caracteristicaDTO){
+        Caracteristica caracteristica = new Caracteristica();
+        caracteristica.setId(caracteristicaDTO.id());
+        caracteristica.setTitulo(caracteristicaDTO.titulo());
+        caracteristica.setUrl(caracteristicaDTO.url());
+        return caracteristica;
+    }
+
+    private CaracteristicaDTO mapToDTO(Caracteristica caracteristica){
+        return new CaracteristicaDTO(caracteristica.getId(), caracteristica.getTitulo(), caracteristica.getUrl());
     }
 }

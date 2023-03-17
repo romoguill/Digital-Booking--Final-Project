@@ -3,6 +3,7 @@ package com.example.digitalBooking;
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.CategoriaNotFoundException;
 import com.example.digitalBooking.model.Categoria;
+import com.example.digitalBooking.model.dto.CategoriaDTO;
 import com.example.digitalBooking.repository.CategoriaRepository;
 import com.example.digitalBooking.service.CategoriaService;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,11 +13,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -29,10 +28,12 @@ public class CategoriaServiceTest {
 
     @InjectMocks
     private CategoriaService service;
-    private Categoria categoria;
+    private CategoriaDTO categoriaDTO;
+    private Categoria categoria = new Categoria();
 
     @BeforeEach
-    void setUp(){  categoria = new Categoria(1L, "Departamentos", "Lindos departamentos", "url",null);}
+    void setUp(){categoriaDTO = new CategoriaDTO(1L, "Departamentos",
+            "Lindos departamentos", "url");}
 
     @Test
     @DisplayName("WHEN we create a categoria then don´t throws any exception")
@@ -40,15 +41,16 @@ public class CategoriaServiceTest {
         //GIVEN
         given(repository.findByTitulo(anyString())).willReturn(Optional.empty());
         //WHEN AND THEN
-        assertDoesNotThrow(()->service.create(categoria));
+        assertDoesNotThrow(()->service.create(categoriaDTO));
     }
     @Test
     @DisplayName("WHEN we create a categoria with the repeated titulo then it throws BadRequestException")
     public void createProductoException(){
         //GIVEN
+
         given(repository.findByTitulo(anyString())).willReturn(Optional.of(categoria));
         //WHEN AND THEN
-        assertThrows(BadRequestException.class,()->service.create(categoria));
+        assertThrows(BadRequestException.class,()->service.create(categoriaDTO));
     }
 
     @Test
@@ -108,7 +110,7 @@ public class CategoriaServiceTest {
         //GIVEN
         given(repository.findById(anyLong())).willReturn(Optional.of(categoria));
         //WHEN AND THEN
-        assertDoesNotThrow(()->service.update(categoria));
+        assertDoesNotThrow(()->service.update(categoriaDTO));
     }
     @Test
     @DisplayName("WHEN we update a categoria that not exists then it throws CategoriaNotFoundException")
@@ -116,7 +118,7 @@ public class CategoriaServiceTest {
         //GIVEN
         given(repository.findById(anyLong())).willReturn(Optional.empty());
         //WHEN AND THEN
-        assertThrows(CategoriaNotFoundException.class,()->service.update(categoria));
+        assertThrows(CategoriaNotFoundException.class,()->service.update(categoriaDTO));
     }
 
     @Test
@@ -128,11 +130,11 @@ public class CategoriaServiceTest {
         assertDoesNotThrow(()->service.deleteById(1L));
     }
     @Test
-    @DisplayName("WHEN we delete categoria that is not present in the db THEN it throws BadRequestException")
+    @DisplayName("WHEN we delete categoria that is not present in the db THEN it throws CategoriaNotFoundException")
     public void deleteByIdCategoriaException(){
         //GIVEN
         given(repository.findById(anyLong())).willReturn(Optional.empty());
         //WHEN AND THEN
-        assertThrows(BadRequestException.class,()-> service.deleteById(5L));
+        assertThrows(CategoriaNotFoundException.class,()-> service.deleteById(5L));
     }
 }

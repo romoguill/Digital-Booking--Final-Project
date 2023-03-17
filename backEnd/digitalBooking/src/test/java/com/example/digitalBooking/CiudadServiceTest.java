@@ -1,10 +1,8 @@
 package com.example.digitalBooking;
 
-import com.example.digitalBooking.model.Categoria;
 import com.example.digitalBooking.model.Ciudad;
-import com.example.digitalBooking.repository.CategoriaRepository;
+import com.example.digitalBooking.model.dto.CiudadDTO;
 import com.example.digitalBooking.repository.CiudadRepository;
-import com.example.digitalBooking.service.CategoriaService;
 import com.example.digitalBooking.service.CiudadService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,10 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.Collections;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.BDDMockito.given;
@@ -28,9 +24,10 @@ public class CiudadServiceTest {
 
     @InjectMocks
     private CiudadService service;
-    private Ciudad ciudad;
+    private Ciudad ciudad = new Ciudad();
+    private CiudadDTO ciudadDTO;
     @BeforeEach
-    void setUp(){  ciudad = new Ciudad(1L,"Mar del Plata",null);}
+    void setUp(){  ciudadDTO = new CiudadDTO(1L,"Mar del Plata");}
 
     @Test
     @DisplayName("WHEN we list all the ciudades THEN don´t throws any exception")

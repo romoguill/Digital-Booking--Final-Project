@@ -3,11 +3,12 @@ package com.example.digitalBooking.service;
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
 import com.example.digitalBooking.model.*;
+import com.example.digitalBooking.model.dto.RequestProductoDTO;
+import com.example.digitalBooking.model.dto.ResponseProductoDTO;
 import com.example.digitalBooking.repository.ProductoRepository;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @AllArgsConstructor
@@ -17,106 +18,151 @@ public class ProductoService {
     private static final Logger logger = Logger.getLogger(ProductoService.class);
 
 
-    public void create(Producto producto) throws BadRequestException {
-        if (repository.findByTitulo(producto.getTitulo()).isPresent()) {
-            logger.error("Ya existe una producto con el nombre: " + producto.getTitulo());
-            throw new BadRequestException("Ya existe una producto con el nombre: " + producto.getTitulo());
+    public void create(RequestProductoDTO productoDTO) throws BadRequestException {
+        if (repository.findByTitulo(productoDTO.titulo()).isPresent()) {
+            logger.error("Ya existe una producto con el titulo: " + productoDTO.titulo());
+            throw new BadRequestException("Ya existe una producto con el titulo: " + productoDTO.titulo());
         }
 
-        repository.save(producto);
-        logger.info("Se creo un nuevo producto: " + producto.getTitulo());
+        repository.save(mapToProducto(productoDTO));
+        logger.info("Se creo un nuevo producto: " + productoDTO.titulo());
     }
 
-    public List<ProductoDTO> getAll(){
+    public List<ResponseProductoDTO> getAll(){
         var productos = repository.findAllWithImagenes();
         if (productos.isEmpty()) {
             logger.info("La tabla Producto no tiene registros");
             return null;
         }
-
-        List<ProductoDTO> listaDTO = new ArrayList<>();
-        for (Producto producto: productos) {
-            Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
-            ProductoDTO prod = new ProductoDTO(producto,imagenes);
-            listaDTO.add(prod);
+        List<ResponseProductoDTO> listaDTO = new ArrayList<>();
+        for (Producto producto:productos) {
+            listaDTO.add(mapToDTO(producto));
         }
         return listaDTO;
     }
 
-    public List<ProductoDTO> getAllRand(){
+    public List<ResponseProductoDTO> getAllRand(){
         var productos = repository.findAllWithImagenesRand();
         if (productos.isEmpty()) {
             logger.info("La tabla Producto no tiene registros");
             return null;
         }
 
-        List<ProductoDTO> listaDTO = new ArrayList<>();
+        List<ResponseProductoDTO> listaDTO = new ArrayList<>();
         for (Producto producto: productos) {
-            Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
-            ProductoDTO prod = new ProductoDTO(producto,imagenes);
-            listaDTO.add(prod);
+            listaDTO.add(mapToDTO(producto));
         }
         return listaDTO;
     }
-    public ProductoDTO getById(Long id) throws ProductoNotFoundException {
+    public ResponseProductoDTO getById(Long id) throws ProductoNotFoundException {
         var optionalProducto = repository.findByIdWithImagenes(id);
         if(optionalProducto.isEmpty()){
             throw new ProductoNotFoundException();
         }
         Producto producto = optionalProducto.get();
-        Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
-        return new ProductoDTO(producto,imagenes);
+        return mapToDTO(producto);
     }
     public Producto getByTitulo(String titulo) throws ProductoNotFoundException {
         return repository.findByTitulo(titulo).orElseThrow(ProductoNotFoundException::new);
     }
 
 
-    public List<ProductoDTO> filterCategoria(String categoria){
+    public List<ResponseProductoDTO> filterCategoria(String categoria){
         var productos = repository.filterCategoria(categoria);
         if (productos.isEmpty()) {
             logger.info("No hay registro de productos en esa categoria o no se encontro categoria");
             return null;
         }
-        List<ProductoDTO> listaDTO = new ArrayList<>();
+        List<ResponseProductoDTO> listaDTO = new ArrayList<>();
         for (Producto producto: productos) {
-            Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
-            ProductoDTO prod = new ProductoDTO(producto,imagenes);
-            listaDTO.add(prod);
+            listaDTO.add(mapToDTO(producto));
         }
         return listaDTO;
     }
-    public List<ProductoDTO> filterCiudad(String ciudad){
+    public List<ResponseProductoDTO> filterCiudad(String ciudad){
 
         var productos = repository.filterCiudad(ciudad);
         if (productos.isEmpty()) {
             logger.info("No hay registro de productos en esa ciudad o no se encontro ciudad");
             return null;
         }
-        List<ProductoDTO> listaDTO = new ArrayList<>();
+        List<ResponseProductoDTO> listaDTO = new ArrayList<>();
         for (Producto producto: productos) {
-            Set<Imagen> imagenes = new HashSet<>(producto.getImagenes());
-            ProductoDTO prod = new ProductoDTO(producto,imagenes);
-            listaDTO.add(prod);
+            listaDTO.add(mapToDTO(producto));
         }
         return listaDTO;
     }
 
-    public void update(Producto producto) throws ProductoNotFoundException {
-        if (repository.findById(producto.getId()).isEmpty()) {
-            logger.error("No existe un registro en la tabla Producto con el id: " + producto.getId());
+    public void update(RequestProductoDTO producto) throws ProductoNotFoundException {
+        if (repository.findById(producto.id()).isEmpty()) {
+            logger.error("No existe un registro en la tabla Producto con el id: " + producto.id());
             throw new ProductoNotFoundException();
         }
-        repository.save(producto);
-        logger.info("Se modifico el registro con el id: " + producto.getId() + " de la tabla Producto");
+        repository.save(mapToProducto(producto));
+        logger.info("Se modifico el registro con el id: " + producto.id() + " de la tabla Producto");
     }
 
-    public void deleteById(Long id) throws BadRequestException {
-        if (repository.findById(id).isEmpty()) {
-            logger.error("No existe un registro en la tabla Producto con el id: " + id);
-            throw new BadRequestException("El producto con el id: " + id + " no existe en la base de datos.");
-        }
+    public void deleteById(Long id) throws ProductoNotFoundException {
+        if(repository.findById(id).isEmpty()) throw new ProductoNotFoundException();
         repository.deleteById(id);
         logger.info("Se elimino el registro con el id: " + id + " de la tabla Productos");
+    }
+
+    private Producto mapToProducto(RequestProductoDTO productoDTO){
+        Producto producto = new Producto();
+
+        Set<Politica> politicas = new HashSet<>();
+        Politica politica = new Politica();
+        for (Long idPolitica:productoDTO.politicas()) {
+            politica.setId(idPolitica);
+            politicas.add(politica);
+        }
+
+        Set<Caracteristica> caracteristicas = new HashSet<>();
+        Caracteristica caracteristica = new Caracteristica();
+        for (Long idCaracteristica:productoDTO.caracteristicas()) {
+            caracteristica.setId(idCaracteristica);
+            caracteristicas.add(caracteristica);
+        }
+
+        Ciudad ciudad = new Ciudad();
+        ciudad.setId(productoDTO.idCiudad());
+        Categoria categoria = new Categoria();
+        categoria.setId(productoDTO.idCategoria());
+
+        producto.setId(productoDTO.id());
+        producto.setTitulo(productoDTO.titulo());
+        producto.setDescripcion(productoDTO.descripcion());
+        producto.setLatitud(productoDTO.latitud());
+        producto.setLongitud(productoDTO.longitud());
+        producto.setCiudad(ciudad);
+        producto.setCategoria(categoria);
+        producto.setCaracteristicas(caracteristicas);
+        producto.setPoliticas(politicas);
+
+        return producto;
+    }
+
+    private ResponseProductoDTO mapToDTO(Producto producto){
+        var ciudad = producto.getCiudad();
+        var categoria = producto.getCategoria();
+
+        Set<Caracteristica> caracteristicas = new HashSet<>();
+        for(Caracteristica caracteristica:producto.getCaracteristicas()) {
+            caracteristicas.add(caracteristica);
+        }
+
+        Set<Politica> politicas = new HashSet<>();
+        for(Politica politica:producto.getPoliticas()) {
+            politicas.add(politica);
+        }
+
+        Set<Imagen> imagenes = new HashSet<>();
+        for(Imagen imagen:producto.getImagenes()) {
+            imagenes.add(imagen);
+        }
+
+        return new ResponseProductoDTO(producto.getId(), producto.getTitulo(), producto.getDescripcion(), producto.getLatitud(),
+                producto.getLongitud(), ciudad,categoria,caracteristicas,politicas,imagenes);
     }
 }

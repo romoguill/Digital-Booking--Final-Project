@@ -1,14 +1,11 @@
 package com.example.digitalBooking.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -24,17 +21,14 @@ public class Reserva {
     private Long id;
 
     @Column(nullable = false)
-    @NotNull
     @JsonFormat(pattern = "HH:mm")
     private LocalTime horaComienzo;
 
     @Column(nullable = false)
-    @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaInicial;
 
     @Column(nullable = false)
-    @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaFinal;
 
@@ -42,7 +36,7 @@ public class Reserva {
     @JoinColumn(name = "id_producto",nullable = false)
     private Producto producto;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_cliente",nullable = false)
-    private Cliente cliente;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario",nullable = false)
+    private Usuario usuario;
 }

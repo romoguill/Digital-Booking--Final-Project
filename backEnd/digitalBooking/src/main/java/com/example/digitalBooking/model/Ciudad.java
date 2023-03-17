@@ -1,14 +1,11 @@
 package com.example.digitalBooking.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,8 +21,6 @@ public class Ciudad {
     private Long id;
 
     @Column(nullable = false,length = 50,unique = true)
-    @NotBlank
-    @Size(min = 1,max = 50)
     private String nombre;
 
     @OneToMany(mappedBy = "ciudad",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
