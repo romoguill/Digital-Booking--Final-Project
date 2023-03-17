@@ -94,37 +94,42 @@ function Booking() {
           <section className="booking__details">
             <div className="section-wrapper">
               <h2 className="section-title">Detalle de la reserva</h2>
-              <img src={mainImageUrl} alt="" />
-              <h3 className="rental-category">{productCategory}</h3>
-              <h2 className="rental-name">{productName}</h2>
-              <div className="rental-rating--stars">
-                <FontAwesomeIcon icon={faStar} />
-                <FontAwesomeIcon icon={faStar} />
-                <FontAwesomeIcon icon={faStar} />
-                <FontAwesomeIcon icon={faStar} />
-                <FontAwesomeIcon icon={faStarHalf} />
-              </div>
-              <p className="rental-location text-dark">
-                <span>
-                  <FontAwesomeIcon icon={faLocationDot} />
-                </span>
-                <span>{productLocation}</span>
-              </p>
-              <hr />
-              <div className="check-info__wrapper">
-                <div className="check-info checkin">
-                  <h4>Check in</h4>
-                  <p>__/__/__</p>
+
+              <div className="booking__details__content">
+                <img src={mainImageUrl} alt="" />
+                <div className="booking__details__content__info">
+                  <h3 className="rental-category">{productCategory}</h3>
+                  <h2 className="rental-name">{productName}</h2>
+                  <div className="rental-rating--stars">
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStarHalf} />
+                  </div>
+                  <p className="rental-location text-dark">
+                    <span>
+                      <FontAwesomeIcon icon={faLocationDot} />
+                    </span>
+                    <span>{productLocation}</span>
+                  </p>
+                  <hr />
+                  <div className="check-info__wrapper">
+                    <div className="check-info checkin">
+                      <h4>Check in</h4>
+                      <p>__/__/__</p>
+                    </div>
+                    <hr />
+                    <div className="check-info checkout">
+                      <h4>Check in</h4>
+                      <p>__/__/__</p>
+                    </div>
+                    <hr />
+                    <button className="button-primary button-primary--full">
+                      Confirmar reserva
+                    </button>
+                  </div>
                 </div>
-                <hr />
-                <div className="check-info checkout">
-                  <h4>Check in</h4>
-                  <p>__/__/__</p>
-                </div>
-                <hr />
-                <button className="button-primary button-primary--full">
-                  Confirmar reserva
-                </button>
               </div>
             </div>
           </section>

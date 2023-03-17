@@ -34,6 +34,7 @@
 
     .wrapper-select {
       width: 400px;
+      max-width: 100%;
       border: 1px solid globals.$bg-light;
       border-radius: globals.$border-radius-sm;
       margin-top: globals.$m-2;
@@ -75,6 +76,20 @@
       height: 100%;
       display: flex;
       flex-direction: column;
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+
+      &__info {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
     }
 
     img {
@@ -138,7 +153,9 @@
     }
 
     hr {
-      border-color: globals.$text-medium;
+      height: 1px;
+      border: none;
+      background-color: #ccc;
     }
 
     button {
@@ -158,4 +175,62 @@
     color: globals.$text-dark;
   }
 
+}
+
+@media screen and (max-width: globals.$bp-laptop) {
+  .booking {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    &__details {
+      margin-top: 0;
+      grid-column: 1 / 2;
+
+      &__content {
+        flex-direction: row;
+
+        img {
+          width: 50%;
+          margin-left: 0;
+          border-radius: globals.$border-radius-sm;
+        }
+
+        &__info {
+          padding-inline: globals.$p-4;
+
+          .rental-category {
+            margin-top: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: globals.$bp-mobile) {
+  .booking {
+
+    &__details__content {
+      flex-direction: column;
+
+      img {
+        width: calc(100% + 2 * globals.$p-4); // expandir el ancho al doble de padding
+        margin-left: - globals.$m-4; // mover hacia la izquierda asi queda centrada la imagen
+        border-radius: 0;
+      }
+
+      &__info {
+        padding-inline: 0;
+
+        .rental-category {
+          margin-top: globals.$m-4;
+        }
+
+        .check-info {
+          padding-block: globals.$p-3;
+        }
+      }
+    }
+  }
 }
