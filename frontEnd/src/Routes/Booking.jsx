@@ -111,18 +111,21 @@ function Booking() {
                 <span>{productLocation}</span>
               </p>
               <hr />
-              <div className="checkin">
-                <h4>Check in</h4>
-                <p>__/__/__</p>
+              <div className="check-info__wrapper">
+                <div className="check-info checkin">
+                  <h4>Check in</h4>
+                  <p>__/__/__</p>
+                </div>
+                <hr />
+                <div className="check-info checkout">
+                  <h4>Check in</h4>
+                  <p>__/__/__</p>
+                </div>
+                <hr />
+                <button className="button-primary button-primary--full">
+                  Confirmar reserva
+                </button>
               </div>
-              <div className="checkout">
-                <h4>Check in</h4>
-                <p>__/__/__</p>
-              </div>
-
-              <button className="button-primary button-primary--full">
-                Confirmar reserva
-              </button>
             </div>
           </section>
         </section>

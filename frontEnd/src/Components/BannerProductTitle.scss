@@ -13,7 +13,8 @@
   }
 
   h2 {
-    font-size: globals.$font-size-2
+    font-size: globals.$font-size-2;
+    text-transform: uppercase;
   }
 
   a {

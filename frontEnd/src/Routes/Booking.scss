@@ -8,7 +8,7 @@
 .booking {
   display: grid;
   gap: 30px;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 5fr minmax(300px, 2fr);
 
 
   &__calendar {
@@ -35,9 +35,6 @@
       width: 400px;
       border: 1px solid globals.$bg-light;
       border-radius: globals.$border-radius-sm;
-      // display: flex;
-      // justify-content: space-between;
-      // align-items: center;
       margin-top: globals.$m-2;
       padding-right: globals.$p-2;
       position: relative;
@@ -75,24 +72,79 @@
 
     .section-wrapper {
       height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     img {
       width: calc(100% + 2 * globals.$p-4); // expandir el ancho al doble de padding
       margin-left: - globals.$m-4; // mover hacia la izquierda asi queda centrada la imagen
+      height: 320px;
+      object-fit: cover;
       max-width: none;
+      flex-shrink: 0;
     }
 
     .rental-category {
+      margin-top: globals.$m-4;
       font-size: globals.$font-size-2;
       color: rgba(globals.$text-dark, 0.5);
+      text-transform: uppercase;
     }
 
     .rental-name {
       font-size: globals.$font-size-5;
-      color: globals.$text-dark;
+      color: globals.$text-gray;
+      margin-bottom: globals.$m-1;
+    }
+
+    .rental-rating--stars {
+      color: globals.$primary-color;
+      font-size: globals.$font-size-1;
+      margin-bottom: globals.$m-4;
+    }
+
+    .rental-location {
+      font-size: globals.$font-size-2;
+      font-weight: globals.$font-weight-md;
+      margin-bottom: globals.$m-5;
+
+      span {
+        margin-right: globals.$p-1;
+      }
+    }
+
+    .check-info__wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
+
+    .check-info__wrapper > *:not(hr, button) {
+      flex-grow: 1;
+    }
+
+    .check-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h4 {
+        font-size: globals.$font-size-3;
+        color: globals.$text-dark;
+      }
+    }
+
+    hr {
+      border-color: globals.$text-medium;
+    }
+
+    button {
+      margin-top: globals.$m-5;
     }
   }
+
 
   .section-wrapper {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -104,4 +156,5 @@
   p {
     color: globals.$text-dark;
   }
+
 }
