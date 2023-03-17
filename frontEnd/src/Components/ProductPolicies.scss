@@ -1,6 +1,8 @@
 @use '/src/sassStyles/globals';
 
 .policy {
+  margin-bottom: globals.$m-5;
+  
   .policy__items {
     display: flex;
     flex-wrap: wrap;

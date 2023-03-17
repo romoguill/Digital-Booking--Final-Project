@@ -13,7 +13,7 @@ function Footer() {
     <footer>
       <div className="container-main">
         <div className="footer__copyright">
-          <p>© 2023 SPRINGSENSE</p>
+          <p>© 2023 DIGITALBOOKING</p>
         </div>
         <div className="container__social-media">
           <a className="social-media-icon" href="#">
