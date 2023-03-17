@@ -93,7 +93,6 @@ function CustomCalendar() {
           showNavigation={true}
           value={value}
           onChange={onChange}
-          // onChange={onChange}
           locale="es"
           formatShortWeekday={(locale, date) =>
             date.toLocaleDateString(locale, { weekday: 'narrow' })
