@@ -53,7 +53,7 @@ function HomeSearch() {
   const CustomNoOptionsMessage = (props) => (
     <components.NoOptionsMessage {...props}>
       <div className="search-location-messages">
-        Ingrese el nombre de la ciudad
+        No se encontraron ciudades, por favor ingrese otra búsqueda.
       </div>
     </components.NoOptionsMessage>
   );
@@ -68,13 +68,22 @@ function HomeSearch() {
 
   const CustomLoadLocationOptions = (query, callback) => {
     axios("http://localhost:8080/ciudades/todas").then((response) => {
-      callback(
-        response.data.map(({ id, nombre, country }) => ({
+      let resultados = response.data
+        .filter((data) => {
+          if (query == "") {
+            return true;
+          }
+
+          return data.nombre.toLowerCase().includes(query.toLowerCase());
+        })
+        .map(({ id, nombre, country }) => ({
           value: id,
           label: nombre,
           country: "Argentina",
         }))
-      );
+        .sort((a, b) => a.label > b.label ? 1 : -1);
+
+      callback(resultados);
     });
   };
 
@@ -119,8 +128,8 @@ function HomeSearch() {
         <h1>Busca ofertas de casas, departamentos y mucho más</h1>
         <form className="search-by-location-date">
           <AsyncSelect
-            options={[]}
-            filterOption={createFilter({ ignoreAccents: true })}
+            cacheOptions
+            defaultOptions
             loadOptions={CustomLoadLocationOptions}
             components={{
               Control: CustomLocationControl,
@@ -136,6 +145,7 @@ function HomeSearch() {
                 classNames('search-location'),
               valueContainer: (state) => classNames('search-location-value'),
               menu: (state) => classNames('search-location-menu'),
+              menuList: (state) => classNames('search-location-menu-list'),
               option: ({ isDisabled, isFocused, isSelected }) =>
                 classNames(
                   isSelected && 'search-location-option-selected',

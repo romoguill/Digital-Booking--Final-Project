@@ -34,6 +34,7 @@ function GridRentals() {
                 titulo={item.producto.titulo}
                 ciudad={item.producto.ciudad.nombre}
                 descripcion={item.producto.descripcion}
+                caracteristicas={item.producto.politicas}
               />
             );
           })}

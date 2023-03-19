@@ -25,20 +25,14 @@ function CarrouselCategories() {
         </h2>
         <div className="container-categories">
           {Categorias.map((item) => {
-            <CategoriaCard
-              key={item.id}
-              id={item.id}
-              titulo={item.titulo}
-              descripcion={item.descripcion}
-              imagen={item.urlImagen}
-            />
+            <CategoriaCard key={item.id} data={item} id={item.id} />
           })
           }
           {!error ? (
             Categorias
               .slice(0, 4)
               .map((categoria) => (
-                <CategoriaCard key={categoria.id} data={categoria} />
+                <CategoriaCard key={categoria.id} data={categoria} id={categoria.id} />
               ))
           ) : (
             <p className="text-dark">{error}</p>

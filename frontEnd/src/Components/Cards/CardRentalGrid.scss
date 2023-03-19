@@ -9,7 +9,7 @@
     background-color: globals.$bg-white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     flex-basis: 600px;
-    height: 300px;
+    min-height: 300px;
     flex-grow: 1;
 
     &__img {
@@ -20,7 +20,7 @@
 
         img {
             height: 100%;
-            max-height: 400px;
+            max-height: 300px;
             width: 100%;
             object-fit: cover;
             object-position: center center;
@@ -64,10 +64,9 @@
             }
 
             .rental-name {
-                    font-size: globals.$font-size-5;
+                font-size: globals.$font-size-5;
             }
         }
-
 
         .rental-rating--score {
             display: flex;
@@ -75,7 +74,7 @@
             align-items: flex-end;
             justify-content: space-between;
             text-align: center;
-            
+
             .score--number {
                 padding: globals.$p-1 globals.$p-3;
                 background-color: globals.$bg-dark;
@@ -91,7 +90,7 @@
             }
         }
 
-        
+
     }
 
     &__meta {
@@ -112,6 +111,14 @@
 
         .rental-amenities {
             padding-top: globals.$p-2;
+            img {
+                display: inline-block;
+                margin-right: 0.4rem;
+                max-width: 1.3rem;
+            }
+            img:last-child {
+                margin-right: 0rem;
+            }
         }
     }
 
@@ -131,7 +138,7 @@
         }
 
     }
-    
+
     .button--read-more {
         padding: globals.$p-3;
         border-radius: globals.$border-radius-sm;
@@ -144,7 +151,7 @@
     .card-rental {
         flex-direction: column;
         height: 500px;
-        
+
         &__img {
             width: 100%;
         }
