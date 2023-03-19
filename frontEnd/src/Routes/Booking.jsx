@@ -76,7 +76,11 @@ function Booking() {
               <p>Indicá tu horario estimado de llegada </p>
               <div className="wrapper-select">
                 <select name="checkin-hour">
-                  <option value="" disabled selected>
+                  <option
+                    value=""
+                    disabled
+                    defaultValue={'Seleccionar hora de llegada'}
+                  >
                     Seleccionar hora de llegada
                   </option>
                   {selectOptions.map((option) => (

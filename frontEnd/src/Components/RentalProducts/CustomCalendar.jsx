@@ -3,7 +3,7 @@ import { Navigation } from 'react-calendar';
 import './CustomCalendar.scss';
 
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import useWindowSize from '../../Hooks/useWindowSize';
 
@@ -11,8 +11,14 @@ function CustomCalendar() {
   const [value, setValue] = useState(new Date());
   const [actualDate, setActualDate] = useState(null);
   const [nextDate, setNextDate] = useState(null);
+  const [node, setNode] = useState(null);
 
-  const calendarRef = useRef();
+  const calendarRef = useCallback((node) => {
+    if (node) {
+      setNode(node);
+      console.log('updated');
+    }
+  });
 
   // TODO : Traer el valor de los bp de sass a react
   const windowSize = useWindowSize();
@@ -25,54 +31,37 @@ function CustomCalendar() {
 
   useEffect(() => {
     setActualDate(
-      calendarRef.current.querySelector(
-        '.react-calendar__navigation__label__labelText--from'
-      ).textContent
+      node?.querySelector('.react-calendar__navigation__label__labelText--from')
+        .textContent
     );
     setNextDate(
-      calendarRef.current.querySelector(
-        '.react-calendar__navigation__label__labelText--to'
-      ).textContent
+      node?.querySelector('.react-calendar__navigation__label__labelText--to')
+        .textContent
     );
-  }, []);
+  }, [node]);
 
   const handleGoToNextMonth = () => {
-    calendarRef.current
-      .querySelector('.react-calendar__navigation__next-button')
-      .click();
-    setActualDate(
-      calendarRef.current.querySelector(
-        '.react-calendar__navigation__label__labelText--from'
-      ).textContent
-    );
-
-    setNextDate(
-      calendarRef.current.querySelector(
-        '.react-calendar__navigation__label__labelText--to'
-      ).textContent
-    );
+    node?.querySelector('.react-calendar__navigation__next-button').click();
   };
 
   const handleGoToPrevMonth = () => {
-    calendarRef.current
-      .querySelector('.react-calendar__navigation__prev-button')
-      .click();
-
-    setActualDate(
-      calendarRef.current.querySelector(
-        '.react-calendar__navigation__label__labelText--from'
-      ).textContent
-    );
-
-    setNextDate(
-      calendarRef.current.querySelector(
-        '.react-calendar__navigation__label__labelText--to'
-      ).textContent
-    );
+    node?.querySelector('.react-calendar__navigation__prev-button').click();
   };
 
   const onChange = (nextValue) => {
     setValue(nextValue);
+  };
+
+  const onActiveStartDateChange = () => {
+    setActualDate(
+      node?.querySelector('.react-calendar__navigation__label__labelText--from')
+        .textContent
+    );
+
+    setNextDate(
+      node?.querySelector('.react-calendar__navigation__label__labelText--to')
+        .textContent
+    );
   };
 
   return (
@@ -99,6 +88,7 @@ function CustomCalendar() {
           }
           showDoubleView={!isMobile ? true : false}
           inputRef={calendarRef}
+          onActiveStartDateChange={onActiveStartDateChange}
         />
 
         <button onClick={handleGoToNextMonth}>
