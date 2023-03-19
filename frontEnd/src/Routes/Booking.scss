@@ -150,6 +150,11 @@
         font-size: globals.$font-size-3;
         color: globals.$text-dark;
       }
+
+      p {
+        font-size: globals.$font-size-2;
+        font-weight: globals.$font-weight-md;
+      }
     }
 
     hr {
