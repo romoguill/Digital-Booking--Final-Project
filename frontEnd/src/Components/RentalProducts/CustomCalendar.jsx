@@ -7,8 +7,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import useWindowSize from '../../Hooks/useWindowSize';
 
-function CustomCalendar() {
-  const [value, setValue] = useState(new Date());
+function CustomCalendar({ allowRange, valueDateRange, setValueDateRange }) {
   const [actualDate, setActualDate] = useState(null);
   const [nextDate, setNextDate] = useState(null);
   const [node, setNode] = useState(null);
@@ -16,7 +15,6 @@ function CustomCalendar() {
   const calendarRef = useCallback((node) => {
     if (node) {
       setNode(node);
-      console.log('updated');
     }
   });
 
@@ -49,7 +47,7 @@ function CustomCalendar() {
   };
 
   const onChange = (nextValue) => {
-    setValue(nextValue);
+    setValueDateRange(nextValue);
   };
 
   const onActiveStartDateChange = () => {
@@ -78,9 +76,10 @@ function CustomCalendar() {
         <button onClick={handleGoToPrevMonth}>
           <FaChevronLeft />
         </button>
+
         <Calendar
           showNavigation={true}
-          value={value}
+          value={valueDateRange}
           onChange={onChange}
           locale="es"
           formatShortWeekday={(locale, date) =>
@@ -89,6 +88,7 @@ function CustomCalendar() {
           showDoubleView={!isMobile ? true : false}
           inputRef={calendarRef}
           onActiveStartDateChange={onActiveStartDateChange}
+          selectRange={allowRange ? true : false}
         />
 
         <button onClick={handleGoToNextMonth}>
