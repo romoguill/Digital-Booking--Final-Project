@@ -52,7 +52,22 @@ function Booking() {
             <h2 className="section-title">Completá tus datos</h2>
             <div className="section-wrapper">
               {/* TODO : Aca va el form de reservas */}
-              Formulario
+              <div className='form-container'>
+              <form action="">
+                <div>
+                  <label htmlFor="name">Nombre</label>
+                  <input type="text" id="name" placeholder='Bruno' />
+                  <label htmlFor="last-name">Apellido</label>
+                  <input type="text" id="last-name" placeholder='Rodriguez' />
+                </div>
+                <div>
+                  <label htmlFor="email">Correo electronico</label>
+                  <input type="email" id="email" placeholder='brodiguez@gmail.com' />
+                  <label htmlFor="city">Ciudad</label>
+                  <input type="text" id="city" placeholder='Ciudad' className='cityInput'/>
+                </div>
+              </form>
+            </div>
             </div>
           </section>
 
