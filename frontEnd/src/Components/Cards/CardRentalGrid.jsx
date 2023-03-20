@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom';
 import {
   faStar,
   faStarHalf,
-  faLocationDot,
-  faWifi,
-  faPersonSwimming,
+  faLocationDot
 } from '@fortawesome/free-solid-svg-icons';
 
 import './CardRentalGrid.scss';
+import { useState } from 'react';
 
-const Card = ({ id, imagen, img_name, categoria, titulo, ciudad, descripcion }) => {
+const Card = ({ id, imagen, img_name, categoria, titulo, ciudad, descripcion, caracteristicas }) => {
+
+  const [showMore, setShowMore] = useState(false);
+
+  console.log(descripcion)
+
   return (
     <div key={id} className="card-rental">
       <div className="card-rental__img">
@@ -50,17 +54,20 @@ const Card = ({ id, imagen, img_name, categoria, titulo, ciudad, descripcion }) 
               </span>
             </p>
             <div className="rental-amenities">
-              <FontAwesomeIcon icon={faWifi} />
-              <FontAwesomeIcon icon={faPersonSwimming} />
+              {caracteristicas && caracteristicas.map((item, i) => {
+                return (
+                  <img key={i} src={item.url} className="politica-icon" title={item.titulo} />
+                );
+              })}
             </div>
           </div>
 
           <div className="card-rental__body">
             <p className="text-dark">
-              {descripcion}
-              <span className="more-description">
-                <a>más...</a>
-              </span>
+              {showMore ? descripcion : `${descripcion.substring(0, 150)}`}
+              {descripcion.length > 150 && <span className="more-description">
+                ...<a onClick={() => setShowMore(!showMore)}>{showMore ? "leer más" : "leer menos"}.</a>
+              </span>}
             </p>
           </div>
         </div>

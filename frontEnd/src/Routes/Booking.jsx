@@ -18,11 +18,14 @@ import ProductPolicies from '../Components/ProductPolicies';
 
 function Booking() {
   const params = useParams();
+
   const [productCategory, setProductCategory] = useState(null);
   const [productName, setProductName] = useState(null);
   const [mainImageUrl, setMainImageUrl] = useState(null);
   const [productLocation, setProductLocation] = useState(null);
   const [productPolicies, setProductPolicies] = useState(null);
+
+  const [valueDateRange, setValueDateRange] = useState(null);
 
   const selectOptions = [...Array(24).keys()];
 
@@ -74,7 +77,11 @@ function Booking() {
           <section className="booking__calendar">
             <h2 className="section-title">Seleccioná tu fecha de reserva</h2>
             <div className="section-wrapper">
-              <CustomCalendar />
+              <CustomCalendar
+                allowRange={true}
+                valueDateRange={valueDateRange}
+                setValueDateRange={setValueDateRange}
+              />
             </div>
           </section>
 
@@ -91,7 +98,11 @@ function Booking() {
               <p>Indicá tu horario estimado de llegada </p>
               <div className="wrapper-select">
                 <select name="checkin-hour">
-                  <option value="" disabled selected>
+                  <option
+                    value=""
+                    disabled
+                    defaultValue={'Seleccionar hora de llegada'}
+                  >
                     Seleccionar hora de llegada
                   </option>
                   {selectOptions.map((option) => (
@@ -132,12 +143,21 @@ function Booking() {
                   <div className="check-info__wrapper">
                     <div className="check-info checkin">
                       <h4>Check in</h4>
-                      <p>__/__/__</p>
+                      <p>
+                        {valueDateRange
+                          ? valueDateRange[0].toLocaleDateString()
+                          : '__/__/__'}
+                      </p>
                     </div>
                     <hr />
                     <div className="check-info checkout">
-                      <h4>Check in</h4>
-                      <p>__/__/__</p>
+                      <h4>Check out</h4>
+                      <p>
+                        {' '}
+                        {valueDateRange
+                          ? valueDateRange[1].toLocaleDateString()
+                          : '__/__/__'}
+                      </p>
                     </div>
                     <hr />
                     <button className="button-primary button-primary--full">

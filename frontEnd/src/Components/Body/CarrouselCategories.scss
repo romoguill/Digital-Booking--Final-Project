@@ -22,6 +22,9 @@
     color:globals.$text-dark;
     font-size: globals.$font-size-3;
     font-weight: globals.$font-weight-lg;
+    a {
+      padding: 0;
+    }
   }
 
   p {
