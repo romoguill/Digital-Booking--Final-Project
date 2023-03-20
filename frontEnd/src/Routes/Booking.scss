@@ -217,15 +217,35 @@
 
 }
 
+
+
 @media screen and (max-width: globals.$bp-laptop) {
   .booking {
     display: flex;
     flex-direction: column;
     gap: 0;
 
+    .section-wrapper .form-container{
+      height: 320px;
+    }
+
     form{
       display: flex;
-      justify-content: space-evenly;
+      flex-direction: column;
+
+      div{
+
+        .label-input{
+          margin-top: 18px;
+          margin-left: 0px;
+        }
+
+        .form-input{
+          width: 100%;
+          margin-left: 0px;
+        }
+      }
+
     }
 
     &__details {
@@ -257,6 +277,17 @@
 
   
   .booking {
+
+    .section-wrapper .form-container{
+      height: 320px;
+    }
+
+    
+
+    form{
+      display: flex;
+      flex-direction: column;
+    }
 
     &__details__content {
       flex-direction: column;

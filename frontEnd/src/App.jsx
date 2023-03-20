@@ -14,6 +14,7 @@ import MenuDrawerMobile from './Components/Header/MenuDrawerMobile/MenuDrawerMob
 import RentalProducts from './Routes/RentalProducts';
 import NotFound from './Routes/NotFound';
 import Booking from './Routes/Booking';
+import BookingSuccess from './Routes/BookingSuccess';
 import CategoryProducts from './Routes/CategoryProducts';
 
 function App() {

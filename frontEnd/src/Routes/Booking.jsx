@@ -56,21 +56,21 @@ function Booking() {
             <div className="section-wrapper">
               {/* TODO : Aca va el form de reservas */}
               <div className='form-container'>
-              <form action="">
-                <div>
-                  <label htmlFor="name">Nombre</label>
-                  <input type="text" id="name" placeholder='Bruno' />
-                  <label htmlFor="last-name">Apellido</label>
-                  <input type="text" id="last-name" placeholder='Rodriguez' />
-                </div>
-                <div>
-                  <label htmlFor="email">Correo electronico</label>
-                  <input type="email" id="email" placeholder='brodiguez@gmail.com' />
-                  <label htmlFor="city">Ciudad</label>
-                  <input type="text" id="city" placeholder='Ciudad' className='cityInput'/>
-                </div>
-              </form>
-            </div>
+                <form action="">
+                  <div>
+                    <label htmlFor="name" className='label-input'>Nombre</label>
+                    <input type="text" id="name" placeholder='Bruno' className='form-input' required/>
+                    <label htmlFor="last-name" className='label-input'>Apellido</label>
+                    <input type="text" id="last-name" placeholder='Rodriguez' className='form-input' required/>
+                  </div>
+                  <div>
+                    <label htmlFor="email" className='label-input'>Correo electronico</label>
+                    <input type="email" id="email" placeholder='brodiguez@gmail.com' className='form-input' required/>
+                    <label htmlFor="city" className='label-input'>Ciudad</label>
+                    <input type="text" id="city" placeholder='Ciudad' className='cityInput form-input' required/>
+                  </div>
+                </form>
+              </div>
             </div>
           </section>
 
