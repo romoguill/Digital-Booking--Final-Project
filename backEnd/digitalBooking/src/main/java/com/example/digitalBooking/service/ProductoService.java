@@ -22,7 +22,7 @@ public class ProductoService {
     private static final Logger logger = Logger.getLogger(ProductoService.class);
 
 
-    public void create(RequestProductoDTO productoDTO) throws BadRequestException {
+    public boolean create(RequestProductoDTO productoDTO) throws BadRequestException {
         if (repository.findByTitulo(productoDTO.titulo()).isPresent()) {
             logger.error("Ya existe un producto con el titulo: " + productoDTO.titulo());
             throw new BadRequestException("Ya existe una producto con el titulo: " + productoDTO.titulo());
@@ -49,6 +49,7 @@ public class ProductoService {
         }
         repository.save(mapToProducto(productoDTO));
         logger.info("Se creo un nuevo producto: " + productoDTO.titulo());
+        return true;
     }
 
     public List<ResponseProductoDTO> getAll(){
@@ -116,19 +117,21 @@ public class ProductoService {
         return listaDTO;
     }
 
-    public void update(RequestProductoDTO producto) throws ProductoNotFoundException {
+    public boolean update(RequestProductoDTO producto) throws ProductoNotFoundException {
         if (repository.findById(producto.id()).isEmpty()) {
             logger.error("No existe un registro en la tabla Producto con el id: " + producto.id());
             throw new ProductoNotFoundException();
         }
         repository.save(mapToProducto(producto));
         logger.info("Se modifico el registro con el id: " + producto.id() + " de la tabla Producto");
+        return true;
     }
 
-    public void deleteById(Long id) throws ProductoNotFoundException {
+    public boolean deleteById(Long id) throws ProductoNotFoundException {
         if(repository.findById(id).isEmpty()) throw new ProductoNotFoundException();
         repository.deleteById(id);
         logger.info("Se elimino el registro con el id: " + id + " de la tabla Productos");
+        return true;
     }
 
     private Producto mapToProducto(RequestProductoDTO productoDTO){

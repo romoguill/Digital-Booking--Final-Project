@@ -1,4 +1,4 @@
-package com.example.digitalBooking.serviceTest;
+package com.example.digitalBooking;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.PoliticaNotFoundException;

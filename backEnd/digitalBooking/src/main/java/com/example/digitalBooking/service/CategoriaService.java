@@ -19,13 +19,14 @@ public class CategoriaService {
     private final CategoriaRepository repository;
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
 
-    public void create(CategoriaDTO categoriaDTO) throws BadRequestException {
+    public boolean create(CategoriaDTO categoriaDTO) throws BadRequestException {
         if (repository.findByTitulo(categoriaDTO.titulo()).isPresent()) {
             logger.error("Ya existe una categoria con el titulo: " + categoriaDTO.titulo());
             throw new BadRequestException("Ya existe una categoria con el titulo: " + categoriaDTO.titulo());
         }
         repository.save(mapToCategoria(categoriaDTO));
         logger.info("Se creo una nueva categoria: " + categoriaDTO.titulo());
+        return true;
     }
 
     public List<CategoriaDTO> getAll(){
@@ -59,19 +60,21 @@ public class CategoriaService {
         return mapToDTO(optional.get());
     }
 
-    public void update(CategoriaDTO categoriaDTO) throws CategoriaNotFoundException {
+    public boolean update(CategoriaDTO categoriaDTO) throws CategoriaNotFoundException {
         if (repository.findById(categoriaDTO.id()).isEmpty()) {
             logger.error("No existe un registro en la tabla Categoria con el id: " + categoriaDTO.id());
             throw new CategoriaNotFoundException();
         }
         repository.save(mapToCategoria(categoriaDTO));
         logger.info("Se modifico el registro con el id: " + categoriaDTO.id() + " de la tabla Categoria");
+        return true;
     }
 
-    public void deleteById(Long id) throws CategoriaNotFoundException {
+    public boolean deleteById(Long id) throws CategoriaNotFoundException {
         if(repository.findById(id).isEmpty()) throw new CategoriaNotFoundException();
         repository.deleteById(id);
         logger.info("Se elimino el registro con el id: " + id + " de la tabla Categoria");
+        return true;
     }
 
     private Categoria mapToCategoria(CategoriaDTO categoriaDTO){

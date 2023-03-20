@@ -20,7 +20,7 @@ public class ImagenService {
     private final ProductoRepository productoRepository;
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
 
-    public void create(ImagenDTO imagenDTO) throws BadRequestException{
+    public boolean create(ImagenDTO imagenDTO) throws BadRequestException{
         if (repository.findByTitulo(imagenDTO.titulo()).isPresent()) {
             logger.error("Ya existe una imagen con el titulo: " + imagenDTO.titulo());
             throw new BadRequestException("Ya existe una imagen con el titulo: " + imagenDTO.titulo());
@@ -31,6 +31,7 @@ public class ImagenService {
         }
         repository.save(mapToImagen(imagenDTO));
         logger.info("Se creo una nueva imagen: " + imagenDTO.titulo());
+        return true;
     }
 
     public List<ImagenDTO> getAll(){
@@ -64,19 +65,21 @@ public class ImagenService {
         return mapToDTO(optional.get());
     }
 
-    public void update(ImagenDTO imagenDTO) throws ImagenNotFoundException {
+    public boolean update(ImagenDTO imagenDTO) throws ImagenNotFoundException {
         if (repository.findById(imagenDTO.id()).isEmpty()) {
             logger.error("No existe un registro en la tabla Imagen con el id: " + imagenDTO.id());
             throw new ImagenNotFoundException();
         }
         repository.save(mapToImagen(imagenDTO));
         logger.info("Se modifico el registro con el id: " + imagenDTO.id() + " de la tabla Imagen");
+        return true;
     }
 
-    public void deleteById(Long id) throws ImagenNotFoundException {
+    public boolean deleteById(Long id) throws ImagenNotFoundException {
         if(repository.findById(id).isEmpty()) throw new ImagenNotFoundException();
         repository.deleteById(id);
         logger.info("Se elimino el registro con el id: " + id + " de la tabla Imagen");
+        return true;
     }
 
     private Imagen mapToImagen(ImagenDTO imagenDTO){

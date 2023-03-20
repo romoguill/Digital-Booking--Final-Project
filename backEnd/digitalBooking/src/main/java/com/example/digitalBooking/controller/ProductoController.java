@@ -40,9 +40,8 @@ public class ProductoController {
 
     @GetMapping("/filterCat={categoria}")
     public ResponseEntity<List<ResponseProductoDTO>> filterCategoria(@PathVariable String categoria)  {
-        return  ResponseEntity.ok(service.filterCategoria(categoria));
+        return ResponseEntity.ok(service.filterCategoria(categoria));
     }
-
 
     @GetMapping("/filterCity={ciudad}")
     public ResponseEntity<List<ResponseProductoDTO>> filterCiudad(@PathVariable String ciudad)  {

@@ -19,8 +19,7 @@ public class UsuarioService {
     private final RolRepository rolRepository;
 
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
-
-    public void create(UsuarioDTO usuarioDTO) throws BadRequestException {
+    public boolean create(UsuarioDTO usuarioDTO) throws BadRequestException {
         if (repository.findByEmail(usuarioDTO.email()).isPresent()) {
             logger.error("El usuario con el email:"+ usuarioDTO.email() + " ya existe en la base de datos");
             throw new BadRequestException("El usuario con el email: " + usuarioDTO.email() + " ya existe en la base de datos");
@@ -30,6 +29,7 @@ public class UsuarioService {
             throw new BadRequestException("No existe un rol con el id: "+ usuarioDTO.idRol());
         }
         repository.save(mapToUsuario(usuarioDTO));
+        return true;
     }
 
     public List<Usuario> getAll() {
@@ -48,15 +48,17 @@ public class UsuarioService {
         return repository.findByEmail(email).orElseThrow(UsuarioNotFoundException::new);
     }
 
-    public void update(UsuarioDTO usuarioDTO) throws UsuarioNotFoundException {
+    public boolean update(UsuarioDTO usuarioDTO) throws UsuarioNotFoundException {
         if(repository.findById(usuarioDTO.id()).isEmpty()) throw new UsuarioNotFoundException();
         repository.save(mapToUsuario(usuarioDTO));
+        return true;
     }
 
-    public void deleteById(Long id) throws UsuarioNotFoundException {
+    public boolean deleteById(Long id) throws UsuarioNotFoundException {
         if(repository.findById(id).isEmpty()) throw new UsuarioNotFoundException();
         repository.deleteById(id);
         logger.info("Se elimino el registro con el id: " + id + " de la tabla Usuarios");
+        return true;
     }
 
     private Usuario mapToUsuario(UsuarioDTO usuarioDTO){

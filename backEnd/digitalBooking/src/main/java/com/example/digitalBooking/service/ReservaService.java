@@ -26,7 +26,7 @@ public class ReservaService {
 
     private static final Logger logger = Logger.getLogger(ProductoService.class);
 
-    public void create(ReservaDTO reservaDTO) throws BadRequestException {
+    public boolean create(ReservaDTO reservaDTO) throws BadRequestException {
         if (productoRepository.findById(reservaDTO.idProducto()).isEmpty()) {
             logger.error("No existe un producto con el id:" + reservaDTO.idProducto());
             throw new BadRequestException("No existe una producto con el id: " + reservaDTO.idProducto());
@@ -39,6 +39,7 @@ public class ReservaService {
 
         repository.save(mapToReserva(reservaDTO));
         logger.info("Se creo una nueva reserva");
+        return true;
     }
 
     public List<ReservaDTO> getAllByIdProducto(Long idProducto) throws ProductoNotFoundException {

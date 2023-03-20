@@ -19,13 +19,14 @@ public class CiudadService {
     private final CiudadRepository repository;
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
 
-    public void create(CiudadDTO ciudadDTO) throws BadRequestException {
+    public boolean create(CiudadDTO ciudadDTO) throws BadRequestException {
         if (repository.findByNombre(ciudadDTO.nombre()).isPresent()) {
             logger.error("Ya existe una ciudad con el nombre: " + ciudadDTO.nombre());
             throw new BadRequestException("Ya existe una ciudad con el nombre: " + ciudadDTO.nombre());
         }
         repository.save(mapToCategoria(ciudadDTO));
         logger.info("Se creo una nueva ciudad: " + ciudadDTO.nombre());
+        return true;
     }
 
     public List<CiudadDTO> getAll(){
@@ -59,19 +60,21 @@ public class CiudadService {
         return mapToDTO(optional.get());
     }
 
-    public void update(CiudadDTO ciudadDTO) throws CiudadNotFoundException {
+    public boolean update(CiudadDTO ciudadDTO) throws CiudadNotFoundException {
         if (repository.findById(ciudadDTO.id()).isEmpty()) {
             logger.error("No existe un registro en la tabla Ciudad con el id: " + ciudadDTO.id());
             throw new CiudadNotFoundException();
         }
         repository.save(mapToCategoria(ciudadDTO));
         logger.info("Se modifico el registro con el id: " + ciudadDTO.id() + " de la tabla Ciudad");
+        return true;
     }
 
-    public void deleteById(Long id) throws CiudadNotFoundException {
+    public boolean deleteById(Long id) throws CiudadNotFoundException {
         if(repository.findById(id).isEmpty()) throw new CiudadNotFoundException();
         repository.deleteById(id);
         logger.info("Se elimino el registro con el id: " + id + " de la tabla Ciudad");
+        return true;
     }
     private Ciudad mapToCategoria(CiudadDTO ciudadDTO){
         Ciudad ciudad = new Ciudad();

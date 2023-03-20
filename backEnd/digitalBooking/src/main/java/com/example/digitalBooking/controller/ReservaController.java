@@ -25,7 +25,7 @@ public class ReservaController {
     }
 
     @GetMapping("/idProducto={idProducto}")
-    public ResponseEntity<List<ReservaDTO>> getById(@PathVariable Long idProducto) throws ProductoNotFoundException {
+    public ResponseEntity<List<ReservaDTO>> getByIdProducto(@PathVariable Long idProducto) throws ProductoNotFoundException {
         return ResponseEntity.ok(service.getAllByIdProducto(idProducto));
     }
 }

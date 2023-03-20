@@ -17,13 +17,14 @@ public class PoliticaService {
     private final PoliticaRepository repository;
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
 
-    public void create(PoliticaDTO politicaDTO) throws BadRequestException {
+    public boolean create(PoliticaDTO politicaDTO) throws BadRequestException {
         if (repository.findByTitulo(politicaDTO.titulo()).isPresent()) {
             logger.error("Ya existe una politica con el titulo: " + politicaDTO.titulo());
             throw new BadRequestException("Ya existe una politica con el titulo: " + politicaDTO.titulo());
         }
         repository.save(mapToPolitica(politicaDTO));
         logger.info("Se creo una nueva politica: " + politicaDTO.titulo());
+        return true;
     }
 
     public List<PoliticaDTO> getAll(){
@@ -57,19 +58,21 @@ public class PoliticaService {
         return mapToDTO(optional.get());
     }
 
-    public void update(PoliticaDTO politicaDTO) throws PoliticaNotFoundException {
+    public boolean update(PoliticaDTO politicaDTO) throws PoliticaNotFoundException {
         if (repository.findById(politicaDTO.id()).isEmpty()) {
             logger.error("No existe un registro en la tabla Politica con el id: " + politicaDTO.id());
             throw new PoliticaNotFoundException();
         }
         repository.save(mapToPolitica(politicaDTO));
         logger.info("Se modifico el registro con el id: " + politicaDTO.id() + " de la tabla Politica");
+        return true;
     }
 
-    public void deleteById(Long id) throws PoliticaNotFoundException {
+    public boolean deleteById(Long id) throws PoliticaNotFoundException {
         if(repository.findById(id).isEmpty()) throw new PoliticaNotFoundException();
         repository.deleteById(id);
         logger.info("Se elimino el registro con el id: " + id + " de la tabla Politica");
+        return true;
     }
 
     private Politica mapToPolitica(PoliticaDTO politicaDTO){

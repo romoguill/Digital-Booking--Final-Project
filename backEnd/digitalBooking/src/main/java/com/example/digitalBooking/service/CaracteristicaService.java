@@ -18,13 +18,14 @@ public class CaracteristicaService {
     private final CaracteristicaRepository repository;
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
 
-    public void create(CaracteristicaDTO caracteristicaDTO) throws BadRequestException {
+    public boolean create(CaracteristicaDTO caracteristicaDTO) throws BadRequestException {
         if (repository.findByTitulo(caracteristicaDTO.titulo()).isPresent()) {
             logger.error("Ya existe una caracteristica con el titulo: " + caracteristicaDTO.titulo());
             throw new BadRequestException("Ya existe una caracteristica con el titulo: " + caracteristicaDTO.titulo());
         }
         repository.save(mapToCaracteristica(caracteristicaDTO));
         logger.info("Se creo una nueva caracteristica: " + caracteristicaDTO.titulo());
+        return true;
     }
 
     public List<CaracteristicaDTO> getAll(){
@@ -58,19 +59,21 @@ public class CaracteristicaService {
         return mapToDTO(optional.get());
     }
 
-    public void update(CaracteristicaDTO caracteristicaDTO) throws CaracteristicaNotFoundException {
+    public boolean update(CaracteristicaDTO caracteristicaDTO) throws CaracteristicaNotFoundException {
         if (repository.findById(caracteristicaDTO.id()).isEmpty()) {
             logger.error("No existe un registro en la tabla Caracteristica con el id: " + caracteristicaDTO.id());
             throw new CaracteristicaNotFoundException();
         }
         repository.save(mapToCaracteristica(caracteristicaDTO));
         logger.info("Se modifico el registro con el id: " + caracteristicaDTO.id() + " de la tabla Caracteristica");
+        return true;
     }
 
-    public void deleteById(Long id) throws CaracteristicaNotFoundException {
+    public boolean deleteById(Long id) throws CaracteristicaNotFoundException {
         if(repository.findById(id).isEmpty()) throw new CaracteristicaNotFoundException();
         repository.deleteById(id);
         logger.info("Se elimino el registro con el id: " + id + " de la tabla Caracteristicas");
+        return true;
     }
 
     private Caracteristica mapToCaracteristica(CaracteristicaDTO caracteristicaDTO){

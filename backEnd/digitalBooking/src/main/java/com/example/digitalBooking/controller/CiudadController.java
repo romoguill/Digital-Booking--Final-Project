@@ -35,7 +35,7 @@ public class CiudadController {
         return  ResponseEntity.ok(service.getById(id));
     }
     @GetMapping("/nombre={nombre}")
-    public ResponseEntity<CiudadDTO> getByTitulo(@PathVariable String nombre) throws CiudadNotFoundException {
+    public ResponseEntity<CiudadDTO> getByNombre(@PathVariable String nombre) throws CiudadNotFoundException {
         return  ResponseEntity.ok(service.getByNombre(nombre));
     }
 
