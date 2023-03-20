@@ -14,6 +14,7 @@ import MenuDrawerMobile from './Components/Header/MenuDrawerMobile/MenuDrawerMob
 import RentalProducts from './Routes/RentalProducts';
 import NotFound from './Routes/NotFound';
 import Booking from './Routes/Booking';
+import BookingSuccess from './Routes/BookingSuccess';
 import CategoryProducts from './Routes/CategoryProducts';
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path="categoria/:id" element={<CategoryProducts />} />
           <Route path="producto/:id" element={<RentalProducts />} />
           <Route path="producto/:id/reserva" element={<Booking />} />
+          <Route path="reserva_confirmada" element={<BookingSuccess />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<Navigate replace to="/404" />} />
         </Routes>

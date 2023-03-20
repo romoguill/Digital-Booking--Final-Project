@@ -11,6 +11,41 @@
   gap: 30px;
   grid-template-columns: 5fr minmax(300px, 2fr);
 
+  .form-container{
+
+    height: 217px;
+
+    form  {
+      display: flex;
+    }
+    
+    label{
+        display: block;
+        color: globals.$text-gray;
+        font-size: 12px;
+        margin-top: 31px;
+        margin-left: 20px;
+        font-weight: 500;
+    }
+
+    input{
+        width: 380px;
+        height: 40px;
+        background-color: globals.$bg-gray;
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
+        color: globals.$text-gray;
+        font-size: 12px;
+        margin-left: 20px;
+        margin-top: 5px;
+        font-weight: 500;
+    }
+
+    .cityInput{
+        background-color: globals.$bg-white;
+        color: globals.$text-placeholder-city;
+    }
+}
+
 
   &__calendar {
     grid-column: 1 / 2;
@@ -182,11 +217,36 @@
 
 }
 
+
+
 @media screen and (max-width: globals.$bp-laptop) {
   .booking {
     display: flex;
     flex-direction: column;
     gap: 0;
+
+    .section-wrapper .form-container{
+      height: 320px;
+    }
+
+    form{
+      display: flex;
+      flex-direction: column;
+
+      div{
+
+        .label-input{
+          margin-top: 18px;
+          margin-left: 0px;
+        }
+
+        .form-input{
+          width: 100%;
+          margin-left: 0px;
+        }
+      }
+
+    }
 
     &__details {
       margin-top: 0;
@@ -214,7 +274,20 @@
 }
 
 @media screen and (max-width: globals.$bp-mobile) {
+
+  
   .booking {
+
+    .section-wrapper .form-container{
+      height: 320px;
+    }
+
+    
+
+    form{
+      display: flex;
+      flex-direction: column;
+    }
 
     &__details__content {
       flex-direction: column;
