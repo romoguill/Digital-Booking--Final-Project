@@ -6,6 +6,7 @@ import com.example.digitalBooking.model.Imagen;
 import com.example.digitalBooking.model.Producto;
 import com.example.digitalBooking.model.dto.ImagenDTO;
 import com.example.digitalBooking.repository.ImagenRepository;
+import com.example.digitalBooking.repository.ProductoRepository;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,17 @@ import java.util.List;
 @Service
 public class ImagenService {
     private final ImagenRepository repository;
+    private final ProductoRepository productoRepository;
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
 
-    public void create(ImagenDTO imagenDTO) throws BadRequestException {
+    public void create(ImagenDTO imagenDTO) throws BadRequestException{
         if (repository.findByTitulo(imagenDTO.titulo()).isPresent()) {
             logger.error("Ya existe una imagen con el titulo: " + imagenDTO.titulo());
             throw new BadRequestException("Ya existe una imagen con el titulo: " + imagenDTO.titulo());
+        }
+        if(productoRepository.findById(imagenDTO.idProducto()).isEmpty()){
+            logger.error("No existe un producto con el id: " + imagenDTO.idProducto());
+            throw new BadRequestException("No existe un producto con el id:" + imagenDTO.idProducto());
         }
         repository.save(mapToImagen(imagenDTO));
         logger.info("Se creo una nueva imagen: " + imagenDTO.titulo());

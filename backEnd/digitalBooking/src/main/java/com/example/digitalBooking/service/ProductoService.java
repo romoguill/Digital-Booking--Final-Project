@@ -5,7 +5,7 @@ import com.example.digitalBooking.exception.ProductoNotFoundException;
 import com.example.digitalBooking.model.*;
 import com.example.digitalBooking.model.dto.RequestProductoDTO;
 import com.example.digitalBooking.model.dto.ResponseProductoDTO;
-import com.example.digitalBooking.repository.ProductoRepository;
+import com.example.digitalBooking.repository.*;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -15,15 +15,38 @@ import java.util.*;
 @Service
 public class ProductoService {
     private final ProductoRepository repository;
+    private final CiudadRepository ciudadRepository;
+    private final CategoriaRepository categoriaRepository;
+    private final CaracteristicaRepository caracteristicaRepository;
+    private final PoliticaRepository politicaRepository;
     private static final Logger logger = Logger.getLogger(ProductoService.class);
 
 
     public void create(RequestProductoDTO productoDTO) throws BadRequestException {
         if (repository.findByTitulo(productoDTO.titulo()).isPresent()) {
-            logger.error("Ya existe una producto con el titulo: " + productoDTO.titulo());
+            logger.error("Ya existe un producto con el titulo: " + productoDTO.titulo());
             throw new BadRequestException("Ya existe una producto con el titulo: " + productoDTO.titulo());
         }
-
+        if (ciudadRepository.findById(productoDTO.idCiudad()).isEmpty()){
+            logger.error("No existe una ciudad con el id: " + productoDTO.idCiudad());
+            throw new BadRequestException("No existe una ciudad con el id: " + productoDTO.idCiudad());
+        }
+        if (categoriaRepository.findById(productoDTO.idCategoria()).isEmpty()){
+            logger.error("No existe una categoria con el id: " + productoDTO.idCategoria());
+            throw new BadRequestException("No existe una categoria con el id: " + productoDTO.idCategoria());
+        }
+        for (Long idCaracteristica:productoDTO.caracteristicas()) {
+            if (caracteristicaRepository.findById(idCaracteristica).isEmpty()){
+                logger.error("No existe una caracteristica con el id: " + idCaracteristica);
+                throw new BadRequestException("No existe una caracteristica con el id: " + idCaracteristica);
+            }
+        }
+        for (Long idPolitica:productoDTO.politicas()) {
+            if (politicaRepository.findById(idPolitica).isEmpty()){
+                logger.error("No existe una politica con el id: " + idPolitica);
+                throw new BadRequestException("No existe una politica con el id: " + idPolitica);
+            }
+        }
         repository.save(mapToProducto(productoDTO));
         logger.info("Se creo un nuevo producto: " + productoDTO.titulo());
     }

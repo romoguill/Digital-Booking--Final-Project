@@ -1,10 +1,10 @@
-package com.example.digitalBooking;
+package com.example.digitalBooking.serviceTest;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
-import com.example.digitalBooking.model.Producto;
+import com.example.digitalBooking.model.*;
 import com.example.digitalBooking.model.dto.RequestProductoDTO;
-import com.example.digitalBooking.repository.ProductoRepository;
+import com.example.digitalBooking.repository.*;
 import com.example.digitalBooking.service.ProductoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,26 +27,38 @@ import static org.mockito.BDDMockito.given;
 public class ProductoServiceTest {
     @Mock
     private ProductoRepository repository;
+    @Mock
+    private CiudadRepository ciudadRepository;
+    @Mock
+    private CategoriaRepository categoriaRepository;
+    @Mock
+    private CaracteristicaRepository caracteristicaRepository;
+    @Mock
+    private PoliticaRepository politicaRepository;
 
     @InjectMocks
     private ProductoService service;
-    private Producto producto = new Producto();
-
+    private final Producto producto = new Producto();
+    private final Ciudad ciudad = new Ciudad();
+    private final Categoria categoria = new Categoria();
+    private final Caracteristica caracteristica = new Caracteristica();
+    private final Politica politica = new Politica();
     private RequestProductoDTO requestProductoDTO;
-
-
-
 
     @BeforeEach
     void setUp(){
         requestProductoDTO = new RequestProductoDTO(1L,"Departamento","titulo",22F,
-            12F, null,null,Set.of(1L), Set.of(1L));}
+            12F, 1L,1L,Set.of(1L), Set.of(1L));}
 
     @Test
     @DisplayName("WHEN we create a producto then don´t throws any exception")
     public void createProducto(){
         //GIVEN
         given(repository.findByTitulo(anyString())).willReturn(Optional.empty());
+        given(ciudadRepository.findById(anyLong())).willReturn(Optional.of(ciudad));
+        given(categoriaRepository.findById(anyLong())).willReturn(Optional.of(categoria));
+        given(caracteristicaRepository.findById(anyLong())).willReturn(Optional.of(caracteristica));
+        given(politicaRepository.findById(anyLong())).willReturn(Optional.of(politica));
         //WHEN AND THEN
         assertDoesNotThrow(()->service.create(requestProductoDTO));
     }
@@ -56,6 +68,15 @@ public class ProductoServiceTest {
     public void createProductoException(){
         //GIVEN
         given(repository.findByTitulo(anyString())).willReturn(Optional.of(producto));
+        //WHEN AND THEN
+        assertThrows(BadRequestException.class,()->service.create(requestProductoDTO));
+    }
+
+    @Test
+    @DisplayName("WHEN we create a producto with idCiudad invalid then it throws BadRequestException")
+    public void createProductoException2(){
+        //GIVEN
+        given(ciudadRepository.findById(anyLong())).willReturn(Optional.empty());
         //WHEN AND THEN
         assertThrows(BadRequestException.class,()->service.create(requestProductoDTO));
     }
@@ -85,7 +106,16 @@ public class ProductoServiceTest {
         var productos = repository.findAllWithImagenesRand();
         //WHEN AND THEN
         if (!productos.isEmpty())
-            assertDoesNotThrow(()->service.getAll());
+            assertDoesNotThrow(()->service.getAllRand());
+    }
+
+    @Test
+    @DisplayName("WHEN we list all the productos order by random THEN return null")
+    public void getAllProductosRandomNull(){
+        //GIVEN
+        given(repository.findAllWithImagenesRand()).willReturn(Collections.emptyList());
+        //WHEN AND THEN
+        assertNull(service.getAllRand());
     }
 
     @Test

@@ -19,7 +19,7 @@ public class ImagenController {
     private final ImagenService service;
 
     @PostMapping("/crear")
-    public ResponseEntity<String> create(@RequestBody ImagenDTO imagenDTO) throws BadRequestException {
+    public ResponseEntity<String> create(@RequestBody ImagenDTO imagenDTO) throws BadRequestException{
         service.create(imagenDTO);
         return new ResponseEntity<>("Se creo la imagen correctamente", HttpStatus.CREATED);
     }

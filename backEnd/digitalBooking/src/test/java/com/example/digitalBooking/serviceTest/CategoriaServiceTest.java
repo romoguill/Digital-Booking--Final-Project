@@ -1,4 +1,4 @@
-package com.example.digitalBooking;
+package com.example.digitalBooking.serviceTest;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.CategoriaNotFoundException;
@@ -29,7 +29,7 @@ public class CategoriaServiceTest {
     @InjectMocks
     private CategoriaService service;
     private CategoriaDTO categoriaDTO;
-    private Categoria categoria = new Categoria();
+    private final Categoria categoria = new Categoria();
 
     @BeforeEach
     void setUp(){categoriaDTO = new CategoriaDTO(1L, "Departamentos",
@@ -45,7 +45,7 @@ public class CategoriaServiceTest {
     }
     @Test
     @DisplayName("WHEN we create a categoria with the repeated titulo then it throws BadRequestException")
-    public void createProductoException(){
+    public void createCategoriaException(){
         //GIVEN
 
         given(repository.findByTitulo(anyString())).willReturn(Optional.of(categoria));

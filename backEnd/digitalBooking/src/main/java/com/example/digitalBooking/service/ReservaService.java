@@ -1,12 +1,18 @@
 package com.example.digitalBooking.service;
 
-import com.example.digitalBooking.exception.ReservaNotFoundException;
+import com.example.digitalBooking.exception.BadRequestException;
+import com.example.digitalBooking.exception.ProductoNotFoundException;
 import com.example.digitalBooking.model.*;
 import com.example.digitalBooking.model.dto.ReservaDTO;
+import com.example.digitalBooking.repository.ProductoRepository;
 import com.example.digitalBooking.repository.ReservaRepository;
+import com.example.digitalBooking.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -14,20 +20,39 @@ import org.springframework.stereotype.Service;
 public class ReservaService {
 
     private final ReservaRepository repository;
+    private final ProductoRepository productoRepository;
+
+    private final UsuarioRepository usuarioRepository;
+
     private static final Logger logger = Logger.getLogger(ProductoService.class);
 
-    public void create(ReservaDTO reservaDTO){
+    public void create(ReservaDTO reservaDTO) throws BadRequestException {
+        if (productoRepository.findById(reservaDTO.idProducto()).isEmpty()) {
+            logger.error("No existe un producto con el id:" + reservaDTO.idProducto());
+            throw new BadRequestException("No existe una producto con el id: " + reservaDTO.idProducto());
+        }
+
+        if (usuarioRepository.findById(reservaDTO.idUsuario()).isEmpty()) {
+            logger.error("No existe un usuario con el id:" + reservaDTO.idUsuario());
+            throw new BadRequestException("No existe un usuario con el id: " + reservaDTO.idUsuario());
+        }
+
         repository.save(mapToReserva(reservaDTO));
         logger.info("Se creo una nueva reserva");
     }
 
-    public ReservaDTO getById(Long id) throws ReservaNotFoundException {
-        var optional = repository.findById(id);
-        if (optional.isEmpty()) {
-            logger.error("No existe una reserva con el id:" + id);
-            throw new ReservaNotFoundException();
+    public List<ReservaDTO> getAllByIdProducto(Long idProducto) throws ProductoNotFoundException {
+        if (productoRepository.findById(idProducto).isEmpty()) {
+            logger.error("No existe un producto con el id:" + idProducto);
+            throw new ProductoNotFoundException();
         }
-        return mapToDTO(optional.get());
+
+        var reservas = repository.findAllByProductoId(idProducto);
+        List<ReservaDTO> listaDTO = new ArrayList<>();
+        for (Reserva reserva:reservas) {
+            listaDTO.add(mapToDTO(reserva));
+        }
+        return listaDTO;
     }
 
     private ReservaDTO mapToDTO(Reserva reserva) {
