@@ -6,6 +6,7 @@ import com.example.digitalBooking.exception.UsuarioNotFoundException;
 import com.example.digitalBooking.model.Rol;
 import com.example.digitalBooking.model.Usuario;
 import com.example.digitalBooking.model.dto.UsuarioDTO;
+import com.example.digitalBooking.repository.RolRepository;
 import com.example.digitalBooking.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
@@ -20,6 +21,7 @@ import java.util.List;
 @Service
 public class UsuarioService implements UserDetailsService{
     private final UsuarioRepository repository;
+    private final RolRepository repositoryRol;
     private final BCryptPasswordEncoder passwordEncoder;
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
 
@@ -29,7 +31,7 @@ public class UsuarioService implements UserDetailsService{
             logger.error("El usuario con el email:"+ usuarioDTO.email() + " ya existe en la base de datos");
             throw new BadRequestException("El usuario con el email: " + usuarioDTO.email() + " ya existe en la base de datos");
         }
-        if (repository.findById(usuarioDTO.idRol()).isEmpty()){
+        if (repositoryRol.findById(usuarioDTO.idRol()).isEmpty()){
             logger.error("No existe un rol con el id: "+ usuarioDTO.idRol());
             throw new BadRequestException("No existe un rol con el id: "+ usuarioDTO.idRol());
         }

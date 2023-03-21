@@ -6,10 +6,12 @@ import com.example.digitalBooking.model.dto.RequestProductoDTO;
 import com.example.digitalBooking.model.dto.ResponseProductoDTO;
 import com.example.digitalBooking.service.ProductoService;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -47,6 +49,16 @@ public class ProductoController {
     public ResponseEntity<List<ResponseProductoDTO>> filterCiudad(@PathVariable String ciudad)  {
         return  ResponseEntity.ok(service.filterCiudad(ciudad));
     }
+
+    @GetMapping("/filterCityFechas={ciudad}")// /filterCityFechas=Mendoza?fechaInicio=01/01/2022&fechaFin=31/01/2022 --->llamada ejemplo
+    public ResponseEntity<List<ResponseProductoDTO>> filterCiudadFechas(
+            @PathVariable String ciudad,
+            @RequestParam("fechaInicio") @DateTimeFormat(pattern = "dd/MM/yyyy")  LocalDate fechaInicio,
+            @RequestParam("fechaFin")@DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate fechaFin
+    ) {
+        return ResponseEntity.ok(service.filterCiudadAndFechas(ciudad, fechaInicio, fechaFin));
+    }
+
 
     @DeleteMapping("/borrar/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id ) throws ProductoNotFoundException {

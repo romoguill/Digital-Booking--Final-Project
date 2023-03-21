@@ -9,6 +9,8 @@ import com.example.digitalBooking.repository.*;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.*;
 
 @AllArgsConstructor
@@ -117,6 +119,19 @@ public class ProductoService {
         return listaDTO;
     }
 
+    public List<ResponseProductoDTO> filterCiudadAndFechas(String ciudad, LocalDate fechaInicio, LocalDate fechadFin){
+
+        var productos = repository.filterCiudadAndFechas(ciudad,fechaInicio,fechadFin);
+        if (productos.isEmpty()) {
+            logger.info("No hay registro de productos en esa ciudad  y fechas ");
+            return null;
+        }
+        List<ResponseProductoDTO> listaDTO = new ArrayList<>();
+        for (Producto producto: productos) {
+            listaDTO.add(mapToDTO(producto));
+        }
+        return listaDTO;
+    }
     public boolean update(RequestProductoDTO producto) throws ProductoNotFoundException {
         if (repository.findById(producto.id()).isEmpty()) {
             logger.error("No existe un registro en la tabla Producto con el id: " + producto.id());
