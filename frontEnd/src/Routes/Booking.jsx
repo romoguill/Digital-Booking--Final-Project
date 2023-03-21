@@ -1,20 +1,21 @@
-import './Booking.scss';
+import "./Booking.scss";
 
-import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
+import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import {
   faStar,
   faStarHalf,
   faLocationDot,
   faAngleDown,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
 
-import BannerProductTitle from '../Components/BannerProductTitle';
-import CustomCalendar from '../Components/RentalProducts/CustomCalendar';
+import BannerProductTitle from "../Components/BannerProductTitle";
+import CustomCalendar from "../Components/RentalProducts/CustomCalendar";
 
-import { useEffect, useState } from 'react';
-import { useAsyncError, useParams } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ProductPolicies from '../Components/ProductPolicies';
+import { useEffect, useState } from "react";
+import { useAsyncError, useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ProductPolicies from "../Components/ProductPolicies";
+import BookingSuccess from "./BookingSuccess";
 
 function Booking() {
   const params = useParams();
@@ -24,7 +25,6 @@ function Booking() {
   const [mainImageUrl, setMainImageUrl] = useState(null);
   const [productLocation, setProductLocation] = useState(null);
   const [productPolicies, setProductPolicies] = useState(null);
-
   const [valueDateRange, setValueDateRange] = useState(null);
 
   const selectOptions = [...Array(24).keys()];
@@ -55,7 +55,7 @@ function Booking() {
             <h2 className="section-title">Completá tus datos</h2>
             <div className="section-wrapper">
               <div className="form-container">
-                <form action="">
+                <form>
                   <div>
                     <label htmlFor="name" className="label-input">
                       Nombre
@@ -130,9 +130,8 @@ function Booking() {
               <div className="wrapper-select">
                 <select name="checkin-hour">
                   <option
-                    value=""
                     disabled
-                    defaultValue={'Seleccionar hora de llegada'}
+                    defaultValue={"Seleccionar hora de llegada"}
                   >
                     Seleccionar hora de llegada
                   </option>
@@ -177,21 +176,23 @@ function Booking() {
                       <p>
                         {valueDateRange
                           ? valueDateRange[0].toLocaleDateString()
-                          : '__/__/__'}
+                          : "__/__/__"}
                       </p>
                     </div>
                     <hr />
                     <div className="check-info checkout">
                       <h4>Check out</h4>
                       <p>
-                        {' '}
+                        {" "}
                         {valueDateRange
                           ? valueDateRange[1].toLocaleDateString()
-                          : '__/__/__'}
+                          : "__/__/__"}
                       </p>
                     </div>
                     <hr />
-                    <button className="button-primary button-primary--full">
+                    <button
+                      className="button-primary button-primary--full"
+                    >
                       Confirmar reserva
                     </button>
                   </div>
