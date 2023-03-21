@@ -57,4 +57,15 @@ public class GlobalHandleException {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
+    /*Reserva*/
+    @ExceptionHandler({ReservaNotFoundException.class})
+    public ResponseEntity<String> ReservaNotFoundException(ReservaNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    /*Login*/
+    @ExceptionHandler({EmailNotFoundException.class})
+    public ResponseEntity<String> EmailNotFoundException(EmailNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
 }

@@ -1,34 +1,41 @@
 package com.example.digitalBooking.service;
 
 import com.example.digitalBooking.exception.BadRequestException;
+import com.example.digitalBooking.exception.EmailNotFoundException;
 import com.example.digitalBooking.exception.UsuarioNotFoundException;
 import com.example.digitalBooking.model.Rol;
 import com.example.digitalBooking.model.Usuario;
 import com.example.digitalBooking.model.dto.UsuarioDTO;
-import com.example.digitalBooking.repository.RolRepository;
 import com.example.digitalBooking.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService{
     private final UsuarioRepository repository;
-    private final RolRepository rolRepository;
-
+    private final BCryptPasswordEncoder passwordEncoder;
     private static final Logger logger = Logger.getLogger(CategoriaService.class);
+
     public boolean create(UsuarioDTO usuarioDTO) throws BadRequestException {
+
         if (repository.findByEmail(usuarioDTO.email()).isPresent()) {
             logger.error("El usuario con el email:"+ usuarioDTO.email() + " ya existe en la base de datos");
             throw new BadRequestException("El usuario con el email: " + usuarioDTO.email() + " ya existe en la base de datos");
         }
-        if (rolRepository.findById(usuarioDTO.idRol()).isEmpty()){
+        if (repository.findById(usuarioDTO.idRol()).isEmpty()){
             logger.error("No existe un rol con el id: "+ usuarioDTO.idRol());
             throw new BadRequestException("No existe un rol con el id: "+ usuarioDTO.idRol());
         }
-        repository.save(mapToUsuario(usuarioDTO));
+        UsuarioDTO userEncriptado=new UsuarioDTO(usuarioDTO.id(), usuarioDTO.nombre(), usuarioDTO.apellido(),usuarioDTO.email(),
+                passwordEncoder.encode(usuarioDTO.password()), usuarioDTO.ciudad(), usuarioDTO.idRol());
+        repository.save(mapToUsuario(userEncriptado));
         return true;
     }
 
@@ -81,6 +88,17 @@ public class UsuarioService {
     private UsuarioDTO mapToDTO(Usuario usuario){
         return new UsuarioDTO(usuario.getId(), usuario.getNombre(), usuario.getApellido(), usuario.getEmail(),
                 usuario.getPassword(), usuario.getCiudad(), usuario.getRol().getId());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String data) {
+
+        try {
+            return repository.findByEmail(data).orElseThrow(EmailNotFoundException::new);
+        } catch (EmailNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }
