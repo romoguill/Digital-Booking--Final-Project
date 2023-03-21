@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,5 +31,11 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     @Query("SELECT DISTINCT p FROM Producto p JOIN FETCH p.ciudad c LEFT JOIN FETCH p.imagenes WHERE c.nombre = :nombreCiudad")
     List<Producto> filterCiudad (@Param("nombreCiudad")String nombreCiudad);
+
+    @Query("SELECT DISTINCT p FROM Producto p JOIN FETCH p.ciudad c LEFT JOIN FETCH p.imagenes JOIN p.reservas r WHERE c.nombre = :nombreCiudad " +
+            "AND r.fechaInicial >= :fechaInicio AND r.fechaFinal <= :fechaFin")
+    List<Producto> filterCiudadAndFechas(@Param("nombreCiudad") String nombreCiudad, @Param("fechaInicio") LocalDate fechaInicio, @Param("fechaFin") LocalDate fechaFin);
+
+
 
 }
