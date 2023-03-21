@@ -2,8 +2,8 @@ package com.example.digitalBooking.controller;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
-import com.example.digitalBooking.model.Producto;
-import com.example.digitalBooking.model.ProductoDTO;
+import com.example.digitalBooking.model.dto.RequestProductoDTO;
+import com.example.digitalBooking.model.dto.ResponseProductoDTO;
 import com.example.digitalBooking.service.ProductoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,31 +22,35 @@ public class ProductoController {
     private final ProductoService service;
 
     @PostMapping("/crear")
-    public ResponseEntity<String> create(@RequestBody Producto producto) throws BadRequestException {
-        service.create(producto);
+    public ResponseEntity<String> create(@RequestBody RequestProductoDTO productoDTO) throws BadRequestException {
+        service.create(productoDTO);
         return new ResponseEntity<>("Se creo el producto correctamente", HttpStatus.CREATED);
     }
 
     @GetMapping("/todas")
-    public ResponseEntity<List<ProductoDTO>> getAll(){return ResponseEntity.ok(service.getAll());}
+    public ResponseEntity<List<ResponseProductoDTO>> getAll(){return ResponseEntity.ok(service.getAll());}
 
     @GetMapping("/todasRandom")
-    public ResponseEntity<List<ProductoDTO>> getAllRand(){return ResponseEntity.ok(service.getAllRand());}
+    public ResponseEntity<List<ResponseProductoDTO>> getAllRand(){return ResponseEntity.ok(service.getAllRand());}
 
     @GetMapping("/id={id}")
-    public ResponseEntity<ProductoDTO> getById(@PathVariable Long id) throws ProductoNotFoundException {
+    public ResponseEntity<ResponseProductoDTO> getById(@PathVariable Long id) throws ProductoNotFoundException {
         return  ResponseEntity.ok(service.getById(id));
     }
 
     @GetMapping("/filterCat={categoria}")
-    public ResponseEntity<List<ProductoDTO>> filterCategoria(@PathVariable String categoria)  {
-        return  ResponseEntity.ok(service.filterCategoria(categoria));
+    public ResponseEntity<List<ResponseProductoDTO>> filterCategoria(@PathVariable String categoria)  {
+        return ResponseEntity.ok(service.filterCategoria(categoria));
     }
 
-
     @GetMapping("/filterCity={ciudad}")
-    public ResponseEntity<List<ProductoDTO>> filterCiudad(@PathVariable String ciudad)  {
+    public ResponseEntity<List<ResponseProductoDTO>> filterCiudad(@PathVariable String ciudad)  {
         return  ResponseEntity.ok(service.filterCiudad(ciudad));
     }
 
+    @DeleteMapping("/borrar/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable Long id ) throws ProductoNotFoundException {
+        service.deleteById(id);
+        return new ResponseEntity<>("Se elimino el producto", HttpStatus.OK);
+    }
 }
