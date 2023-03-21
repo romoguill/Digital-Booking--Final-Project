@@ -54,20 +54,51 @@ function Booking() {
           <section className="booking__form">
             <h2 className="section-title">Completá tus datos</h2>
             <div className="section-wrapper">
-              {/* TODO : Aca va el form de reservas */}
-              <div className='form-container'>
+              <div className="form-container">
                 <form action="">
                   <div>
-                    <label htmlFor="name" className='label-input'>Nombre</label>
-                    <input type="text" id="name" placeholder='Bruno' className='form-input' required/>
-                    <label htmlFor="last-name" className='label-input'>Apellido</label>
-                    <input type="text" id="last-name" placeholder='Rodriguez' className='form-input' required/>
+                    <label htmlFor="name" className="label-input">
+                      Nombre
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      placeholder=""
+                      className="form-input"
+                      required
+                    />
+                    <label htmlFor="last-name" className="label-input">
+                      Apellido
+                    </label>
+                    <input
+                      type="text"
+                      id="last-name"
+                      placeholder=""
+                      className="form-input"
+                      required
+                    />
                   </div>
                   <div>
-                    <label htmlFor="email" className='label-input'>Correo electronico</label>
-                    <input type="email" id="email" placeholder='brodiguez@gmail.com' className='form-input' required/>
-                    <label htmlFor="city" className='label-input'>Ciudad</label>
-                    <input type="text" id="city" placeholder='Ciudad' className='cityInput form-input' required/>
+                    <label htmlFor="email" className="label-input">
+                      Correo electronico
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder=""
+                      className="form-input"
+                      required
+                    />
+                    <label htmlFor="city" className="label-input">
+                      Ciudad
+                    </label>
+                    <input
+                      type="text"
+                      id="city"
+                      placeholder=""
+                      className="cityInput form-input"
+                      required
+                    />
                   </div>
                 </form>
               </div>
