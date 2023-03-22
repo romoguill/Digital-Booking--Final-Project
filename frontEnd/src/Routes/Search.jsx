@@ -23,7 +23,7 @@ function Search() {
         fechaInicio = params.get("fechaInicio")? parse(params.get("fechaInicio"), "dd/MM/yyyy", new Date()) : new Date();
         fechaFin = params.get("fechaFin")? parse(params.get("fechaFin"), "dd/MM/yyyy", new Date()) : new Date();
 
-        if (fechaInicio < fechaFin) {
+        if (fechaInicio > fechaFin) {
           fechaFin = fechaInicio;
         }
       } catch (e) {
