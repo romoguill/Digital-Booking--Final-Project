@@ -3,23 +3,28 @@ import './Header.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 import UserProfile from '../UserProfile/UserProfile';
 
 import Navbar from './Navbar/Navbar';
 import useAuth from '../../Hooks/useAuth';
+import useLocalStorage from '../../Hooks/useLocalStorage';
 
 function Header({ setMenuDrawerVisible }) {
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
+  const { removeItem } = useLocalStorage();
+  const navigate = useNavigate();
 
   function handleOpenDrawerMenu() {
     setMenuDrawerVisible(true);
   }
 
   function handleLogout() {
-    setUserAuthInfo(false);
+    setAuth(null);
+    removeItem('token');
+    navigate('/');
   }
 
   return (

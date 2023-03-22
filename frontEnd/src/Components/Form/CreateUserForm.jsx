@@ -133,7 +133,7 @@ function CreateUserForm() {
             <option
               key={city.nombre}
               value={city.nombre}
-              defaultValue={city[0].nombre}
+              defaultValue={city[0]?.nombre}
             >
               {city.nombre}
             </option>
