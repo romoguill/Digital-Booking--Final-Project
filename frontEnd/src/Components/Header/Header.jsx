@@ -5,15 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { useContext } from 'react';
 
 import UserProfile from '../UserProfile/UserProfile';
 
-import { UserContext } from '../../Contexts/Context';
 import Navbar from './Navbar/Navbar';
+import useAuth from '../../Hooks/useAuth';
 
 function Header({ setMenuDrawerVisible }) {
-  const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
+  const { auth } = useAuth();
 
   function handleOpenDrawerMenu() {
     setMenuDrawerVisible(true);
@@ -25,14 +24,15 @@ function Header({ setMenuDrawerVisible }) {
 
   return (
     <header>
+      {console.log(auth)}
       <div className="container-main">
         <Link className="app-logo-link" to={'/home'}>
           <img className="app-logo" src={logo} />
         </Link>
 
-        {userAuthInfo.isLoggedIn ? (
+        {auth.isLoggedIn ? (
           <div className="account-options">
-            <UserProfile userInfo={userAuthInfo.userInfo} />
+            <UserProfile userInfo={auth.userInfo} />
             <Link to={'/'} onClick={handleLogout}>
               <FontAwesomeIcon icon={faRightFromBracket} />
             </Link>
