@@ -4,15 +4,19 @@ import { Link } from 'react-router-dom';
 
 const CategoriaCard = ({ data, id }) => {
   return (
-    <div key={id} className="card-category">
-      <div className="container-img">
-        <img src={data.urlImagen} alt={"Imagen de la Categoria " + data.titulo} />
+
+      <div key={id} className="card-category">
+        <div className="container-img">
+          <img src={data.urlImagen} alt={"Imagen de la Categoria " + data.titulo} />
+        </div>
+        <div className="container-content">
+          <Link to={`/categoria/${data.titulo}`}>
+            <h3>{data.titulo}</h3>
+            <p>{data.descripcion}</p>
+          </Link>
+        </div>
       </div>
-      <div className="container-content">
-        <h3><Link to={`/categoria/${id}`}>{data.titulo}</Link></h3>
-        <p>{data.descripcion}</p>
-      </div>
-    </div>
+
   );
 };
 

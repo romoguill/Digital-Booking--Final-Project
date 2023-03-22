@@ -1,29 +1,15 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import BannerProductTitle from '../Components/BannerProductTitle';
 import Card from '../Components/Cards/CardRentalGrid';
 import './CategoryProducts.scss';
 
 function CategoryProducts() {
   const params = useParams();
-  const [categoria, setCategoria] = useState({});
   const [productos, setProductos] = useState([]);
-  const [noFound, setNoFound] = useState(false);
 
   useEffect(() => {
-    const fetchCategoryData = async () => {
-      axios(`http://localhost:8080/categoria/id=${params.id}`)
-        .then((res) => {
-          setCategoria(res.data);
-          fetchProductData();
-        })
-        .catch((res) => {
-          if (res.response.status == 404) {
-            setNoFound(true);
-          }
-        });
-    };
     const fetchProductData = async () => {
       axios(`http://localhost:8080/productos/filterCat=${params.id}`)
         .then((res) => {
@@ -34,15 +20,14 @@ function CategoryProducts() {
         })
     };
 
-    fetchCategoryData();
+    fetchProductData();
   }, []);
 
   return (
     <div className="category-products container-page">
-      {noFound && <Navigate replace to="/404" />}
       <BannerProductTitle
-        titulo={categoria.titulo}
-        categoria={categoria.descripcion}
+        titulo={params.id}
+        categoria="Categoría"
       />
       <div className="container-main product-list">
         <div className="grid-rentals__grid">
@@ -57,7 +42,7 @@ function CategoryProducts() {
               titulo={item.titulo}
               ciudad={item.ciudad.nombre}
               descripcion={item.descripcion}
-              caracteristicas={item.politicas}
+              caracteristicas={item.caracteristicas}
             />
             );
           })}
