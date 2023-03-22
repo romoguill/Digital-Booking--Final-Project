@@ -6,7 +6,7 @@ import './GridRentals.scss';
 
 function GridRentals() {
 
-  const ENDPOINT_GET_PRODUCTOS = "http://localhost:8080/productos/todas"
+  const ENDPOINT_GET_PRODUCTOS = "http://localhost:8080/productos/todasRandom"
 
   const [Deptos, setDeptos] = useState([]);
 
@@ -26,15 +26,15 @@ function GridRentals() {
           {Deptos.map((item) => {
             return (
               <Card
-                key={item.producto.id}
-                id={item.producto.id}
+                key={item.id}
+                id={item.id}
                 imagen={item.imagenes[0].url}
                 img_name={item.imagenes[0].titulo}
-                categoria={item.producto.categoria.titulo}
-                titulo={item.producto.titulo}
-                ciudad={item.producto.ciudad.nombre}
-                descripcion={item.producto.descripcion}
-                caracteristicas={item.producto.politicas}
+                categoria={item.categoria.titulo}
+                titulo={item.titulo}
+                ciudad={item.ciudad.nombre}
+                descripcion={item.descripcion}
+                caracteristicas={item.caracteristicas}
               />
             );
           })}

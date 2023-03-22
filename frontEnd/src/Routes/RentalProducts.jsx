@@ -48,7 +48,7 @@ function RentalProducts() {
     const fetchData = async () => {
       axios(`http://localhost:8080/productos/id=${params.id}`)
         .then((res) => {
-          setProducto(res.data.producto);
+          setProducto(res.data);
           setImagenes(res.data.imagenes);
         })
         .catch((res) => {
@@ -81,14 +81,7 @@ function RentalProducts() {
             producto.caracteristicas.map((item, i) => {
               return (
                 <div className="item" key={i}>
-                  <FontAwesomeIcon
-                    icon={
-                      iconComponents[item.id]
-                        ? iconComponents[item.id]
-                        : iconComponents[0]
-                    }
-                    className="ammenity-icon"
-                  />
+                  <img src={item.url} className="ammenity-icon" />
                   <h4>{item.titulo}</h4>
                 </div>
               );
