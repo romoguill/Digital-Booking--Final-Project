@@ -15,6 +15,7 @@ import RentalProducts from './Routes/RentalProducts';
 import NotFound from './Routes/NotFound';
 import Booking from './Routes/Booking';
 import CategoryProducts from './Routes/CategoryProducts';
+import Search from './Routes/Search';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
@@ -42,6 +43,7 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<CreateUser />} />
+          <Route path="busqueda" element={<Search />} />
           <Route path="categoria/:id" element={<CategoryProducts />} />
           <Route path="producto/:id" element={<RentalProducts />} />
           <Route path="producto/:id/reserva" element={<Booking />} />

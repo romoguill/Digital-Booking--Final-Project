@@ -13,8 +13,6 @@ const Card = ({ id, imagen, img_name, categoria, titulo, ciudad, descripcion, ca
 
   const [showMore, setShowMore] = useState(false);
 
-  console.log(descripcion)
-
   return (
     <div key={id} className="card-rental">
       <div className="card-rental__img">
