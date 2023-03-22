@@ -16,10 +16,12 @@ import Booking from './Routes/Booking';
 import BookingSuccess from './Routes/BookingSuccess';
 import CategoryProducts from './Routes/CategoryProducts';
 import Search from './Routes/Search';
+import useAuth from './Hooks/useAuth';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
   const [menuDrawerVisible, setMenuDrawerVisible] = useState(false);
+  const { auth } = useAuth();
 
   return (
     <div className="app">
@@ -37,7 +39,16 @@ function App() {
         <Route path="busqueda" element={<Search />} />
         <Route path="categoria/:id" element={<CategoryProducts />} />
         <Route path="producto/:id" element={<RentalProducts />} />
-        <Route path="producto/:id/reserva" element={<Booking />} />
+        <Route
+          path="producto/:id/reserva"
+          element={
+            auth?.userEmail ? (
+              <Booking />
+            ) : (
+              <Navigate to="/login" replace={true} />
+            )
+          }
+        />
         <Route path="reserva_confirmada" element={<BookingSuccess />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate replace to="/404" />} />

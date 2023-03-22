@@ -33,7 +33,6 @@ function UserLoginForm() {
       });
       if (response.ok) {
         const token = (await response.json()).jwt;
-        console.log(token);
         const {
           sub: userEmail,
           apellido: userLastName,
@@ -41,7 +40,7 @@ function UserLoginForm() {
         } = jwt_decode(token);
         setAuth({ userEmail, userLastName, userName });
         setItem('token', token);
-        navigate('/');
+        navigate(-1);
       } else {
         setError('root.responseError', {
           type: 'custom',

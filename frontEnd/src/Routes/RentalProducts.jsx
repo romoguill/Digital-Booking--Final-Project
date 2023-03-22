@@ -21,8 +21,8 @@ import CustomCalendar from '../Components/RentalProducts/CustomCalendar';
 import { Navigate, useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductPolicies from '../Components/ProductPolicies';
+import useAuth from '../Hooks/useAuth';
 
 function RentalProducts() {
   const params = useParams();
@@ -44,6 +44,8 @@ function RentalProducts() {
     10: faSpa,
     11: faWifi,
   };
+
+  const { auth } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
