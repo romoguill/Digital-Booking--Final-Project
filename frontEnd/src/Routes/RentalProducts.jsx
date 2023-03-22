@@ -81,7 +81,7 @@ function RentalProducts() {
             producto.caracteristicas.map((item, i) => {
               return (
                 <div className="item" key={i}>
-                  <img src={item.url} className="ammenity-icon" />
+                  <img src={item.url} alt={item.titulo} className="ammenity-icon" />
                   <h4>{item.titulo}</h4>
                 </div>
               );

@@ -17,8 +17,12 @@ registerLocale('es', es);
 function HomeSearch() {
   const calRef = React.useRef();
   const [dates, setDates] = useState(null);
+  const [ciudad, setCiudad] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [showFormError, setShowFormError] = useState(false);
+
   const onDatepickerChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
@@ -98,6 +102,20 @@ function HomeSearch() {
     </div>
   ));
 
+  const validateForm = () => {
+    if (!startDate || !endDate || !ciudad) {
+      setIsFormValid(false);
+      setShowFormError(true);
+
+      return false;
+    }
+
+    setIsFormValid(true);
+    setShowFormError(false);
+
+    return true;
+  }
+
   const CustomCalendarContainer = ({ className, children }) => {
     return (
       <div className="calendar-container">
@@ -129,6 +147,7 @@ function HomeSearch() {
           <input type="hidden" name="fechaFin" value={endDate? format(endDate, "dd/MM/yyyy") : ""} />
           <AsyncSelect
             name="ciudad"
+            required
             cacheOptions
             defaultOptions
             loadOptions={CustomLoadLocationOptions}
@@ -171,11 +190,13 @@ function HomeSearch() {
               dateFormat="dd MMM yyyy"
               customInput={<CustomCalendarInput />}
             />
+
           </div>
-          <button className="button-primary button-primary--full" type="submit">
+          <button className="button-primary button-primary--full" type="submit" onClick={() => validateForm()}>
             Buscar
           </button>
         </form>
+        {showFormError && <p className='form-error'>Por favor ingrese la ciudad y las fechas</p>}
       </div>
     </div>
   );

@@ -17,11 +17,18 @@ function Search() {
   useEffect(() => {
     const fetchProductData = async () => {
       let ciudad = params.get("ciudad");
-      let fechaInicio = params.get("fechaInicio")? parse(params.get("fechaInicio"), "dd/MM/yyyy", new Date()) : "";
-      let fechaFin = params.get("fechaFin")? parse(params.get("fechaFin"), "dd/MM/yyyy", new Date()) : "";
+      let fechaInicio = null;
+      let fechaFin = null;
+      try {
+        fechaInicio = params.get("fechaInicio")? parse(params.get("fechaInicio"), "dd/MM/yyyy", new Date()) : new Date();
+        fechaFin = params.get("fechaFin")? parse(params.get("fechaFin"), "dd/MM/yyyy", new Date()) : new Date();
 
-      if (fechaInicio < fechaFin) {
-        fechaFin = fechaInicio;
+        if (fechaInicio < fechaFin) {
+          fechaFin = fechaInicio;
+        }
+      } catch (e) {
+        fechaInicio = new Date();
+        fechaFin = new Date();
       }
 
       setDisplayFechaInicio(format(fechaInicio, "dd MMM yyyy", { locale: es }));
