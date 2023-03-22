@@ -42,11 +42,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/productos/crear").hasAuthority("ADMIN")
                 .antMatchers("/productos/todas").hasAuthority("USER")
+                .antMatchers("/productos/todas").hasAuthority("ADMIN")
                 .antMatchers("/productos/todasRandom").permitAll()
                 .antMatchers("/productos/id={id}").permitAll()
                 .antMatchers("/productos/filterCat={categoria}").permitAll()
                 .antMatchers("/productos/filterCity={ciudad}").permitAll()
-                .antMatchers("/filterCityFechas={ciudad}").permitAll()
+                .antMatchers("/productos/filterCityFechas={ciudad}").permitAll()
                 .antMatchers("/productos/borrar/{id}").hasAuthority("ADMIN")
 
                 .antMatchers("/categoria/crear").hasAuthority("ADMIN")

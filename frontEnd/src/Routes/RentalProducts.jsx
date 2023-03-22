@@ -1,19 +1,4 @@
 import './RentalProducts.scss';
-
-import {
-  faClock,
-  faWheelchair,
-  faUtensils,
-  faCar,
-  faBanSmoking,
-  faSwimmer,
-  faShieldHalved,
-  faJugDetergent,
-  faSpa,
-  faWifi,
-  faBorderNone,
-} from '@fortawesome/free-solid-svg-icons';
-
 import GalleryProduct from '../Components/RentalProducts/GalleryProduct';
 import Hero from '../Components/RentalProducts/Hero';
 import Map from '../Components/RentalProducts/Map';
@@ -21,7 +6,6 @@ import CustomCalendar from '../Components/RentalProducts/CustomCalendar';
 import { Navigate, useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductPolicies from '../Components/ProductPolicies';
 
 function RentalProducts() {
@@ -29,26 +13,12 @@ function RentalProducts() {
   const [noFound, setNoFound] = useState(false);
   const [producto, setProducto] = useState({});
   const [imagenes, setImagenes] = useState([]);
-  const iconComponents = {
-    0: faBorderNone,
-    1: faClock,
-    2: faWheelchair,
-    3: faUtensils,
-    4: faCar,
-    5: faBanSmoking,
-    6: faSwimmer,
-    7: faUtensils,
-    8: faShieldHalved,
-    9: faJugDetergent,
-    10: faSpa,
-    11: faWifi,
-  };
 
   useEffect(() => {
     const fetchData = async () => {
       axios(`http://localhost:8080/productos/id=${params.id}`)
         .then((res) => {
-          setProducto(res.data.producto);
+          setProducto(res.data);
           setImagenes(res.data.imagenes);
         })
         .catch((res) => {
@@ -81,14 +51,7 @@ function RentalProducts() {
             producto.caracteristicas.map((item, i) => {
               return (
                 <div className="item" key={i}>
-                  <FontAwesomeIcon
-                    icon={
-                      iconComponents[item.id]
-                        ? iconComponents[item.id]
-                        : iconComponents[0]
-                    }
-                    className="ammenity-icon"
-                  />
+                  <img src={item.url} alt={item.titulo} className="ammenity-icon" />
                   <h4>{item.titulo}</h4>
                 </div>
               );

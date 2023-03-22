@@ -88,11 +88,11 @@ function Booking() {
         `http://localhost:8080/productos/id=${params.id}`
       );
       const data = await response.json();
-      setProductCategory(data.producto.categoria.titulo);
-      setProductName(data.producto.titulo);
+      setProductCategory(data.categoria.titulo);
+      setProductName(data.titulo);
       setMainImageUrl(data.imagenes[0].url);
-      setProductLocation(data.producto.ciudad.nombre);
-      setProductPolicies(data.producto.politicas);
+      setProductLocation(data.ciudad.nombre);
+      setProductPolicies(data.politicas);
       console.log(data);
     };
     fetchData();
@@ -195,8 +195,8 @@ function Booking() {
               <p>Indicá tu horario estimado de llegada </p>
               <div className="wrapper-select">
                 <select name="checkin-hour" id="time" onChange={handleTimeChange} value={formData ? formData.time : ''}>
-                  <option 
-                  disabled 
+                  <option
+                  disabled
                   defaultValue={"Seleccionar hora de llegada"}
                   >
                     Seleccionar hora de llegada
