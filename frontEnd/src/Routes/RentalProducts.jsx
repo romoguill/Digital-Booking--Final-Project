@@ -26,6 +26,7 @@ import ProductPolicies from '../Components/ProductPolicies';
 
 function RentalProducts() {
   const params = useParams();
+  const [valueDateRange, setValueDateRange] = useState(null);
   const [noFound, setNoFound] = useState(false);
   const [producto, setProducto] = useState({});
   const [imagenes, setImagenes] = useState([]);
@@ -81,7 +82,11 @@ function RentalProducts() {
             producto.caracteristicas.map((item, i) => {
               return (
                 <div className="item" key={i}>
-                  <img src={item.url} alt={item.titulo} className="ammenity-icon" />
+                  <img
+                    src={item.url}
+                    alt={item.titulo}
+                    className="ammenity-icon"
+                  />
                   <h4>{item.titulo}</h4>
                 </div>
               );
@@ -92,7 +97,11 @@ function RentalProducts() {
       <section className="booking container-main">
         <h2 className="booking__title section-title">Fechas disponibles</h2>
         <div className="booking__body">
-          <CustomCalendar producto={producto} imagenes={imagenes} />
+          <CustomCalendar
+            producto={producto}
+            imagenes={imagenes}
+            setValueDateRange={setValueDateRange}
+          />
           <div className="booking__call-to-action">
             <h4>Agregá tus fechas de viaje para obtener precios exactos</h4>
             <Link

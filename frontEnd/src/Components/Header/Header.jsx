@@ -34,9 +34,9 @@ function Header({ setMenuDrawerVisible }) {
           <img className="app-logo" src={logo} />
         </Link>
 
-        {auth.isLoggedIn ? (
+        {auth?.userEmail ? (
           <div className="account-options">
-            <UserProfile userInfo={auth.userInfo} />
+            <UserProfile />
             <Link to={'/'} onClick={handleLogout}>
               <FontAwesomeIcon icon={faRightFromBracket} />
             </Link>

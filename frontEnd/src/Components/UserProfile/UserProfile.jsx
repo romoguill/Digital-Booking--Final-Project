@@ -1,18 +1,21 @@
+import useAuth from '../../Hooks/useAuth';
 import './UserProfile.scss';
 
-function ProfilePicture({ userInfo }) {
-  const initials = userInfo.name.slice(0, 1) + userInfo.lastName.slice(0, 1);
+function ProfilePicture() {
+  const { auth } = useAuth();
+  const initials = auth?.userName.slice(0, 1) + auth?.userLastName.slice(0, 1);
 
   return <div className="profile-picture">{initials}</div>;
 }
 
-function UserProfile({ userInfo, mobile }) {
+function UserProfile({ mobile }) {
+  const { auth } = useAuth();
   return (
     <div className={`user-profile ${mobile ? 'mobile' : ''}`}>
-      <ProfilePicture userInfo={userInfo} />
+      <ProfilePicture />
       <div className="user-profile__info">
         <p className="text-dark">Hola,</p>
-        <p className="user-name">{`${userInfo.name} ${userInfo.lastName}`}</p>
+        <p className="user-name">{`${auth?.userName} ${auth?.userLastName}`}</p>
       </div>
     </div>
   );

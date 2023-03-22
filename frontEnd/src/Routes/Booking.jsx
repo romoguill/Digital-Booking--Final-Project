@@ -1,21 +1,20 @@
-import "./Booking.scss";
+import './Booking.scss';
 
-import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
+import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
 import {
   faStar,
   faStarHalf,
   faLocationDot,
   faAngleDown,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
-import BannerProductTitle from "../Components/BannerProductTitle";
-import CustomCalendar from "../Components/RentalProducts/CustomCalendar";
+import BannerProductTitle from '../Components/BannerProductTitle';
+import CustomCalendar from '../Components/RentalProducts/CustomCalendar';
 
-import { useEffect, useState } from "react";
-import { useAsyncError, useParams, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ProductPolicies from "../Components/ProductPolicies";
-import BookingSuccess from "./BookingSuccess";
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ProductPolicies from '../Components/ProductPolicies';
 
 function Booking() {
   const params = useParams();
@@ -27,34 +26,34 @@ function Booking() {
   const [productPolicies, setProductPolicies] = useState(null);
   const [valueDateRange, setValueDateRange] = useState(null);
 
-  const [formMessage, setFormMessage] = useState("");
+  const [formMessage, setFormMessage] = useState('');
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
-    lastname: "",
-    email: "",
-    city: "",
-    time: "",
+    name: '',
+    lastname: '',
+    email: '',
+    city: '',
+    time: '',
   });
 
-  const ENDPOINT_POST = "http://localhost:8080/reservas/crear";
+  const ENDPOINT_POST = 'http://localhost:8080/reservas/crear';
 
   const peticionPost = async () => {
-
     let formDataSend = {
       ...formData,
-      valueDateRange
-    }
+      valueDateRange,
+    };
 
     await axios
       .post(ENDPOINT_POST, formDataSend)
       .then((response) => {
         if (response.status == 201) {
-          navigate("/reserva_confirmada")
-        }
-        else{
-          setFormMessage("Lamentablemente la reserva no ha podido realizarse”. Por favor, intente más tarde")
+          navigate('/reserva_confirmada');
+        } else {
+          setFormMessage(
+            'Lamentablemente la reserva no ha podido realizarse”. Por favor, intente más tarde'
+          );
         }
       })
       .catch((err) => {
@@ -62,23 +61,23 @@ function Booking() {
       });
   };
 
-  const handleChange = e => {
-    e.persist()
+  const handleChange = (e) => {
+    e.persist();
     setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
-    })
-    console.log(formData)
-  }
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+    console.log(formData);
+  };
 
-  const handleTimeChange = e => {
-    e.persist()
+  const handleTimeChange = (e) => {
+    e.persist();
     setFormData({
-        ...formData,
-        [e.target.id]: e.target.value
-    })
-    console.log(formData)
-  }
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+    console.log(formData);
+  };
 
   const selectOptions = [...Array(24).keys()];
 
@@ -194,11 +193,13 @@ function Booking() {
               </h4>
               <p>Indicá tu horario estimado de llegada </p>
               <div className="wrapper-select">
-                <select name="checkin-hour" id="time" onChange={handleTimeChange} value={formData ? formData.time : ''}>
-                  <option
-                  disabled
-                  defaultValue={"Seleccionar hora de llegada"}
-                  >
+                <select
+                  name="checkin-hour"
+                  id="time"
+                  onChange={handleTimeChange}
+                  value={formData ? formData.time : ''}
+                >
+                  <option disabled defaultValue={'Seleccionar hora de llegada'}>
                     Seleccionar hora de llegada
                   </option>
                   {selectOptions.map((option) => (
@@ -242,21 +243,24 @@ function Booking() {
                       <p>
                         {valueDateRange
                           ? valueDateRange[0].toLocaleDateString()
-                          : "__/__/__"}
+                          : '__/__/__'}
                       </p>
                     </div>
                     <hr />
                     <div className="check-info checkout">
                       <h4>Check out</h4>
                       <p>
-                        {" "}
+                        {' '}
                         {valueDateRange
                           ? valueDateRange[1].toLocaleDateString()
-                          : "__/__/__"}
+                          : '__/__/__'}
                       </p>
                     </div>
                     <hr />
-                    <button onClick={peticionPost} className="button-primary button-primary--full">
+                    <button
+                      onClick={peticionPost}
+                      className="button-primary button-primary--full"
+                    >
                       Confirmar reserva
                     </button>
                   </div>

@@ -15,8 +15,6 @@ function CreateUserForm() {
 
   const navigate = useNavigate();
 
-  const { setAuth } = useAuth();
-
   useEffect(() => {
     const getCities = async () => {
       const response = await fetch('http://localhost:8080/ciudades/todas');

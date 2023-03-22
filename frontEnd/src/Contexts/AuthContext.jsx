@@ -12,10 +12,15 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const token = getItem('token');
     try {
-      const { sub: userEmail, exp: tokenExpireDate } = jwt_decode(token);
+      const {
+        sub: userEmail,
+        apellido: userLastName,
+        nombre: userName,
+        exp: tokenExpireDate,
+      } = jwt_decode(token);
       tokenExpireDate > new Date()
         ? removeItem('token')
-        : setAuth({ userEmail });
+        : setAuth({ userEmail, userLastName, userName });
     } catch (error) {
       removeItem('token');
     }
