@@ -6,33 +6,42 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import './MainForm.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useAuth from '../../Hooks/useAuth';
 
 function CreateUserForm() {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [cities, setCities] = useState(null);
+
   const navigate = useNavigate();
 
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const { setAuth } = useAuth();
+
+  useEffect(() => {
+    const getCities = async () => {
+      const response = await fetch('http://localhost:8080/ciudades/todas');
+      setCities(await response.json());
+    };
+    getCities();
+  }, []);
 
   function handleShowPassword() {
     setPasswordVisible(!passwordVisible);
   }
 
-  // TODO : Utilizar una llamada adecuada cuando tengamos el backend
-  const fakeCallAPI = (formData) => {
-    return new Promise((resolve, reject) => {
-      if (formData.email === 'errorservidor@gmail.com') {
-        reject();
-      } else {
-        resolve({ ok: true });
-      }
-    });
-  };
-
-  // TODO : Customizar accion a realizar cuando la respuesta de backend es 200
   const onSubmit = async (formData) => {
-    const response = await fakeCallAPI(formData);
-    if (response.ok) {
-      navigate('/');
+    const payload = JSON.stringify({ ...formData, idRol: 2 });
+    try {
+      const response = await fetch('http://localhost:8080/usuarios/crear', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+      });
+      if (response.ok) {
+        navigate('/login');
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -59,9 +68,9 @@ function CreateUserForm() {
     >
       <div className="group__name-lastName">
         <div className="form-control">
-          <label htmlFor="name">Nombre</label>
+          <label htmlFor="nombre">Nombre</label>
           <input
-            {...register('name', {
+            {...register('nombre', {
               required: 'Campo requerido',
               pattern: {
                 value:
@@ -77,9 +86,9 @@ function CreateUserForm() {
         </div>
 
         <div className="form-control">
-          <label htmlFor="lastName">Apellido</label>
+          <label htmlFor="apellido">Apellido</label>
           <input
-            {...register('lastName', {
+            {...register('apellido', {
               required: 'Campo requerido',
               pattern: {
                 value:
@@ -110,6 +119,29 @@ function CreateUserForm() {
 
         {errors.email && (
           <p className="input-error-msg">{errors.email.message}</p>
+        )}
+      </div>
+
+      <div className="form-control">
+        <label htmlFor="ciudad">Ciudad</label>
+        <select
+          {...register('ciudad', {
+            required: 'Campo requerido',
+          })}
+        >
+          {cities?.map((city) => (
+            <option
+              key={city.nombre}
+              value={city.nombre}
+              defaultValue={city[0].nombre}
+            >
+              {city.nombre}
+            </option>
+          ))}
+        </select>
+
+        {errors.city && (
+          <p className="input-error-msg">{errors.city.message}</p>
         )}
       </div>
 

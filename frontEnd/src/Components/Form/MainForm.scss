@@ -19,7 +19,7 @@
     font-size: globals.$font-size-1;
   }
 
-  input {
+  input, select {
       border-radius: globals.$border-radius-sm;
       border: none;
       padding: globals.$p-3 globals.$p-4;
