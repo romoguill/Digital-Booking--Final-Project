@@ -1,0 +1,31 @@
+[2023-03-1714:22:06] [ INFO ] [CategoriaService:39] La tabla Ciudad no tiene registros
+[2023-03-1714:22:15] [ INFO ] [CategoriaService:75] Se elimino el registro con el id: 1 de la tabla Categoria
+[2023-03-1714:22:15] [ INFO ] [CategoriaService:69] Se modifico el registro con el id: 1 de la tabla Categoria
+[2023-03-1714:22:15] [ ERROR] [CategoriaService:65] No existe un registro en la tabla Categoria con el id: 1
+[2023-03-1714:22:15] [ INFO ] [CategoriaService:35] La tabla Categoria no tiene registros
+[2023-03-1714:22:15] [ INFO ] [CategoriaService:29] Se creo una nueva categoria: Departamentos
+[2023-03-1714:22:15] [ ERROR] [CategoriaService:49] No existe una categoria con el id:1
+[2023-03-1714:22:15] [ ERROR] [CategoriaService:25] Ya existe una categoria con el titulo: Departamentos
+[2023-03-1714:22:15] [ ERROR] [CategoriaService:57] No existe una categoria con el titulo:titulo
+[2023-03-1714:22:50] [ INFO ] [CategoriaService:75] Se elimino el registro con el id: 1 de la tabla Categoria
+[2023-03-1714:22:50] [ INFO ] [CategoriaService:69] Se modifico el registro con el id: 1 de la tabla Categoria
+[2023-03-1714:22:50] [ ERROR] [CategoriaService:65] No existe un registro en la tabla Categoria con el id: 1
+[2023-03-1714:22:51] [ INFO ] [CategoriaService:35] La tabla Categoria no tiene registros
+[2023-03-1714:22:51] [ INFO ] [CategoriaService:29] Se creo una nueva categoria: Departamentos
+[2023-03-1714:22:51] [ ERROR] [CategoriaService:49] No existe una categoria con el id:1
+[2023-03-1714:22:51] [ ERROR] [CategoriaService:25] Ya existe una categoria con el titulo: Departamentos
+[2023-03-1714:22:51] [ ERROR] [CategoriaService:57] No existe una categoria con el titulo:titulo
+[2023-03-1714:23:11] [ INFO ] [ProductoService:88] No hay registro de productos en esa ciudad o no se encontro ciudad
+[2023-03-1714:23:11] [ INFO ] [ProductoService:36] La tabla Producto no tiene registros
+[2023-03-1714:23:11] [ ERROR] [ProductoService:100] No existe un registro en la tabla Producto con el id: 1
+[2023-03-1714:23:11] [ ERROR] [ProductoService:25] Ya existe una producto con el titulo: Departamento
+[2023-03-1714:23:11] [ INFO ] [ProductoService:75] No hay registro de productos en esa categoria o no se encontro categoria
+[2023-03-1714:23:11] [ INFO ] [ProductoService:110] Se elimino el registro con el id: 1 de la tabla Productos
+[2023-03-1714:29:34] [ INFO ] [ProductoService:88] No hay registro de productos en esa ciudad o no se encontro ciudad
+[2023-03-1714:29:34] [ INFO ] [ProductoService:36] La tabla Producto no tiene registros
+[2023-03-1714:29:34] [ ERROR] [ProductoService:100] No existe un registro en la tabla Producto con el id: 1
+[2023-03-1714:29:34] [ INFO ] [ProductoService:104] Se modifico el registro con el id: 1 de la tabla Producto
+[2023-03-1714:29:34] [ INFO ] [ProductoService:30] Se creo un nuevo producto: Departamento
+[2023-03-1714:29:34] [ ERROR] [ProductoService:25] Ya existe una producto con el titulo: Departamento
+[2023-03-1714:29:34] [ INFO ] [ProductoService:75] No hay registro de productos en esa categoria o no se encontro categoria
+[2023-03-1714:29:34] [ INFO ] [ProductoService:110] Se elimino el registro con el id: 1 de la tabla Productos

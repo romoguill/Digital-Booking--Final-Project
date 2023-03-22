@@ -1,16 +1,11 @@
 package com.example.digitalBooking.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,22 +21,16 @@ public class Producto {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @Column(nullable = false,length = 100)
-        @NotBlank
-        @Size(min = 1,max = 100)
+        @Column(nullable = false,length = 100,unique = true)
         private String titulo;
 
         @Column(nullable = false,length = 100)
-        @NotBlank
-        @Size(min = 1,max = 100)
         private String descripcion;
 
         @Column(nullable = false)
-        @NotNull
         private Float latitud;
 
         @Column(nullable = false)
-        @NotNull
         private Float longitud;
 
         @ManyToOne
@@ -52,8 +41,7 @@ public class Producto {
         @JoinColumn(name = "id_categoria",nullable = false)
         private Categoria categoria;
 
-        @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-        @JsonIgnore
+        @OneToMany(mappedBy = "producto", orphanRemoval = true,cascade = CascadeType.ALL)
         private Set<Imagen> imagenes = new HashSet<>();
 
         public void addImagen(Imagen imagen) {
@@ -63,7 +51,7 @@ public class Producto {
 
         public void removeImagen(Imagen imagen) {imagenes.remove(imagen);}
 
-        @ManyToMany(cascade = {CascadeType.MERGE})
+        @ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
         private Set<Caracteristica> caracteristicas = new HashSet<>();
 
         public void addCaracteristica(Caracteristica caracteristica) {caracteristicas.add(caracteristica);}
@@ -72,7 +60,7 @@ public class Producto {
                 caracteristicas.remove(caracteristica);
         }
 
-        @ManyToMany(cascade = {CascadeType.MERGE})
+        @ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
         private Set<Politica> politicas = new HashSet<>();
 
         public void addCaracteristica(Politica politica) {politicas.add(politica);}
@@ -80,5 +68,16 @@ public class Producto {
         public void removeCaracteristica(Politica politica) {
                 politicas.remove(politica);
         }
+
+        @OneToMany(mappedBy = "producto",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+        @JsonIgnore
+        private Set<Reserva> reservas= new HashSet<>();
+
+        public void addReserva(Reserva reserva) {
+                reservas.add(reserva);
+                reserva.setProducto(this);
+        }
+
+        public void removeReserva(Reserva reserva) {reservas.remove(reserva);}
 
 }
