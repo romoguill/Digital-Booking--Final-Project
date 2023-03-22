@@ -7,7 +7,9 @@ const CategoriaCard = ({ data, id }) => {
 
       <div key={id} className="card-category">
         <div className="container-img">
-          <img src={data.urlImagen} alt={"Imagen de la Categoria " + data.titulo} />
+          <Link to={`/categoria/${data.titulo}`}>
+            <img src={data.urlImagen} alt={"Imagen de la Categoria " + data.titulo} />
+          </Link>
         </div>
         <div className="container-content">
           <Link to={`/categoria/${data.titulo}`}>

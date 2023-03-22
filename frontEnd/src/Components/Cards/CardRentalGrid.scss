@@ -146,6 +146,10 @@
     }
 }
 
+.card-rental.empty {
+    box-shadow: 0 0 0;
+    background: transparent;
+}
 
 @media screen and (max-width: globals.$bp-mobile) {
     .card-rental {
