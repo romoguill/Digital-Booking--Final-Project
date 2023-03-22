@@ -12,7 +12,7 @@ import BannerProductTitle from "../Components/BannerProductTitle";
 import CustomCalendar from "../Components/RentalProducts/CustomCalendar";
 
 import { useEffect, useState } from "react";
-import { useAsyncError, useParams } from "react-router-dom";
+import { useAsyncError, useParams, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductPolicies from "../Components/ProductPolicies";
 import BookingSuccess from "./BookingSuccess";
@@ -26,6 +26,59 @@ function Booking() {
   const [productLocation, setProductLocation] = useState(null);
   const [productPolicies, setProductPolicies] = useState(null);
   const [valueDateRange, setValueDateRange] = useState(null);
+
+  const [formMessage, setFormMessage] = useState("");
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    lastname: "",
+    email: "",
+    city: "",
+    time: "",
+  });
+
+  const ENDPOINT_POST = "http://localhost:8080/reservas/crear";
+
+  const peticionPost = async () => {
+
+    let formDataSend = {
+      ...formData,
+      valueDateRange
+    }
+
+    await axios
+      .post(ENDPOINT_POST, formDataSend)
+      .then((response) => {
+        if (response.status == 201) {
+          navigate("/reserva_confirmada")
+        }
+        else{
+          setFormMessage("Lamentablemente la reserva no ha podido realizarse”. Por favor, intente más tarde")
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  const handleChange = e => {
+    e.persist()
+    setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+    })
+    console.log(formData)
+  }
+
+  const handleTimeChange = e => {
+    e.persist()
+    setFormData({
+        ...formData,
+        [e.target.id]: e.target.value
+    })
+    console.log(formData)
+  }
 
   const selectOptions = [...Array(24).keys()];
 
@@ -48,6 +101,7 @@ function Booking() {
   return (
     <div className="container-page">
       <BannerProductTitle titulo={productName} categoria={productCategory} />
+      {formMessage}
 
       <div className="booking-wrapper">
         <section className="booking container-main">
@@ -66,6 +120,9 @@ function Booking() {
                       placeholder=""
                       className="form-input"
                       required
+                      name="name"
+                      onChange={handleChange}
+                      value={formData ? formData.name : ''}
                     />
                     <label htmlFor="last-name" className="label-input">
                       Apellido
@@ -76,6 +133,9 @@ function Booking() {
                       placeholder=""
                       className="form-input"
                       required
+                      name="lastname"
+                      onChange={handleChange}
+                      value={formData ? formData.lastname : ''}
                     />
                   </div>
                   <div>
@@ -88,6 +148,9 @@ function Booking() {
                       placeholder=""
                       className="form-input"
                       required
+                      name="email"
+                      onChange={handleChange}
+                      value={formData ? formData.email : ''}
                     />
                     <label htmlFor="city" className="label-input">
                       Ciudad
@@ -98,6 +161,9 @@ function Booking() {
                       placeholder=""
                       className="cityInput form-input"
                       required
+                      name="city"
+                      onChange={handleChange}
+                      value={formData ? formData.city : ''}
                     />
                   </div>
                 </form>
@@ -128,10 +194,10 @@ function Booking() {
               </h4>
               <p>Indicá tu horario estimado de llegada </p>
               <div className="wrapper-select">
-                <select name="checkin-hour">
-                  <option
-                    disabled
-                    defaultValue={"Seleccionar hora de llegada"}
+                <select name="checkin-hour" id="time" onChange={handleTimeChange} value={formData ? formData.time : ''}>
+                  <option 
+                  disabled 
+                  defaultValue={"Seleccionar hora de llegada"}
                   >
                     Seleccionar hora de llegada
                   </option>
@@ -190,9 +256,7 @@ function Booking() {
                       </p>
                     </div>
                     <hr />
-                    <button
-                      className="button-primary button-primary--full"
-                    >
+                    <button onClick={peticionPost} className="button-primary button-primary--full">
                       Confirmar reserva
                     </button>
                   </div>
