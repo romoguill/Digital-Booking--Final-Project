@@ -1,5 +1,6 @@
 package com.example.digitalBooking.config.jwt;
 
+import com.example.digitalBooking.model.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -38,6 +39,8 @@ public class JwtUtil {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("nombre", ((Usuario) userDetails).getNombre());
+        claims.put("apellido", ((Usuario) userDetails).getApellido());
         return createToken(claims, userDetails.getUsername());
     }
 
