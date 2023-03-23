@@ -120,9 +120,30 @@
     &__content {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: space-around;
       flex-grow: 1;
       margin-top: globals.$m-2;
+
+      .form-message-error{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 10px;
+        padding: 10px;
+
+        margin-top: 20px;
+        max-width: 100%;
+        color: globals.$input-error-msg;
+
+        border: 0.5px solid globals.$input-error-border;
+        border-radius: 5px;
+        background-color: globals.$input-error-bg;
+      }
+
+      .message-visibility{
+        display: none;
+      }
 
       &__info {
         flex-grow: 1;
@@ -204,7 +225,7 @@
     }
 
     button {
-      margin-top: globals.$m-5;
+      margin-top: globals.$m-4;
       padding-block: globals.$p-4;
     }
   }
@@ -230,6 +251,12 @@
     display: flex;
     flex-direction: column;
     gap: 0;
+
+    .form-message-error{
+      margin-top: 20px;
+      height: auto;
+      max-width: 100%;
+    }
 
     &__details {
       margin-top: 0;
@@ -260,6 +287,10 @@
 
   
   .booking {
+
+    .form-message-error{
+      margin-top: 20px;
+    }
 
     .form-container {
       form{
