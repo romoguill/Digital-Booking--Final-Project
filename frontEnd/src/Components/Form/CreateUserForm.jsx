@@ -17,7 +17,9 @@ function CreateUserForm() {
 
   useEffect(() => {
     const getCities = async () => {
-      const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/ciudades/todas`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/ciudades/todas`
+      );
       setCities(await response.json());
     };
     getCities();
@@ -31,11 +33,14 @@ function CreateUserForm() {
     const payload = JSON.stringify({ ...formData, idRol: 2 });
     console.log(payload);
     try {
-      const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/usuarios/crear`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: payload,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/usuarios/crear`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+        }
+      );
       if (response.ok) {
         navigate('/login');
       }

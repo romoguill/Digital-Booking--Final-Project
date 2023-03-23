@@ -29,7 +29,7 @@ function Booking() {
 
   const [productCategory, setProductCategory] = useState(null);
   const [productName, setProductName] = useState(null);
-  const [productId, setProductId] = useState(null)
+  const [productId, setProductId] = useState(null);
   const [mainImageUrl, setMainImageUrl] = useState(null);
   const [productLocation, setProductLocation] = useState(null);
   const [productPolicies, setProductPolicies] = useState(null);
@@ -47,19 +47,27 @@ function Booking() {
   const datosUsuario = {
     userName: auth.userName,
     userLastName: auth.userLastName,
-    userMail: auth.userEmail
-  }
+    userMail: auth.userEmail,
+  };
 
   const parseHour = (hour) =>
     hour.length === 1 ? `0${hour}:00` : `${hour}:00`;
 
   const parseDateRange = (dateRange) =>
-    dateRange.map((date) => date.toLocaleString().split(',')[0]);
+    dateRange.map(
+      (date) =>
+        date
+          .toLocaleString(undefined, {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+          })
+          .split(',')[0]
+    );
 
   const ENDPOINT_POST = `${import.meta.env.VITE_BASE_API_URL}/reservas/crear`;
 
   const peticionPost = async () => {
-
     const parsedHour = parseHour(formData.time);
     const [parsedDateFirst, parsedDateLast] = parseDateRange(valueDateRange);
 
@@ -70,6 +78,7 @@ function Booking() {
       idProducto: params.id,
       emailUsuario: auth.userEmail,
     };
+    console.log(payload);
 
     try {
       const response = await fetch(ENDPOINT_POST, {
@@ -89,7 +98,7 @@ function Booking() {
         );
       }
     } catch (err) {
-      setIsActive(true)
+      setIsActive(true);
       setFormMessage(
         'Lamentablemente la reserva no ha podido realizarse. Por favor, intente más tarde'
       );
@@ -149,8 +158,6 @@ function Booking() {
       setProductLocation(data.ciudad.nombre);
       setProductPolicies(data.politicas);
       setProductId(data.id);
-      console.log(data);
-      console.log(valueDateRange[0])
     };
     fetchData();
   }, []);
@@ -311,7 +318,11 @@ function Booking() {
                       </p>
                     </div>
                     <hr />
-                    <div className={isActive ? "form-message-error" : 'message-visibility'}>
+                    <div
+                      className={
+                        isActive ? 'form-message-error' : 'message-visibility'
+                      }
+                    >
                       {formMessage}
                     </div>
                     <button
