@@ -20,7 +20,6 @@ import ProductPolicies from '../Components/ProductPolicies';
 import useAuth from '../Hooks/useAuth';
 import useLocalStorage from '../Hooks/useLocalStorage';
 import { AuthContext } from '../Contexts/AuthContext';
-import useAuth from '../Hooks/useAuth';
 
 function Booking() {
   const params = useParams();
@@ -43,6 +42,12 @@ function Booking() {
     time: '',
     email: '',
   });
+
+  const datosUsuario = {
+    userName: auth.userName,
+    userLastName: auth.userLastName,
+    userMail: auth.userEmail
+  }
 
   const parseHour = (hour) =>
     hour.length === 1 ? `0${hour}:00` : `${hour}:00`;
@@ -165,7 +170,6 @@ function Booking() {
                       id="name"
                       placeholder=""
                       className="form-input"
-                      required
                       name="name"
                       disabled
                       value={datosUsuario.userName}
@@ -178,7 +182,6 @@ function Booking() {
                       id="last-name"
                       placeholder=""
                       className="form-input"
-                      required
                       name="lastname"
                       disabled
                       value={datosUsuario.userLastName}
@@ -193,7 +196,6 @@ function Booking() {
                       id="email"
                       placeholder=""
                       className="form-input"
-                      required
                       disabled
                       name="email"
                       value={datosUsuario.userMail}
