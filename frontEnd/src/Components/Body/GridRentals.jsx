@@ -6,7 +6,7 @@ import './GridRentals.scss';
 
 function GridRentals() {
 
-  const ENDPOINT_GET_PRODUCTOS = "http://3.144.19.234:8080/productos/todasRandom"
+  const ENDPOINT_GET_PRODUCTOS = `${import.meta.env.VITE_BASE_API_URL}/productos/todasRandom`
 
   const [Deptos, setDeptos] = useState([]);
 

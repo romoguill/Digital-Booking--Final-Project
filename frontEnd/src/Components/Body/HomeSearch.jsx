@@ -69,7 +69,7 @@ function HomeSearch() {
   );
 
   const CustomLoadLocationOptions = (query, callback) => {
-    axios("http://3.144.19.234:8080/ciudades/todas").then((response) => {
+    axios(`${import.meta.env.VITE_BASE_API_URL}/ciudades/todas`).then((response) => {
       let resultados = response.data
         .filter((data) => {
           if (query == "") {

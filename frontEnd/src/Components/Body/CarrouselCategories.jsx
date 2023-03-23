@@ -7,7 +7,7 @@ function CarrouselCategories() {
   const [Categorias, setCategorias] = useState([]);
   const [error, setError] = useState();
 
-  const ENDPOINT_GET_CATEGORIAS = "http://3.144.19.234:8080/categoria/todas"
+  const ENDPOINT_GET_CATEGORIAS = `${import.meta.env.VITE_BASE_API_URL}/categoria/todas`
 
   useEffect(() => {
     const fetchData = async () => {
