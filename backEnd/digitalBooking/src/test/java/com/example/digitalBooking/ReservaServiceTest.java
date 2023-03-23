@@ -26,6 +26,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -57,7 +58,7 @@ public class ReservaServiceTest {
     public void createReserva(){
         //GIVEN
         given(productoRepository.findById(anyLong())).willReturn(Optional.of(producto));
-        given(usuarioRepository.findById(anyLong())).willReturn(Optional.of(usuario));
+        given(usuarioRepository.findByEmail(anyString())).willReturn(Optional.of(usuario));
         //WHEN AND THEN
         assertDoesNotThrow(()->service.create(requestReservaDTO));
     }
@@ -67,7 +68,7 @@ public class ReservaServiceTest {
     public void createReservaException(){
         //GIVEN
         given(productoRepository.findById(anyLong())).willReturn(Optional.of(producto));
-        given(usuarioRepository.findById(anyLong())).willReturn(Optional.empty());
+        given(usuarioRepository.findByEmail(anyString())).willReturn(Optional.empty());
         //WHEN AND THEN
         assertThrows(BadRequestException.class,()->service.create(requestReservaDTO));
     }

@@ -20,7 +20,7 @@ function RentalProducts() {
 
   useEffect(() => {
     const fetchData = async () => {
-      axios(`http://localhost:8080/productos/id=${params.id}`)
+      axios(`${import.meta.env.VITE_BASE_API_URL}/productos/id=${params.id}`)
         .then((res) => {
           setProducto(res.data);
           setImagenes(res.data.imagenes);

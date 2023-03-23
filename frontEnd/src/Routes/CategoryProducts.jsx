@@ -11,7 +11,7 @@ function CategoryProducts() {
 
   useEffect(() => {
     const fetchProductData = async () => {
-      axios(`http://localhost:8080/productos/filterCat=${params.id}`)
+      axios(`${import.meta.env.VITE_BASE_API_URL}/productos/filterCat=${params.id}`)
         .then((res) => {
           if (typeof res.data === "string") {
             res.data = [];

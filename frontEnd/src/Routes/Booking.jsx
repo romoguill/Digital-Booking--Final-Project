@@ -17,11 +17,16 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductPolicies from '../Components/ProductPolicies';
+import useAuth from '../Hooks/useAuth';
+import useLocalStorage from '../Hooks/useLocalStorage';
 import { AuthContext } from '../Contexts/AuthContext';
 import useAuth from '../Hooks/useAuth';
 
 function Booking() {
   const params = useParams();
+
+  const { auth } = useAuth();
+  const { getItem } = useLocalStorage();
 
   const [productCategory, setProductCategory] = useState(null);
   const [productName, setProductName] = useState(null);
@@ -31,8 +36,6 @@ function Booking() {
   const [productPolicies, setProductPolicies] = useState(null);
   const [valueDateRange, setValueDateRange] = useState(null);
 
-  const { auth } = useAuth()
-
   const [formMessage, setFormMessage] = useState('');
   const navigate = useNavigate();
 
@@ -41,54 +44,69 @@ function Booking() {
     email: '',
   });
 
-  const datosUsuario = {
-    userName : auth.userName,
-    userLastName: auth.userLastName,
-    userMail: auth.userEmail
-  }
+  const parseHour = (hour) =>
+    hour.length === 1 ? `0${hour}:00` : `${hour}:00`;
 
-  const ENDPOINT_POST = 'http://localhost:8080/reservas/crear';
+  const parseDateRange = (dateRange) =>
+    dateRange.map((date) => date.toLocaleString().split(',')[0]);
+
+  const ENDPOINT_POST = `${import.meta.env.VITE_BASE_API_URL}/reservas/crear`;
 
   const peticionPost = async () => {
-  
-    let horaComienzo = "10:00"
-    let emailUsuario = formData.email
-    let fechaInicial = valueDateRange[0]
-    let fechaFinal = valueDateRange[1]
+    const parsedHour = parseHour(formData.time);
+    const [parsedDateFirst, parsedDateLast] = parseDateRange(valueDateRange);
 
-    const formDataSend = {
-      horaComienzo: horaComienzo,
-      fechaInicial: fechaInicial,
-      fechaFinal: fechaFinal,
-      idProducto: productId,
-      emailUsuario: emailUsuario
+    const payload = {
+      horaComienzo: parsedHour,
+      fechaInicial: parsedDateFirst,
+      fechaFinal: parsedDateLast,
+      idProducto: params.id,
+      emailUsuario: auth.userEmail,
     };
 
-    const options = {
-      method: 'POST',
-      url: ENDPOINT_POST,
-      headers: {
-        Authorization: auth,
-      },
-      body: formDataSend
-    };
-
-    await axios
-      .request(options)
-      .then((response) => {
-        if (response.status == 201) {
-          navigate('/reserva_confirmada');
-        } else {
-          setFormMessage(
-            'Lamentablemente la reserva no ha podido realizarse”. Por favor, intente más tarde'
-          );
-        }
-      })
-      .catch((err) => {
-        console.log(err.message);
-        console.log(formDataSend)
+    try {
+      const response = await fetch(ENDPOINT_POST, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
       });
+      console.log(response);
+      if (response.ok) {
+        navigate('/reserva_confirmada');
+      } else {
+        setFormMessage(
+          'Lamentablemente la reserva no ha podido realizarse”. Por favor, intente más tarde'
+        );
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
   };
+
+  // await axios
+  //   .post(ENDPOINT_POST, JSON.stringify(payload), {
+  //     headers: {
+  //       authorization: getItem('token'),
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //   .then((response) => {
+  //     if (response.status == 201) {
+  //       navigate('/reserva_confirmada');
+  //     } else {
+  //       setFormMessage(
+  //         'Lamentablemente la reserva no ha podido realizarse”. Por favor, intente más tarde'
+  //       );
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.log(err.message);
+  //   });
+  // };
 
   const handleChange = (e) => {
     e.persist();
@@ -96,7 +114,6 @@ function Booking() {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    console.log(formData);
   };
 
   const handleTimeChange = (e) => {
@@ -105,7 +122,6 @@ function Booking() {
       ...formData,
       [e.target.id]: e.target.value,
     });
-    console.log(formData);
   };
 
   const selectOptions = [...Array(24).keys()];
@@ -113,7 +129,7 @@ function Booking() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `http://localhost:8080/productos/id=${params.id}`
+        `${import.meta.env.VITE_BASE_API_URL}/productos/id=${params.id}`
       );
       const data = await response.json();
       setProductCategory(data.categoria.titulo);
