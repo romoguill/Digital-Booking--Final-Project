@@ -46,6 +46,7 @@ function CategoryProducts() {
             />
             );
           })}
+          {productos.length > 0 && productos.length % 2 != 0 && <div className='card-rental empty'></div>}
         </div>
       </div>
     </div>

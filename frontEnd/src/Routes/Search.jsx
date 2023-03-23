@@ -91,7 +91,7 @@ function Search() {
             />
             );
           })}
-          {productos.length === 1 && <div className='card-rental empty'></div>}
+          {productos.length > 0 && productos.length % 2 != 0 && <div className='card-rental empty'></div>}
         </div>
       </div>
     </div>
