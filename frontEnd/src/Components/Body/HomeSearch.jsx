@@ -3,13 +3,11 @@ import './HomeSearch.scss';
 import classNames from 'classnames';
 import React, { useState, forwardRef } from 'react';
 import es from 'date-fns/locale/es';
+import { format } from 'date-fns';
 import axios from 'axios';
 import AsyncSelect from 'react-select/async';
-import { createFilter, components } from 'react-select';
-import DatePicker, {
-  registerLocale,
-  CalendarContainer,
-} from 'react-datepicker';
+import { components } from 'react-select';
+import DatePicker, { registerLocale, CalendarContainer } from 'react-datepicker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
@@ -19,8 +17,12 @@ registerLocale('es', es);
 function HomeSearch() {
   const calRef = React.useRef();
   const [dates, setDates] = useState(null);
+  const [ciudad, setCiudad] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [showFormError, setShowFormError] = useState(false);
+
   const onDatepickerChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
@@ -53,7 +55,7 @@ function HomeSearch() {
   const CustomNoOptionsMessage = (props) => (
     <components.NoOptionsMessage {...props}>
       <div className="search-location-messages">
-        Ingrese el nombre de la ciudad
+        No se encontraron ciudades, por favor ingrese otra búsqueda.
       </div>
     </components.NoOptionsMessage>
   );
@@ -67,14 +69,23 @@ function HomeSearch() {
   );
 
   const CustomLoadLocationOptions = (query, callback) => {
-    axios("http://localhost:8080/ciudades/todas").then((response) => {
-      callback(
-        response.data.map(({ id, nombre, country }) => ({
-          value: id,
+    axios(`${import.meta.env.VITE_BASE_API_URL}/ciudades/todas`).then((response) => {
+      let resultados = response.data
+        .filter((data) => {
+          if (query == "") {
+            return true;
+          }
+
+          return data.nombre.toLowerCase().includes(query.toLowerCase());
+        })
+        .map(({ id, nombre, country }) => ({
+          value: nombre,
           label: nombre,
           country: "Argentina",
         }))
-      );
+        .sort((a, b) => a.label > b.label ? 1 : -1);
+
+      callback(resultados);
     });
   };
 
@@ -90,6 +101,23 @@ function HomeSearch() {
       />
     </div>
   ));
+
+  const validateForm = (event) => {
+
+    if (!startDate && !endDate && !ciudad) {
+      setIsFormValid(false);
+      setShowFormError(true);
+
+      event.preventDefault();
+
+      return false;
+    }
+
+    setIsFormValid(true);
+    setShowFormError(false);
+
+    return true;
+  }
 
   const CustomCalendarContainer = ({ className, children }) => {
     return (
@@ -117,10 +145,14 @@ function HomeSearch() {
     <div className="home-search">
       <div className="container-main">
         <h1>Busca ofertas de casas, departamentos y mucho más</h1>
-        <form className="search-by-location-date">
+        <form className="search-by-location-date" action='busqueda'>
+          <input type="hidden" name="fechaInicio" value={startDate? format(startDate, "dd/MM/yyyy") : ""} />
+          <input type="hidden" name="fechaFin" value={endDate? format(endDate, "dd/MM/yyyy") : ""} />
           <AsyncSelect
-            options={[]}
-            filterOption={createFilter({ ignoreAccents: true })}
+            name="ciudad"
+            onChange={(selected) => setCiudad(selected.value)}
+            cacheOptions
+            defaultOptions
             loadOptions={CustomLoadLocationOptions}
             components={{
               Control: CustomLocationControl,
@@ -136,6 +168,7 @@ function HomeSearch() {
                 classNames('search-location'),
               valueContainer: (state) => classNames('search-location-value'),
               menu: (state) => classNames('search-location-menu'),
+              menuList: (state) => classNames('search-location-menu-list'),
               option: ({ isDisabled, isFocused, isSelected }) =>
                 classNames(
                   isSelected && 'search-location-option-selected',
@@ -145,6 +178,7 @@ function HomeSearch() {
           />
           <div>
             <DatePicker
+              name="fecha"
               ref={calRef}
               locale="es"
               monthsShown={2}
@@ -159,11 +193,13 @@ function HomeSearch() {
               dateFormat="dd MMM yyyy"
               customInput={<CustomCalendarInput />}
             />
+
           </div>
-          <button className="button-primary button-primary--full">
+          <button className="button-primary button-primary--full" type="submit" onClick={(e) => validateForm(e)}>
             Buscar
           </button>
         </form>
+        {showFormError && <p className='form-error'>Por favor ingrese la ciudad y/o las fechas</p>}
       </div>
     </div>
   );

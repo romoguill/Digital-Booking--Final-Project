@@ -36,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/usuarios/login").permitAll()
                 .antMatchers("/usuarios/todas").hasAuthority("ADMIN")
                 .antMatchers("/usuarios/id={id}").hasAuthority("ADMIN")
-                .antMatchers("/usuarios/email={email}").hasAuthority("ADMIN")
+                .antMatchers("/usuarios/email={email}").hasAuthority("USER")
                 .antMatchers("/usuarios/editar").hasAuthority("ADMIN")
                 .antMatchers("/usuarios/borrar/{id}").hasAuthority("ADMIN")
 
@@ -46,7 +46,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/productos/id={id}").permitAll()
                 .antMatchers("/productos/filterCat={categoria}").permitAll()
                 .antMatchers("/productos/filterCity={ciudad}").permitAll()
-                .antMatchers("/filterCityFechas={ciudad}").permitAll()
+                .antMatchers("/productos/filterCityFechas={ciudad}").permitAll()
+                .antMatchers("/productos/filter").permitAll()
                 .antMatchers("/productos/borrar/{id}").hasAuthority("ADMIN")
 
                 .antMatchers("/categoria/crear").hasAuthority("ADMIN")

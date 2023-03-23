@@ -169,6 +169,7 @@
 
 @media screen and (max-width: globals.$bp-tablet) {
   .calendar {
+    padding-inline: globals.$p-1;
     .months-container {
       justify-content: center;
     }

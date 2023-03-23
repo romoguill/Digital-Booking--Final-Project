@@ -1,2 +1,3 @@
 include:
   - 'backEnd/digitalBooking/pipeline.yml'
+  - 'frontEnd/pipeline.yml'

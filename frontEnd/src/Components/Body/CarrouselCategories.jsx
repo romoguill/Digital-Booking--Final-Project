@@ -7,7 +7,7 @@ function CarrouselCategories() {
   const [Categorias, setCategorias] = useState([]);
   const [error, setError] = useState();
 
-  const ENDPOINT_GET_CATEGORIAS = "http://localhost:8080/categoria/todas"
+  const ENDPOINT_GET_CATEGORIAS = `${import.meta.env.VITE_BASE_API_URL}/categoria/todas`
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,20 +25,14 @@ function CarrouselCategories() {
         </h2>
         <div className="container-categories">
           {Categorias.map((item) => {
-            <CategoriaCard
-              key={item.id}
-              id={item.id}
-              titulo={item.titulo}
-              descripcion={item.descripcion}
-              imagen={item.urlImagen}
-            />
+            <CategoriaCard key={item.id} data={item} id={item.id} />
           })
           }
           {!error ? (
             Categorias
               .slice(0, 4)
               .map((categoria) => (
-                <CategoriaCard key={categoria.id} data={categoria} />
+                <CategoriaCard key={categoria.id} data={categoria} id={categoria.id} />
               ))
           ) : (
             <p className="text-dark">{error}</p>

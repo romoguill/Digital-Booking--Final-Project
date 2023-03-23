@@ -3,7 +3,8 @@ package com.example.digitalBooking.service;
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
 import com.example.digitalBooking.model.*;
-import com.example.digitalBooking.model.dto.ReservaDTO;
+import com.example.digitalBooking.model.dto.RequestReservaDTO;
+import com.example.digitalBooking.model.dto.ResponseReservaDTO;
 import com.example.digitalBooking.repository.ProductoRepository;
 import com.example.digitalBooking.repository.ReservaRepository;
 import com.example.digitalBooking.repository.UsuarioRepository;
@@ -26,55 +27,56 @@ public class ReservaService {
 
     private static final Logger logger = Logger.getLogger(ProductoService.class);
 
-    public boolean create(ReservaDTO reservaDTO) throws BadRequestException {
-        if (productoRepository.findById(reservaDTO.idProducto()).isEmpty()) {
-            logger.error("No existe un producto con el id:" + reservaDTO.idProducto());
-            throw new BadRequestException("No existe una producto con el id: " + reservaDTO.idProducto());
+    public boolean create(RequestReservaDTO requestReservaDTO) throws BadRequestException {
+        if (productoRepository.findById(requestReservaDTO.idProducto()).isEmpty()) {
+            logger.error("No existe un producto con el id:" + requestReservaDTO.idProducto());
+            throw new BadRequestException("No existe una producto con el id: " + requestReservaDTO.idProducto());
         }
 
-        if (usuarioRepository.findById(reservaDTO.idUsuario()).isEmpty()) {
-            logger.error("No existe un usuario con el id:" + reservaDTO.idUsuario());
-            throw new BadRequestException("No existe un usuario con el id: " + reservaDTO.idUsuario());
+        if (usuarioRepository.findByEmail(requestReservaDTO.emailUsuario()).isEmpty()) {
+            logger.error("No existe un usuario con el email:" + requestReservaDTO.emailUsuario());
+            throw new BadRequestException("No existe un usuario con el email: " + requestReservaDTO.emailUsuario());
         }
 
-        repository.save(mapToReserva(reservaDTO));
+        repository.save(mapToReserva(requestReservaDTO));
         logger.info("Se creo una nueva reserva");
         return true;
     }
 
-    public List<ReservaDTO> getAllByIdProducto(Long idProducto) throws ProductoNotFoundException {
+    public List<ResponseReservaDTO> getAllByIdProducto(Long idProducto) throws ProductoNotFoundException {
         if (productoRepository.findById(idProducto).isEmpty()) {
             logger.error("No existe un producto con el id:" + idProducto);
             throw new ProductoNotFoundException();
         }
 
         var reservas = repository.findAllByProductoId(idProducto);
-        List<ReservaDTO> listaDTO = new ArrayList<>();
+        List<ResponseReservaDTO> listaDTO = new ArrayList<>();
         for (Reserva reserva:reservas) {
             listaDTO.add(mapToDTO(reserva));
         }
         return listaDTO;
     }
 
-    private ReservaDTO mapToDTO(Reserva reserva) {
-        return new ReservaDTO(reserva.getId(),reserva.getHoraComienzo(), reserva.getFechaInicial(),
+    private ResponseReservaDTO mapToDTO(Reserva reserva) {
+        return new ResponseReservaDTO(reserva.getId(),reserva.getHoraComienzo(), reserva.getFechaInicial(),
                 reserva.getFechaFinal(),reserva.getProducto().getId(),reserva.getUsuario().getId());
     }
 
-    private Reserva mapToReserva(ReservaDTO reservaDTO){
+    private Reserva mapToReserva(RequestReservaDTO requestReservaDTO){
         Reserva reserva = new Reserva();
 
-        reserva.setId(reservaDTO.id());
-        reserva.setHoraComienzo(reservaDTO.horaComienzo());
-        reserva.setFechaInicial(reservaDTO.fechaInicial());
-        reserva.setFechaFinal(reservaDTO.fechaFinal());
+        reserva.setId(requestReservaDTO.id());
+        reserva.setHoraComienzo(requestReservaDTO.horaComienzo());
+        reserva.setFechaInicial(requestReservaDTO.fechaInicial());
+        reserva.setFechaFinal(requestReservaDTO.fechaFinal());
 
         Producto producto = new Producto();
-        producto.setId(reservaDTO.idProducto());
+        producto.setId(requestReservaDTO.idProducto());
         reserva.setProducto(producto);
 
         Usuario usuario = new Usuario();
-        usuario.setId(reservaDTO.idUsuario());
+        var user = usuarioRepository.findByEmail(requestReservaDTO.emailUsuario());
+        usuario.setId(user.get().getId());
         reserva.setUsuario(usuario);
 
         return reserva;

@@ -4,6 +4,7 @@ import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
 import com.example.digitalBooking.model.*;
 import com.example.digitalBooking.model.dto.RequestProductoDTO;
+import com.example.digitalBooking.model.dto.ResponseReservaDTO;
 import com.example.digitalBooking.model.dto.ResponseProductoDTO;
 import com.example.digitalBooking.repository.*;
 import lombok.AllArgsConstructor;
@@ -119,6 +120,20 @@ public class ProductoService {
         return listaDTO;
     }
 
+    public List<ResponseProductoDTO> filterFechas(LocalDate fechaInicio, LocalDate fechadFin){
+
+        var productos = repository.filterFechas(fechaInicio,fechadFin);
+        if (productos.isEmpty()) {
+            logger.info("No hay registro de productos disponibles en esa fecha");
+            return null;
+        }
+        List<ResponseProductoDTO> listaDTO = new ArrayList<>();
+        for (Producto producto: productos) {
+            listaDTO.add(mapToDTO(producto));
+        }
+        return listaDTO;
+    }
+
     public List<ResponseProductoDTO> filterCiudadAndFechas(String ciudad, LocalDate fechaInicio, LocalDate fechadFin){
 
         var productos = repository.filterCiudadAndFechas(ciudad,fechaInicio,fechadFin);
@@ -203,7 +218,14 @@ public class ProductoService {
             imagenes.add(imagen);
         }
 
+        Set<ResponseReservaDTO> reservas = new HashSet<>();
+        for(Reserva reserva:producto.getReservas()) {
+            var dto= new ResponseReservaDTO(reserva.getId(),reserva.getHoraComienzo(),reserva.getFechaInicial(),
+                    reserva.getFechaFinal(),reserva.getProducto().getId(),reserva.getUsuario().getId());
+            reservas.add(dto);
+        }
+
         return new ResponseProductoDTO(producto.getId(), producto.getTitulo(), producto.getDescripcion(), producto.getLatitud(),
-                producto.getLongitud(), ciudad,categoria,caracteristicas,politicas,imagenes);
+                producto.getLongitud(), ciudad,categoria,caracteristicas,politicas,imagenes,reservas);
     }
 }

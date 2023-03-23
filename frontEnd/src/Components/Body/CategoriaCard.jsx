@@ -1,17 +1,24 @@
 import React from 'react';
 import './CarrouselCategories.scss';
+import { Link } from 'react-router-dom';
 
 const CategoriaCard = ({ data, id }) => {
   return (
-    <div key={id} className="card-category">
-      <div className="container-img">
-        <img src={data.urlImagen} alt="Imagen de la Categoria" />
+
+      <div key={id} className="card-category">
+        <div className="container-img">
+          <Link to={`/categoria/${data.titulo}`}>
+            <img src={data.urlImagen} alt={"Imagen de la Categoria " + data.titulo} />
+          </Link>
+        </div>
+        <div className="container-content">
+          <Link to={`/categoria/${data.titulo}`}>
+            <h3>{data.titulo}</h3>
+            <p>{data.descripcion}</p>
+          </Link>
+        </div>
       </div>
-      <div className="container-content">
-        <h3>{data.titulo}</h3>
-        <p>807.105 hoteles</p>
-      </div>
-    </div>
+
   );
 };
 

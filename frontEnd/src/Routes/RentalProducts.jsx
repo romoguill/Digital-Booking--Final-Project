@@ -1,19 +1,4 @@
 import './RentalProducts.scss';
-
-import {
-  faClock,
-  faWheelchair,
-  faUtensils,
-  faCar,
-  faBanSmoking,
-  faSwimmer,
-  faShieldHalved,
-  faJugDetergent,
-  faSpa,
-  faWifi,
-  faBorderNone,
-} from '@fortawesome/free-solid-svg-icons';
-
 import GalleryProduct from '../Components/RentalProducts/GalleryProduct';
 import Hero from '../Components/RentalProducts/Hero';
 import Map from '../Components/RentalProducts/Map';
@@ -21,33 +6,23 @@ import CustomCalendar from '../Components/RentalProducts/CustomCalendar';
 import { Navigate, useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ProductPolicies from '../Components/ProductPolicies';
+import useAuth from '../Hooks/useAuth';
 
 function RentalProducts() {
   const params = useParams();
+  const [valueDateRange, setValueDateRange] = useState(null);
   const [noFound, setNoFound] = useState(false);
   const [producto, setProducto] = useState({});
   const [imagenes, setImagenes] = useState([]);
-  const iconComponents = {
-    0: faBorderNone,
-    1: faClock,
-    2: faWheelchair,
-    3: faUtensils,
-    4: faCar,
-    5: faBanSmoking,
-    6: faSwimmer,
-    7: faUtensils,
-    8: faShieldHalved,
-    9: faJugDetergent,
-    10: faSpa,
-    11: faWifi,
-  };
+
+  const { auth } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
-      axios(`http://localhost:8080/productos/id=${params.id}`)
+      axios(`${import.meta.env.VITE_BASE_API_URL}/productos/id=${params.id}`)
         .then((res) => {
-          setProducto(res.data.producto);
+          setProducto(res.data);
           setImagenes(res.data.imagenes);
         })
         .catch((res) => {
@@ -80,12 +55,9 @@ function RentalProducts() {
             producto.caracteristicas.map((item, i) => {
               return (
                 <div className="item" key={i}>
-                  <FontAwesomeIcon
-                    icon={
-                      iconComponents[item.id]
-                        ? iconComponents[item.id]
-                        : iconComponents[0]
-                    }
+                  <img
+                    src={item.url}
+                    alt={item.titulo}
                     className="ammenity-icon"
                   />
                   <h4>{item.titulo}</h4>
@@ -98,7 +70,11 @@ function RentalProducts() {
       <section className="booking container-main">
         <h2 className="booking__title section-title">Fechas disponibles</h2>
         <div className="booking__body">
-          <CustomCalendar producto={producto} imagenes={imagenes} />
+          <CustomCalendar
+            producto={producto}
+            imagenes={imagenes}
+            setValueDateRange={setValueDateRange}
+          />
           <div className="booking__call-to-action">
             <h4>Agregá tus fechas de viaje para obtener precios exactos</h4>
             <Link
@@ -120,24 +96,7 @@ function RentalProducts() {
         <Map producto={producto} imagenes={imagenes} />
       </section>
 
-      <section className="policy container-main">
-        <h2 className="section-title">¿Qué tenés que saber?</h2>
-        <hr className="section-divider" />
-        <div className="policy__items">
-          {producto.politicas &&
-            producto.politicas.map((item, i) => {
-              return (
-                <div className="item" key={i}>
-                  <h4>
-                    <img src={item.url} className="politica-icon" />{' '}
-                    {item.titulo}
-                  </h4>
-                  <p>{item.descripcion}</p>
-                </div>
-              );
-            })}
-        </div>
-      </section>
+      <ProductPolicies productPolicies={producto.politicas} />
     </div>
   );
 }
