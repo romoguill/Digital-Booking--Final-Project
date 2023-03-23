@@ -104,7 +104,7 @@ function HomeSearch() {
 
   const validateForm = (event) => {
 
-    if (!startDate || !endDate || !ciudad) {
+    if (!startDate && !endDate && !ciudad) {
       setIsFormValid(false);
       setShowFormError(true);
 
@@ -151,7 +151,6 @@ function HomeSearch() {
           <AsyncSelect
             name="ciudad"
             onChange={(selected) => setCiudad(selected.value)}
-            required
             cacheOptions
             defaultOptions
             loadOptions={CustomLoadLocationOptions}
@@ -200,7 +199,7 @@ function HomeSearch() {
             Buscar
           </button>
         </form>
-        {showFormError && <p className='form-error'>Por favor ingrese la ciudad y las fechas</p>}
+        {showFormError && <p className='form-error'>Por favor ingrese la ciudad y/o las fechas</p>}
       </div>
     </div>
   );

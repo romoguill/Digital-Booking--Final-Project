@@ -10,18 +10,13 @@ import './Search.scss';
 function Search() {
   const [params, setParams] = useSearchParams();
   const [productos, setProductos] = useState([]);
-  const [displayFechaInicio, setDisplayFechaInicio] = useState("");
-  const [displayFechaFin, setDisplayFechaFin] = useState("");
-  const [displayCiudad, setDisplayCiudad] = useState("");
+  const [searchTitle, setSearchTitle] = useState("");
 
   useEffect(() => {
-    const fetchProductData = async () => {
-      let ciudad = params.get("ciudad");
-      let fechaInicio = null;
-      let fechaFin = null;
+    const processDates = (fechaInicio, fechaFin) => {
       try {
-        fechaInicio = params.get("fechaInicio")? parse(params.get("fechaInicio"), "dd/MM/yyyy", new Date()) : new Date();
-        fechaFin = params.get("fechaFin")? parse(params.get("fechaFin"), "dd/MM/yyyy", new Date()) : new Date();
+        fechaInicio = parse(params.get("fechaInicio"), "dd/MM/yyyy", new Date());
+        fechaFin = parse(params.get("fechaFin"), "dd/MM/yyyy", new Date());
 
         if (fechaInicio > fechaFin) {
           fechaFin = fechaInicio;
@@ -31,11 +26,37 @@ function Search() {
         fechaFin = new Date();
       }
 
-      setDisplayFechaInicio(format(fechaInicio, "dd MMM yyyy", { locale: es }));
-      setDisplayFechaFin(format(fechaFin, "dd MMM yyyy", { locale: es }));
-      setDisplayCiudad(ciudad);
+      return {
+        "fechaInicio": format(fechaInicio, "dd/MM/yyyy"),
+        "fechaFin": format(fechaFin, "dd/MM/yyyy"),
+        "displayFechaInicio": format(fechaInicio, "dd MMM yyyy", { locale: es }),
+        "displayFechaFin": format(fechaFin, "dd MMM yyyy", { locale: es })
+      }
+    }
 
-      axios(`${import.meta.env.VITE_BASE_API_URL}/productos/filterCityFechas=${ciudad}?fechaInicio=${format(fechaInicio, "dd/MM/yyyy")}&fechaFin=${format(fechaFin, "dd/MM/yyyy")}`)
+    const fetchProductData = async () => {
+      const ciudad = params.get("ciudad");
+      const fechaInicio = params.get("fechaInicio");
+      const fechaFin = params.get("fechaFin");
+      let urlSearch = "";
+
+      if (ciudad && fechaInicio && fechaFin) {
+        const fechas = processDates(fechaInicio, fechaFin);
+        setSearchTitle(ciudad + " en las fechas: "+ fechas.displayFechaInicio + " a " + fechas.displayFechaFin);
+
+        urlSearch = `${import.meta.env.VITE_BASE_API_URL}/productos/filterCityFechas=${ciudad}?fechaInicio=${fechas.fechaInicio}&fechaFin=${fechas.fechaFin}`;
+      } else if (ciudad) {
+        setSearchTitle("Ciudad: " + ciudad);
+
+        urlSearch = `${import.meta.env.VITE_BASE_API_URL}/productos/filterCity=${ciudad}`;
+      } else {
+        const fechas = processDates(fechaInicio, fechaFin);
+        setSearchTitle("En las fechas: "+ fechas.displayFechaInicio + " a " + fechas.displayFechaFin);
+
+        urlSearch = `${import.meta.env.VITE_BASE_API_URL}/productos/filter?fechaInicio=${fechas.fechaInicio}&fechaFin=${fechas.fechaFin}`;
+      }
+
+      axios(urlSearch)
         .then((res) => {
           if (typeof res.data === "string") {
             res.data = [];
@@ -50,7 +71,7 @@ function Search() {
   return (
     <div className="search-products container-page">
       <BannerProductTitle
-        titulo={displayCiudad + " en las fechas: "+ displayFechaInicio + " a " + displayFechaFin}
+        titulo={searchTitle.trim()}
         categoria="Resultados de búsqueda"
       />
       <div className="container-main product-list">
