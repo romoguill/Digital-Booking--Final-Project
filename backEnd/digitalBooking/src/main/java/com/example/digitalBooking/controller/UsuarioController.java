@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @AllArgsConstructor
-@CrossOrigin
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
