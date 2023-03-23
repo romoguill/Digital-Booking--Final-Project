@@ -1,6 +1,7 @@
 package com.example.digitalBooking.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,5 +39,6 @@ public class Reserva {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario",nullable = false)
+    @JsonIgnore
     private Usuario usuario;
 }
