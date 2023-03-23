@@ -34,6 +34,7 @@ function Booking() {
   const [productLocation, setProductLocation] = useState(null);
   const [productPolicies, setProductPolicies] = useState(null);
   const [valueDateRange, setValueDateRange] = useState(null);
+  const [isActive, setIsActive] = useState(false);
 
   const [formMessage, setFormMessage] = useState('');
   const navigate = useNavigate();
@@ -58,6 +59,7 @@ function Booking() {
   const ENDPOINT_POST = `${import.meta.env.VITE_BASE_API_URL}/reservas/crear`;
 
   const peticionPost = async () => {
+
     const parsedHour = parseHour(formData.time);
     const [parsedDateFirst, parsedDateLast] = parseDateRange(valueDateRange);
 
@@ -87,6 +89,7 @@ function Booking() {
         );
       }
     } catch (err) {
+      setIsActive(true)
       setFormMessage(
         'Lamentablemente la reserva no ha podido realizarse. Por favor, intente más tarde'
       );
@@ -308,7 +311,9 @@ function Booking() {
                       </p>
                     </div>
                     <hr />
-                    <div className='form-message-error'>{formMessage}</div>
+                    <div className={isActive ? "form-message-error" : 'message-visibility'}>
+                      {formMessage}
+                    </div>
                     <button
                       onClick={peticionPost}
                       className="button-primary button-primary--full"

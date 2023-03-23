@@ -129,16 +129,20 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        width: 350px;
         height: 10px;
+        padding: 10px;
 
         margin-top: 20px;
-        margin-left: 35px;
+        max-width: 100%;
         color: globals.$input-error-msg;
 
         border: 0.5px solid globals.$input-error-border;
         border-radius: 5px;
         background-color: globals.$input-error-bg;
+      }
+
+      .message-visibility{
+        display: none;
       }
 
       &__info {
@@ -248,6 +252,12 @@
     flex-direction: column;
     gap: 0;
 
+    .form-message-error{
+      margin-top: 20px;
+      height: auto;
+      max-width: 100%;
+    }
+
     &__details {
       margin-top: 0;
       grid-column: 1 / 2;
@@ -277,6 +287,10 @@
 
   
   .booking {
+
+    .form-message-error{
+      margin-top: 20px;
+    }
 
     .form-container {
       form{
