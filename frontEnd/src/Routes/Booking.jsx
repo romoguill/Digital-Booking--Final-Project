@@ -13,12 +13,13 @@ import {
 import BannerProductTitle from '../Components/BannerProductTitle';
 import CustomCalendar from '../Components/RentalProducts/CustomCalendar';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductPolicies from '../Components/ProductPolicies';
 import useAuth from '../Hooks/useAuth';
 import useLocalStorage from '../Hooks/useLocalStorage';
+import { AuthContext } from '../Contexts/AuthContext';
 
 function Booking() {
   const params = useParams();
@@ -28,6 +29,7 @@ function Booking() {
 
   const [productCategory, setProductCategory] = useState(null);
   const [productName, setProductName] = useState(null);
+  const [productId, setProductId] = useState(null)
   const [mainImageUrl, setMainImageUrl] = useState(null);
   const [productLocation, setProductLocation] = useState(null);
   const [productPolicies, setProductPolicies] = useState(null);
@@ -37,12 +39,15 @@ function Booking() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: '',
-    lastname: '',
-    email: '',
-    city: '',
     time: '',
+    email: '',
   });
+
+  const datosUsuario = {
+    userName: auth.userName,
+    userLastName: auth.userLastName,
+    userMail: auth.userEmail
+  }
 
   const parseHour = (hour) =>
     hour.length === 1 ? `0${hour}:00` : `${hour}:00`;
@@ -137,7 +142,9 @@ function Booking() {
       setMainImageUrl(data.imagenes[0].url);
       setProductLocation(data.ciudad.nombre);
       setProductPolicies(data.politicas);
+      setProductId(data.id);
       console.log(data);
+      console.log(valueDateRange[0])
     };
     fetchData();
   }, []);
@@ -163,10 +170,9 @@ function Booking() {
                       id="name"
                       placeholder=""
                       className="form-input"
-                      required
                       name="name"
-                      onChange={handleChange}
-                      value={formData ? formData.name : ''}
+                      disabled
+                      value={datosUsuario.userName}
                     />
                     <label htmlFor="last-name" className="label-input">
                       Apellido
@@ -176,25 +182,23 @@ function Booking() {
                       id="last-name"
                       placeholder=""
                       className="form-input"
-                      required
                       name="lastname"
-                      onChange={handleChange}
-                      value={formData ? formData.lastname : ''}
+                      disabled
+                      value={datosUsuario.userLastName}
                     />
                   </div>
                   <div>
                     <label htmlFor="email" className="label-input">
-                      Correo electronico
+                      Correo electrónico
                     </label>
                     <input
                       type="email"
                       id="email"
                       placeholder=""
                       className="form-input"
-                      required
+                      disabled
                       name="email"
-                      onChange={handleChange}
-                      value={formData ? formData.email : ''}
+                      value={datosUsuario.userMail}
                     />
                     <label htmlFor="city" className="label-input">
                       Ciudad
