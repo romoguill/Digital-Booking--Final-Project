@@ -1,5 +1,7 @@
 import './Booking.scss';
 
+import axios from 'axios';
+
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
 import {
   faStar,

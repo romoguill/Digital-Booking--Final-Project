@@ -11,20 +11,21 @@ import UserProfile from '../../UserProfile/UserProfile';
 import { Link, useLocation } from 'react-router-dom';
 
 import './MenuDrawerMobile.scss';
-import { useContext } from 'react';
-import { UserContext } from '../../../Contexts/Context';
+import useAuth from '../../../Hooks/useAuth';
+import useLocalStorage from '../../../Hooks/useLocalStorage';
 
 function MenuDrawerMobile({ setMenuDrawerVisible }) {
-  const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
-
   const location = useLocation();
+  const { auth, setAuth } = useAuth();
+  const { removeItem } = useLocalStorage();
 
   function handleMenuDrawerClose() {
     setMenuDrawerVisible(false);
   }
 
   function handleLogout() {
-    setUserAuthInfo(false);
+    setAuth(null);
+    removeItem('token');
     handleMenuDrawerClose();
   }
 
@@ -39,10 +40,10 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
       <>
         <div className="menu-drawer-mobile__header">
           <div className="menu-drawer-mobile__container">
-            {userAuthInfo.isLoggedIn ? (
+            {auth?.userEmail ? (
               <>
                 <div className="user-icon-mobile">
-                  <UserProfile userInfo={userAuthInfo.userInfo} mobile={true} />
+                  <UserProfile mobile={true} />
                 </div>
               </>
             ) : (
@@ -53,7 +54,7 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
 
         <div className="menu-drawer-mobile__body">
           <div className="menu-drawer-mobile__container">
-            {userAuthInfo.isLoggedIn ? (
+            {auth?.userEmail ? (
               <>
                 <div className="logout-container">
                   <p className="logout-drawer">
@@ -83,7 +84,8 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
                   </Link>
                 )}
 
-                {location.pathname === '/' && <hr />}
+                {(location.pathname === '/' ||
+                  location.pathname === '/home') && <hr />}
 
                 {location.pathname === '/login' || (
                   <Link
@@ -120,45 +122,6 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
       </>
     </aside>
   );
-}
-{
-  /* <div className="menu-drawer-mobile__header">
-        <div className="menu-drawer-mobile__container">
-          <h2>MENÚ</h2>
-        </div>
-      </div>
-      <div className="menu-drawer-mobile__body">
-        <div className="menu-drawer-mobile__container">
-          <Link to={"/register"} onClick={handleMenuDrawerClose}>
-            <h3 className="text-dark">Crear cuenta</h3>
-          </Link>
-          <hr />
-          <Link to={"/login"} onClick={handleMenuDrawerClose}>
-            <h3 className="text-dark">Inciar sesión</h3>
-          </Link>
-        </div>
-      </div>
-      <div className="menu-drawer-mobile__footer">
-        <div className="menu-drawer-mobile__container">
-          <div className="container__social-media">
-            <a href="#">
-              <FontAwesomeIcon icon={faFacebook} />
-            </a>
-            <a href="#">
-              <FontAwesomeIcon icon={faInstagram} />
-            </a>
-            <a href="#">
-              <FontAwesomeIcon icon={faLinkedin} />
-            </a>
-            <a href="#">
-              <FontAwesomeIcon icon={faTwitter} />
-            </a>
-          </div>
-        </div>
-      </div>
-    </aside>
-  );
-} */
 }
 
 export default MenuDrawerMobile;
