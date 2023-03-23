@@ -50,7 +50,7 @@ function Booking() {
   const parseDateRange = (dateRange) =>
     dateRange.map((date) => date.toLocaleString().split(',')[0]);
 
-  const ENDPOINT_POST = 'http://localhost:8080/reservas/crear';
+  const ENDPOINT_POST = `${import.meta.env.VITE_BASE_API_URL}/reservas/crear`;
 
   const peticionPost = async () => {
     const parsedHour = parseHour(formData.time);
@@ -129,7 +129,7 @@ function Booking() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `http://localhost:8080/productos/id=${params.id}`
+        `${import.meta.env.VITE_BASE_API_URL}/productos/id=${params.id}`
       );
       const data = await response.json();
       setProductCategory(data.categoria.titulo);
