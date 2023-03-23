@@ -35,7 +35,7 @@ function Search() {
       setDisplayFechaFin(format(fechaFin, "dd MMM yyyy", { locale: es }));
       setDisplayCiudad(ciudad);
 
-      axios(`http://localhost:8080/productos/filterCityFechas=${ciudad}?fechaInicio=${format(fechaInicio, "dd/MM/yyyy")}&fechaFin=${format(fechaFin, "dd/MM/yyyy")}`)
+      axios(`http://3.144.19.234:8080/productos/filterCityFechas=${ciudad}?fechaInicio=${format(fechaInicio, "dd/MM/yyyy")}&fechaFin=${format(fechaFin, "dd/MM/yyyy")}`)
         .then((res) => {
           if (typeof res.data === "string") {
             res.data = [];

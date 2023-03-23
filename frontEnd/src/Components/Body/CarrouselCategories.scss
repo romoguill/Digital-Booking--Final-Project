@@ -43,7 +43,10 @@
 
   .container-img {
     flex-basis: 100%;
-    overflow: auto;
+    overflow: hidden;
+    a {
+      padding: 0;
+    }
   }
 
   .container-content {

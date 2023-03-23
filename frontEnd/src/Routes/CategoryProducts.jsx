@@ -11,7 +11,7 @@ function CategoryProducts() {
 
   useEffect(() => {
     const fetchProductData = async () => {
-      axios(`http://localhost:8080/productos/filterCat=${params.id}`)
+      axios(`http://3.144.19.234:8080/productos/filterCat=${params.id}`)
         .then((res) => {
           if (typeof res.data === "string") {
             res.data = [];

@@ -39,7 +39,7 @@ function Booking() {
     time: '',
   });
 
-  const ENDPOINT_POST = 'http://localhost:8080/reservas/crear';
+  const ENDPOINT_POST = 'http://3.144.19.234:8080/reservas/crear';
 
   const peticionPost = async () => {
     let formDataSend = {
@@ -86,7 +86,7 @@ function Booking() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `http://localhost:8080/productos/id=${params.id}`
+        `http://3.144.19.234:8080/productos/id=${params.id}`
       );
       const data = await response.json();
       setProductCategory(data.categoria.titulo);

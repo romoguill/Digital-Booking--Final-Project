@@ -7,7 +7,7 @@ function CarrouselCategories() {
   const [Categorias, setCategorias] = useState([]);
   const [error, setError] = useState();
 
-  const ENDPOINT_GET_CATEGORIAS = "http://localhost:8080/categoria/todas"
+  const ENDPOINT_GET_CATEGORIAS = "http://3.144.19.234:8080/categoria/todas"
 
   useEffect(() => {
     const fetchData = async () => {

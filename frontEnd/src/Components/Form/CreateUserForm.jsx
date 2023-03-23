@@ -17,7 +17,7 @@ function CreateUserForm() {
 
   useEffect(() => {
     const getCities = async () => {
-      const response = await fetch('http://localhost:8080/ciudades/todas');
+      const response = await fetch('http://3.144.19.234:8080/ciudades/todas');
       setCities(await response.json());
     };
     getCities();
@@ -30,7 +30,7 @@ function CreateUserForm() {
   const onSubmit = async (formData) => {
     const payload = JSON.stringify({ ...formData, idRol: 2 });
     try {
-      const response = await fetch('http://localhost:8080/usuarios/crear', {
+      const response = await fetch('http://3.144.19.234:8080/usuarios/crear', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: payload,

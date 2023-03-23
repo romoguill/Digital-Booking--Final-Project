@@ -20,7 +20,7 @@ function RentalProducts() {
 
   useEffect(() => {
     const fetchData = async () => {
-      axios(`http://localhost:8080/productos/id=${params.id}`)
+      axios(`http://3.144.19.234:8080/productos/id=${params.id}`)
         .then((res) => {
           setProducto(res.data);
           setImagenes(res.data.imagenes);
