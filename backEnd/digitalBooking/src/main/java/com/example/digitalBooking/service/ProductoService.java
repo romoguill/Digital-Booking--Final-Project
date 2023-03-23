@@ -4,6 +4,7 @@ import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
 import com.example.digitalBooking.model.*;
 import com.example.digitalBooking.model.dto.RequestProductoDTO;
+import com.example.digitalBooking.model.dto.ResponseReservaDTO;
 import com.example.digitalBooking.model.dto.ResponseProductoDTO;
 import com.example.digitalBooking.repository.*;
 import lombok.AllArgsConstructor;
@@ -203,7 +204,14 @@ public class ProductoService {
             imagenes.add(imagen);
         }
 
+        Set<ResponseReservaDTO> reservas = new HashSet<>();
+        for(Reserva reserva:producto.getReservas()) {
+            var dto= new ResponseReservaDTO(reserva.getId(),reserva.getHoraComienzo(),reserva.getFechaInicial(),
+                    reserva.getFechaFinal(),reserva.getProducto().getId(),reserva.getUsuario().getId());
+            reservas.add(dto);
+        }
+
         return new ResponseProductoDTO(producto.getId(), producto.getTitulo(), producto.getDescripcion(), producto.getLatitud(),
-                producto.getLongitud(), ciudad,categoria,caracteristicas,politicas,imagenes);
+                producto.getLongitud(), ciudad,categoria,caracteristicas,politicas,imagenes,reservas);
     }
 }

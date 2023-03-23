@@ -31,7 +31,7 @@ public class ProductoControllerTest {
     private final RequestProductoDTO requestProductoDTO = new RequestProductoDTO(1L,"titulo","url",
             210F,210F,1L,1L,null,null);
     private final ResponseProductoDTO responseProductoDTO = new ResponseProductoDTO(1L,"titulo","url",
-            210F,210F,null,null,null,null,null);
+            210F,210F,null,null,null,null,null,null);
 
     @Test
     @DisplayName("WHEN we create a producto THEN return HTTP STATUS 201 CREATED and a message 'Se creo el producto correctamente'")

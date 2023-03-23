@@ -37,6 +37,9 @@ function Search() {
 
       axios(`http://localhost:8080/productos/filterCityFechas=${ciudad}?fechaInicio=${format(fechaInicio, "dd/MM/yyyy")}&fechaFin=${format(fechaFin, "dd/MM/yyyy")}`)
         .then((res) => {
+          if (typeof res.data === "string") {
+            res.data = [];
+          }
           setProductos(res.data);
         })
     };
@@ -63,10 +66,11 @@ function Search() {
               titulo={item.titulo}
               ciudad={item.ciudad.nombre}
               descripcion={item.descripcion}
-              caracteristicas={item.politicas}
+              caracteristicas={item.caracteristicas}
             />
             );
           })}
+          {productos.length === 1 && <div className='card-rental empty'></div>}
         </div>
       </div>
     </div>

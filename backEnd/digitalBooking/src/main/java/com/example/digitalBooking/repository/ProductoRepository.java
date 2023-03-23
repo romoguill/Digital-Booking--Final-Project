@@ -32,8 +32,8 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     @Query("SELECT DISTINCT p FROM Producto p JOIN FETCH p.ciudad c LEFT JOIN FETCH p.imagenes WHERE c.nombre = :nombreCiudad")
     List<Producto> filterCiudad (@Param("nombreCiudad")String nombreCiudad);
 
-    @Query("SELECT DISTINCT p FROM Producto p JOIN FETCH p.ciudad c LEFT JOIN FETCH p.imagenes JOIN p.reservas r WHERE c.nombre = :nombreCiudad " +
-            "AND r.fechaInicial >= :fechaInicio AND r.fechaFinal <= :fechaFin")
+    @Query("SELECT DISTINCT p FROM Producto p JOIN FETCH p.ciudad c LEFT JOIN FETCH p.imagenes WHERE c.nombre = :nombreCiudad " +
+            "AND NOT EXISTS (SELECT r FROM p.reservas r WHERE r.fechaInicial >= :fechaInicio AND r.fechaFinal <= :fechaFin)")
     List<Producto> filterCiudadAndFechas(@Param("nombreCiudad") String nombreCiudad, @Param("fechaInicio") LocalDate fechaInicio, @Param("fechaFin") LocalDate fechaFin);
 
 

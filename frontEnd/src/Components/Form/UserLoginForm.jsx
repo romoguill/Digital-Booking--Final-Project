@@ -1,17 +1,21 @@
-import { useContext, useState } from 'react';
+import jwt_decode from 'jwt-decode';
+
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../../Contexts/Context';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import './MainForm.scss';
+import useAuth from '../../Hooks/useAuth';
+import useLocalStorage from '../../Hooks/useLocalStorage';
 
 function UserLoginForm() {
   const navigate = useNavigate();
-  const { userAuthInfo, setUserAuthInfo } = useContext(UserContext);
+  const { setAuth } = useAuth();
+  const { setItem } = useLocalStorage();
 
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -19,48 +23,32 @@ function UserLoginForm() {
     setPasswordVisible(!passwordVisible);
   }
 
-  // TODO : Modificar validacion de formulario cuando tengamos el backend de Autenticacion
-  const fakeCredentials = {
-    email: 'john@gmail.com',
-    name: 'John',
-    lastName: 'Doe',
-    password: '123456',
-  };
-
-  // TODO : Utilizar una llamada adecuada cuando tengamos el backend
-  const fakeCallAPI = (formData) => {
-    return new Promise((resolve, reject) => {
-      if (formData.email === 'errorservidor@gmail.com') {
-        reject();
-      } else if (
-        formData.email === fakeCredentials.email &&
-        formData.password === fakeCredentials.password
-      ) {
-        resolve({ ok: true });
-      } else {
-        resolve({ ok: false });
-      }
-    });
-  };
-
-  // TODO : Customizar accion a realizar cuando la respuesta de backend es 200
   const onSubmit = async (formData) => {
-    const response = await fakeCallAPI(formData);
-    if (response.ok) {
-      setUserAuthInfo({
-        isLoggedIn: true,
-        userInfo: {
-          name: fakeCredentials.name,
-          lastName: fakeCredentials.lastName,
-          email: fakeCredentials.email,
-        },
+    const payload = JSON.stringify(formData);
+    try {
+      const response = await fetch('http://localhost:8080/usuarios/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
       });
-      navigate('/');
-    } else {
-      setError('root.responseError', {
-        type: 'custom',
-        message: 'Credenciales inválidas',
-      });
+      if (response.ok) {
+        const token = (await response.json()).jwt;
+        const {
+          sub: userEmail,
+          apellido: userLastName,
+          nombre: userName,
+        } = jwt_decode(token);
+        setAuth({ userEmail, userLastName, userName });
+        setItem('token', token);
+        navigate(-1);
+      } else {
+        setError('root.responseError', {
+          type: 'custom',
+          message: 'Credenciales inválidas',
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

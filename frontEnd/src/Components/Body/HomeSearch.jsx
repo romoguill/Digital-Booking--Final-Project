@@ -102,10 +102,13 @@ function HomeSearch() {
     </div>
   ));
 
-  const validateForm = () => {
+  const validateForm = (event) => {
+
     if (!startDate || !endDate || !ciudad) {
       setIsFormValid(false);
       setShowFormError(true);
+
+      event.preventDefault();
 
       return false;
     }
@@ -147,6 +150,7 @@ function HomeSearch() {
           <input type="hidden" name="fechaFin" value={endDate? format(endDate, "dd/MM/yyyy") : ""} />
           <AsyncSelect
             name="ciudad"
+            onChange={(selected) => setCiudad(selected.value)}
             required
             cacheOptions
             defaultOptions
@@ -192,7 +196,7 @@ function HomeSearch() {
             />
 
           </div>
-          <button className="button-primary button-primary--full" type="submit" onClick={() => validateForm()}>
+          <button className="button-primary button-primary--full" type="submit" onClick={(e) => validateForm(e)}>
             Buscar
           </button>
         </form>
