@@ -29,6 +29,7 @@ function CreateUserForm() {
 
   const onSubmit = async (formData) => {
     const payload = JSON.stringify({ ...formData, idRol: 2 });
+    console.log(payload);
     try {
       const response = await fetch('http://localhost:8080/usuarios/crear', {
         method: 'POST',
@@ -193,7 +194,7 @@ function CreateUserForm() {
         </div>
       )}
 
-      <button className="button-primary button-primary--full">
+      <button type="submit" className="button-primary button-primary--full">
         Crear cuenta
       </button>
 

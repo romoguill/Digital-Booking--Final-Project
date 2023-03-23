@@ -17,9 +17,14 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductPolicies from '../Components/ProductPolicies';
+import useAuth from '../Hooks/useAuth';
+import useLocalStorage from '../Hooks/useLocalStorage';
 
 function Booking() {
   const params = useParams();
+
+  const { auth } = useAuth();
+  const { getItem } = useLocalStorage();
 
   const [productCategory, setProductCategory] = useState(null);
   const [productName, setProductName] = useState(null);
@@ -39,29 +44,69 @@ function Booking() {
     time: '',
   });
 
+  const parseHour = (hour) =>
+    hour.length === 1 ? `0${hour}:00` : `${hour}:00`;
+
+  const parseDateRange = (dateRange) =>
+    dateRange.map((date) => date.toLocaleString().split(',')[0]);
+
   const ENDPOINT_POST = 'http://localhost:8080/reservas/crear';
 
   const peticionPost = async () => {
-    let formDataSend = {
-      ...formData,
-      valueDateRange,
+    const parsedHour = parseHour(formData.time);
+    const [parsedDateFirst, parsedDateLast] = parseDateRange(valueDateRange);
+
+    const payload = {
+      horaComienzo: parsedHour,
+      fechaInicial: parsedDateFirst,
+      fechaFinal: parsedDateLast,
+      idProducto: params.id,
+      emailUsuario: auth.userEmail,
     };
 
-    await axios
-      .post(ENDPOINT_POST, formDataSend)
-      .then((response) => {
-        if (response.status == 201) {
-          navigate('/reserva_confirmada');
-        } else {
-          setFormMessage(
-            'Lamentablemente la reserva no ha podido realizarse”. Por favor, intente más tarde'
-          );
-        }
-      })
-      .catch((err) => {
-        console.log(err.message);
+    try {
+      const response = await fetch(ENDPOINT_POST, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
       });
+      console.log(response);
+      if (response.ok) {
+        navigate('/reserva_confirmada');
+      } else {
+        setFormMessage(
+          'Lamentablemente la reserva no ha podido realizarse”. Por favor, intente más tarde'
+        );
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
   };
+
+  // await axios
+  //   .post(ENDPOINT_POST, JSON.stringify(payload), {
+  //     headers: {
+  //       authorization: getItem('token'),
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //   .then((response) => {
+  //     if (response.status == 201) {
+  //       navigate('/reserva_confirmada');
+  //     } else {
+  //       setFormMessage(
+  //         'Lamentablemente la reserva no ha podido realizarse”. Por favor, intente más tarde'
+  //       );
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.log(err.message);
+  //   });
+  // };
 
   const handleChange = (e) => {
     e.persist();
@@ -69,7 +114,6 @@ function Booking() {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    console.log(formData);
   };
 
   const handleTimeChange = (e) => {
@@ -78,7 +122,6 @@ function Booking() {
       ...formData,
       [e.target.id]: e.target.value,
     });
-    console.log(formData);
   };
 
   const selectOptions = [...Array(24).keys()];
