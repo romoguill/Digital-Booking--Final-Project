@@ -120,9 +120,26 @@
     &__content {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: space-around;
       flex-grow: 1;
       margin-top: globals.$m-2;
+
+      .form-message-error{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 350px;
+        height: 10px;
+
+        margin-top: 20px;
+        margin-left: 35px;
+        color: globals.$input-error-msg;
+
+        border: 0.5px solid globals.$input-error-border;
+        border-radius: 5px;
+        background-color: globals.$input-error-bg;
+      }
 
       &__info {
         flex-grow: 1;
@@ -204,7 +221,7 @@
     }
 
     button {
-      margin-top: globals.$m-5;
+      margin-top: globals.$m-4;
       padding-block: globals.$p-4;
     }
   }

@@ -83,10 +83,13 @@ function Booking() {
         navigate('/reserva_confirmada');
       } else {
         setFormMessage(
-          'Lamentablemente la reserva no ha podido realizarse”. Por favor, intente más tarde'
+          'Lamentablemente la reserva no ha podido realizarse. Por favor, intente más tarde'
         );
       }
     } catch (err) {
+      setFormMessage(
+        'Lamentablemente la reserva no ha podido realizarse. Por favor, intente más tarde'
+      );
       console.log(err.message);
     }
   };
@@ -152,7 +155,6 @@ function Booking() {
   return (
     <div className="container-page">
       <BannerProductTitle titulo={productName} categoria={productCategory} />
-      {formMessage}
 
       <div className="booking-wrapper">
         <section className="booking container-main">
@@ -306,6 +308,7 @@ function Booking() {
                       </p>
                     </div>
                     <hr />
+                    <div className='form-message-error'>{formMessage}</div>
                     <button
                       onClick={peticionPost}
                       className="button-primary button-primary--full"
