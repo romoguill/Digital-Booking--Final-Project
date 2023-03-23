@@ -13,42 +13,68 @@ import {
 import BannerProductTitle from '../Components/BannerProductTitle';
 import CustomCalendar from '../Components/RentalProducts/CustomCalendar';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductPolicies from '../Components/ProductPolicies';
+import { AuthContext } from '../Contexts/AuthContext';
+import useAuth from '../Hooks/useAuth';
 
 function Booking() {
   const params = useParams();
 
   const [productCategory, setProductCategory] = useState(null);
   const [productName, setProductName] = useState(null);
+  const [productId, setProductId] = useState(null)
   const [mainImageUrl, setMainImageUrl] = useState(null);
   const [productLocation, setProductLocation] = useState(null);
   const [productPolicies, setProductPolicies] = useState(null);
   const [valueDateRange, setValueDateRange] = useState(null);
 
+  const { auth } = useAuth()
+
   const [formMessage, setFormMessage] = useState('');
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: '',
-    lastname: '',
-    email: '',
-    city: '',
     time: '',
+    email: '',
   });
+
+  const datosUsuario = {
+    userName : auth.userName,
+    userLastName: auth.userLastName,
+    userMail: auth.userEmail
+  }
 
   const ENDPOINT_POST = 'http://localhost:8080/reservas/crear';
 
   const peticionPost = async () => {
-    let formDataSend = {
-      ...formData,
-      valueDateRange,
+  
+    let horaComienzo = "10:00"
+    let emailUsuario = formData.email
+    let fechaInicial = valueDateRange[0]
+    let fechaFinal = valueDateRange[1]
+
+    const formDataSend = {
+      horaComienzo: horaComienzo,
+      fechaInicial: fechaInicial,
+      fechaFinal: fechaFinal,
+      idProducto: productId,
+      emailUsuario: emailUsuario
+    };
+
+    const options = {
+      method: 'POST',
+      url: ENDPOINT_POST,
+      headers: {
+        Authorization: auth,
+      },
+      body: formDataSend
     };
 
     await axios
-      .post(ENDPOINT_POST, formDataSend)
+      .request(options)
       .then((response) => {
         if (response.status == 201) {
           navigate('/reserva_confirmada');
@@ -60,6 +86,7 @@ function Booking() {
       })
       .catch((err) => {
         console.log(err.message);
+        console.log(formDataSend)
       });
   };
 
@@ -94,7 +121,9 @@ function Booking() {
       setMainImageUrl(data.imagenes[0].url);
       setProductLocation(data.ciudad.nombre);
       setProductPolicies(data.politicas);
+      setProductId(data.id);
       console.log(data);
+      console.log(valueDateRange[0])
     };
     fetchData();
   }, []);
@@ -122,8 +151,8 @@ function Booking() {
                       className="form-input"
                       required
                       name="name"
-                      onChange={handleChange}
-                      value={formData ? formData.name : ''}
+                      disabled
+                      value={datosUsuario.userName}
                     />
                     <label htmlFor="last-name" className="label-input">
                       Apellido
@@ -135,13 +164,13 @@ function Booking() {
                       className="form-input"
                       required
                       name="lastname"
-                      onChange={handleChange}
-                      value={formData ? formData.lastname : ''}
+                      disabled
+                      value={datosUsuario.userLastName}
                     />
                   </div>
                   <div>
                     <label htmlFor="email" className="label-input">
-                      Correo electronico
+                      Correo electrónico
                     </label>
                     <input
                       type="email"
@@ -149,9 +178,9 @@ function Booking() {
                       placeholder=""
                       className="form-input"
                       required
+                      disabled
                       name="email"
-                      onChange={handleChange}
-                      value={formData ? formData.email : ''}
+                      value={datosUsuario.userMail}
                     />
                     <label htmlFor="city" className="label-input">
                       Ciudad
