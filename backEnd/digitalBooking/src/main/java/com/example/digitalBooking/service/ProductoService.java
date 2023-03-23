@@ -120,6 +120,20 @@ public class ProductoService {
         return listaDTO;
     }
 
+    public List<ResponseProductoDTO> filterFechas(LocalDate fechaInicio, LocalDate fechadFin){
+
+        var productos = repository.filterFechas(fechaInicio,fechadFin);
+        if (productos.isEmpty()) {
+            logger.info("No hay registro de productos disponibles en esa fecha");
+            return null;
+        }
+        List<ResponseProductoDTO> listaDTO = new ArrayList<>();
+        for (Producto producto: productos) {
+            listaDTO.add(mapToDTO(producto));
+        }
+        return listaDTO;
+    }
+
     public List<ResponseProductoDTO> filterCiudadAndFechas(String ciudad, LocalDate fechaInicio, LocalDate fechadFin){
 
         var productos = repository.filterCiudadAndFechas(ciudad,fechaInicio,fechadFin);
