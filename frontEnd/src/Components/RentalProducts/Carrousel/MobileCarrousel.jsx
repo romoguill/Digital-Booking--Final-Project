@@ -22,12 +22,13 @@ function MobileCarrousel({ producto, imagenes }) {
           modules={[Pagination, Autoplay]}
           className="swiper-main"
         >
-          {imagenes.map((item) => {
+          {imagenes.map((item, i) => {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={i}>
                 <img src={item.url} />
               </SwiperSlide>
-          )})}
+            );
+          })}
         </Swiper>
       </div>
     </section>

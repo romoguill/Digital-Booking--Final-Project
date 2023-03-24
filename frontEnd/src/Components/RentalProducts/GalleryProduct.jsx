@@ -36,6 +36,7 @@ function GalleryProduct({ producto, imagenes }) {
                 return (
                   <img
                     src={item.url}
+                    alt={item.titulo}
                     key={i}
                     className={i === 0 ? 'main-picture' : ''}
                   />

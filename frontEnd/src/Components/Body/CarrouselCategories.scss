@@ -34,9 +34,9 @@
   }
 
   .container-img {
-    flex-basis: 80%;
-    flex-grow: 1;
-    max-height: 80%;
+    // flex-basis: 80%;
+    // flex-grow: 1;
+    // max-height: 80%;
 
     a {
       display: block;
@@ -58,6 +58,10 @@
 
   .container-content {
     padding: globals.$p-2;
+
+    a {
+      padding: 0;
+    }
   }
 }
 
