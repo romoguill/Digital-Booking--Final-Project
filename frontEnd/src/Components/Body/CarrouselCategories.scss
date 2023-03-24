@@ -43,11 +43,10 @@
   }
 
   .container-img {
-    flex-basis: 100%;
-    overflow: hidden;
+    flex: 1;
 
     a {
-      padding: 0;
+      height: 100%;
     }
   }
 

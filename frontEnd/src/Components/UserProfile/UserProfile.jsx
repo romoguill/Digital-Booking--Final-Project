@@ -3,7 +3,9 @@ import './UserProfile.scss';
 
 function ProfilePicture() {
   const { auth } = useAuth();
-  const initials = auth?.userName.slice(0, 1) + auth?.userLastName.slice(0, 1);
+  console.log(auth);
+  const initials =
+    auth?.userName?.slice(0, 1) + auth?.userLastName?.slice(0, 1);
 
   return <div className="profile-picture">{initials}</div>;
 }
