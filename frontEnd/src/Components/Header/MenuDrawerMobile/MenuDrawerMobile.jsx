@@ -84,8 +84,8 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
                   </Link>
                 )}
 
-                {(location.pathname === '/' ||
-                  location.pathname === '/home') && <hr />}
+                {location.pathname === '/register' ||
+                  location.pathname === '/login' || <hr />}
 
                 {location.pathname === '/login' || (
                   <Link

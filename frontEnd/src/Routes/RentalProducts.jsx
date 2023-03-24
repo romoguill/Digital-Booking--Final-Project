@@ -16,8 +16,6 @@ function RentalProducts() {
   const [producto, setProducto] = useState({});
   const [imagenes, setImagenes] = useState([]);
 
-  const { auth } = useAuth();
-
   useEffect(() => {
     const fetchData = async () => {
       axios(`${import.meta.env.VITE_BASE_API_URL}/productos/id=${params.id}`)
@@ -51,7 +49,6 @@ function RentalProducts() {
         <h2 className="section-title">¿Qué ofrece este lugar?</h2>
         <hr className="section-divider" />
         <div className="product__ammenities__items">
-          {console.log(producto)}
           {producto.caracteristicas &&
             producto.caracteristicas.map((item, i) => {
               return (

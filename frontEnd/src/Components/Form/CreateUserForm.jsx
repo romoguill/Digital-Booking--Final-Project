@@ -31,7 +31,6 @@ function CreateUserForm() {
 
   const onSubmit = async (formData) => {
     const payload = JSON.stringify({ ...formData, idRol: 2 });
-    console.log(payload);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BASE_API_URL}/usuarios/crear`,

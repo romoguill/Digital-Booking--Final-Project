@@ -3,7 +3,7 @@ import './UserProfile.scss';
 
 function ProfilePicture() {
   const { auth } = useAuth();
-  console.log(auth);
+
   const initials =
     auth?.userName?.slice(0, 1) + auth?.userLastName?.slice(0, 1);
 
