@@ -34,3 +34,62 @@
 [2023-03-1714:29:34] [ INFO ] [ProductoService:75] No hay registro de productos en esa categoria o no se encontro categoria
 [2023-03-1714:29:34] [ INFO ] [ProductoService:110] Se elimino el registro con el id: 1 de la tabla Productos
 >>>>>>> ac74dbc5057a92bd44329e8ad9e3433850904e30
+[2023-03-2415:25:21] [ ERROR] [ProductoService:37] No existe un usuario con el email:burgosfacundo
+[2023-03-2415:25:21] [ ERROR] [ProductoService:32] No existe un producto con el id:1
+[2023-03-2415:25:21] [ INFO ] [ProductoService:42] Se creo una nueva reserva
+[2023-03-2415:25:21] [ ERROR] [ProductoService:48] No existe un producto con el id:0
+[2023-03-2415:25:22] [ ERROR] [CategoriaService:48] No existe una caracteristica con el id:1
+[2023-03-2415:25:22] [ INFO ] [CategoriaService:34] La tabla Caracteristica no tiene registros
+[2023-03-2415:25:22] [ ERROR] [CategoriaService:56] No existe una caracteristica con el titulo:titulo
+[2023-03-2415:25:22] [ ERROR] [CategoriaService:23] Ya existe una caracteristica con el titulo: wifi
+[2023-03-2415:25:22] [ INFO ] [CategoriaService:75] Se elimino el registro con el id: 1 de la tabla Caracteristicas
+[2023-03-2415:25:22] [ INFO ] [CategoriaService:68] Se modifico el registro con el id: 1 de la tabla Caracteristica
+[2023-03-2415:25:22] [ INFO ] [CategoriaService:27] Se creo una nueva caracteristica: wifi
+[2023-03-2415:25:22] [ ERROR] [CategoriaService:64] No existe un registro en la tabla Caracteristica con el id: 1
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:47] No existe una politica con el id:1
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:74] Se elimino el registro con el id: 1 de la tabla Politica
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:63] No existe un registro en la tabla Politica con el id: 1
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:22] Ya existe una politica con el titulo: seguridad
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:33] La tabla Politica no tiene registros
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:67] Se modifico el registro con el id: 1 de la tabla Politica
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:26] Se creo una nueva politica: seguridad
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:55] No existe una politica con el titulo:nombre
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:76] Se elimino el registro con el id: 1 de la tabla Categoria
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:69] Se modifico el registro con el id: 1 de la tabla Categoria
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:65] No existe un registro en la tabla Categoria con el id: 1
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:35] La tabla Categoria no tiene registros
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:28] Se creo una nueva categoria: Departamentos
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:49] No existe una categoria con el id:1
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:57] No existe una categoria con el titulo:titulo
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:24] Ya existe una categoria con el titulo: Departamentos
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:62] No existe una imagen con el titulo:imagen
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:70] No existe un registro en la tabla Imagen con el id: 1
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:74] Se modifico el registro con el id: 1 de la tabla Imagen
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:54] No existe una imagen con el id:1
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:25] Ya existe una imagen con el titulo: imagen
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:81] Se elimino el registro con el id: 1 de la tabla Imagen
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:29] No existe un producto con el id: 1
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:33] Se creo una nueva imagen: imagen
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:40] La tabla Imagen no tiene registros
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:69] Se elimino el registro con el id: 1 de la tabla Usuarios
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:35] No existe un rol con el id: 1
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:31] El usuario con el email:email ya existe en la base de datos
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:46] La tabla Usuario no tiene registros
+[2023-03-2415:25:33] [ INFO ] [ProductoService:74] La tabla Producto no tiene registros
+[2023-03-2415:25:33] [ INFO ] [ProductoService:113] No hay registro de productos en esa ciudad o no se encontro ciudad
+[2023-03-2415:25:33] [ INFO ] [ProductoService:61] La tabla Producto no tiene registros
+[2023-03-2415:25:33] [ ERROR] [ProductoService:152] No existe un registro en la tabla Producto con el id: 1
+[2023-03-2415:25:33] [ INFO ] [ProductoService:156] Se modifico el registro con el id: 1 de la tabla Producto
+[2023-03-2415:25:33] [ INFO ] [ProductoService:54] Se creo un nuevo producto: Departamento
+[2023-03-2415:25:33] [ ERROR] [ProductoService:30] Ya existe un producto con el titulo: Departamento
+[2023-03-2415:25:33] [ INFO ] [ProductoService:100] No hay registro de productos en esa categoria o no se encontro categoria
+[2023-03-2415:25:33] [ ERROR] [ProductoService:34] No existe una ciudad con el id: 1
+[2023-03-2415:25:33] [ INFO ] [ProductoService:163] Se elimino el registro con el id: 1 de la tabla Productos
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:65] No existe un registro en la tabla Ciudad con el id: 1
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:57] No existe una ciudad con el nombre:nombre
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:69] Se modifico el registro con el id: 1 de la tabla Ciudad
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:49] No existe una ciudad con el id:1
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:76] Se elimino el registro con el id: 1 de la tabla Ciudad
+[2023-03-2415:25:33] [ ERROR] [CategoriaService:24] Ya existe una ciudad con el nombre: Mar del Plata
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:35] La tabla Ciudad no tiene registros
+[2023-03-2415:25:33] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Mar del Plata

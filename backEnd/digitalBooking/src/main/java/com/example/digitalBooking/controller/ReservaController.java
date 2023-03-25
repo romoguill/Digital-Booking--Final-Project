@@ -29,4 +29,11 @@ public class ReservaController {
     public ResponseEntity<List<ResponseReservaDTO>> getByIdProducto(@PathVariable Long idProducto) throws ProductoNotFoundException {
         return ResponseEntity.ok(service.getAllByIdProducto(idProducto));
     }
+
+    @GetMapping("/idUsuario={idUsuario}")
+    public ResponseEntity<List<ResponseReservaDTO>> findAllByIdUsuario(@PathVariable Long idUsuario) throws ProductoNotFoundException {
+        return ResponseEntity.ok(service.findAllByIdUsuario(idUsuario));
+    }
+
+
 }

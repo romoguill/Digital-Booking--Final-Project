@@ -81,6 +81,7 @@ public class ProductoService {
         }
         return listaDTO;
     }
+
     public ResponseProductoDTO getById(Long id) throws ProductoNotFoundException {
         var optionalProducto = repository.findByIdWithImagenes(id);
         if(optionalProducto.isEmpty()){
@@ -149,7 +150,7 @@ public class ProductoService {
     }
     public boolean update(RequestProductoDTO producto) throws ProductoNotFoundException {
         if (repository.findById(producto.id()).isEmpty()) {
-            logger.error("No existe un registro en la tabla Producto con el id: " + producto.id());
+            logger.error("No existe un registro para editar en la tabla Producto con el id: " + producto.id());
             throw new ProductoNotFoundException();
         }
         repository.save(mapToProducto(producto));
