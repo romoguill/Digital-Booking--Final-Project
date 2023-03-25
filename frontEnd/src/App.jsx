@@ -20,6 +20,7 @@ import useAuth from './Hooks/useAuth';
 import CreateRental from './Routes/CreateRental';
 import ProtectedRoutes from './Components/ProtectedRoutes';
 import ModifyRental from './Routes/ModifyRental';
+import NotAuthorized from './Routes/NotAuthorized';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
@@ -73,6 +74,7 @@ function App() {
           />
         </Route>
 
+        <Route path="/unauthorized" element={<NotAuthorized />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate replace to="/404" />} />
       </Routes>
