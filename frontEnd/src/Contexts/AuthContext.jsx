@@ -8,6 +8,7 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+
   const {
     storedValue: tokenStored,
     removeFromStorage: removeTokenFromStorage,
@@ -26,7 +27,7 @@ export const AuthContextProvider = ({ children }) => {
         `${import.meta.env.VITE_BASE_API_URL}/usuarios/email=${userEmail}`,
         {
           headers: {
-            Authorization: `Bearer ${getItem('token')}`,
+            Authorization: `Bearer ${tokenStored}`,
             'Content-type': 'application/json',
           },
         }
@@ -64,8 +65,10 @@ export const AuthContextProvider = ({ children }) => {
       setUserRole(tokenDecoded.sub);
     } catch (error) {
       console.log(error);
-      removeItem('token');
+      removeTokenFromStorage();
       setAuth({});
+    } finally {
+      setIsLoading(false);
     }
 
     // const {
