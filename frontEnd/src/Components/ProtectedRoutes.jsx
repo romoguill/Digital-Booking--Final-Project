@@ -8,6 +8,8 @@ function ProtectedRoutes({ children, allowedRoles }) {
   const { getItem } = useLocalStorage();
   const [userRole, setUserRole] = useState(null);
 
+  console.log(auth);
+
   const location = useLocation();
 
   useEffect(() => {
@@ -38,9 +40,7 @@ function ProtectedRoutes({ children, allowedRoles }) {
     getRole();
   }, []);
 
-  if (!auth?.userEmail && !allowedRoles.includes(userRole)) {
-    return <Navigate to="/unauthorized" />;
-  }
+  userRole;
 
   return children;
 }

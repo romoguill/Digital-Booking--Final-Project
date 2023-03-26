@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function useLocalStorage() {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState();
 
   const setItem = (key, value) => {
     localStorage.setItem(key, value);
