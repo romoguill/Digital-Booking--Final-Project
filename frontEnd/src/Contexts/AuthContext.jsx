@@ -8,11 +8,12 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const { getItem, removeItem } = useLocalStorage();
+  const {
+    storedValue: tokenStored,
+    removeFromStorage: removeTokenFromStorage,
+  } = useLocalStorage('token', null);
 
   useEffect(() => {
-    const token = getItem('token');
-
     const tokenHasValidInfo = (tokenDecoded) => {
       const requiredKeys = ['sub', 'apellido', 'nombre', 'exp', 'iat'];
       return requiredKeys.every((requiredKey) =>
@@ -37,7 +38,7 @@ export const AuthContextProvider = ({ children }) => {
     };
 
     try {
-      const tokenDecoded = jwt_decode(token);
+      const tokenDecoded = jwt_decode(tokenStored);
 
       if (!tokenHasValidInfo(tokenDecoded)) {
         throw {

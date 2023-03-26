@@ -12,33 +12,7 @@ function ProtectedRoutes({ children, allowedRoles }) {
 
   const location = useLocation();
 
-  useEffect(() => {
-    const getRole = async () => {
-      if (auth?.userEmail) {
-        console.log(auth);
-        try {
-          const response = await fetch(
-            `${import.meta.env.VITE_BASE_API_URL}/usuarios/email=${
-              auth.userEmail
-            }`,
-            {
-              headers: {
-                Authorization: `Bearer ${getItem('token')}`,
-                'Content-type': 'application/json',
-              },
-            }
-          );
-          if (response.ok) {
-            const data = await response.json();
-            setUserRole(data.rol?.id);
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
-    getRole();
-  }, []);
+  useEffect(() => {}, []);
 
   userRole;
 
