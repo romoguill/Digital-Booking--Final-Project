@@ -12,20 +12,17 @@ import { Link, useLocation } from 'react-router-dom';
 
 import './MenuDrawerMobile.scss';
 import useAuth from '../../../Hooks/useAuth';
-import useLocalStorage from '../../../Hooks/useLocalStorage';
 
 function MenuDrawerMobile({ setMenuDrawerVisible }) {
   const location = useLocation();
-  const { auth, setAuth } = useAuth();
-  const { removeItem } = useLocalStorage();
+  const { auth, logout } = useAuth();
 
   function handleMenuDrawerClose() {
     setMenuDrawerVisible(false);
   }
 
   function handleLogout() {
-    setAuth(null);
-    removeItem('token');
+    logout();
     handleMenuDrawerClose();
   }
 
@@ -40,7 +37,7 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
       <>
         <div className="menu-drawer-mobile__header">
           <div className="menu-drawer-mobile__container">
-            {auth?.userEmail ? (
+            {auth.userEmail ? (
               <>
                 <div className="user-icon-mobile">
                   <UserProfile mobile={true} />
@@ -54,7 +51,7 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
 
         <div className="menu-drawer-mobile__body">
           <div className="menu-drawer-mobile__container">
-            {auth?.userEmail ? (
+            {auth.userEmail ? (
               <>
                 <div className="logout-container">
                   <p className="logout-drawer">

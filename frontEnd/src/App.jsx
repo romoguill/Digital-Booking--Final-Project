@@ -27,8 +27,6 @@ function App() {
   const [menuDrawerVisible, setMenuDrawerVisible] = useState(false);
   const { auth } = useAuth();
 
-  console.log(auth);
-
   return (
     <div className="app">
       {menuDrawerVisible && (
@@ -36,7 +34,7 @@ function App() {
       )}
 
       <Header setMenuDrawerVisible={setMenuDrawerVisible} />
-      {console.log(auth)}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="home" element={<Home />} />

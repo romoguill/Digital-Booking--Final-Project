@@ -7,7 +7,6 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import './MainForm.scss';
 import { useEffect, useState } from 'react';
-import useAuth from '../../Hooks/useAuth';
 
 function CreateUserForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);

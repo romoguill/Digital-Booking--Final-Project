@@ -11,6 +11,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const {
     storedValue: tokenStored,
+    updateStorage: updateToken,
     removeFromStorage: removeTokenFromStorage,
   } = useLocalStorage('token', null);
 
@@ -70,27 +71,18 @@ export const AuthContextProvider = ({ children }) => {
     } finally {
       setIsLoading(false);
     }
+  }, [tokenStored]);
 
-    // const {
-    //   sub: userEmail,
-    //   apellido: userLastName,
-    //   nombre: userName,
-    //   exp: tokenExpireDate,
-    // } = jwt_decode(token);
-    // console.log(userLastName);
+  const login = (token) => {
+    updateToken(token);
+  };
 
-    // tokenExpireDate > new Date()
-    //   ? removeItem('token')
-    //   : setAuth({ userEmail, userLastName, userName });
-    // } catch (error) {
-    //   removeItem('token');
-    // } finally {
-    //   setIsLoading(false);
-    // }
-  }, []);
+  const logout = () => {
+    removeTokenFromStorage();
+  };
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth, isLoading }}>
+    <AuthContext.Provider value={{ auth, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

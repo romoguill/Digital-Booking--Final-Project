@@ -1,5 +1,3 @@
-import jwt_decode from 'jwt-decode';
-
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
@@ -10,12 +8,10 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import './MainForm.scss';
 import useAuth from '../../Hooks/useAuth';
-import useLocalStorage from '../../Hooks/useLocalStorage';
 
 function UserLoginForm() {
   const navigate = useNavigate();
-  const { setAuth } = useAuth();
-  const { setItem } = useLocalStorage();
+  const { login } = useAuth();
 
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -26,20 +22,17 @@ function UserLoginForm() {
   const onSubmit = async (formData) => {
     const payload = JSON.stringify(formData);
     try {
-      const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/usuarios/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: payload,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/usuarios/login`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+        }
+      );
       if (response.ok) {
         const token = (await response.json()).jwt;
-        const {
-          sub: userEmail,
-          apellido: userLastName,
-          nombre: userName,
-        } = jwt_decode(token);
-        setAuth({ userEmail, userLastName, userName });
-        setItem('token', token);
+        login(token);
         navigate(-1);
       } else {
         setError('root.responseError', {

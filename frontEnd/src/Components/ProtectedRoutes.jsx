@@ -4,19 +4,20 @@ import useAuth from '../Hooks/useAuth';
 import useLocalStorage from '../Hooks/useLocalStorage';
 
 function ProtectedRoutes({ children, allowedRoles }) {
-  const { auth } = useAuth();
+  const { auth, isLoading } = useAuth();
   const { getItem } = useLocalStorage();
-  const [userRole, setUserRole] = useState(null);
-
-  console.log(auth);
 
   const location = useLocation();
 
   useEffect(() => {}, []);
 
-  userRole;
+  if (isLoading) return;
 
-  return children;
+  if (allowedRoles.includes(auth.userRole)) {
+    return children;
+  } else {
+    return <Navigate to="/unauthorized" />;
+  }
 }
 
 export default ProtectedRoutes;
