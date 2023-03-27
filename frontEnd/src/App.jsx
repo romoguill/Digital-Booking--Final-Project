@@ -27,6 +27,7 @@ function App() {
   const [menuDrawerVisible, setMenuDrawerVisible] = useState(false);
   const { auth } = useAuth();
 
+  console.log(auth);
   return (
     <div className="app">
       {menuDrawerVisible && (
@@ -46,17 +47,14 @@ function App() {
         <Route
           path="producto/:id/reserva"
           element={
-            auth?.userEmail ? (
+            <ProtectedRoutes allowedRoles={[2]}>
               <Booking />
-            ) : (
-              <Navigate to="/login" replace={true} />
-            )
+            </ProtectedRoutes>
           }
         />
         <Route path="reserva_confirmada" element={<BookingSuccess />} />
 
         <Route path="admin">
-          {console.log(auth)}
           <Route
             path="crear"
             element={

@@ -5,14 +5,12 @@ import useLocalStorage from '../Hooks/useLocalStorage';
 
 function ProtectedRoutes({ children, allowedRoles }) {
   const { auth, isLoading } = useAuth();
-  const { getItem } = useLocalStorage();
 
   const location = useLocation();
 
-  useEffect(() => {}, []);
-
   if (isLoading) return;
 
+  console.log(auth.userRole);
   if (allowedRoles.includes(auth.userRole)) {
     return children;
   } else {
