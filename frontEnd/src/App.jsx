@@ -25,9 +25,10 @@ import NotAuthorized from './Routes/NotAuthorized';
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
   const [menuDrawerVisible, setMenuDrawerVisible] = useState(false);
-  const { auth } = useAuth();
+  const { auth, isLoading } = useAuth();
 
-  console.log(auth);
+  if (isLoading) return null;
+
   return (
     <div className="app">
       {menuDrawerVisible && (

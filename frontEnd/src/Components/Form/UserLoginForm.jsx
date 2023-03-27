@@ -31,8 +31,11 @@ function UserLoginForm() {
         }
       );
       if (response.ok) {
-        const token = (await response.json()).jwt;
-        login(token);
+        const data = await response.json();
+        const token = data.jwt;
+
+        await login(token);
+
         navigate(-1);
       } else {
         setError('root.responseError', {

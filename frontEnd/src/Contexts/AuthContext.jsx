@@ -48,20 +48,21 @@ export const AuthContextProvider = ({ children }) => {
     return false;
   };
 
-  const getUserRole = async (userEmail) => {
+  const getUserRole = async (userEmail, token) => {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BASE_API_URL}/usuarios/email=${userEmail}`,
         {
           headers: {
-            Authorization: `Bearer ${tokenStored}`,
+            Authorization: `Bearer ${token}`,
             'Content-type': 'application/json',
           },
         }
       );
 
       if (response.ok) {
-        return (await response.json()).data.rol;
+        const data = await response.json();
+        return data.rol.id;
       } else {
         return null;
       }
@@ -72,9 +73,8 @@ export const AuthContextProvider = ({ children }) => {
 
   const login = async (token) => {
     if (!isValidToken(token)) {
-      throw {
-        name: 'Invalid Token',
-      };
+      logout();
+      return;
     }
     const tokenDecoded = jwt_decode(token);
 
@@ -83,14 +83,17 @@ export const AuthContextProvider = ({ children }) => {
       userName: tokenDecoded.nombre,
       userLastName: tokenDecoded.apellido,
     };
-    authInfo.userRole = await getUserRole();
+    authInfo.userRole = await getUserRole(authInfo.userEmail, token);
     setAuth(authInfo);
+
+    setIsLoading(false);
     updateToken(token);
   };
 
   const logout = () => {
-    removeTokenFromStorage();
     setAuth({});
+    setIsLoading(false);
+    removeTokenFromStorage();
   };
 
   useEffect(() => {
