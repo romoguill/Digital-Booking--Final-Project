@@ -10,10 +10,11 @@ import UserProfile from '../UserProfile/UserProfile';
 
 import Navbar from './Navbar/Navbar';
 import useAuth from '../../Hooks/useAuth';
-import useLocalStorage from '../../Hooks/useLocalStorage';
+import { useState } from 'react';
 
 function Header({ setMenuDrawerVisible }) {
   const { auth, logout } = useAuth();
+  const [isAdminMenuVisible, setIsAdminMenuVisible] = useState(false);
 
   const navigate = useNavigate();
 
@@ -26,6 +27,10 @@ function Header({ setMenuDrawerVisible }) {
     navigate('/');
   }
 
+  function toggleMenuVisibility() {
+    setIsAdminMenuVisible(!isAdminMenuVisible);
+  }
+
   return (
     <header>
       <div className="container-main">
@@ -35,6 +40,26 @@ function Header({ setMenuDrawerVisible }) {
 
         {auth.userEmail ? (
           <div className="account-options">
+            {auth.userRole === 1 && (
+              <div className="menu--admin" onClick={toggleMenuVisibility}>
+                <p
+                  className={`menu--admin__title ${
+                    isAdminMenuVisible ? 'selected' : ''
+                  }`}
+                >
+                  Admin
+                </p>
+                <ul
+                  className={`menu--admin__options ${
+                    !isAdminMenuVisible ? 'hidden' : ''
+                  }`}
+                >
+                  <li>Crear Producto</li>
+                  <hr />
+                  <li>Modificar Producto</li>
+                </ul>
+              </div>
+            )}
             <UserProfile />
             <Link to={'/'} onClick={handleLogout}>
               <FontAwesomeIcon icon={faRightFromBracket} />
