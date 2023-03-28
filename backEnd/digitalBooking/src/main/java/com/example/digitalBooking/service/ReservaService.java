@@ -57,6 +57,23 @@ public class ReservaService {
         return listaDTO;
     }
 
+
+    public List<ResponseReservaDTO> findAllByIdUsuario(Long idUser) throws ProductoNotFoundException {
+        if (productoRepository.findById(idUser).isEmpty()) {
+            logger.error("No existe un producto con el usuario :" + idUser);
+            throw new ProductoNotFoundException();
+        }
+
+        var reservas = repository.findAllByIdUsuario(idUser);
+        List<ResponseReservaDTO> listaDTO = new ArrayList<>();
+        for (Reserva reserva:reservas) {
+            listaDTO.add(mapToDTO(reserva));
+        }
+        return listaDTO;
+    }
+
+
+
     private ResponseReservaDTO mapToDTO(Reserva reserva) {
         return new ResponseReservaDTO(reserva.getId(),reserva.getHoraComienzo(), reserva.getFechaInicial(),
                 reserva.getFechaFinal(),reserva.getProducto().getId(),reserva.getUsuario().getId());

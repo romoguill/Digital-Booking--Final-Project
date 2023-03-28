@@ -17,10 +17,7 @@ import BookingSuccess from './Routes/BookingSuccess';
 import CategoryProducts from './Routes/CategoryProducts';
 import Search from './Routes/Search';
 import useAuth from './Hooks/useAuth';
-import CreateRental from './Routes/CreateRental';
-import ProtectedRoutes from './Components/ProtectedRoutes';
-import ModifyRental from './Routes/ModifyRental';
-import NotAuthorized from './Routes/NotAuthorized';
+import MyReservations from './Routes/MyReservations';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
@@ -54,27 +51,7 @@ function App() {
           }
         />
         <Route path="reserva_confirmada" element={<BookingSuccess />} />
-
-        <Route path="admin">
-          <Route
-            path="crear"
-            element={
-              <ProtectedRoutes allowedRoles={[1]}>
-                <CreateRental />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="modificar"
-            element={
-              <ProtectedRoutes allowedRoles={[1]}>
-                <ModifyRental />
-              </ProtectedRoutes>
-            }
-          />
-        </Route>
-
-        <Route path="/unauthorized" element={<NotAuthorized />} />
+        <Route path='/:userId/reservas' element={<MyReservations />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate replace to="/404" />} />
       </Routes>

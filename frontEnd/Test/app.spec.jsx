@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom'; 
-import ReactDOM from 'react-dom';
 import { render,screen } from '@testing-library/react';
 import CategoriaCard from "../src/Components/Body/CategoriaCard"
 

@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 
 const BookingSuccess = () => {
   return (
-    <div className="container-page">
-      <div className="success-container">
-        <div className="success-card">
-          <img src={ReservaIcon} alt="Reserva Exitosa" />
-          <h2>¡Muchas gracias!</h2>
-          <p>Su reserva se ha realizado con éxito</p>
-          <Link to={'/'}>
-            <button>Ok</button>
-          </Link>
+    <div className='success-container'>
+        <div className='success-card'>
+            <img src={ReservaIcon} alt="Reserva Exitosa" />
+            <h2>¡Muchas gracias!</h2>
+            <p>Su reserva se ha realizado con éxito</p>
+            <p>¡Se envio los datos a su correo electronico!</p>
+            <Link to={'/home'}>
+                <button>Ok</button>
+            </Link>
         </div>
       </div>
     </div>

@@ -20,8 +20,16 @@ export const AuthContextProvider = ({ children }) => {
 
   const tokenIsBase64Encoded = (token) => {
     try {
-      jwt_decode(token);
-      return true;
+      const {
+        sub: userEmail,
+        id: userId,
+        apellido: userLastName,
+        nombre: userName,
+        exp: tokenExpireDate,
+      } = jwt_decode(token);
+      tokenExpireDate > new Date()
+        ? removeItem('token')
+        : setAuth({ userEmail, userLastName, userName, userId });
     } catch (error) {
       return false;
     }

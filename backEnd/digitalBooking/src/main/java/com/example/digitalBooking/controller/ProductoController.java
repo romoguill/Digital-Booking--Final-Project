@@ -40,6 +40,11 @@ public class ProductoController {
         return  ResponseEntity.ok(service.getById(id));
     }
 
+    @PutMapping("/actualizar")
+    public ResponseEntity<String> putByid(@RequestBody RequestProductoDTO productoDTO) throws ProductoNotFoundException {
+       service.update(productoDTO);
+        return new ResponseEntity<>("Se edito el producto correctamente", HttpStatus.OK);
+    }
     @GetMapping("/filterCat={categoria}")
     public ResponseEntity<List<ResponseProductoDTO>> filterCategoria(@PathVariable String categoria)  {
         return ResponseEntity.ok(service.filterCategoria(categoria));
