@@ -1,15 +1,15 @@
 package com.example.digitalBooking;
 
+
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
 import com.example.digitalBooking.model.Producto;
 import com.example.digitalBooking.model.Usuario;
-import com.example.digitalBooking.model.dto.RequestReservaDTO;
-import com.example.digitalBooking.model.dto.ResponseReservaDTO;
+import com.example.digitalBooking.service.PuntuacionService;
+import com.example.digitalBooking.model.dto.PuntuacionDTO;
 import com.example.digitalBooking.repository.ProductoRepository;
-import com.example.digitalBooking.repository.ReservaRepository;
+import com.example.digitalBooking.repository.PuntuacionRepository;
 import com.example.digitalBooking.repository.UsuarioRepository;
-import com.example.digitalBooking.service.ReservaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,86 +18,75 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
-
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class ReservaServiceTest {
+public class PuntuacionServiceTest {
     @Mock
-    ReservaRepository repository;
+    PuntuacionRepository repository;
     @Mock
     ProductoRepository productoRepository;
     @Mock
     UsuarioRepository usuarioRepository;
     @InjectMocks
-    ReservaService service;
-
+    PuntuacionService service;
     private final Usuario usuario = new Usuario();
     private final Producto producto = new Producto();
-    private ResponseReservaDTO responseReservaDTO;
-    private RequestReservaDTO requestReservaDTO;
+    private PuntuacionDTO puntuacionDTO;
 
     @BeforeEach
     void setUp(){
-        responseReservaDTO = new ResponseReservaDTO(1L, LocalTime.now(), LocalDate.now(),
-                LocalDate.now(),1L,1L);
-        requestReservaDTO = new RequestReservaDTO(1L, LocalTime.now(), LocalDate.now(),
-                LocalDate.now(),1L,"burgosfacundo");
+        puntuacionDTO = new PuntuacionDTO(1L,10,1L,1L);
     }
 
     @Test
-    @DisplayName("WHEN we create a reserva then don´t throws any exception")
-    public void createReserva(){
+    @DisplayName("WHEN we create a puntuacion then don´t throws any exception")
+    public void createPuntuacion(){
         //GIVEN
         given(productoRepository.findById(anyLong())).willReturn(Optional.of(producto));
-        given(usuarioRepository.findByEmail(anyString())).willReturn(Optional.of(usuario));
+        given(usuarioRepository.findById(anyLong())).willReturn(Optional.of(usuario));
         //WHEN AND THEN
-        assertDoesNotThrow(()->service.create(requestReservaDTO));
+        assertDoesNotThrow(()->service.create(puntuacionDTO));
     }
 
     @Test
-    @DisplayName("WHEN we create a reserva with idUsuario invalid then it throws BadRequestException")
-    public void createReservaException(){
+    @DisplayName("WHEN we create a puntuacion with idUsuario invalid then it throws BadRequestException")
+    public void createPuntuacionException(){
         //GIVEN
         given(productoRepository.findById(anyLong())).willReturn(Optional.of(producto));
-        given(usuarioRepository.findByEmail(anyString())).willReturn(Optional.empty());
+        given(usuarioRepository.findById(anyLong())).willReturn(Optional.empty());
         //WHEN AND THEN
-        assertThrows(BadRequestException.class,()->service.create(requestReservaDTO));
+        assertThrows(BadRequestException.class,()->service.create(puntuacionDTO));
     }
 
     @Test
-    @DisplayName("WHEN we create a reserva with idProducto invalid then it throws BadRequestException")
-    public void createReservaException2(){
+    @DisplayName("WHEN we create a puntuacion with idProducto invalid then it throws BadRequestException")
+    public void createPuntuacionException2(){
         //GIVEN
         given(productoRepository.findById(anyLong())).willReturn(Optional.empty());
         //WHEN AND THEN
-        assertThrows(BadRequestException.class,()->service.create(requestReservaDTO));
+        assertThrows(BadRequestException.class,()->service.create(puntuacionDTO));
     }
-
     @Test
-    @DisplayName("WHEN we list all the reservas by idProducto THEN don´t throws any exception")
-    public void getAllReservasByIdProducto(){
+    @DisplayName("WHEN we list all the puntuaciones by idProducto THEN don´t throws any exception")
+    public void getAllPuntuacionesByIdProducto(){
         //GIVEN
         given(productoRepository.findById(anyLong())).willReturn(Optional.of(producto));
         //WHEN AND THEN
         assertDoesNotThrow(()->service.getAllByIdProducto(anyLong()));
     }
     @Test
-    @DisplayName("WHEN we list all the reservas by idProducto THEN throws ProductoNotFoundException")
-    public void getAllUsuarioNull() {
+    @DisplayName("WHEN we list all the puntuaciones by idProducto THEN throws ProductoNotFoundException")
+    public void getAllPuntuacionesByIdProductoNull() {
         //GIVEN
         given(productoRepository.findById(anyLong())).willReturn(Optional.empty());
         //WHEN AND THEN
         assertThrows(ProductoNotFoundException.class, () -> service.getAllByIdProducto(anyLong()));
     }
-
 
 }
