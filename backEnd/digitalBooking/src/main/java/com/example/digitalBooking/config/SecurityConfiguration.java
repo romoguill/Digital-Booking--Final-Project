@@ -71,6 +71,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/categoria/titulo={titulo}").hasAuthority("ADMIN")
             .antMatchers("/categoria/editar").hasAuthority("ADMIN")
             .antMatchers("/categoria/borrar/{id}").hasAuthority("ADMIN")
+                
+            .antMatchers("/caracteristicas/todas").hasAuthority("ADMIN")
 
             .antMatchers("/ciudades/crear").hasAuthority("ADMIN")
             .antMatchers("/ciudades/todas").permitAll()
@@ -84,6 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/reservas/crear").hasAuthority("USER")
             .antMatchers("/reservas/borrar/{id}").hasAuthority("USER")
             .antMatchers("/reservas/idProducto={idProducto}").permitAll()
+
 
 
             .anyRequest().authenticated()
