@@ -56,7 +56,7 @@ public class ProductoController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<ResponseProductoDTO>> filterCiudad(@RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy")  LocalDate fechaInicio,
+    public ResponseEntity<List<ResponseProductoDTO>> filterFechas(@RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy")  LocalDate fechaInicio,
                                                                   @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate fechaFin
     ) {
         return  ResponseEntity.ok(service.filterFechas(fechaInicio,fechaFin));

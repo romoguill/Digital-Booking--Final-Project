@@ -35,5 +35,4 @@ public class ReservaController {
         return ResponseEntity.ok(service.findAllByIdUsuario(idUsuario));
     }
 
-
 }

@@ -21,7 +21,6 @@ public class ProductoService {
     private final CiudadRepository ciudadRepository;
     private final CategoriaRepository categoriaRepository;
     private final CaracteristicaRepository caracteristicaRepository;
-    private final PoliticaRepository politicaRepository;
     private static final Logger logger = Logger.getLogger(ProductoService.class);
 
 
@@ -44,12 +43,7 @@ public class ProductoService {
                 throw new BadRequestException("No existe una caracteristica con el id: " + idCaracteristica);
             }
         }
-        for (Long idPolitica:productoDTO.politicas()) {
-            if (politicaRepository.findById(idPolitica).isEmpty()){
-                logger.error("No existe una politica con el id: " + idPolitica);
-                throw new BadRequestException("No existe una politica con el id: " + idPolitica);
-            }
-        }
+
         repository.save(mapToProducto(productoDTO));
         logger.info("Se creo un nuevo producto: " + productoDTO.titulo());
         return true;
@@ -168,13 +162,6 @@ public class ProductoService {
     private Producto mapToProducto(RequestProductoDTO productoDTO){
         Producto producto = new Producto();
 
-        Set<Politica> politicas = new HashSet<>();
-        Politica politica = new Politica();
-        for (Long idPolitica:productoDTO.politicas()) {
-            politica.setId(idPolitica);
-            politicas.add(politica);
-        }
-
         Set<Caracteristica> caracteristicas = new HashSet<>();
         Caracteristica caracteristica = new Caracteristica();
         for (Long idCaracteristica:productoDTO.caracteristicas()) {
@@ -190,12 +177,15 @@ public class ProductoService {
         producto.setId(productoDTO.id());
         producto.setTitulo(productoDTO.titulo());
         producto.setDescripcion(productoDTO.descripcion());
+        producto.setDireccion(productoDTO.direccion());
         producto.setLatitud(productoDTO.latitud());
         producto.setLongitud(productoDTO.longitud());
+        producto.setNormas(productoDTO.normas());
+        producto.setSaludYseguridad(producto.getSaludYseguridad());
+        producto.setCancelacion(producto.getCancelacion());
         producto.setCiudad(ciudad);
         producto.setCategoria(categoria);
         producto.setCaracteristicas(caracteristicas);
-        producto.setPoliticas(politicas);
 
         return producto;
     }
@@ -207,11 +197,6 @@ public class ProductoService {
         Set<Caracteristica> caracteristicas = new HashSet<>();
         for(Caracteristica caracteristica:producto.getCaracteristicas()) {
             caracteristicas.add(caracteristica);
-        }
-
-        Set<Politica> politicas = new HashSet<>();
-        for(Politica politica:producto.getPoliticas()) {
-            politicas.add(politica);
         }
 
         Set<Imagen> imagenes = new HashSet<>();
@@ -226,7 +211,8 @@ public class ProductoService {
             reservas.add(dto);
         }
 
-        return new ResponseProductoDTO(producto.getId(), producto.getTitulo(), producto.getDescripcion(), producto.getLatitud(),
-                producto.getLongitud(), ciudad,categoria,caracteristicas,politicas,imagenes,reservas);
+        return new ResponseProductoDTO(producto.getId(), producto.getTitulo(), producto.getDescripcion(), producto.getDescripcion(), producto.getLatitud(),
+                producto.getLongitud(), producto.getNormas(), producto.getSaludYseguridad(), producto.getCancelacion(),
+                ciudad,categoria,caracteristicas,imagenes,reservas);
     }
 }

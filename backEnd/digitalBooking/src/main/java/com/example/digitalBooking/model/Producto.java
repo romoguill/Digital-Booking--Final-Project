@@ -27,11 +27,23 @@ public class Producto {
         @Column(nullable = false,length = 100)
         private String descripcion;
 
+        @Column(nullable = false,length = 100)
+        private String direccion;
+
         @Column(nullable = false)
         private Float latitud;
 
         @Column(nullable = false)
         private Float longitud;
+
+        @Column(nullable = false)
+        private String normas;
+
+        @Column(nullable = false)
+        private String saludYseguridad;
+
+        @Column(nullable = false)
+        private String cancelacion;
 
         @ManyToOne
         @JoinColumn(name = "id_ciudad",nullable = false)
@@ -44,12 +56,23 @@ public class Producto {
         @OneToMany(mappedBy = "producto", orphanRemoval = true,cascade = CascadeType.ALL)
         private Set<Imagen> imagenes = new HashSet<>();
 
+
         public void addImagen(Imagen imagen) {
                 imagenes.add(imagen);
                 imagen.setProducto(this);
         }
 
         public void removeImagen(Imagen imagen) {imagenes.remove(imagen);}
+
+        @OneToMany(mappedBy = "producto", orphanRemoval = true,cascade = CascadeType.ALL)
+        private Set<Puntuacion> puntuaciones = new HashSet<>();
+
+        public void addPuntuacion(Puntuacion puntuacion) {
+                puntuaciones.add(puntuacion);
+                puntuacion.setProducto(this);
+        }
+
+        public void removePuntuacion(Puntuacion puntuacion) {puntuaciones.remove(puntuacion);}
 
         @ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
         private Set<Caracteristica> caracteristicas = new HashSet<>();
@@ -59,15 +82,10 @@ public class Producto {
         public void removeCaracteristica(Caracteristica caracteristica) {
                 caracteristicas.remove(caracteristica);
         }
-
-        @ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
-        private Set<Politica> politicas = new HashSet<>();
-
-        public void addCaracteristica(Politica politica) {politicas.add(politica);}
-
-        public void removeCaracteristica(Politica politica) {
-                politicas.remove(politica);
-        }
+/*
+        @OneToOne
+        @JoinColumn(name = "id_politica",nullable = false)
+        private Politica politica = new Politica();*/
 
         @OneToMany(mappedBy = "producto",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
         @JsonIgnore

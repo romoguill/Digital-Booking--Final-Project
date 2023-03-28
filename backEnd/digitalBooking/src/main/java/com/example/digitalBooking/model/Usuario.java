@@ -41,6 +41,15 @@ public class Usuario implements UserDetails {
     @Column(nullable = false,length = 50)
     private String ciudad;
 
+    @OneToMany(mappedBy = "usuario", orphanRemoval = true,cascade = CascadeType.ALL)
+    private Set<Puntuacion> puntuaciones = new HashSet<>();
+
+    public void addPuntuacion(Puntuacion puntuacion) {
+        puntuaciones.add(puntuacion);
+        puntuacion.setUsuario(this);
+    }
+    public void removePuntuacion(Puntuacion puntuacion) {puntuaciones.remove(puntuacion);}
+
     @ManyToOne
     @JoinColumn(name = "id_rol",nullable = false)
     private Rol rol;
@@ -52,8 +61,8 @@ public class Usuario implements UserDetails {
         reservas.add(reserva);
         reserva.setUsuario(this);
     }
-
     public void removeReserva(Reserva reserva) {reservas.remove(reserva);}
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         var grantedAuthority = new SimpleGrantedAuthority(rol.getNombre());
