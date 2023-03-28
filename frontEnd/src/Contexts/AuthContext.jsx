@@ -14,13 +14,14 @@ export const AuthContextProvider = ({ children }) => {
     try {
       const {
         sub: userEmail,
+        id: userId,
         apellido: userLastName,
         nombre: userName,
         exp: tokenExpireDate,
       } = jwt_decode(token);
       tokenExpireDate > new Date()
         ? removeItem('token')
-        : setAuth({ userEmail, userLastName, userName });
+        : setAuth({ userEmail, userLastName, userName, userId });
     } catch (error) {
       removeItem('token');
     }
