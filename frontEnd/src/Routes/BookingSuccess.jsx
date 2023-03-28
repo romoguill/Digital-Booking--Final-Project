@@ -10,7 +10,8 @@ const BookingSuccess = () => {
             <img src={ReservaIcon} alt="Reserva Exitosa" />
             <h2>¡Muchas gracias!</h2>
             <p>Su reserva se ha realizado con éxito</p>
-            <Link to={'home'}>
+            <p>¡Se envio los datos a su correo electronico!</p>
+            <Link to={'/home'}>
                 <button>Ok</button>
             </Link>
         </div>
