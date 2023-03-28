@@ -2,6 +2,7 @@ import HomeSearch from '../Components/Body/HomeSearch';
 import CarrouselCategories from '../Components/Body/CarrouselCategories';
 import GridRentals from '../Components/Body/GridRentals';
 import MenuDrawerMobile from '../Components/Header/MenuDrawerMobile/MenuDrawerMobile';
+import MyReservations from './MyReservations';
 
 function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
   return (
@@ -9,9 +10,10 @@ function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
       {menuDrawerVisible && (
         <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
       )}
-      <HomeSearch />
+      {/* <HomeSearch />
       <CarrouselCategories />
-      <GridRentals />
+      <GridRentals /> */}
+      <MyReservations />
     </div>
   );
 }
