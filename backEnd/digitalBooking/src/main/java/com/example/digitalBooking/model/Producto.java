@@ -27,11 +27,23 @@ public class Producto {
         @Column(nullable = false,length = 100)
         private String descripcion;
 
+        @Column(nullable = false,length = 100)
+        private String direccion;
+
         @Column(nullable = false)
         private Float latitud;
 
         @Column(nullable = false)
         private Float longitud;
+
+        @Column(nullable = false)
+        private String normas;
+
+        @Column(nullable = false)
+        private String saludYseguridad;
+
+        @Column(nullable = false)
+        private String cancelacion;
 
         @ManyToOne
         @JoinColumn(name = "id_ciudad",nullable = false)
@@ -59,15 +71,10 @@ public class Producto {
         public void removeCaracteristica(Caracteristica caracteristica) {
                 caracteristicas.remove(caracteristica);
         }
-
-        @ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
-        private Set<Politica> politicas = new HashSet<>();
-
-        public void addCaracteristica(Politica politica) {politicas.add(politica);}
-
-        public void removeCaracteristica(Politica politica) {
-                politicas.remove(politica);
-        }
+/*
+        @OneToOne
+        @JoinColumn(name = "id_politica",nullable = false)
+        private Politica politica = new Politica();*/
 
         @OneToMany(mappedBy = "producto",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
         @JsonIgnore

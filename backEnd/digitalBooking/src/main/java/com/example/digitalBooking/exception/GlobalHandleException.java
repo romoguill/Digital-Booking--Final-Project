@@ -34,11 +34,6 @@ public class GlobalHandleException {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
-    /*Politica*/
-    @ExceptionHandler({PoliticaNotFoundException.class})
-    public ResponseEntity<String> PoliticaNotFoundException(PoliticaNotFoundException e){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-    }
 
     /*Imagen*/
     @ExceptionHandler({ImagenNotFoundException.class})

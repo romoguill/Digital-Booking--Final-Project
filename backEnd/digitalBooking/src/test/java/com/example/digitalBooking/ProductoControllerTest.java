@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -29,9 +30,12 @@ public class ProductoControllerTest {
     @InjectMocks
     private ProductoController controller;
     private final RequestProductoDTO requestProductoDTO = new RequestProductoDTO(1L,"titulo","url",
-            210F,210F,1L,1L,null,null);
-    private final ResponseProductoDTO responseProductoDTO = new ResponseProductoDTO(1L,"titulo","url",
-            210F,210F,null,null,null,null,null,null);
+            "direccion",210F,210F,"normas","salud","cancelacion",
+            1L,1L, Set.of(1L));
+    private final ResponseProductoDTO responseProductoDTO =
+            new ResponseProductoDTO(1L,"titulo","url", "direccion",210F,210F,
+            "normas","seguridad","cancelacion",
+                    null,null,null,null,null);
 
     @Test
     @DisplayName("WHEN we create a producto THEN return HTTP STATUS 201 CREATED and a message 'Se creo el producto correctamente'")
