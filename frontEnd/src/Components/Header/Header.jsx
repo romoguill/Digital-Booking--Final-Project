@@ -54,9 +54,13 @@ function Header({ setMenuDrawerVisible }) {
                     !isAdminMenuVisible ? 'hidden' : ''
                   }`}
                 >
-                  <li>Crear Producto</li>
+                  <li>
+                    <Link to="/admin/crear">Crear Producto</Link>
+                  </li>
                   <hr />
-                  <li>Modificar Producto</li>
+                  <li>
+                    <Link to="/admin/modificar">Modificar Producto</Link>
+                  </li>
                 </ul>
               </div>
             )}
