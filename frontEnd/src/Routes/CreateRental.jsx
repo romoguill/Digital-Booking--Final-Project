@@ -151,17 +151,17 @@ function CreateRental() {
                   <div className="policy__container">
                     <h3>Normas de la casa</h3>
                     <p>Descripción</p>
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                    <textarea></textarea>
                   </div>
                   <div className="policy__container">
                     <h3>Salud y seguridad</h3>
                     <p>Descripción</p>
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                    <textarea></textarea>
                   </div>
                   <div className="policy__container">
                     <h3>Política de cancelación</h3>
                     <p>Descripción</p>
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                    <textarea></textarea>
                   </div>
                 </div>
               </section>
