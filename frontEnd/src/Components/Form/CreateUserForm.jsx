@@ -7,7 +7,6 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import './MainForm.scss';
 import { useEffect, useState } from 'react';
-import useAuth from '../../Hooks/useAuth';
 
 function CreateUserForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -31,7 +30,6 @@ function CreateUserForm() {
 
   const onSubmit = async (formData) => {
     const payload = JSON.stringify({ ...formData, idRol: 2 });
-    console.log(payload);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BASE_API_URL}/usuarios/crear`,

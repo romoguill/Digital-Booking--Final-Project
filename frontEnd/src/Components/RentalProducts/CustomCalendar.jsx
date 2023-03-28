@@ -1,5 +1,4 @@
 import Calendar from 'react-calendar';
-import { Navigation } from 'react-calendar';
 import './CustomCalendar.scss';
 
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -56,10 +55,11 @@ function CustomCalendar({ allowRange, valueDateRange, setValueDateRange }) {
         .textContent
     );
 
-    setNextDate(
-      node?.querySelector('.react-calendar__navigation__label__labelText--to')
-        .textContent
-    );
+    !isMobile &&
+      setNextDate(
+        node?.querySelector('.react-calendar__navigation__label__labelText--to')
+          .textContent
+      );
   };
 
   return (

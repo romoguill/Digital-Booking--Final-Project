@@ -78,7 +78,6 @@ function Booking() {
       idProducto: params.id,
       emailUsuario: auth.userEmail,
     };
-    console.log(payload);
 
     try {
       const response = await fetch(ENDPOINT_POST, {
@@ -89,7 +88,6 @@ function Booking() {
         },
         body: JSON.stringify(payload),
       });
-      console.log(response);
       if (response.ok) {
         navigate('/reserva_confirmada');
       } else {

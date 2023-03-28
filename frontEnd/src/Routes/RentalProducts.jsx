@@ -16,8 +16,6 @@ function RentalProducts() {
   const [producto, setProducto] = useState({});
   const [imagenes, setImagenes] = useState([]);
 
-  const { auth } = useAuth();
-
   useEffect(() => {
     const fetchData = async () => {
       axios(`${import.meta.env.VITE_BASE_API_URL}/productos/id=${params.id}`)

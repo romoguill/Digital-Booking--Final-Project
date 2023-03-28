@@ -13,8 +13,8 @@ import useAuth from '../../Hooks/useAuth';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 
 function Header({ setMenuDrawerVisible }) {
-  const { auth, setAuth } = useAuth();
-  const { removeItem } = useLocalStorage();
+  const { auth, logout } = useAuth();
+
   const navigate = useNavigate();
 
   function handleOpenDrawerMenu() {
@@ -22,8 +22,7 @@ function Header({ setMenuDrawerVisible }) {
   }
 
   function handleLogout() {
-    setAuth(null);
-    removeItem('token');
+    logout();
     navigate('/');
   }
 
@@ -34,7 +33,7 @@ function Header({ setMenuDrawerVisible }) {
           <img className="app-logo" src={logo} />
         </Link>
 
-        {auth?.userEmail ? (
+        {auth.userEmail ? (
           <div className="account-options">
             <UserProfile />
             <Link to={'/'} onClick={handleLogout}>

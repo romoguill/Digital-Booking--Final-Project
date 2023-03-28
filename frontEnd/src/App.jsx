@@ -22,7 +22,9 @@ import MyReservations from './Routes/MyReservations';
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
   const [menuDrawerVisible, setMenuDrawerVisible] = useState(false);
-  const { auth } = useAuth();
+  const { auth, isLoading } = useAuth();
+
+  if (isLoading) return null;
 
   return (
     <div className="app">
@@ -43,11 +45,9 @@ function App() {
         <Route
           path="producto/:id/reserva"
           element={
-            auth?.userEmail ? (
+            <ProtectedRoutes allowedRoles={[2]}>
               <Booking />
-            ) : (
-              <Navigate to="/login" replace={true} />
-            )
+            </ProtectedRoutes>
           }
         />
         <Route path="reserva_confirmada" element={<BookingSuccess />} />

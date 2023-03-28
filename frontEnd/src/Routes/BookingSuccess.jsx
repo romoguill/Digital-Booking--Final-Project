@@ -1,7 +1,7 @@
-import React from 'react'
-import './BookingSuccess.scss'
-import ReservaIcon from '../assets/Images/reserva-exito.png'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import './BookingSuccess.scss';
+import ReservaIcon from '../assets/Images/reserva-exito.png';
+import { Link } from 'react-router-dom';
 
 const BookingSuccess = () => {
   return (
@@ -15,8 +15,9 @@ const BookingSuccess = () => {
                 <button>Ok</button>
             </Link>
         </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default BookingSuccess
+export default BookingSuccess;

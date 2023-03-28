@@ -17,6 +17,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
 
   h3 {
     color:globals.$text-dark;
@@ -32,26 +33,31 @@
     font-weight: globals.$font-weight-md;
   }
 
-  img {
-    height: 100%;
-    width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    border-top-right-radius: globals.$border-radius-lg;
-    border-top-left-radius: globals.$border-radius-lg;
-  }
-
   .container-img {
-    flex: 1;
-
     a {
+      display: block;
+      padding: 0;
       height: 100%;
+      width: 100%;
+      
+      img {  
+        height: 250px;
+        width: 100%;
+        object-fit: cover;
+        border-top-right-radius: globals.$border-radius-lg;
+        border-top-left-radius: globals.$border-radius-lg;
+      }
     }
   }
+  
+
 
   .container-content {
     padding: globals.$p-2;
+
+    a {
+      padding: 0;
+    }
   }
 }
 
