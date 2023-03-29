@@ -6,8 +6,8 @@ const ReserveCard = ({reserva, producto}) => {
     <div>weass
 
         {reserva.fechaInicial}
-        {producto ? producto.titulo : "no hay nada"}
-        {producto ? producto.descripcion : "descripcion"}
+        {/* {producto.titulo}
+        {producto.descripcion} */}
     </div>
   )
 }

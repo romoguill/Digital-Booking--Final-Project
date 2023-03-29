@@ -12,12 +12,8 @@ import ReserveCard from "../Components/Cards/ReserveCard";
 const MyReservations = () => {
   const { auth } = useAuth();
   const [reservas, setReservas] = useState([]);
-  // const [horaReserva, setHoraReserva] = useState("");
-  // const [fechaReservaInicio, setFechaReservaInicio] = useState("");
-  // const [fechaReservaFin, setFechaReservaFin] = useState("");
-  const [productTitle, setProducTitle] = useState("");
-  const [productDescription, setProductDescription] = useState("");
   const [productoConsultados, setProductoConsultados] = useState([]);
+  const [idProductos, setIdProductos] = useState([]);
   const { storedValue } = useLocalStorage("token", null);
 
   const config = {
@@ -28,7 +24,6 @@ const MyReservations = () => {
   };
 
   const idUsuario = auth.userId;
-  const idProductos = reservas.map((unaReserva) => unaReserva.idProducto);
 
   const ENDPOINT_GET_RESERVAS = `http://localhost:8080/reservas/idUsuario=${idUsuario}`;
 
@@ -37,6 +32,7 @@ const MyReservations = () => {
       .get(ENDPOINT_GET_RESERVAS)
       .then((res) => {
         setReservas(res.data);
+        setIdProductos(reservas.map((unaReserva) => unaReserva.idProducto));
         console.log(res.data);
       })
       .catch((err) => {
@@ -45,8 +41,11 @@ const MyReservations = () => {
   }, []);
 
   useEffect(() => {
-    idProductos.forEach((idProducto) => {
-      const urlProducto = `http://localhost:8080/productos/id=${idProducto}`;
+    setProductoConsultados([])
+    reservas.map((reserva) => {
+      console.log("me quiero morir", {id: reserva.idProducto, idReserva: reserva.id })
+      const urlProducto = `http://localhost:8080/productos/id=${reserva.idProducto}`;
+
       fetch(urlProducto)
         .then((response) => response.json())
         .then((data) => {
@@ -57,7 +56,7 @@ const MyReservations = () => {
           console.error(error);
         });
     });
-  }, []);
+  }, [reservas]);
 
   if (reservas.length === 0) {
     return (
