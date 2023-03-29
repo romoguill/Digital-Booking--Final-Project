@@ -13,26 +13,28 @@ const MyReservations = () => {
   const [reservas, setReservas] = useState([]);
   const { storedValue } = useLocalStorage("token", null);
 
+  const config = {
+    headers: {
+      Authorization: `Bearer ${storedValue}`,
+      "Content-type": "application/json",
+    },
+  }
+
   const idUsuario = auth.userId;
 
-  const ENDPOINT_GET_RESERVAS = `http://localhost:8080/reservas/${idUsuario}`;
+  const ENDPOINT_GET_RESERVAS = `http://localhost:8080/reservas/idUsuario=${idUsuario}`;
 
   useEffect(() => {
     axios
-      .get(ENDPOINT_GET_RESERVAS, {
-        headers: {
-          Authorization: `Bearer ${storedValue}`,
-          "Content-type": "application/json",
-        },
-      })
+      .get(ENDPOINT_GET_RESERVAS)
       .then((res) => {
         setReservas(res.data);
-        console.log(data)
+        console.log(res.data)
       })
       .catch((err) => {
         console.error(err);
         console.log(idUsuario)
-        console.log(ENDPOINT_GET_RESERVAS)
+        console.log(reservas)
       });
   }, []);
 
@@ -61,7 +63,7 @@ const MyReservations = () => {
     <div className="reservation-container">
       <div className="reservation-title">Mis Reservas</div>
       <div className="grid-rentals__grid">
-        {reservas.map((item) => {
+        {/* {reservas.map((item) => {
           return (
             <Card
               key={item.id}
@@ -75,7 +77,7 @@ const MyReservations = () => {
               caracteristicas={item.caracteristicas}
             />
           );
-        })}
+        })} */}
       </div>
     </div>
   );

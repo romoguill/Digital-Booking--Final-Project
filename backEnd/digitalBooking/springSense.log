@@ -93,3 +93,30 @@
 [2023-03-2415:25:33] [ ERROR] [CategoriaService:24] Ya existe una ciudad con el nombre: Mar del Plata
 [2023-03-2415:25:33] [ INFO ] [CategoriaService:35] La tabla Ciudad no tiene registros
 [2023-03-2415:25:33] [ INFO ] [CategoriaService:28] Se creo una nueva ciudad: Mar del Plata
+[2023-03-2915:06:19] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:06:20] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:06:43] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:06:44] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:13:16] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:13:17] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:13:19] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:13:27] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:13:29] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:13:43] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:13:44] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:14:19] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:14:20] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:17:05] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:19:05] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:19:49] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:20:20] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:20:21] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:20:41] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:21:21] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:21:36] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:21:37] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:21:43] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:22:04] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:22:05] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:22:16] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
+[2023-03-2915:22:18] [ ERROR] [ProductoService:63] No existe un producto con el usuario :14
