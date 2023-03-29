@@ -2,6 +2,7 @@ package com.example.digitalBooking.controller;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
+import com.example.digitalBooking.exception.UsuarioNotFoundException;
 import com.example.digitalBooking.model.dto.RequestReservaDTO;
 import com.example.digitalBooking.model.dto.ResponseReservaDTO;
 import com.example.digitalBooking.service.ReservaService;
@@ -31,7 +32,7 @@ public class ReservaController {
     }
 
     @GetMapping("/idUsuario={idUsuario}")
-    public ResponseEntity<List<ResponseReservaDTO>> findAllByIdUsuario(@PathVariable Long idUsuario) throws ProductoNotFoundException {
+    public ResponseEntity<List<ResponseReservaDTO>> findAllByIdUsuario(@PathVariable Long idUsuario) throws UsuarioNotFoundException {
         return ResponseEntity.ok(service.findAllByIdUsuario(idUsuario));
     }
 
