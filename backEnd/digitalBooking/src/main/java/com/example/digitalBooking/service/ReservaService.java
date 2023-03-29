@@ -116,7 +116,7 @@ public class ReservaService {
         DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
         String horaFormateada = horaInicio.format(formatoHora);
         String fechFormateada=fechaInicio.format(formatoFecha);
-        String messageEmail="Hola " + user.get().getNombre()+ " "+user.get().getApellido()+ " "+ "se agentu reserva el dia "+fechFormateada+ "a las "+ horaFormateada;
+        String messageEmail="Hola " + user.get().getNombre()+ " "+user.get().getApellido()+ " "+ "se agendo tu reserva el dia "+fechFormateada+ " a las "+ horaFormateada;
 
         helper.setTo(Email);
         helper.setSubject("Se agendo tu reserva!!!");
