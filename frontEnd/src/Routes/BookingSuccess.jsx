@@ -16,7 +16,7 @@ const BookingSuccess = () => {
             </Link>
         </div>
       </div>
-    </div>
+   
   );
 };
 
