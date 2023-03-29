@@ -2,6 +2,7 @@ package com.example.digitalBooking.service;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
+import com.example.digitalBooking.exception.UsuarioNotFoundException;
 import com.example.digitalBooking.model.*;
 import com.example.digitalBooking.model.dto.RequestReservaDTO;
 import com.example.digitalBooking.model.dto.ResponseReservaDTO;
@@ -58,10 +59,10 @@ public class ReservaService {
     }
 
 
-    public List<ResponseReservaDTO> findAllByIdUsuario(Long idUser) throws ProductoNotFoundException {
-        if (productoRepository.findById(idUser).isEmpty()) {
-            logger.error("No existe un producto con el usuario :" + idUser);
-            throw new ProductoNotFoundException();
+    public List<ResponseReservaDTO> findAllByIdUsuario(Long idUser) throws UsuarioNotFoundException {
+        if (usuarioRepository.findById(idUser).isEmpty()) {
+            logger.error("No exista una reserva con el usuario :" + idUser);
+            throw new UsuarioNotFoundException();
         }
 
         var reservas = repository.findAllByIdUsuario(idUser);
