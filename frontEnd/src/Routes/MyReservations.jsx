@@ -7,10 +7,17 @@ import Card from "../Components/Cards/CardRentalGrid";
 import axios from "axios";
 import useAuth from "../Hooks/useAuth";
 import useLocalStorage from "../Hooks/useLocalStorage";
+import ReserveCard from "../Components/Cards/ReserveCard";
 
 const MyReservations = () => {
   const { auth } = useAuth();
   const [reservas, setReservas] = useState([]);
+  // const [horaReserva, setHoraReserva] = useState("");
+  // const [fechaReservaInicio, setFechaReservaInicio] = useState("");
+  // const [fechaReservaFin, setFechaReservaFin] = useState("");
+  const [productTitle, setProducTitle] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+  const [productoConsultados, setProductoConsultados] = useState([]);
   const { storedValue } = useLocalStorage("token", null);
 
   const config = {
@@ -18,9 +25,10 @@ const MyReservations = () => {
       Authorization: `Bearer ${storedValue}`,
       "Content-type": "application/json",
     },
-  }
+  };
 
   const idUsuario = auth.userId;
+  const idProductos = reservas.map((unaReserva) => unaReserva.idProducto);
 
   const ENDPOINT_GET_RESERVAS = `http://localhost:8080/reservas/idUsuario=${idUsuario}`;
 
@@ -29,15 +37,27 @@ const MyReservations = () => {
       .get(ENDPOINT_GET_RESERVAS)
       .then((res) => {
         setReservas(res.data);
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
-        console.log(idUsuario)
-        console.log(reservas)
       });
   }, []);
 
+  useEffect(() => {
+    idProductos.forEach((idProducto) => {
+      const urlProducto = `http://localhost:8080/productos/id=${idProducto}`;
+      fetch(urlProducto)
+        .then((response) => response.json())
+        .then((data) => {
+          setProductoConsultados([...productoConsultados, data]);
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  }, []);
 
   if (reservas.length === 0) {
     return (
@@ -63,21 +83,15 @@ const MyReservations = () => {
     <div className="reservation-container">
       <div className="reservation-title">Mis Reservas</div>
       <div className="grid-rentals__grid">
-        {/* {reservas.map((item) => {
+        {reservas.map((unaReserva, index) => {
           return (
-            <Card
-              key={item.id}
-              id={item.id}
-              imagen={item.imagenes[0].url}
-              img_name={item.imagenes[0].titulo}
-              categoria={item.categoria.titulo}
-              titulo={item.titulo}
-              ciudad={item.ciudad.nombre}
-              descripcion={item.descripcion}
-              caracteristicas={item.caracteristicas}
+            <ReserveCard
+              key={index}
+              reserva={unaReserva}
+              producto={productoConsultados[index]}
             />
           );
-        })} */}
+        })}
       </div>
     </div>
   );
