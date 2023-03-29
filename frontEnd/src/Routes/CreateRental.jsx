@@ -1,13 +1,37 @@
 import './CreateRental.scss';
 import '../Components/Form/MainForm.scss';
 
+import { HiPlusCircle } from 'react-icons/hi';
+
+import { v4 as uuidv4 } from 'uuid';
+
 import BannerProductTitle from '../Components/BannerProductTitle';
 import useLocalStorage from '../Hooks/useLocalStorage';
 import { useEffect, useState } from 'react';
+import ImageInput from '../Components/ImageInput';
 
 function CreateRental() {
   const { storedValue } = useLocalStorage('token', null);
   const [amenities, setAmenities] = useState(null);
+  const [idInputs, setIdInputs] = useState([]);
+
+  const handleAddImgInput = () => {
+    setIdInputs([
+      ...idInputs,
+      uuidv4(),
+
+      // <ImageInput
+      //   key={imageInputs.length}
+      //   id={imageInputs.length}
+      //   handleRemoveImgInput={handleRemoveImgInput}
+      //   deletable
+      // />,
+    ]);
+  };
+
+  const handleRemoveImgInput = (id) => {
+    setIdInputs(idInputs.filter((idInput) => idInput !== id));
+  };
 
   const getAmenities = async (token) => {
     try {
@@ -167,8 +191,27 @@ function CreateRental() {
               </section>
 
               <section className="rental__images">
-                <h2 className="section-title">Cargar imágenes</h2>
-                <input type="text" />
+                <h2 className="section-title">
+                  Cargar imágenes{' '}
+                  <span>
+                    <HiPlusCircle
+                      color="rgb(28, 191, 180)"
+                      cursor="pointer"
+                      size={30}
+                      onClick={handleAddImgInput}
+                    />
+                  </span>
+                </h2>
+                <ImageInput />
+
+                {idInputs.map((id) => (
+                  <ImageInput
+                    key={id}
+                    id={id}
+                    handleRemoveImgInput={handleRemoveImgInput}
+                    deletable
+                  />
+                ))}
               </section>
             </form>
           </div>
