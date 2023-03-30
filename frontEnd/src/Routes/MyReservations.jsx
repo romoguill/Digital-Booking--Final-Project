@@ -32,7 +32,6 @@ const MyReservations = () => {
       .then((res) => {
         setReservas(res.data);
         setIdProductos(reservas.map((unaReserva) => unaReserva.idProducto));
-        // console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -40,49 +39,28 @@ const MyReservations = () => {
   }, []);
 
   // useEffect(() => {
-  //   setProductoConsultados([]);
-  //   reservas.map((reserva) => {
-  //     console.log({
-  //       id: reserva.idProducto,
-  //       idReserva: reserva.id,
-  //     });
-  //     const urlProducto = `http://localhost:8080/productos/id=${reserva.idProducto}`;
-
-  //     fetch(urlProducto)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         setProductoConsultados([...productoConsultados, data]);
-  //         console.log(data);
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
+  //   if (reservas.length > 0) {
+  //     const fetchProductos = async () => {
+  //       const promises = reservas.map(async (reserva) => {
+  //         const urlProducto = `http://localhost:8080/productos/id=${reserva.idProducto}`;
+  
+  //         try {
+  //           const response = await fetch(urlProducto);
+  //           return await response.json();
+  //         } catch (error) {
+  //           console.error(error);
+  //           return null;
+  //         }
   //       });
-  //   });
-  // }, []);
-
-  useEffect(() => {
-    if (reservas.length > 0) {
-      const fetchProductos = async () => {
-        const promises = reservas.map(async (reserva) => {
-          const urlProducto = `http://localhost:8080/productos/id=${reserva.idProducto}`;
   
-          try {
-            const response = await fetch(urlProducto);
-            return await response.json();
-          } catch (error) {
-            console.error(error);
-            return null;
-          }
-        });
+  //       const productos = await Promise.all(promises);
+  //       setProductoConsultados(productos);
+  //       console.log(productoConsultados[0].imagenes[0].url)
+  //     };
   
-        const productos = await Promise.all(promises);
-        setProductoConsultados(productos);
-        console.log(productoConsultados[0].imagenes[0].url)
-      };
-  
-      fetchProductos();
-    }
-  }, [reservas]);
+  //     fetchProductos();
+  //   }
+  // }, [reservas]);
 
   if (reservas.length === 0) {
     return (
@@ -113,7 +91,6 @@ const MyReservations = () => {
             <ReserveCard
               key={index}
               reserva={unaReserva}
-              producto={productoConsultados[index]}
             />
           );
         })}
