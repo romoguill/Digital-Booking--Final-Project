@@ -1,5 +1,15 @@
 @use '/src/sassStyles/globals';
 
+.reservation-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+    
+}
+
 .reservation-title{
     background-color: globals.$bg-search;
     color: globals.$text-light;

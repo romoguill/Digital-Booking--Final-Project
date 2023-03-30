@@ -1,0 +1,33 @@
+@use '/src/sassStyles/globals';
+
+.reserve-card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 200px;
+    width: 800px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: globals.$border-radius-lg;
+    background-color: globals.$bg-white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    img{
+        height: 100%;            
+        max-height: 300px;
+        width: 100%;
+        object-fit: cover;
+        object-position: center center;
+    }
+
+    p{
+        color: globals.$text-gray;
+        font-size: globals.$font-size-2;
+        font-weight: globals.$font-weight-md;
+
+        span{
+            color: globals.$text-dark;
+        }
+    }
+}

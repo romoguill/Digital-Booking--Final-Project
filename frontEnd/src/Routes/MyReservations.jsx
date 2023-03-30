@@ -41,9 +41,12 @@ const MyReservations = () => {
   }, []);
 
   useEffect(() => {
-    setProductoConsultados([])
+    setProductoConsultados([]);
     reservas.map((reserva) => {
-      console.log("me quiero morir", {id: reserva.idProducto, idReserva: reserva.id })
+      console.log("me quiero morir", {
+        id: reserva.idProducto,
+        idReserva: reserva.id,
+      });
       const urlProducto = `http://localhost:8080/productos/id=${reserva.idProducto}`;
 
       fetch(urlProducto)
@@ -56,11 +59,11 @@ const MyReservations = () => {
           console.error(error);
         });
     });
-  }, [reservas]);
+  }, []);
 
   if (reservas.length === 0) {
     return (
-      <div className="reservation-container">
+      <div>
         <div className="reservation-title">Mis Reservas</div>
         <div className="no-reservation-container">
           <div className="no-reservation">
@@ -79,9 +82,9 @@ const MyReservations = () => {
   }
 
   return (
-    <div className="reservation-container">
+    <>
       <div className="reservation-title">Mis Reservas</div>
-      <div className="grid-rentals__grid">
+      <div className="reservation-container">
         {reservas.map((unaReserva, index) => {
           return (
             <ReserveCard
@@ -92,7 +95,7 @@ const MyReservations = () => {
           );
         })}
       </div>
-    </div>
+    </>
   );
 };
 
