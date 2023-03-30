@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -37,7 +38,7 @@ public class ReservaControllerTest {
 
     @Test
     @DisplayName("WHEN we create a reserva THEN return HTTP STATUS 201 CREATED and a message 'Se creo la reserva correctamente'")
-    public void createReserva() throws BadRequestException {
+    public void createReserva() throws BadRequestException, MessagingException {
         //WHEN
         given(service.create(requestReservaDTO)).willReturn(true);
         //THEN
