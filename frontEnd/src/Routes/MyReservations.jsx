@@ -43,7 +43,7 @@ const MyReservations = () => {
   useEffect(() => {
     setProductoConsultados([]);
     reservas.map((reserva) => {
-      console.log("me quiero morir", {
+      console.log({
         id: reserva.idProducto,
         idReserva: reserva.id,
       });
