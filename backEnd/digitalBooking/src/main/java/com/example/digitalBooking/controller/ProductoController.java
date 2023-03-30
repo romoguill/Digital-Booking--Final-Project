@@ -41,7 +41,7 @@ public class ProductoController {
     }
 
     @PutMapping("/actualizar")
-    public ResponseEntity<String> putByid(@RequestBody RequestProductoDTO productoDTO) throws ProductoNotFoundException {
+    public ResponseEntity<String> putByid(@RequestBody RequestProductoDTO productoDTO) throws ProductoNotFoundException, BadRequestException {
        service.update(productoDTO);
         return new ResponseEntity<>("Se edito el producto correctamente", HttpStatus.OK);
     }

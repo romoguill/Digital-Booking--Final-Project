@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class ReservaController {
     private final ReservaService service;
 
     @PostMapping("/crear")
-    public ResponseEntity<String> create(@RequestBody RequestReservaDTO requestReservaDTO) throws BadRequestException {
+    public ResponseEntity<String> create(@RequestBody RequestReservaDTO requestReservaDTO) throws BadRequestException, MessagingException {
         service.create(requestReservaDTO);
         return new ResponseEntity<>("Se creo la reserva correctamente", HttpStatus.CREATED);
     }

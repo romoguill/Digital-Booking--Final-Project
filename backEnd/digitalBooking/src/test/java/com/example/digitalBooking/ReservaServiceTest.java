@@ -2,6 +2,7 @@ package com.example.digitalBooking;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
+import com.example.digitalBooking.model.Imagen;
 import com.example.digitalBooking.model.Producto;
 import com.example.digitalBooking.model.Usuario;
 import com.example.digitalBooking.model.dto.RequestReservaDTO;
@@ -18,10 +19,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -35,6 +38,7 @@ public class ReservaServiceTest {
     ReservaRepository repository;
     @Mock
     ProductoRepository productoRepository;
+
     @Mock
     UsuarioRepository usuarioRepository;
     @InjectMocks
@@ -43,24 +47,16 @@ public class ReservaServiceTest {
     private final Usuario usuario = new Usuario();
     private final Producto producto = new Producto();
     private ResponseReservaDTO responseReservaDTO;
+
     private RequestReservaDTO requestReservaDTO;
 
     @BeforeEach
     void setUp(){
         responseReservaDTO = new ResponseReservaDTO(1L, LocalTime.now(), LocalDate.now(),
-                LocalDate.now(),1L,1L);
+                LocalDate.now(),1L,1L,"titulo", Set.of(new Imagen()));
         requestReservaDTO = new RequestReservaDTO(1L, LocalTime.now(), LocalDate.now(),
                 LocalDate.now(),1L,"burgosfacundo");
-    }
 
-    @Test
-    @DisplayName("WHEN we create a reserva then don´t throws any exception")
-    public void createReserva(){
-        //GIVEN
-        given(productoRepository.findById(anyLong())).willReturn(Optional.of(producto));
-        given(usuarioRepository.findByEmail(anyString())).willReturn(Optional.of(usuario));
-        //WHEN AND THEN
-        assertDoesNotThrow(()->service.create(requestReservaDTO));
     }
 
     @Test

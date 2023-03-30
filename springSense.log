@@ -15,3 +15,6 @@
 [2023-03-0312:21:02] [ INFO ] [ProductoService:54] La tabla Producto no tiene registros
 [2023-03-0312:53:52] [ INFO ] [ProductoService:54] La tabla Producto no tiene registros
 [2023-03-2215:24:58] [ INFO ] [ProductoService:126] No hay registro de productos en esa ciudad  y fechas 
+[2023-03-2918:58:44] [ INFO ] [ProductoService:50] Se creo una nueva reserva
+[2023-03-2918:59:44] [ ERROR] [ProductoService:45] No existe un usuario con el email:brunito234@hotmail.com
+[2023-03-2918:59:58] [ INFO ] [ProductoService:50] Se creo una nueva reserva

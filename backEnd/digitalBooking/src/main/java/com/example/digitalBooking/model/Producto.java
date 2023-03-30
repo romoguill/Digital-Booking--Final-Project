@@ -55,47 +55,34 @@ public class Producto {
 
         @OneToMany(mappedBy = "producto", orphanRemoval = true,cascade = CascadeType.ALL)
         private Set<Imagen> imagenes = new HashSet<>();
-
-
         public void addImagen(Imagen imagen) {
                 imagenes.add(imagen);
                 imagen.setProducto(this);
         }
-
         public void removeImagen(Imagen imagen) {imagenes.remove(imagen);}
 
         @OneToMany(mappedBy = "producto", orphanRemoval = true,cascade = CascadeType.ALL)
         private Set<Puntuacion> puntuaciones = new HashSet<>();
-
         public void addPuntuacion(Puntuacion puntuacion) {
                 puntuaciones.add(puntuacion);
                 puntuacion.setProducto(this);
         }
-
         public void removePuntuacion(Puntuacion puntuacion) {puntuaciones.remove(puntuacion);}
 
         @ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
         private Set<Caracteristica> caracteristicas = new HashSet<>();
-
         public void addCaracteristica(Caracteristica caracteristica) {caracteristicas.add(caracteristica);}
-
         public void removeCaracteristica(Caracteristica caracteristica) {
                 caracteristicas.remove(caracteristica);
         }
-/*
-        @OneToOne
-        @JoinColumn(name = "id_politica",nullable = false)
-        private Politica politica = new Politica();*/
 
         @OneToMany(mappedBy = "producto",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
         @JsonIgnore
         private Set<Reserva> reservas= new HashSet<>();
-
         public void addReserva(Reserva reserva) {
                 reservas.add(reserva);
                 reserva.setProducto(this);
         }
-
         public void removeReserva(Reserva reserva) {reservas.remove(reserva);}
 
 }
