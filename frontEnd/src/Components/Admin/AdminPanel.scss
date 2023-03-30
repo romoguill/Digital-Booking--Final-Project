@@ -5,9 +5,18 @@
   margin-bottom: globals.$m-4;
   padding-top: globals.$p-5;
 
+  .heading-containter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: globals.$p-4;
+
+  }
+
   h1 {
     font-size: globals.$font-size-5;
-    padding-bottom: globals.$p-2;
+    padding-bottom: 0;
+    margin-bottom: 0;
   }
 
   input, textarea, select {
@@ -73,6 +82,7 @@
     gap: 1.5rem;
     padding: globals.$p-4;
     border-radius: globals.$border-radius-sm;
+    margin-top: globals.$m-4;
 
     .policy__container {
       width: 100%;

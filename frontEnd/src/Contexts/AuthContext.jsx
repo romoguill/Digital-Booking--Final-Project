@@ -84,7 +84,7 @@ export const AuthContextProvider = ({ children }) => {
       userLastName: tokenDecoded.apellido,
     };
     authInfo.userRole = await getUserRole(authInfo.userEmail, token);
-    console.log(authInfo.userRole);
+
     setAuth(authInfo);
 
     setIsLoading(false);

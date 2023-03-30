@@ -10,7 +10,6 @@ function ProtectedRoutes({ children, allowedRoles }) {
 
   if (isLoading) return;
 
-  console.log(auth.userRole);
   if (allowedRoles.includes(auth.userRole)) {
     return children;
   } else {

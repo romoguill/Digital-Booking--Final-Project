@@ -17,15 +17,14 @@ import BookingSuccess from './Routes/BookingSuccess';
 import CategoryProducts from './Routes/CategoryProducts';
 import Search from './Routes/Search';
 import useAuth from './Hooks/useAuth';
-import CreateRental from './Routes/CreateRental';
 import ProtectedRoutes from './Components/ProtectedRoutes';
-import ModifyRental from './Routes/ModifyRental';
 import NotAuthorized from './Routes/NotAuthorized';
+import AdminPanel from './Components/Admin/AdminPanel';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
   const [menuDrawerVisible, setMenuDrawerVisible] = useState(false);
-  const { auth, isLoading } = useAuth();
+  const { isLoading } = useAuth();
 
   if (isLoading) return null;
 
@@ -60,7 +59,7 @@ function App() {
             path="crear"
             element={
               <ProtectedRoutes allowedRoles={[1]}>
-                <CreateRental />
+                <AdminPanel mode="create" />
               </ProtectedRoutes>
             }
           />
@@ -68,7 +67,7 @@ function App() {
             path="modificar"
             element={
               <ProtectedRoutes allowedRoles={[1]}>
-                <ModifyRental />
+                <AdminPanel mode="modify" />
               </ProtectedRoutes>
             }
           />
