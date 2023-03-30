@@ -3,7 +3,6 @@ import "./MyReservations.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import Card from "../Components/Cards/CardRentalGrid";
 import axios from "axios";
 import useAuth from "../Hooks/useAuth";
 import useLocalStorage from "../Hooks/useLocalStorage";
@@ -33,33 +32,55 @@ const MyReservations = () => {
       .then((res) => {
         setReservas(res.data);
         setIdProductos(reservas.map((unaReserva) => unaReserva.idProducto));
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
       });
   }, []);
 
-  useEffect(() => {
-    setProductoConsultados([]);
-    reservas.map((reserva) => {
-      console.log({
-        id: reserva.idProducto,
-        idReserva: reserva.id,
-      });
-      const urlProducto = `http://localhost:8080/productos/id=${reserva.idProducto}`;
+  // useEffect(() => {
+  //   setProductoConsultados([]);
+  //   reservas.map((reserva) => {
+  //     console.log({
+  //       id: reserva.idProducto,
+  //       idReserva: reserva.id,
+  //     });
+  //     const urlProducto = `http://localhost:8080/productos/id=${reserva.idProducto}`;
 
-      fetch(urlProducto)
-        .then((response) => response.json())
-        .then((data) => {
-          setProductoConsultados([...productoConsultados, data]);
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error(error);
+  //     fetch(urlProducto)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setProductoConsultados([...productoConsultados, data]);
+  //         console.log(data);
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //   });
+  // }, []);
+
+  useEffect(() => {
+    if (reservas.length > 0) {
+      const fetchProductos = async () => {
+        const promises = reservas.map((reserva) => {
+          const urlProducto = `http://localhost:8080/productos/id=${reserva.idProducto}`;
+  
+          return fetch(urlProducto)
+            .then((response) => response.json())
+            .catch((error) => {
+              console.error(error);
+              return null;
+            });
         });
-    });
-  }, []);
+  
+        const productos = await Promise.all(promises);
+        setProductoConsultados(productos);
+      };
+  
+      fetchProductos();
+    }
+  }, [reservas]);
 
   if (reservas.length === 0) {
     return (

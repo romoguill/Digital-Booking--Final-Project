@@ -16,10 +16,10 @@
     max-height: 200px;
     object-fit: cover;
     border-radius: globals.$border-radius-lg;
+    max-width: 300px;
   }
 
   .reserve-details {
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,25 +42,25 @@
       }
     }
 
-    button{
-        width: 200px;
-        color: globals.$text-light;
-        background-color: globals.$primary-color;
+    button {
+      width: 200px;
+      color: globals.$text-light;
+      background-color: globals.$primary-color;
     }
   }
 }
 
 @media screen and (max-width: globals.$bp-tablet) {
-    .reserve-card {
-        flex-direction: column;
-        height: auto;
-        width: auto;
-        
-        .reserve-details{
-            margin-top: 20px;
-            margin-bottom: 20px;
-            align-items: center;
-            padding-left: 0;
-        }
+  .reserve-card {
+    flex-direction: column;
+    height: auto;
+    width: auto;
+
+    .reserve-details {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      align-items: center;
+      padding-left: 0;
     }
+  }
 }
