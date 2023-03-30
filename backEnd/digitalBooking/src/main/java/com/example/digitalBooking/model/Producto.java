@@ -82,10 +82,6 @@ public class Producto {
         public void removeCaracteristica(Caracteristica caracteristica) {
                 caracteristicas.remove(caracteristica);
         }
-/*
-        @OneToOne
-        @JoinColumn(name = "id_politica",nullable = false)
-        private Politica politica = new Politica();*/
 
         @OneToMany(mappedBy = "producto",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
         @JsonIgnore
