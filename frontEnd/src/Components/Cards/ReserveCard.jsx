@@ -7,7 +7,7 @@ const ReserveCard = ({reserva, producto }) => {
     <div className="reserve-card">
       <div>
         <img
-          src={producto.imagenes[1].url}
+          src={producto.imagenes[5].url}
           alt={producto.titulo}
         />
       </div>
