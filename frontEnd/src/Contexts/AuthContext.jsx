@@ -30,6 +30,7 @@ export const AuthContextProvider = ({ children }) => {
       tokenExpireDate > new Date()
         ? removeItem('token')
         : setAuth({ userEmail, userLastName, userName, userId });
+        return true;
     } catch (error) {
       return false;
     }
@@ -87,9 +88,10 @@ export const AuthContextProvider = ({ children }) => {
     const tokenDecoded = jwt_decode(token);
 
     const authInfo = {
+      userId: tokenDecoded.id,
       userEmail: tokenDecoded.sub,
       userName: tokenDecoded.nombre,
-      userLastName: tokenDecoded.apellido,
+      userLastName: tokenDecoded.apellido
     };
     authInfo.userRole = await getUserRole(authInfo.userEmail, token);
 

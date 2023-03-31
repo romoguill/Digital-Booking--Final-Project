@@ -3,43 +3,68 @@ import "./MyReservations.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import Card from "../Components/Cards/CardRentalGrid";
 import axios from "axios";
 import useAuth from "../Hooks/useAuth";
 import useLocalStorage from "../Hooks/useLocalStorage";
+import ReserveCard from "../Components/Cards/ReserveCard";
 
 const MyReservations = () => {
   const { auth } = useAuth();
   const [reservas, setReservas] = useState([]);
+  const [productoConsultados, setProductoConsultados] = useState([]);
+  const [idProductos, setIdProductos] = useState([]);
   const { storedValue } = useLocalStorage("token", null);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${storedValue}`,
+      "Content-type": "application/json",
+    },
+  };
 
   const idUsuario = auth.userId;
 
-  const ENDPOINT_GET_RESERVAS = `http://localhost:8080/reservas/${idUsuario}`;
+  const ENDPOINT_GET_RESERVAS = `http://localhost:8080/reservas/idUsuario=${idUsuario}`;
 
   useEffect(() => {
     axios
-      .get(ENDPOINT_GET_RESERVAS, {
-        headers: {
-          Authorization: `Bearer ${storedValue}`,
-          "Content-type": "application/json",
-        },
-      })
+      .get(ENDPOINT_GET_RESERVAS)
       .then((res) => {
         setReservas(res.data);
-        console.log(data)
+        setIdProductos(reservas.map((unaReserva) => unaReserva.idProducto));
       })
       .catch((err) => {
         console.error(err);
-        console.log(idUsuario)
-        console.log(ENDPOINT_GET_RESERVAS)
       });
   }, []);
 
+  // useEffect(() => {
+  //   if (reservas.length > 0) {
+  //     const fetchProductos = async () => {
+  //       const promises = reservas.map(async (reserva) => {
+  //         const urlProducto = `http://localhost:8080/productos/id=${reserva.idProducto}`;
+  
+  //         try {
+  //           const response = await fetch(urlProducto);
+  //           return await response.json();
+  //         } catch (error) {
+  //           console.error(error);
+  //           return null;
+  //         }
+  //       });
+  
+  //       const productos = await Promise.all(promises);
+  //       setProductoConsultados(productos);
+  //       console.log(productoConsultados[0].imagenes[0].url)
+  //     };
+  
+  //     fetchProductos();
+  //   }
+  // }, [reservas]);
 
   if (reservas.length === 0) {
     return (
-      <div className="reservation-container">
+      <div>
         <div className="reservation-title">Mis Reservas</div>
         <div className="no-reservation-container">
           <div className="no-reservation">
@@ -58,26 +83,19 @@ const MyReservations = () => {
   }
 
   return (
-    <div className="reservation-container">
+    <>
       <div className="reservation-title">Mis Reservas</div>
-      <div className="grid-rentals__grid">
-        {reservas.map((item) => {
+      <div className="reservation-container">
+        {reservas.map((unaReserva, index) => {
           return (
-            <Card
-              key={item.id}
-              id={item.id}
-              imagen={item.imagenes[0].url}
-              img_name={item.imagenes[0].titulo}
-              categoria={item.categoria.titulo}
-              titulo={item.titulo}
-              ciudad={item.ciudad.nombre}
-              descripcion={item.descripcion}
-              caracteristicas={item.caracteristicas}
+            <ReserveCard
+              key={index}
+              reserva={unaReserva}
             />
           );
         })}
       </div>
-    </div>
+    </>
   );
 };
 

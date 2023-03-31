@@ -1,5 +1,12 @@
 @use '/src/sassStyles/globals';
 
+.reservation-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 .reservation-title{
     background-color: globals.$bg-search;
     color: globals.$text-light;
@@ -52,4 +59,13 @@
         }
     }
 }
+
+@media screen and (max-width: globals.$bp-tablet) {
+    .reservation-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+  }
 
