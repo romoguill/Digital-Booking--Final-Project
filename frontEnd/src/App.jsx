@@ -19,6 +19,8 @@ import Search from './Routes/Search';
 import useAuth from './Hooks/useAuth';
 import MyReservations from './Routes/MyReservations';
 import ProtectedRoutes from './Components/ProtectedRoutes';
+import AdminPanel from './Components/Admin/AdminPanel';
+import NotAuthorized from './Routes/NotAuthorized';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible

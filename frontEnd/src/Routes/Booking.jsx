@@ -154,7 +154,7 @@ function Booking() {
       setProductName(data.titulo);
       setMainImageUrl(data.imagenes[0].url);
       setProductLocation(data.ciudad.nombre);
-      setProductPolicies(data.politicas);
+      setProductPolicies(data);
       setProductId(data.id);
     };
     fetchData();
@@ -336,7 +336,7 @@ function Booking() {
           </section>
         </section>
       </div>
-      <ProductPolicies productPolicies={productPolicies} />
+      <ProductPolicies producto={productPolicies} />
     </div>
   );
 }

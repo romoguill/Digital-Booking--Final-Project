@@ -94,7 +94,7 @@ function RentalProducts() {
         <Map producto={producto} imagenes={imagenes} />
       </section>
 
-      <ProductPolicies productPolicies={producto.politicas} />
+      <ProductPolicies producto={producto} />
     </div>
   );
 }
