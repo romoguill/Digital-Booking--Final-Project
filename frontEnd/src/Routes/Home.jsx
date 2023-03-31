@@ -10,10 +10,9 @@ function Home({ menuDrawerVisible, setMenuDrawerVisible }) {
       {menuDrawerVisible && (
         <MenuDrawerMobile setMenuDrawerVisible={setMenuDrawerVisible} />
       )}
-      {/* <HomeSearch />
+      <HomeSearch />
       <CarrouselCategories />
-      <GridRentals /> */}
-      <MyReservations />
+      <GridRentals />
     </div>
   );
 }
