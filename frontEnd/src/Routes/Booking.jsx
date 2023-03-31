@@ -32,7 +32,7 @@ function Booking() {
   const [productId, setProductId] = useState(null);
   const [mainImageUrl, setMainImageUrl] = useState(null);
   const [productLocation, setProductLocation] = useState(null);
-  const [productPolicies, setProductPolicies] = useState(null);
+  const [productPolicies, setProductPolicies] = useState({});
   const [valueDateRange, setValueDateRange] = useState(null);
   const [isActive, setIsActive] = useState(false);
 

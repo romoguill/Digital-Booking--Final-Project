@@ -27,13 +27,17 @@ export const AuthContextProvider = ({ children }) => {
         nombre: userName,
         exp: tokenExpireDate,
       } = jwt_decode(token);
-      tokenExpireDate > new Date()
-        ? removeItem('token')
-        : setAuth({ userEmail, userLastName, userName, userId });
-        return true;
+
+      if (tokenExpireDate > new Date()) {
+        removeItem('token');
+
+        return false;
+      }
     } catch (error) {
       return false;
     }
+
+    return true;
   };
 
   const tokenHasValidInfo = (tokenDecoded) => {
@@ -71,10 +75,11 @@ export const AuthContextProvider = ({ children }) => {
 
       if (response.ok) {
         const data = await response.json();
+
         return data.rol.id;
-      } else {
-        return null;
       }
+
+      return null;
     } catch (error) {
       console.log(error);
     }
@@ -94,7 +99,6 @@ export const AuthContextProvider = ({ children }) => {
       userLastName: tokenDecoded.apellido
     };
     authInfo.userRole = await getUserRole(authInfo.userEmail, token);
-
     setAuth(authInfo);
 
     setIsLoading(false);
