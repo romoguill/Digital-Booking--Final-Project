@@ -18,11 +18,14 @@ import CategoryProducts from './Routes/CategoryProducts';
 import Search from './Routes/Search';
 import useAuth from './Hooks/useAuth';
 import MyReservations from './Routes/MyReservations';
+import ProtectedRoutes from './Components/ProtectedRoutes';
+import NotAuthorized from './Routes/NotAuthorized';
+import AdminPanel from './Components/Admin/AdminPanel';
 
 function App() {
   // Estado que determina si el menu lateral en mobile esta visible
   const [menuDrawerVisible, setMenuDrawerVisible] = useState(false);
-  const { auth, isLoading } = useAuth();
+  const { isLoading } = useAuth();
 
   if (isLoading) return null;
 
@@ -51,7 +54,28 @@ function App() {
           }
         />
         <Route path="reserva_confirmada" element={<BookingSuccess />} />
-        <Route path='/:userId/reservas' element={<MyReservations />} />
+        <Route path="/:userId/reservas" element={<MyReservations />} />
+
+        <Route path="admin">
+          <Route
+            path="crear"
+            element={
+              <ProtectedRoutes allowedRoles={[1]}>
+                <AdminPanel mode="create" />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="modificar"
+            element={
+              <ProtectedRoutes allowedRoles={[1]}>
+                <AdminPanel mode="modify" />
+              </ProtectedRoutes>
+            }
+          />
+        </Route>
+
+        <Route path="/unauthorized" element={<NotAuthorized />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate replace to="/404" />} />
       </Routes>

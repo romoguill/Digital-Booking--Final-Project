@@ -43,7 +43,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const tokenIsNotExpired = (tokenDecoded) => {
-    return tokenDecoded.exp < new Date();
+    return tokenDecoded.exp > Date.now() / 1000;
   };
 
   const isValidToken = (token) => {
@@ -92,6 +92,7 @@ export const AuthContextProvider = ({ children }) => {
       userLastName: tokenDecoded.apellido,
     };
     authInfo.userRole = await getUserRole(authInfo.userEmail, token);
+
     setAuth(authInfo);
 
     setIsLoading(false);
