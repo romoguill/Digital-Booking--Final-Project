@@ -226,7 +226,7 @@ public class ProductoService {
         Set<ResponseReservaDTO> reservas = new HashSet<>();
         for(Reserva reserva:producto.getReservas()) {
             var dto= new ResponseReservaDTO(reserva.getId(),reserva.getHoraComienzo(),reserva.getFechaInicial(),
-                    reserva.getFechaFinal(),reserva.getProducto().getId(),reserva.getUsuario().getId());
+                    reserva.getFechaFinal(),reserva.getUsuario().getId(),reserva.getProducto().getId(), producto.getTitulo(), producto.getImagenes());
             reservas.add(dto);
         }
 

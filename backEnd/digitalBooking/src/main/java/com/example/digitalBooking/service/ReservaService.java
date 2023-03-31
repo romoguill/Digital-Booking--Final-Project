@@ -85,7 +85,7 @@ public class ReservaService {
 
     private ResponseReservaDTO mapToDTO(Reserva reserva) {
         return new ResponseReservaDTO(reserva.getId(),reserva.getHoraComienzo(), reserva.getFechaInicial(),
-                reserva.getFechaFinal(),reserva.getProducto().getId(),reserva.getUsuario().getId());
+                reserva.getFechaFinal(),reserva.getUsuario().getId(),reserva.getProducto().getId(),reserva.getProducto().getTitulo(),reserva.getProducto().getImagenes());
     }
 
     private Reserva mapToReserva(RequestReservaDTO requestReservaDTO) {

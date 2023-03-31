@@ -2,6 +2,7 @@ package com.example.digitalBooking;
 
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
+import com.example.digitalBooking.model.Imagen;
 import com.example.digitalBooking.model.Producto;
 import com.example.digitalBooking.model.Usuario;
 import com.example.digitalBooking.model.dto.RequestReservaDTO;
@@ -16,15 +17,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -53,21 +53,11 @@ public class ReservaServiceTest {
     @BeforeEach
     void setUp(){
         responseReservaDTO = new ResponseReservaDTO(1L, LocalTime.now(), LocalDate.now(),
-                LocalDate.now(),1L,1L);
+                LocalDate.now(),1L,1L,"titulo", Set.of(new Imagen()));
         requestReservaDTO = new RequestReservaDTO(1L, LocalTime.now(), LocalDate.now(),
                 LocalDate.now(),1L,"burgosfacundo");
 
     }
-
-  /*  @Test
-    @DisplayName("WHEN we create a reserva then don´t throws any exception")
-    public void createReserva(){
-        //GIVEN
-        given(productoRepository.findById(anyLong())).willReturn(Optional.of(producto));
-        given(usuarioRepository.findByEmail(anyString())).willReturn(Optional.of(usuario));
-        //WHEN AND THEN
-        assertDoesNotThrow(()->service.create(requestReservaDTO));
-    }*/
 
     @Test
     @DisplayName("WHEN we create a reserva with idUsuario invalid then it throws BadRequestException")

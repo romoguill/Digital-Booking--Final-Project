@@ -3,6 +3,7 @@ package com.example.digitalBooking;
 import com.example.digitalBooking.controller.ReservaController;
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
+import com.example.digitalBooking.model.Imagen;
 import com.example.digitalBooking.model.dto.RequestReservaDTO;
 import com.example.digitalBooking.model.dto.ResponseReservaDTO;
 import com.example.digitalBooking.service.ReservaService;
@@ -19,6 +20,7 @@ import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -31,7 +33,7 @@ public class ReservaControllerTest {
     @InjectMocks
     private ReservaController controller;
     private final ResponseReservaDTO responseReservaDTO = new ResponseReservaDTO(1L, LocalTime.now(), LocalDate.now(),LocalDate.now(),
-            1L,1L);
+            1L,1L,"titulo", Set.of(new Imagen()));
 
     private final RequestReservaDTO requestReservaDTO = new RequestReservaDTO(1L, LocalTime.now(), LocalDate.now(),LocalDate.now(),
             1L,"burgosfacundo@hotmail.com");
