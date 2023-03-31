@@ -10,11 +10,29 @@ import useLocalStorage from '../../Hooks/useLocalStorage';
 import { useEffect, useState } from 'react';
 import ImageInput from './ImageInput';
 import MultiSearch from './MultiSearch';
+import { useForm } from 'react-hook-form';
 
 function AdminPanel({ mode }) {
   const { storedValue } = useLocalStorage('token', null);
   const [amenities, setAmenities] = useState(null);
+  const [categories, setCategories] = useState(null);
+  const [cities, setCities] = useState(null);
   const [idInputs, setIdInputs] = useState([]);
+
+  const [selectedRental, setSelectedRental] = useState(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    watch,
+  } = useForm({ mode: 'onBlur' });
+
+  const onSubmit = async (formData) => {
+    const payload = JSON.stringify(formData);
+    console.log(payload);
+  };
 
   const handleAddImgInput = () => {
     setIdInputs([...idInputs, uuidv4()]);
@@ -51,6 +69,27 @@ function AdminPanel({ mode }) {
     getAmenities(storedValue);
   }, []);
 
+  useEffect(() => {
+    const getCategories = async () => {
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/categoria/todas`
+      );
+      const data = await response.json();
+      setCategories(data);
+    };
+
+    const getCities = async () => {
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/ciudades/todas`
+      );
+      const data = await response.json();
+      setCities(data);
+    };
+
+    getCategories();
+    getCities();
+  }, []);
+
   return (
     <div className="container-page">
       <BannerProductTitle titulo={'Administración'} />
@@ -60,91 +99,112 @@ function AdminPanel({ mode }) {
             <h1 className="section-title">
               {mode === 'create' ? 'Crear propiedad' : 'Modificar propiedad'}
             </h1>
-            <MultiSearch />
+            {mode === 'modify' && (
+              <MultiSearch setSelectedRental={setSelectedRental} />
+            )}
           </div>
           <div className="section-wrapper">
-            <form className="main-form__container">
+            <form
+              className="main-form__container"
+              onSubmit={(e) =>
+                handleSubmit(onSubmit)(e).catch(() => {
+                  setError('root.responseError', {
+                    type: 'custom',
+                    message: 'Error en el servidor. Intente más tarde.',
+                  });
+                })
+              }
+            >
               <section className="rental__general">
                 <div className="form-control">
-                  <label htmlFor="name">Nombre de la propiedad</label>
+                  <label htmlFor="titulo">Nombre de la propiedad</label>
                   <input
-                  // {...register('apellido', {
-                  //   required: 'Campo requerido',
-                  //   pattern: {
-                  //     value:
-                  //       /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/,
-                  //     message: 'Apellido inválido',
-                  //   },
-                  // })}
+                    {...register('titulo', {
+                      required: 'Campo requerido',
+                    })}
                   />
 
-                  {/* {errors.lastName && (
-                  <p className="input-error-msg">{errors.lastName.message}</p>
-                )} */}
+                  {errors.titulo && (
+                    <p className="input-error-msg">{errors.titulo.message}</p>
+                  )}
                 </div>
 
                 <div className="form-control">
-                  <label htmlFor="category">Categoría</label>
-                  <input
-                  // {...register('apellido', {
-                  //   required: 'Campo requerido',
-                  //   pattern: {
-                  //     value:
-                  //       /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/,
-                  //     message: 'Apellido inválido',
-                  //   },
-                  // })}
-                  />
-
-                  {/* {errors.lastName && (
-                  <p className="input-error-msg">{errors.lastName.message}</p>
-                )} */}
-                </div>
-
-                <div className="form-control">
-                  <label htmlFor="address">Dirección</label>
-                  <input
-                  // {...register('apellido', {
-                  //   required: 'Campo requerido',
-                  //   pattern: {
-                  //     value:
-                  //       /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/,
-                  //     message: 'Apellido inválido',
-                  //   },
-                  // })}
-                  />
-
-                  {/* {errors.lastName && (
-                  <p className="input-error-msg">{errors.lastName.message}</p>
-                )} */}
-                </div>
-
-                <div className="form-control">
-                  <label htmlFor="city">Ciudad</label>
+                  <label htmlFor="categoria">Categoría</label>
                   <select
-                  // {...register('ciudad', {
-                  //   required: 'Campo requerido',
-                  // })}
+                    {...register('categoria', {
+                      required: 'Campo requerido',
+                    })}
+                    defaultValue={''}
                   >
-                    {/* {cities?.map((city) => (
-                    <option
-                      key={city.nombre}
-                      value={city.nombre}
-                      defaultValue={city[0]?.nombre}
-                    >
-                      {city.nombre}
-                    </option>
-                  ))} */}
+                    <option value="" disabled hidden></option>
+                    {categories?.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.titulo}
+                      </option>
+                    ))}
                   </select>
 
-                  {/* {errors.lastName && (
-                  <p className="input-error-msg">{errors.lastName.message}</p>
-                )} */}
+                  {errors.categoria && (
+                    <p className="input-error-msg">
+                      {errors.categoria.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="form-control">
-                  <label htmlFor="description">Descripción</label>
-                  <textarea></textarea>
+                  <label htmlFor="direccion">Dirección</label>
+                  <input
+                    {...register('direccion', {
+                      required: 'Campo requerido',
+                    })}
+                  />
+
+                  {errors.direccion && (
+                    <p className="input-error-msg">
+                      {errors.direccion.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="form-control">
+                  <label htmlFor="ciudad">Ciudad</label>
+                  <select
+                    {...register('ciudad', {
+                      required: 'Campo requerido',
+                    })}
+                    defaultValue={''}
+                  >
+                    <option value="" disabled hidden></option>
+                    {cities?.map((city) => (
+                      <option key={city.id} value={city.id}>
+                        {city.nombre}
+                      </option>
+                    ))}
+                  </select>
+
+                  {errors.ciudad && (
+                    <p className="input-error-msg">{errors.ciudad.message}</p>
+                  )}
+                </div>
+
+                <div className="form-control">
+                  <label htmlFor="descripcion">Descripción</label>
+                  <textarea
+                    {...register('descripcion', {
+                      required: 'Campo requerido',
+                      minLength: {
+                        value: 50,
+                        message: 'Al menos 50 caracteres',
+                      },
+                    })}
+                  ></textarea>
+
+                  {errors.descripcion && (
+                    <p className="input-error-msg">
+                      {errors.descripcion.message}
+                    </p>
+                  )}
                 </div>
               </section>
 
@@ -161,8 +221,14 @@ function AdminPanel({ mode }) {
                       .map((amenity) => {
                         return (
                           <div key={amenity.id} className="form-control">
-                            <input type="checkbox" name="" id="" />
-                            <label htmlFor="">{amenity.titulo}</label>
+                            <input
+                              type="checkbox"
+                              {...register('caracteristicas')}
+                              value={amenity.id}
+                            />
+                            <label htmlFor="caracteristicas">
+                              {amenity.titulo}
+                            </label>
                           </div>
                         );
                       })}
@@ -175,17 +241,17 @@ function AdminPanel({ mode }) {
                   <div className="policy__container">
                     <h3>Normas de la casa</h3>
                     <p>Descripción</p>
-                    <textarea></textarea>
+                    <textarea {...register('normas')}></textarea>
                   </div>
                   <div className="policy__container">
                     <h3>Salud y seguridad</h3>
                     <p>Descripción</p>
-                    <textarea></textarea>
+                    <textarea {...register('salud-y-seguridad')}></textarea>
                   </div>
                   <div className="policy__container">
                     <h3>Política de cancelación</h3>
                     <p>Descripción</p>
-                    <textarea></textarea>
+                    <textarea {...register('cancelacion')}></textarea>
                   </div>
                 </div>
               </section>
@@ -204,7 +270,7 @@ function AdminPanel({ mode }) {
                     />
                   </span>
                 </h2>
-                <ImageInput />
+                <ImageInput id={uuidv4()} register={register} />
 
                 {idInputs.map((id) => (
                   <ImageInput
@@ -212,9 +278,17 @@ function AdminPanel({ mode }) {
                     id={id}
                     handleRemoveImgInput={handleRemoveImgInput}
                     deletable
+                    register={register}
                   />
                 ))}
               </section>
+
+              <button
+                className="button-primary button-primary--full"
+                type="submit"
+              >
+                {mode === 'create' ? 'Crear' : 'Modificar'}
+              </button>
             </form>
           </div>
         </div>

@@ -13,18 +13,19 @@ const searchByOptions = [
   },
 ];
 
-function MultiSearch() {
+function MultiSearch({ setSelectedRental }) {
   const [isLodingData, setIsLoadingData] = useState(true);
   const [optionsForSearch, setOptionsForSearch] = useState([]);
   const [data, setData] = useState([]);
-  const [selectedRental, setSelectedRental] = useState(null);
 
   const buildOptionsForSearch = (data) => {
     setOptionsForSearch(
-      data.map((rental) => ({
-        value: rental.id,
-        label: `${rental.id} - ${rental.titulo}`,
-      }))
+      data
+        .sort((a, b) => a.id - b.id)
+        .map((rental) => ({
+          value: rental.id,
+          label: `${rental.id} - ${rental.titulo}`,
+        }))
     );
   };
 
@@ -44,6 +45,10 @@ function MultiSearch() {
     buildOptionsForSearch(data);
   }, [data]);
 
+  const handleChange = (inputData) => {
+    setSelectedRental(data.filter((rental) => rental.id === inputData.value));
+  };
+
   return (
     <form className="multi-search__container">
       <Select
@@ -51,7 +56,7 @@ function MultiSearch() {
         placeholder="Ingrese busqueda"
         options={optionsForSearch}
         isDisabled={isLodingData}
-        onChange={setSelectedRental}
+        onChange={handleChange}
       />
     </form>
   );
