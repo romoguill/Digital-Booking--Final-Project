@@ -18,3 +18,10 @@
 [2023-03-2918:58:44] [ INFO ] [ProductoService:50] Se creo una nueva reserva
 [2023-03-2918:59:44] [ ERROR] [ProductoService:45] No existe un usuario con el email:brunito234@hotmail.com
 [2023-03-2918:59:58] [ INFO ] [ProductoService:50] Se creo una nueva reserva
+[2023-03-3017:20:42] [ INFO ] [ProductoService:48] Se creo un nuevo producto: deptko 705
+[2023-03-3017:28:35] [ ERROR] [ProductoService:151] Ya existe un producto con el titulo: deptko 705
+[2023-03-3017:29:27] [ ERROR] [ProductoService:151] Ya existe un producto con el titulo: deptko 705
+[2023-03-3019:52:05] [ INFO ] [ProductoService:48] Se creo un nuevo producto: deptko 705
+[2023-03-3021:23:58] [ ERROR] [ProductoService:147] No existe un registro para editar en la tabla Producto con el id: 13
+[2023-03-3021:24:30] [ INFO ] [ProductoService:170] Se modifico el registro con el id: 12 de la tabla Producto
+[2023-03-3021:35:11] [ INFO ] [ProductoService:171] Se modifico el registro con el id: 12 de la tabla Producto

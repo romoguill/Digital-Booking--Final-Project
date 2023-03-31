@@ -147,10 +147,6 @@ public class ProductoService {
             logger.error("No existe un registro para editar en la tabla Producto con el id: " + producto.id());
             throw new ProductoNotFoundException();
         }
-        if (repository.findByTitulo(producto.titulo()).isPresent()) {
-            logger.error("Ya existe un producto con el titulo: " + producto.titulo());
-            throw new BadRequestException("Ya existe una producto con el titulo: " + producto.titulo());
-        }
         if (ciudadRepository.findById(producto.idCiudad()).isEmpty()){
             logger.error("No existe una ciudad con el id: " + producto.idCiudad());
             throw new BadRequestException("No existe una ciudad con el id: " + producto.idCiudad());
@@ -159,13 +155,19 @@ public class ProductoService {
             logger.error("No existe una categoria con el id: " + producto.idCategoria());
             throw new BadRequestException("No existe una categoria con el id: " + producto.idCategoria());
         }
+        Set<Caracteristica> editcaracteristicas = new HashSet<>();
         for (Long idCaracteristica:producto.caracteristicas()) {
             if (caracteristicaRepository.findById(idCaracteristica).isEmpty()){
                 logger.error("No existe una caracteristica con el id: " + idCaracteristica);
                 throw new BadRequestException("No existe una caracteristica con el id: " + idCaracteristica);
             }
+         var caractExistente= caracteristicaRepository.findById(idCaracteristica);
+            editcaracteristicas.add(caractExistente.get());
         }
-        repository.save(mapToProducto(producto));
+        var edit =mapToProducto(producto);
+        edit.setCaracteristicas(editcaracteristicas);
+
+        repository.save(edit);
         logger.info("Se modifico el registro con el id: " + producto.id() + " de la tabla Producto");
         return true;
     }
@@ -204,7 +206,6 @@ public class ProductoService {
         producto.setCiudad(ciudad);
         producto.setCategoria(categoria);
         producto.setCaracteristicas(caracteristicas);
-
         return producto;
     }
 

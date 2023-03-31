@@ -10,7 +10,7 @@ function BannerProductTitle({ titulo, categoria }) {
     <div className="hero__products__title">
       <div className="container-main">
         <div className="hero__products__title__detail">
-          <h2>{categoria}</h2>
+          {categoria && <h2>{categoria}</h2>}
           <h1>{titulo}</h1>
         </div>
         <Link to="/">

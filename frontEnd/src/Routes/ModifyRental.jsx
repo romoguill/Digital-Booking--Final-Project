@@ -1,5 +1,5 @@
 function ModifyRental() {
-  return <div>ModifyRental</div>;
+  return <div className="container-page">ModifyRental</div>;
 }
 
 export default ModifyRental;

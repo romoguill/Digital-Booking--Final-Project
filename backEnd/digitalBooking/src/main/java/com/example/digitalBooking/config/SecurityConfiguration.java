@@ -67,6 +67,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/categoria/titulo={titulo}").hasAuthority("ADMIN")
             .antMatchers("/categoria/editar").hasAuthority("ADMIN")
             .antMatchers("/categoria/borrar/{id}").hasAuthority("ADMIN")
+                
+            .antMatchers("/caracteristicas/todas").hasAuthority("ADMIN")
 
             .antMatchers("/ciudades/crear").hasAuthority("ADMIN")
             .antMatchers("/ciudades/todas").permitAll()
@@ -84,6 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/puntuaciones/crear").hasAuthority("USER")
                 .antMatchers("/puntuaciones/idProducto={idProducto}").permitAll()
+
 
             .anyRequest().authenticated()
             .and()
