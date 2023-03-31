@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import BannerProductTitle from '../BannerProductTitle';
 import useLocalStorage from '../../Hooks/useLocalStorage';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ImageInput from './ImageInput';
 import MultiSearch from './MultiSearch';
 import { useForm } from 'react-hook-form';
@@ -18,6 +18,7 @@ function AdminPanel({ mode }) {
   const [categories, setCategories] = useState(null);
   const [cities, setCities] = useState(null);
   const [idInputs, setIdInputs] = useState([]);
+  const requiredImgId = useRef(uuidv4());
 
   const [selectedRental, setSelectedRental] = useState(null);
 
@@ -270,7 +271,11 @@ function AdminPanel({ mode }) {
                     />
                   </span>
                 </h2>
-                <ImageInput id={uuidv4()} register={register} />
+                <ImageInput
+                  id={requiredImgId.current}
+                  errors={errors}
+                  register={register}
+                />
 
                 {idInputs.map((id) => (
                   <ImageInput

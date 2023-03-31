@@ -2,8 +2,7 @@
 
 .admin-rental-wrapper {
   background-color: globals.$bg-light;
-  margin-bottom: globals.$m-4;
-  padding-top: globals.$p-5;
+  padding: globals.$p-5 0;
 
   .heading-containter {
     display: flex;
@@ -135,6 +134,24 @@
         display: flex;
         align-items: center;
       }
+    }
+  }
+}
+
+@media screen and (max-width: globals.$bp-laptop) {
+  .admin-rental-wrapper {
+
+    .policies__container {
+      flex-direction: column;
+    }
+  }
+}
+
+@media screen and (max-width: globals.$bp-tablet) {
+  .admin-rental-wrapper {
+    .rental__general {
+      display: flex;
+      flex-direction: column;
     }
   }
 }
