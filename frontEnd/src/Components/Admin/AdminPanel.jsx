@@ -21,14 +21,22 @@ function AdminPanel({ mode }) {
   const requiredImgId = useRef(uuidv4());
 
   const [selectedRental, setSelectedRental] = useState(null);
+  const [defaultFormData, setDefaultFormData] = useState({
+    titulo: '',
+    descripcion: '',
+    latitud: '',
+    longitud: '',
+    ciudad: '',
+    categoria: '',
+  });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
-    watch,
-  } = useForm({ mode: 'onBlur' });
+    reset,
+  } = useForm({ mode: 'onBlur', defaultValues: defaultFormData });
 
   const onSubmit = async (formData) => {
     const payload = JSON.stringify(formData);
@@ -90,6 +98,17 @@ function AdminPanel({ mode }) {
     getCategories();
     getCities();
   }, []);
+
+  useEffect(() => {
+    reset({
+      titulo: selectedRental?.titulo,
+      descripcion: selectedRental?.descripcion,
+      latitud: selectedRental?.latitud,
+      longitud: selectedRental?.longitud,
+      ciudad: selectedRental?.ciudad,
+      categoria: selectedRental?.categoria,
+    });
+  }, [selectedRental]);
 
   return (
     <div className="container-page">
@@ -186,6 +205,34 @@ function AdminPanel({ mode }) {
 
                   {errors.ciudad && (
                     <p className="input-error-msg">{errors.ciudad.message}</p>
+                  )}
+                </div>
+
+                <div className="form-control">
+                  <label htmlFor="latitud">Latitud</label>
+                  <input
+                    {...register('latitud', {
+                      required: 'Campo requerido',
+                      valueAsNumber: true,
+                    })}
+                  />
+
+                  {errors.latitud && (
+                    <p className="input-error-msg">{errors.latitud.message}</p>
+                  )}
+                </div>
+
+                <div className="form-control">
+                  <label htmlFor="longitud">Longitud</label>
+                  <input
+                    {...register('longitud', {
+                      required: 'Campo requerido',
+                      valueAsNumber: true,
+                    })}
+                  />
+
+                  {errors.longitud && (
+                    <p className="input-error-msg">{errors.longitud.message}</p>
                   )}
                 </div>
 

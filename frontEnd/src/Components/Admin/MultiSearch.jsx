@@ -46,7 +46,9 @@ function MultiSearch({ setSelectedRental }) {
   }, [data]);
 
   const handleChange = (inputData) => {
-    setSelectedRental(data.filter((rental) => rental.id === inputData.value));
+    setSelectedRental(
+      data.filter((rental) => rental.id === inputData.value)[0]
+    );
   };
 
   return (
