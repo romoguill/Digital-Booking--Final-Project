@@ -17,7 +17,7 @@ function AdminPanel({ mode }) {
   const [amenities, setAmenities] = useState(null);
   const [categories, setCategories] = useState(null);
   const [cities, setCities] = useState(null);
-  const [idInputs, setIdInputs] = useState([]);
+  const [imagesData, setImagesData] = useState([]);
   const requiredImgId = useRef(uuidv4());
 
   const [selectedRental, setSelectedRental] = useState(null);
@@ -28,6 +28,11 @@ function AdminPanel({ mode }) {
     longitud: '',
     ciudad: '',
     categoria: '',
+    direccion: '',
+    caracteristicas: [],
+    normas: '',
+    saludYseguridad: '',
+    cancelacion: '',
   });
 
   const {
@@ -43,12 +48,18 @@ function AdminPanel({ mode }) {
     console.log(payload);
   };
 
+  useEffect(() => {
+    if (mode === 'modify') {
+      setImagesData(selectedRental?.imagenes);
+    }
+  }, [selectedRental]);
+
   const handleAddImgInput = () => {
-    setIdInputs([...idInputs, uuidv4()]);
+    setImagesData([...imagesData, { id: uuidv4(), titulo: '', url: '' }]);
   };
 
   const handleRemoveImgInput = (id) => {
-    setIdInputs(idInputs.filter((idInput) => idInput !== id));
+    setImagesData(imagesData.filter((imageData) => imageData.id !== id));
   };
 
   const getAmenities = async (token) => {
@@ -105,10 +116,23 @@ function AdminPanel({ mode }) {
       descripcion: selectedRental?.descripcion,
       latitud: selectedRental?.latitud,
       longitud: selectedRental?.longitud,
-      ciudad: selectedRental?.ciudad,
-      categoria: selectedRental?.categoria,
+      ciudad: selectedRental?.ciudad?.id,
+      categoria: selectedRental?.categoria?.id,
+      direccion: selectedRental?.direccion,
+      caracteristicas: selectedRental?.caracteristicas?.map((caracteristica) =>
+        caracteristica.id.toString()
+      ),
+      normas: selectedRental?.normas,
+      saludYseguridad: selectedRental?.saludYseguridad,
+      cancelacion: selectedRental?.cancelacion,
     });
   }, [selectedRental]);
+
+  useEffect(() => {
+    reset(defaultFormData);
+    setImagesData([]);
+    setSelectedRental(null);
+  }, [mode]);
 
   return (
     <div className="container-page">
@@ -294,7 +318,7 @@ function AdminPanel({ mode }) {
                   <div className="policy__container">
                     <h3>Salud y seguridad</h3>
                     <p>Descripción</p>
-                    <textarea {...register('salud-y-seguridad')}></textarea>
+                    <textarea {...register('saludYseguridad')}></textarea>
                   </div>
                   <div className="policy__container">
                     <h3>Política de cancelación</h3>
@@ -318,21 +342,55 @@ function AdminPanel({ mode }) {
                     />
                   </span>
                 </h2>
-                <ImageInput
-                  id={requiredImgId.current}
-                  errors={errors}
-                  register={register}
-                />
 
-                {idInputs.map((id) => (
-                  <ImageInput
-                    key={id}
-                    id={id}
-                    handleRemoveImgInput={handleRemoveImgInput}
-                    deletable
-                    register={register}
-                  />
-                ))}
+                {mode === 'create' ? (
+                  <>
+                    <ImageInput
+                      id={requiredImgId.current}
+                      errors={errors}
+                      register={register}
+                    />
+
+                    {imagesData?.map((imageData) => (
+                      <ImageInput
+                        key={imageData.id}
+                        id={imageData.id}
+                        handleRemoveImgInput={handleRemoveImgInput}
+                        deletable
+                        register={register}
+                      />
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    {imagesData
+                      ?.sort((a, b) => a.id - b.id)
+                      .map((imageData, index) => {
+                        if (index === 0) {
+                          return (
+                            <ImageInput
+                              key={imageData.id}
+                              id={imageData.id}
+                              errors={errors}
+                              register={register}
+                              defaultValues={[imageData.titulo, imageData.url]}
+                            />
+                          );
+                        }
+
+                        return (
+                          <ImageInput
+                            key={imageData.id}
+                            id={imageData.id}
+                            handleRemoveImgInput={handleRemoveImgInput}
+                            deletable
+                            register={register}
+                            defaultValues={[imageData.titulo, imageData.url]}
+                          />
+                        );
+                      })}
+                  </>
+                )}
               </section>
 
               <button
