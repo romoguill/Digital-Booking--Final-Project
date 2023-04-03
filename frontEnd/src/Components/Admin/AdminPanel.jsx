@@ -20,6 +20,8 @@ function AdminPanel({ mode }) {
   const [imagesData, setImagesData] = useState([]);
   const requiredImgId = useRef(uuidv4());
 
+  const { storedValue: token } = useLocalStorage('token', null);
+
   const [selectedRental, setSelectedRental] = useState(null);
   const [defaultFormData, setDefaultFormData] = useState({
     titulo: '',
@@ -45,6 +47,18 @@ function AdminPanel({ mode }) {
 
   const onSubmit = async (formData) => {
     const payload = JSON.stringify(formData);
+
+    const response = fetch(
+      `${import.meta.env.VITE_BASE_API_URL}/imagenes/crear`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+        body: payload,
+      }
+    );
     console.log(payload);
   };
 
