@@ -20,19 +20,8 @@ export const AuthContextProvider = ({ children }) => {
 
   const tokenIsBase64Encoded = (token) => {
     try {
-      const {
-        sub: userEmail,
-        id: userId,
-        apellido: userLastName,
-        nombre: userName,
-        exp: tokenExpireDate,
-      } = jwt_decode(token);
-
-      if (tokenExpireDate > new Date()) {
-        removeItem('token');
-
-        return false;
-      }
+      jwt_decode(token);
+      return true;
     } catch (error) {
       return false;
     }
@@ -96,7 +85,7 @@ export const AuthContextProvider = ({ children }) => {
       userId: tokenDecoded.id,
       userEmail: tokenDecoded.sub,
       userName: tokenDecoded.nombre,
-      userLastName: tokenDecoded.apellido
+      userLastName: tokenDecoded.apellido,
     };
     authInfo.userRole = await getUserRole(authInfo.userEmail, token);
     setAuth(authInfo);
