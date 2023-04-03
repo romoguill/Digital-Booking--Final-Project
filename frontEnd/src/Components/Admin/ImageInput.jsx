@@ -1,6 +1,13 @@
 import { HiMinus } from 'react-icons/hi';
 
-function ImageInput({ deletable, id, handleRemoveImgInput, register, errors }) {
+function ImageInput({
+  deletable,
+  id,
+  handleRemoveImgInput,
+  register,
+  errors,
+  defaultValues,
+}) {
   return (
     <div className="wrapper-form-control">
       {errors && errors[`imagen-${id}`] && (
@@ -18,7 +25,18 @@ function ImageInput({ deletable, id, handleRemoveImgInput, register, errors }) {
       )}
 
       <div className="form-control">
-        <input {...register(`imagen-${id}`)} />
+        <div className="inputs">
+          <input
+            {...register(`titulo-${id}`)}
+            placeholder="Titulo de imagen"
+            defaultValue={defaultValues && defaultValues[0]}
+          />
+          <input
+            {...register(`imagen-${id}`)}
+            placeholder="URL de imagen"
+            defaultValue={defaultValues && defaultValues[1]}
+          />
+        </div>
 
         {deletable && (
           <button type="button" onClick={() => handleRemoveImgInput(id)}>

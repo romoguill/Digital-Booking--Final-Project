@@ -17,30 +17,63 @@ function AdminPanel({ mode }) {
   const [amenities, setAmenities] = useState(null);
   const [categories, setCategories] = useState(null);
   const [cities, setCities] = useState(null);
-  const [idInputs, setIdInputs] = useState([]);
+  const [imagesData, setImagesData] = useState([]);
   const requiredImgId = useRef(uuidv4());
 
+  const { storedValue: token } = useLocalStorage('token', null);
+
   const [selectedRental, setSelectedRental] = useState(null);
+  const [defaultFormData, setDefaultFormData] = useState({
+    titulo: '',
+    descripcion: '',
+    latitud: '',
+    longitud: '',
+    ciudad: '',
+    categoria: '',
+    direccion: '',
+    caracteristicas: [],
+    normas: '',
+    saludYseguridad: '',
+    cancelacion: '',
+  });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
-    watch,
-  } = useForm({ mode: 'onBlur' });
+    reset,
+  } = useForm({ mode: 'onBlur', defaultValues: defaultFormData });
 
   const onSubmit = async (formData) => {
     const payload = JSON.stringify(formData);
+
+    const response = fetch(
+      `${import.meta.env.VITE_BASE_API_URL}/imagenes/crear`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+        body: payload,
+      }
+    );
     console.log(payload);
   };
 
+  useEffect(() => {
+    if (mode === 'modify') {
+      setImagesData(selectedRental?.imagenes);
+    }
+  }, [selectedRental]);
+
   const handleAddImgInput = () => {
-    setIdInputs([...idInputs, uuidv4()]);
+    setImagesData([...imagesData, { id: uuidv4(), titulo: '', url: '' }]);
   };
 
   const handleRemoveImgInput = (id) => {
-    setIdInputs(idInputs.filter((idInput) => idInput !== id));
+    setImagesData(imagesData.filter((imageData) => imageData.id !== id));
   };
 
   const getAmenities = async (token) => {
@@ -90,6 +123,30 @@ function AdminPanel({ mode }) {
     getCategories();
     getCities();
   }, []);
+
+  useEffect(() => {
+    reset({
+      titulo: selectedRental?.titulo,
+      descripcion: selectedRental?.descripcion,
+      latitud: selectedRental?.latitud,
+      longitud: selectedRental?.longitud,
+      ciudad: selectedRental?.ciudad?.id,
+      categoria: selectedRental?.categoria?.id,
+      direccion: selectedRental?.direccion,
+      caracteristicas: selectedRental?.caracteristicas?.map((caracteristica) =>
+        caracteristica.id.toString()
+      ),
+      normas: selectedRental?.normas,
+      saludYseguridad: selectedRental?.saludYseguridad,
+      cancelacion: selectedRental?.cancelacion,
+    });
+  }, [selectedRental]);
+
+  useEffect(() => {
+    reset(defaultFormData);
+    setImagesData([]);
+    setSelectedRental(null);
+  }, [mode]);
 
   return (
     <div className="container-page">
@@ -190,6 +247,34 @@ function AdminPanel({ mode }) {
                 </div>
 
                 <div className="form-control">
+                  <label htmlFor="latitud">Latitud</label>
+                  <input
+                    {...register('latitud', {
+                      required: 'Campo requerido',
+                      valueAsNumber: true,
+                    })}
+                  />
+
+                  {errors.latitud && (
+                    <p className="input-error-msg">{errors.latitud.message}</p>
+                  )}
+                </div>
+
+                <div className="form-control">
+                  <label htmlFor="longitud">Longitud</label>
+                  <input
+                    {...register('longitud', {
+                      required: 'Campo requerido',
+                      valueAsNumber: true,
+                    })}
+                  />
+
+                  {errors.longitud && (
+                    <p className="input-error-msg">{errors.longitud.message}</p>
+                  )}
+                </div>
+
+                <div className="form-control">
                   <label htmlFor="descripcion">Descripción</label>
                   <textarea
                     {...register('descripcion', {
@@ -247,7 +332,7 @@ function AdminPanel({ mode }) {
                   <div className="policy__container">
                     <h3>Salud y seguridad</h3>
                     <p>Descripción</p>
-                    <textarea {...register('salud-y-seguridad')}></textarea>
+                    <textarea {...register('saludYseguridad')}></textarea>
                   </div>
                   <div className="policy__container">
                     <h3>Política de cancelación</h3>
@@ -271,21 +356,55 @@ function AdminPanel({ mode }) {
                     />
                   </span>
                 </h2>
-                <ImageInput
-                  id={requiredImgId.current}
-                  errors={errors}
-                  register={register}
-                />
 
-                {idInputs.map((id) => (
-                  <ImageInput
-                    key={id}
-                    id={id}
-                    handleRemoveImgInput={handleRemoveImgInput}
-                    deletable
-                    register={register}
-                  />
-                ))}
+                {mode === 'create' ? (
+                  <>
+                    <ImageInput
+                      id={requiredImgId.current}
+                      errors={errors}
+                      register={register}
+                    />
+
+                    {imagesData?.map((imageData) => (
+                      <ImageInput
+                        key={imageData.id}
+                        id={imageData.id}
+                        handleRemoveImgInput={handleRemoveImgInput}
+                        deletable
+                        register={register}
+                      />
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    {imagesData
+                      ?.sort((a, b) => a.id - b.id)
+                      .map((imageData, index) => {
+                        if (index === 0) {
+                          return (
+                            <ImageInput
+                              key={imageData.id}
+                              id={imageData.id}
+                              errors={errors}
+                              register={register}
+                              defaultValues={[imageData.titulo, imageData.url]}
+                            />
+                          );
+                        }
+
+                        return (
+                          <ImageInput
+                            key={imageData.id}
+                            id={imageData.id}
+                            handleRemoveImgInput={handleRemoveImgInput}
+                            deletable
+                            register={register}
+                            defaultValues={[imageData.titulo, imageData.url]}
+                          />
+                        );
+                      })}
+                  </>
+                )}
               </section>
 
               <button
