@@ -3,6 +3,7 @@ package com.example.digitalBooking;
 import com.example.digitalBooking.controller.ReservaController;
 import com.example.digitalBooking.exception.BadRequestException;
 import com.example.digitalBooking.exception.ProductoNotFoundException;
+import com.example.digitalBooking.exception.UsuarioNotFoundException;
 import com.example.digitalBooking.model.Imagen;
 import com.example.digitalBooking.model.dto.RequestReservaDTO;
 import com.example.digitalBooking.model.dto.ResponseReservaDTO;
@@ -54,6 +55,15 @@ public class ReservaControllerTest {
         given(service.getAllByIdProducto(anyLong())).willReturn(List.of(responseReservaDTO));
         //THEN
         assertEquals(controller.getByIdProducto(anyLong()),ResponseEntity.ok(List.of(responseReservaDTO)));
+    }
+
+    @Test
+    @DisplayName("WHEN we list all reservas by IdUsuario THEN return HTTP STATUS 200 OK and a list of reservas")
+    public void getAllReservasByIdUsuario() throws UsuarioNotFoundException {
+        //WHEN
+        given(service.findAllByIdUsuario(anyLong())).willReturn(List.of(responseReservaDTO));
+        //THEN
+        assertEquals(controller.findAllByIdUsuario(anyLong()),ResponseEntity.ok(List.of(responseReservaDTO)));
     }
 
 }
