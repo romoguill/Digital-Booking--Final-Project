@@ -24,7 +24,7 @@ public class ProductoService {
     private static final Logger logger = Logger.getLogger(ProductoService.class);
 
 
-    public boolean create(RequestProductoDTO productoDTO) throws BadRequestException {
+    public Long create(RequestProductoDTO productoDTO) throws BadRequestException {
         if (repository.findByTitulo(productoDTO.titulo()).isPresent()) {
             logger.error("Ya existe un producto con el titulo: " + productoDTO.titulo());
             throw new BadRequestException("Ya existe una producto con el titulo: " + productoDTO.titulo());
@@ -46,7 +46,7 @@ public class ProductoService {
 
         repository.save(mapToProducto(productoDTO));
         logger.info("Se creo un nuevo producto: " + productoDTO.titulo());
-        return true;
+        return repository.findByTitulo(productoDTO.titulo()).get().getId();
     }
 
     public List<ResponseProductoDTO> getAll(){

@@ -38,12 +38,12 @@ public class ProductoControllerTest {
                     null,null,null,null,null);
 
     @Test
-    @DisplayName("WHEN we create a producto THEN return HTTP STATUS 201 CREATED and a message 'Se creo el producto correctamente'")
+    @DisplayName("WHEN we create a producto THEN return the id of that producto in the database")
     public void createProducto() throws BadRequestException {
         //WHEN
-        given(service.create(requestProductoDTO)).willReturn(true);
+        given(service.create(requestProductoDTO)).willReturn(anyLong());
         //THEN
-        assertEquals(controller.create(requestProductoDTO),new ResponseEntity<>("Se creo el producto correctamente", HttpStatus.CREATED));
+        assertEquals(controller.create(requestProductoDTO),new ResponseEntity<>(service.create(requestProductoDTO), HttpStatus.CREATED));
     }
 
     @Test

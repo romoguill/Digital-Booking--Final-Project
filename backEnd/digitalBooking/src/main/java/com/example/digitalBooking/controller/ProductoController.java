@@ -24,9 +24,8 @@ public class ProductoController {
     private final ProductoService service;
 
     @PostMapping("/crear")
-    public ResponseEntity<String> create(@RequestBody RequestProductoDTO productoDTO) throws BadRequestException {
-        service.create(productoDTO);
-        return new ResponseEntity<>("Se creo el producto correctamente", HttpStatus.CREATED);
+    public ResponseEntity<Long> create(@RequestBody RequestProductoDTO productoDTO) throws BadRequestException {
+        return new ResponseEntity<>(service.create(productoDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/todas")
