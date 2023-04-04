@@ -104,28 +104,6 @@ function Booking() {
     }
   };
 
-  // await axios
-  //   .post(ENDPOINT_POST, JSON.stringify(payload), {
-  //     headers: {
-  //       authorization: getItem('token'),
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //   .then((response) => {
-  //     if (response.status == 201) {
-  //       navigate('/reserva_confirmada');
-  //     } else {
-  //       setFormMessage(
-  //         'Lamentablemente la reserva no ha podido realizarse”. Por favor, intente más tarde'
-  //       );
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.log(err.message);
-  //   });
-  // };
-
   const handleChange = (e) => {
     e.persist();
     setFormData({

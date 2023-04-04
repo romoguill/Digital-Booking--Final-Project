@@ -46,20 +46,44 @@ function AdminPanel({ mode }) {
   } = useForm({ mode: 'onBlur', defaultValues: defaultFormData });
 
   const onSubmit = async (formData) => {
-    const payload = JSON.stringify(formData);
+    const productKeys = [
+      'titulo',
+      'descripcion',
+      'latitud',
+      'longitud',
+      'ciudad',
+      'categoria',
+      'direccion',
+      'caracteristicas',
+      'normas',
+      'saludYseguridad',
+      'cancelacion',
+    ];
 
-    const response = fetch(
-      `${import.meta.env.VITE_BASE_API_URL}/imagenes/crear`,
+    const payloadProduct = Object.keys(formData)
+      .filter((key) => productKeys.includes(key))
+      .reduce((acum, key) => Object.assign(acum, { [key]: formData[key] }), {});
+    console.log('hola');
+
+    console.log(payloadProduct);
+
+    const response = await fetch(
+      `${import.meta.env.VITE_BASE_API_URL}/productos/crear`,
       {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-        body: payload,
+        body: JSON.stringify(payloadProduct),
       }
     );
-    console.log(payload);
+    console.log(response);
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+    }
   };
 
   useEffect(() => {
