@@ -1,15 +1,22 @@
 import Calendar from 'react-calendar';
+import { eachDayOfInterval, parse } from 'date-fns';
 import './CustomCalendar.scss';
 
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import useWindowSize from '../../Hooks/useWindowSize';
 
-function CustomCalendar({ allowRange, valueDateRange, setValueDateRange }) {
+function CustomCalendar({
+  allowRange,
+  valueDateRange,
+  setValueDateRange,
+  productData,
+}) {
   const [actualDate, setActualDate] = useState(null);
   const [nextDate, setNextDate] = useState(null);
   const [node, setNode] = useState(null);
+  const [bookedDates, setBookedDates] = useState([]);
 
   const calendarRef = useCallback((node) => {
     if (node) {
@@ -46,6 +53,24 @@ function CustomCalendar({ allowRange, valueDateRange, setValueDateRange }) {
   };
 
   const onChange = (nextValue) => {
+    const datesInRange = eachDayOfInterval({
+      start: nextValue[0],
+      end: nextValue[1],
+    });
+
+    if (
+      datesInRange.some((dateSelected) =>
+        bookedDates.find(
+          (bookedDate) => bookedDate.getTime() === dateSelected.getTime()
+        )
+      )
+    ) {
+      alert(
+        'El producto seleccionado ya se encuentra reservado en esas fechas'
+      );
+      return;
+    }
+
     setValueDateRange(nextValue);
   };
 
@@ -60,6 +85,35 @@ function CustomCalendar({ allowRange, valueDateRange, setValueDateRange }) {
         node?.querySelector('.react-calendar__navigation__label__labelText--to')
           .textContent
       );
+  };
+
+  const getAllBookedDates = (productData) => {
+    const bookedDates = [];
+    if (productData?.reservas) {
+      productData?.reservas.forEach((booking) => {
+        bookedDates.push(
+          ...eachDayOfInterval({
+            start: parse(booking.fechaInicial, 'dd/MM/yyyy', new Date()),
+            end: parse(booking.fechaFinal, 'dd/MM/yyyy', new Date()),
+          })
+        );
+      });
+    }
+    return bookedDates;
+  };
+
+  useEffect(
+    () => setBookedDates(getAllBookedDates(productData)),
+    [productData]
+  );
+
+  const disableBookedDates = ({ date }) => {
+    if (
+      date.getTime() < Date.now() ||
+      bookedDates.find((bookedDate) => bookedDate.getTime() === date.getTime())
+    ) {
+      return 'date-booked';
+    }
   };
 
   return (
@@ -89,6 +143,7 @@ function CustomCalendar({ allowRange, valueDateRange, setValueDateRange }) {
           inputRef={calendarRef}
           onActiveStartDateChange={onActiveStartDateChange}
           selectRange={allowRange ? true : false}
+          tileClassName={disableBookedDates}
         />
 
         <button onClick={handleGoToNextMonth}>

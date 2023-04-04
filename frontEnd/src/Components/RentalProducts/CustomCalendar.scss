@@ -166,6 +166,11 @@
   background-color: #e6e6e6;
 }
 
+.date-booked {
+  text-decoration: line-through;
+  color: #b67474;
+}
+
 
 @media screen and (max-width: globals.$bp-tablet) {
   .calendar {
