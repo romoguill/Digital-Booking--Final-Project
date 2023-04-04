@@ -46,43 +46,40 @@ function AdminPanel({ mode }) {
   } = useForm({ mode: 'onBlur', defaultValues: defaultFormData });
 
   const onSubmit = async (formData) => {
-    const productKeys = [
-      'titulo',
-      'descripcion',
-      'latitud',
-      'longitud',
-      'ciudad',
-      'categoria',
-      'direccion',
-      'caracteristicas',
-      'normas',
-      'saludYseguridad',
-      'cancelacion',
-    ];
+    if (mode === 'create') {
+      const payloadProduct = {
+        titulo: formData.titulo,
+        descripcion: formData.descripcion,
+        direccion: formData.direccion,
+        latitud: formData.latitud,
+        longitud: formData.longitud,
+        saludYseguridad: formData.saludYseguridad,
+        cancelacion: formData.cancelacion,
+        normas: formData.normas,
+        idCiudad: Number(formData.ciudad),
+        idCategoria: Number(formData.categoria),
+        caracteristicas: formData.caracteristicas.map((idCaracteristica) =>
+          Number(idCaracteristica)
+        ),
+      };
 
-    const payloadProduct = Object.keys(formData)
-      .filter((key) => productKeys.includes(key))
-      .reduce((acum, key) => Object.assign(acum, { [key]: formData[key] }), {});
-    console.log('hola');
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/productos/crear`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(payloadProduct),
+        }
+      );
+      console.log(response);
 
-    console.log(payloadProduct);
-
-    const response = await fetch(
-      `${import.meta.env.VITE_BASE_API_URL}/productos/crear`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(payloadProduct),
+      if (response.ok) {
+        const newProductId = await response.json();
+        console.log(data);
       }
-    );
-    console.log(response);
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
     }
   };
 
@@ -304,8 +301,8 @@ function AdminPanel({ mode }) {
                     {...register('descripcion', {
                       required: 'Campo requerido',
                       minLength: {
-                        value: 50,
-                        message: 'Al menos 50 caracteres',
+                        value: 20,
+                        message: 'Al menos 20 caracteres',
                       },
                     })}
                   ></textarea>

@@ -32,7 +32,15 @@ function ImageInput({
             defaultValue={defaultValues && defaultValues[0]}
           />
           <input
-            {...register(`imagen-${id}`)}
+            {...register(
+              `imagen-${id}`,
+              !deletable && {
+                required: {
+                  value: true,
+                  message: 'Todo producto debe tener al menos 1 imagen',
+                },
+              }
+            )}
             placeholder="URL de imagen"
             defaultValue={defaultValues && defaultValues[1]}
           />
