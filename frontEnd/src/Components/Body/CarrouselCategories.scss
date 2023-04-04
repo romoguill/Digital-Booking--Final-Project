@@ -49,15 +49,18 @@
       }
     }
   }
-  
 
+  &:hover{
+    box-shadow: 0px 4px 3px 0px rgba(49, 54, 63, 0.462);
+    -webkit-box-shadow: 0px 4px 3px 0px rgba(49, 54, 63, 0.462);
+    -moz-box-shadow: 0px 4px 3px 0px rgba(49, 54, 63, 0.462);
+  }
 
-  .container-content {
-    padding: globals.$p-2;
-
-    a {
-      padding: 0;
-    }
+  &:active{
+    transform: translateY(-1px);
+    box-shadow: 0px 4px 3px 0px globals.$bg-medium;
+    -webkit-box-shadow: 0px 4px 3px 0px globals.$bg-medium;
+    -moz-box-shadow: 0px 4px 3px 0px globals.$bg-medium;
   }
 }
 
