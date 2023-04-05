@@ -88,6 +88,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/puntuaciones/crear").hasAuthority("USER")
                 .antMatchers("/puntuaciones/idProducto={idProducto}").permitAll()
 
+                .antMatchers("/v3/api-docs/**","/swagger-ui/**","/swagger-ui.html").permitAll()
+
 
             .anyRequest().authenticated()
             .and()

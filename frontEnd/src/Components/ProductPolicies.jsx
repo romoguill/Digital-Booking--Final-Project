@@ -1,6 +1,9 @@
-import './ProductPolicies.scss';
+import "./ProductPolicies.scss";
 
 function ProductPolicies({ producto }) {
+  const normas = producto.normas?.split(".");
+  const saludYseguridad = producto.saludYseguridad?.split(".");
+  const cancelacion = producto.cancelacion?.split(".");
   return (
     <section className="policy container-main">
       <h2 className="section-title">¿Qué tenés que saber?</h2>
@@ -8,15 +11,21 @@ function ProductPolicies({ producto }) {
       <div className="policy__items">
         <div className="item">
           <h4>Normas de la casa</h4>
-          <p>{producto.normas}</p>
+          {normas?.map((elemento, i) => (
+            <p key={i}>{elemento}</p>
+          ))}
         </div>
         <div className="item">
           <h4>Salud y seguridad</h4>
-          <p>{producto.saludYseguridad}</p>
+          {saludYseguridad?.map((elemento, i) => (
+            <p key={i}>{elemento}</p>
+          ))}
         </div>
         <div className="item">
           <h4>Política de cancelación</h4>
-          <p>{producto.cancelacion}</p>
+          {cancelacion?.map((elemento, i) => (
+            <p key={i}>{elemento}</p>
+          ))}
         </div>
       </div>
     </section>
