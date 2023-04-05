@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -74,6 +75,15 @@ public class ProductoControllerTest {
     }
 
     @Test
+    @DisplayName("WHEN we edit a producto THEN return HTTP Status 200 and message 'Se edito el producto correctamente'")
+    public void editProducto() throws BadRequestException, ProductoNotFoundException {
+        //WHEN
+        given(service.update(requestProductoDTO)).willReturn(true);
+        //THEN
+        assertEquals(controller.putByid(requestProductoDTO),new ResponseEntity<>("Se edito el producto correctamente", HttpStatus.OK));
+    }
+
+    @Test
     @DisplayName("WHEN we bring a producto by ciudad THEN return HTTP STATUS 200 OK and a producto")
     public void getProductoByCiudad(){
         //WHEN
@@ -89,6 +99,26 @@ public class ProductoControllerTest {
         given(service.filterCategoria(anyString())).willReturn(List.of(responseProductoDTO));
         //THEN
         assertEquals(controller.filterCategoria(anyString()),ResponseEntity.ok(List.of(responseProductoDTO)));
+    }
+
+    @Test
+    @DisplayName("WHEN we bring a producto by 2 dates THEN return HTTP STATUS 200 OK and a list of productos")
+    public void filterFechas(){
+        //WHEN
+        given(service.filterFechas(LocalDate.now(),LocalDate.now())).willReturn(List.of(responseProductoDTO));
+        //THEN
+        assertEquals(controller.filterFechas(LocalDate.now(),LocalDate.now()),ResponseEntity.ok(List.of(responseProductoDTO)));
+    }
+
+    @Test
+    @DisplayName("WHEN we bring a producto by 2 dates and one city THEN return HTTP STATUS 200 OK and a list of productos")
+    public void filterFechasAndCity(){
+        //WHEN
+        given(service.filterCiudadAndFechas("mar del plata",LocalDate.now(),LocalDate.now()))
+                .willReturn(List.of(responseProductoDTO));
+        //THEN
+        assertEquals(controller.filterCiudadFechas("mar del plata",LocalDate.now(),LocalDate.now()),
+                ResponseEntity.ok(List.of(responseProductoDTO)));
     }
 
     @Test

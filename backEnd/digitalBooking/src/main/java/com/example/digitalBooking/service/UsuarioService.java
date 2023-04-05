@@ -87,11 +87,6 @@ public class UsuarioService implements UserDetailsService{
         return usuario;
     }
 
-    private UsuarioDTO mapToDTO(Usuario usuario){
-        return new UsuarioDTO(usuario.getId(), usuario.getNombre(), usuario.getApellido(), usuario.getEmail(),
-                usuario.getPassword(), usuario.getCiudad(), usuario.getRol().getId());
-    }
-
     @Override
     public UserDetails loadUserByUsername(String data) {
 
