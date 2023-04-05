@@ -8,11 +8,14 @@ import BannerProductTitle from "../BannerProductTitle";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon, TelegramShareButton, TelegramIcon } from 'react-share';
 
 function Hero({ producto, imagenes }) {
   const params = useParams();
   const [frase, setFrase] = useState();
   const [promedio, setPromedio] = useState();
+  const shareBaseUrl = import.meta.env.VITE_BASE_API_URL + "/producto/" + producto.id;
+  const shareTitle = "Alójate en el corazón de "+ (producto.ciudad? producto.ciudad.nombre : "");
 
   const promedioProducto = (reseñas) => {
     if (reseñas.length == 0) {
@@ -92,7 +95,36 @@ function Hero({ producto, imagenes }) {
         </div>
         <div className="hero__products__actions">
           <div className="container-main">
-            <BsShare className="icon icon-share" />
+            <span className="icon-share-container">
+              <BsShare className="icon icon-share" />
+
+              <ul>
+                  <li>
+                    <FacebookShareButton url={shareBaseUrl} quote={shareTitle} hashtag="#DigitalBooking">
+                      <FacebookIcon size={32} round />
+                      Facebook
+                    </FacebookShareButton>
+                  </li>
+                  <li>
+                    <TwitterShareButton url={shareBaseUrl} title={shareTitle} hashtags={["DigitalBooking"]}>
+                      <TwitterIcon size={32} round />
+                      Twitter
+                    </TwitterShareButton>
+                  </li>
+                  <li>
+                    <WhatsappShareButton url={shareBaseUrl} title={shareTitle}>
+                      <WhatsappIcon size={32} round />
+                      Whatsapp
+                    </WhatsappShareButton>
+                  </li>
+                  <li>
+                    <TelegramShareButton url={shareBaseUrl} title={shareTitle}>
+                      <TelegramIcon size={32} round />
+                      Telegram
+                    </TelegramShareButton>
+                  </li>
+              </ul>
+            </span>
             <FontAwesomeIcon className="icon icon-heart" icon={faHeart} />
           </div>
         </div>

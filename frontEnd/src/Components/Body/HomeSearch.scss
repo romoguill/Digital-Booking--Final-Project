@@ -1,14 +1,17 @@
 @use '/src/sassStyles/globals';
 
 .home-search {
-  width: 100%;
-  text-align: center;
-  background-color: globals.$bg-search;
-  padding: globals.$p-5 0;
+  > .container-main {
+    width: 100%;
+    text-align: center;
+    background-color: globals.$bg-search;
+    padding: globals.$p-4;
+    max-width: none;
 
-  h1 {
-    font-size: globals.$font-size-6;
-    padding-bottom: globals.$m-4;
+    h1 {
+      font-size: globals.$font-size-6;
+      padding-bottom: globals.$m-4;
+    }
   }
 
   .form-error {
@@ -103,6 +106,13 @@
 
     .search-dates {
       flex: 1;
+    }
+  }
+
+  .search-result-title {
+    padding-top: 1%;
+    .text-primary {
+      color: globals.$primary-color;
     }
   }
 }
