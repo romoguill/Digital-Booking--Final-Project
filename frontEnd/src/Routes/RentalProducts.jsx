@@ -72,6 +72,7 @@ function RentalProducts() {
             producto={producto}
             imagenes={imagenes}
             setValueDateRange={setValueDateRange}
+            productData={producto}
           />
           <div className="booking__call-to-action">
             <h4>Agregá tus fechas de viaje para obtener precios exactos</h4>

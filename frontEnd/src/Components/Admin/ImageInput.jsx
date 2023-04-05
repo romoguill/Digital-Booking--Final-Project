@@ -27,12 +27,20 @@ function ImageInput({
       <div className="form-control">
         <div className="inputs">
           <input
-            {...register(`titulo-${id}`)}
+            {...register(`imagenes.${id}.titulo`)}
             placeholder="Titulo de imagen"
             defaultValue={defaultValues && defaultValues[0]}
           />
           <input
-            {...register(`imagen-${id}`)}
+            {...register(
+              `imagenes.${id}.url`,
+              !deletable && {
+                required: {
+                  value: true,
+                  message: 'Todo producto debe tener al menos 1 imagen',
+                },
+              }
+            )}
             placeholder="URL de imagen"
             defaultValue={defaultValues && defaultValues[1]}
           />

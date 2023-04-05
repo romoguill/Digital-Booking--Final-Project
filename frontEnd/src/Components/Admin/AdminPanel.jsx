@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 import ImageInput from './ImageInput';
 import MultiSearch from './MultiSearch';
 import { useForm } from 'react-hook-form';
+import { Oval } from 'react-loader-spinner';
 
 function AdminPanel({ mode }) {
   const { storedValue } = useLocalStorage('token', null);
@@ -18,6 +19,7 @@ function AdminPanel({ mode }) {
   const [categories, setCategories] = useState(null);
   const [cities, setCities] = useState(null);
   const [imagesData, setImagesData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const requiredImgId = useRef(uuidv4());
 
   const { storedValue: token } = useLocalStorage('token', null);
@@ -46,43 +48,70 @@ function AdminPanel({ mode }) {
   } = useForm({ mode: 'onBlur', defaultValues: defaultFormData });
 
   const onSubmit = async (formData) => {
-    const productKeys = [
-      'titulo',
-      'descripcion',
-      'latitud',
-      'longitud',
-      'ciudad',
-      'categoria',
-      'direccion',
-      'caracteristicas',
-      'normas',
-      'saludYseguridad',
-      'cancelacion',
-    ];
+    setIsLoading(true);
 
-    const payloadProduct = Object.keys(formData)
-      .filter((key) => productKeys.includes(key))
-      .reduce((acum, key) => Object.assign(acum, { [key]: formData[key] }), {});
-    console.log('hola');
+    let payloadProduct = {
+      titulo: formData.titulo,
+      descripcion: formData.descripcion,
+      direccion: formData.direccion,
+      latitud: formData.latitud,
+      longitud: formData.longitud,
+      saludYseguridad: formData.saludYseguridad,
+      cancelacion: formData.cancelacion,
+      normas: formData.normas,
+      idCiudad: Number(formData.ciudad),
+      idCategoria: Number(formData.categoria),
+      caracteristicas: formData.caracteristicas.map((idCaracteristica) =>
+        Number(idCaracteristica)
+      ),
+    };
 
-    console.log(payloadProduct);
+    if (mode === 'create') {
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_API_URL}/productos/crear`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(payloadProduct),
+        }
+      );
+      console.log(response);
 
-    const response = await fetch(
-      `${import.meta.env.VITE_BASE_API_URL}/productos/crear`,
-      {
-        method: 'POST',
+      if (response.ok) {
+        const newProductId = await response.json();
+
+        Object.keys(formData.imagenes).forEach(async (imageId) => {
+          const payloadImages = {
+            titulo: formData.imagenes[imageId].titulo,
+            url: formData.imagenes[imageId].url,
+            idProducto: newProductId,
+          };
+
+          await fetch(`${import.meta.env.VITE_BASE_API_URL}/imagenes/crear`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify(payloadImages),
+          });
+        });
+        setIsLoading(false);
+      }
+    } else {
+      payloadProduct = { ...payloadProduct, id: selectedRental.id };
+      await fetch(`${import.meta.env.VITE_BASE_API_URL}/productos/actualizar`, {
+        method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
         body: JSON.stringify(payloadProduct),
-      }
-    );
-    console.log(response);
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
+      });
+      setIsLoading(false);
     }
   };
 
@@ -171,6 +200,25 @@ function AdminPanel({ mode }) {
     setImagesData([]);
     setSelectedRental(null);
   }, [mode]);
+
+  if (isLoading) {
+    return (
+      <div className="container-page center-content">
+        <Oval
+          height={80}
+          width={80}
+          color="rgb(28, 191, 180)"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="oval-loading"
+          secondaryColor="rgb(28, 191, 180)"
+          strokeWidth={5}
+          strokeWidthSecondary={5}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="container-page">
@@ -304,8 +352,8 @@ function AdminPanel({ mode }) {
                     {...register('descripcion', {
                       required: 'Campo requerido',
                       minLength: {
-                        value: 50,
-                        message: 'Al menos 50 caracteres',
+                        value: 20,
+                        message: 'Al menos 20 caracteres',
                       },
                     })}
                   ></textarea>

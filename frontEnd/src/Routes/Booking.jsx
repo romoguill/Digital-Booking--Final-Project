@@ -13,13 +13,12 @@ import {
 import BannerProductTitle from '../Components/BannerProductTitle';
 import CustomCalendar from '../Components/RentalProducts/CustomCalendar';
 
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductPolicies from '../Components/ProductPolicies';
 import useAuth from '../Hooks/useAuth';
 import useLocalStorage from '../Hooks/useLocalStorage';
-import { AuthContext } from '../Contexts/AuthContext';
 
 function Booking() {
   const params = useParams();
@@ -35,6 +34,7 @@ function Booking() {
   const [productPolicies, setProductPolicies] = useState({});
   const [valueDateRange, setValueDateRange] = useState(null);
   const [isActive, setIsActive] = useState(false);
+  const [product, setProduct] = useState({});
 
   const [formMessage, setFormMessage] = useState('');
   const navigate = useNavigate();
@@ -134,6 +134,7 @@ function Booking() {
       setProductLocation(data.ciudad.nombre);
       setProductPolicies(data);
       setProductId(data.id);
+      setProduct(data);
     };
     fetchData();
   }, []);
@@ -214,6 +215,7 @@ function Booking() {
                 allowRange={true}
                 valueDateRange={valueDateRange}
                 setValueDateRange={setValueDateRange}
+                productData={product}
               />
             </div>
           </section>
