@@ -20,5 +20,5 @@ URL base de instancia EC2: [http://3.144.19.234:8080/](http://3.144.19.234:8080/
 
 **Admin:**
 
-- **Email:** facundo@hotmail.com
+- **Email:** facu@hotmail.com
 - **Contraseña:** administrador
