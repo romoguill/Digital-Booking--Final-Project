@@ -1,17 +1,77 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 import {
   faStar,
   faStarHalf,
-  faLocationDot
-} from '@fortawesome/free-solid-svg-icons';
+  faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
 
-import './CardRentalGrid.scss';
-import { useState } from 'react';
+import "./CardRentalGrid.scss";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const Card = ({ id, imagen, img_name, categoria, titulo, ciudad, descripcion, caracteristicas }) => {
-
+const Card = ({
+  id,
+  imagen,
+  img_name,
+  categoria,
+  titulo,
+  ciudad,
+  descripcion,
+  caracteristicas,
+}) => {
+  const params = useParams();
+  const [frase, setFrase] = useState();
+  const [promedio, setPromedio] = useState();
   const [showMore, setShowMore] = useState(false);
+
+  const promedioProducto = (reseñas) => {
+    if (reseñas.length == 0) {
+      setFrase("Sin Puntuación");
+      setPromedio("-");
+      return;
+    }
+
+    let suma = 0;
+
+    reseñas.forEach((reseña) => {
+      suma += reseña.puntuacion;
+    });
+
+    const prom = suma / reseñas.length;
+    setPromedio(prom);
+    console.log(reseñas.length);
+
+    if (prom >= 9.5) {
+      setFrase("Excelente");
+    } else if (prom >= 8.0 && prom < 9.5) {
+      setFrase("Muy bueno");
+    } else if (prom < 8.0 && prom >= 6.0) {
+      setFrase("Bueno");
+    } else {
+      setFrase("Aceptable");
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      axios(
+        `${import.meta.env.VITE_BASE_API_URL}/puntuaciones/idProducto=${id}`
+      )
+        .then((res) => {
+          promedioProducto(res.data);
+        })
+        .catch((res) => {
+          if (res.response.status == 404) {
+            console.log(res);
+            setFrase("Sin puntuación");
+            setPromedio(null);
+          }
+        });
+    };
+    fetchData();
+  }, []);
 
   return (
     <div key={id} className="card-rental">
@@ -36,8 +96,8 @@ const Card = ({ id, imagen, img_name, categoria, titulo, ciudad, descripcion, ca
               <h2 className="rental-name text-dark">{titulo}</h2>
             </div>
             <div className="rental-rating--score">
-              <p className="score--number">8</p>
-              <p className="score--description text-dark">Muy bueno</p>
+              <p className="score--number">{promedio}</p>
+              <p className="score--description text-dark">{frase}</p>
             </div>
           </div>
 
@@ -52,26 +112,40 @@ const Card = ({ id, imagen, img_name, categoria, titulo, ciudad, descripcion, ca
               </span>
             </p>
             <div className="rental-amenities">
-              {caracteristicas && caracteristicas.map((item, i) => {
-                return (
-                  <img key={i} src={item.url} className="politica-icon" title={item.titulo} />
-                );
-              })}
+              {caracteristicas &&
+                caracteristicas.map((item, i) => {
+                  return (
+                    <img
+                      key={i}
+                      src={item.url}
+                      className="politica-icon"
+                      title={item.titulo}
+                    />
+                  );
+                })}
             </div>
           </div>
 
           <div className="card-rental__body">
             <p className="text-dark">
               {showMore ? descripcion : `${descripcion.substring(0, 150)}`}
-              {descripcion.length > 150 && <span className="more-description">
-                ...<a onClick={() => setShowMore(!showMore)}>{showMore ? "leer más" : "leer menos"}.</a>
-              </span>}
+              {descripcion.length > 150 && (
+                <span className="more-description">
+                  ...
+                  <a onClick={() => setShowMore(!showMore)}>
+                    {showMore ? "leer más" : "leer menos"}.
+                  </a>
+                </span>
+              )}
             </p>
           </div>
         </div>
 
         <div className="card-rental__action">
-          <Link className="button--read-more button-primary button-primary--full" to={`/producto/${id}`}>
+          <Link
+            className="button--read-more button-primary button-primary--full"
+            to={`/producto/${id}`}
+          >
             Ver más
           </Link>
         </div>

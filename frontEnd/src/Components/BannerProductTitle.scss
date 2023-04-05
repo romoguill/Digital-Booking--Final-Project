@@ -4,6 +4,9 @@
   background-color: globals.$bg-search;
   padding-block: globals.$p-2;
   color: globals.$text-light;
+  height: globals.$banner-height;
+  display: flex;
+  align-items: center;
 
   .container-main {
     display: flex;

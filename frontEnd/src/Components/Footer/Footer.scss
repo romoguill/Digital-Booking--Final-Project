@@ -20,6 +20,10 @@ footer {
     align-items: center;
     gap: 10px;
   }
+
+  .social-media-icon:hover{
+    color: globals.$bg-medium;
+  }
 }
 
 @media screen and (max-width: globals.$bp-mobile) {

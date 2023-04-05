@@ -34,18 +34,13 @@ public class GlobalHandleException {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
-    /*Politica*/
-    @ExceptionHandler({PoliticaNotFoundException.class})
-    public ResponseEntity<String> PoliticaNotFoundException(PoliticaNotFoundException e){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-    }
 
     /*Imagen*/
     @ExceptionHandler({ImagenNotFoundException.class})
     public ResponseEntity<String> ImagenNotFoundException(ImagenNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
-    /*Imagen*/
+    /*Caracteristica*/
     @ExceptionHandler({CaracteristicaNotFoundException.class})
     public ResponseEntity<String> CaracteristicaNotFoundException(CaracteristicaNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -57,11 +52,6 @@ public class GlobalHandleException {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
-    /*Reserva*/
-    @ExceptionHandler({ReservaNotFoundException.class})
-    public ResponseEntity<String> ReservaNotFoundException(ReservaNotFoundException e){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-    }
 
     /*Login*/
     @ExceptionHandler({EmailNotFoundException.class})

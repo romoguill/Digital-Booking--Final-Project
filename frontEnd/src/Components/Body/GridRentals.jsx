@@ -5,15 +5,15 @@ import axios from 'axios';
 import './GridRentals.scss';
 
 function GridRentals() {
-
-  const ENDPOINT_GET_PRODUCTOS = `${import.meta.env.VITE_BASE_API_URL}/productos/todasRandom`
+  const ENDPOINT_GET_PRODUCTOS = `${
+    import.meta.env.VITE_BASE_API_URL
+  }/productos/todasRandom`;
 
   const [Deptos, setDeptos] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      axios(ENDPOINT_GET_PRODUCTOS)
-      .then((res) => setDeptos(res.data));
+      axios(ENDPOINT_GET_PRODUCTOS).then((res) => setDeptos(res.data));
     };
     fetchData();
   }, []);
@@ -28,8 +28,8 @@ function GridRentals() {
               <Card
                 key={item.id}
                 id={item.id}
-                imagen={item.imagenes[0].url}
-                img_name={item.imagenes[0].titulo}
+                imagen={item.imagenes.sort((a, b) => a.id - b.id)[0].url}
+                img_name={item.imagenes.sort((a, b) => a.id - b.id)[0].titulo}
                 categoria={item.categoria.titulo}
                 titulo={item.titulo}
                 ciudad={item.ciudad.nombre}

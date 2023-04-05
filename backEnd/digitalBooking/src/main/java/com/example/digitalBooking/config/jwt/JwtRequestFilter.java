@@ -1,7 +1,6 @@
 package com.example.digitalBooking.config.jwt;
 
 
-import com.example.digitalBooking.model.Usuario;
 import com.example.digitalBooking.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

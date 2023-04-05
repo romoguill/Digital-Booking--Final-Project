@@ -29,15 +29,19 @@ function GalleryProduct({ producto, imagenes }) {
       {!isMobile ? (
         <>
           <section className="gallery container-main">
-            {imagenes.slice(0, 5).map((item, i) => {
-              return (
-                <img
-                  src={item.url}
-                  key={i}
-                  className={i === 0 ? 'main-picture' : ''}
-                />
-              );
-            })}
+            {imagenes
+              .sort((a, b) => a.id - b.id)
+              .slice(0, 5)
+              .map((item, i) => {
+                return (
+                  <img
+                    src={item.url}
+                    alt={item.titulo}
+                    key={i}
+                    className={i === 0 ? 'main-picture' : ''}
+                  />
+                );
+              })}
             <button className="open-carrousel" onClick={handleOpenCarrousel}>
               Ver más
             </button>

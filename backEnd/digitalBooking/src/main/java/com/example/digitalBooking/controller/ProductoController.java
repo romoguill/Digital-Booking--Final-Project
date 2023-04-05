@@ -24,9 +24,8 @@ public class ProductoController {
     private final ProductoService service;
 
     @PostMapping("/crear")
-    public ResponseEntity<String> create(@RequestBody RequestProductoDTO productoDTO) throws BadRequestException {
-        service.create(productoDTO);
-        return new ResponseEntity<>("Se creo el producto correctamente", HttpStatus.CREATED);
+    public ResponseEntity<Long> create(@RequestBody RequestProductoDTO productoDTO) throws BadRequestException {
+        return new ResponseEntity<>(service.create(productoDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/todas")
@@ -40,6 +39,11 @@ public class ProductoController {
         return  ResponseEntity.ok(service.getById(id));
     }
 
+    @PutMapping("/actualizar")
+    public ResponseEntity<String> putByid(@RequestBody RequestProductoDTO productoDTO) throws ProductoNotFoundException, BadRequestException {
+       service.update(productoDTO);
+        return new ResponseEntity<>("Se edito el producto correctamente", HttpStatus.OK);
+    }
     @GetMapping("/filterCat={categoria}")
     public ResponseEntity<List<ResponseProductoDTO>> filterCategoria(@PathVariable String categoria)  {
         return ResponseEntity.ok(service.filterCategoria(categoria));
@@ -51,7 +55,7 @@ public class ProductoController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<ResponseProductoDTO>> filterCiudad(@RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy")  LocalDate fechaInicio,
+    public ResponseEntity<List<ResponseProductoDTO>> filterFechas(@RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy")  LocalDate fechaInicio,
                                                                   @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate fechaFin
     ) {
         return  ResponseEntity.ok(service.filterFechas(fechaInicio,fechaFin));

@@ -13,13 +13,12 @@ import {
 import BannerProductTitle from '../Components/BannerProductTitle';
 import CustomCalendar from '../Components/RentalProducts/CustomCalendar';
 
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductPolicies from '../Components/ProductPolicies';
 import useAuth from '../Hooks/useAuth';
 import useLocalStorage from '../Hooks/useLocalStorage';
-import { AuthContext } from '../Contexts/AuthContext';
 
 function Booking() {
   const params = useParams();
@@ -32,9 +31,10 @@ function Booking() {
   const [productId, setProductId] = useState(null);
   const [mainImageUrl, setMainImageUrl] = useState(null);
   const [productLocation, setProductLocation] = useState(null);
-  const [productPolicies, setProductPolicies] = useState(null);
+  const [productPolicies, setProductPolicies] = useState({});
   const [valueDateRange, setValueDateRange] = useState(null);
   const [isActive, setIsActive] = useState(false);
+  const [product, setProduct] = useState({});
 
   const [formMessage, setFormMessage] = useState('');
   const navigate = useNavigate();
@@ -78,7 +78,6 @@ function Booking() {
       idProducto: params.id,
       emailUsuario: auth.userEmail,
     };
-    console.log(payload);
 
     try {
       const response = await fetch(ENDPOINT_POST, {
@@ -89,7 +88,6 @@ function Booking() {
         },
         body: JSON.stringify(payload),
       });
-      console.log(response);
       if (response.ok) {
         navigate('/reserva_confirmada');
       } else {
@@ -105,28 +103,6 @@ function Booking() {
       console.log(err.message);
     }
   };
-
-  // await axios
-  //   .post(ENDPOINT_POST, JSON.stringify(payload), {
-  //     headers: {
-  //       authorization: getItem('token'),
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //   .then((response) => {
-  //     if (response.status == 201) {
-  //       navigate('/reserva_confirmada');
-  //     } else {
-  //       setFormMessage(
-  //         'Lamentablemente la reserva no ha podido realizarse”. Por favor, intente más tarde'
-  //       );
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.log(err.message);
-  //   });
-  // };
 
   const handleChange = (e) => {
     e.persist();
@@ -156,8 +132,9 @@ function Booking() {
       setProductName(data.titulo);
       setMainImageUrl(data.imagenes[0].url);
       setProductLocation(data.ciudad.nombre);
-      setProductPolicies(data.politicas);
+      setProductPolicies(data);
       setProductId(data.id);
+      setProduct(data);
     };
     fetchData();
   }, []);
@@ -238,6 +215,7 @@ function Booking() {
                 allowRange={true}
                 valueDateRange={valueDateRange}
                 setValueDateRange={setValueDateRange}
+                productData={product}
               />
             </div>
           </section>
@@ -338,7 +316,7 @@ function Booking() {
           </section>
         </section>
       </div>
-      <ProductPolicies productPolicies={productPolicies} />
+      <ProductPolicies producto={productPolicies} />
     </div>
   );
 }

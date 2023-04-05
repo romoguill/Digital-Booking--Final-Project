@@ -10,11 +10,12 @@ import UserProfile from '../UserProfile/UserProfile';
 
 import Navbar from './Navbar/Navbar';
 import useAuth from '../../Hooks/useAuth';
-import useLocalStorage from '../../Hooks/useLocalStorage';
+import { useState } from 'react';
 
 function Header({ setMenuDrawerVisible }) {
-  const { auth, setAuth } = useAuth();
-  const { removeItem } = useLocalStorage();
+  const { auth, logout } = useAuth();
+  const [isAdminMenuVisible, setIsAdminMenuVisible] = useState(false);
+
   const navigate = useNavigate();
 
   function handleOpenDrawerMenu() {
@@ -22,9 +23,12 @@ function Header({ setMenuDrawerVisible }) {
   }
 
   function handleLogout() {
-    setAuth(null);
-    removeItem('token');
+    logout();
     navigate('/');
+  }
+
+  function toggleMenuVisibility() {
+    setIsAdminMenuVisible(!isAdminMenuVisible);
   }
 
   return (
@@ -34,8 +38,41 @@ function Header({ setMenuDrawerVisible }) {
           <img className="app-logo" src={logo} />
         </Link>
 
-        {auth?.userEmail ? (
+        {auth.userEmail ? (
           <div className="account-options">
+            {auth.userRole === 1 ? (
+              <div className="menu--admin" onClick={toggleMenuVisibility}>
+                <p
+                  className={`menu--admin__title ${
+                    isAdminMenuVisible ? 'selected' : ''
+                  }`}
+                >
+                  Admin
+                </p>
+                <ul
+                  className={`menu--admin__options ${
+                    !isAdminMenuVisible ? 'hidden' : ''
+                  }`}
+                >
+                  <li>
+                    <Link to="/admin/crear">Crear Producto</Link>
+                  </li>
+                  <hr />
+                  <li>
+                    <Link to="/admin/modificar">Modificar Producto</Link>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="menu--admin" onClick={toggleMenuVisibility}>
+                <Link
+                  to={`/${auth.userId}/reservas`}
+                  className={`menu--admin__title reservas__link`}
+                >
+                  Mis Reservas
+                </Link>
+              </div>
+            )}
             <UserProfile />
             <Link to={'/'} onClick={handleLogout}>
               <FontAwesomeIcon icon={faRightFromBracket} />

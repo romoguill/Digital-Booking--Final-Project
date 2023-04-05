@@ -1,5 +1,5 @@
 // Color
-$primary-color: rgba(29, 190, 180, 1);
+$primary-color: rgb(28, 191, 180);
 $bg-dark: rgba(25, 27, 29, 1);
 $bg-medium: rgba(49, 54, 63, 1);
 $bg-light: rgba(223, 228, 234, 1);
@@ -9,6 +9,7 @@ $bg-search: rgba(84, 87, 118);
 $input-error-bg: rgba(255, 225, 225, 1);
 $input-error-border:  rgba(255, 0, 0, 1);
 $input-error-msg: rgba(255, 0, 0, 1);
+$input-bg-light: rgb(248, 248, 248);
 
 $text-dark: rgba(25, 27, 29, 1);
 $text-gray: rgba(56, 59, 88, 1);
@@ -65,6 +66,7 @@ $p-7: 5rem;
 
 // Breakpoints (se pueden usar otros no definidos si la UI lo necesita)
 $bp-laptop: 1200px;
+$bp-ninehundred: 900px;
 $bp-tablet: 768px;
 $bp-menu-drawer: 600px;
 $bp-mobile: 480px;
@@ -72,6 +74,7 @@ $bp-mobile: 480px;
 // MISC
 $header-height: 80px;
 $footer-height: 60px;
+$banner-height: 60px;
 
 :export {
   bpTablet: $bp-tablet;

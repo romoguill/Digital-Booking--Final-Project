@@ -3,7 +3,7 @@
 .hero__products {
 
   &__banner {
-    background-color: globals.$bg-gray;
+    background-color: globals.$bg-light;
     padding-block: globals.$p-2;
 
     .container-main {
@@ -48,7 +48,7 @@
       font-size: globals.$font-size-2;
       font-weight: globals.$font-weight-md;
     }
-    
+
   }
 
   &__actions {
@@ -61,8 +61,58 @@
 
     .icon {
       font-size: globals.$font-size-5;
+      cursor: pointer;
+    }
+
+    .icon-heart:hover {
+      color: red;
+    }
+
+    .icon-share-container {
+      position: relative;
+
+      ul {
+        display: none;
+        background: #fff;
+        list-style: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1;
+        min-width: 200px;
+
+        button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          svg {
+            margin-right: 0.5rem;
+          }
+        }
+
+        li {
+          padding: globals.$p-2;
+          border-bottom: 1px solid globals.$primary-color;
+        }
+
+        li:hover {
+          color: #fff;
+          background: globals.$primary-color;
+        }
+      }
+    }
+
+    .icon-share-container:hover {
+      ul {
+        display: inline-block;
+      }
+
+      .icon-share {
+        color: globals.$primary-color;
+      }
     }
   }
-  
+
 
 }

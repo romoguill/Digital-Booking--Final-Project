@@ -15,7 +15,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -29,17 +31,20 @@ public class ProductoControllerTest {
     @InjectMocks
     private ProductoController controller;
     private final RequestProductoDTO requestProductoDTO = new RequestProductoDTO(1L,"titulo","url",
-            210F,210F,1L,1L,null,null);
-    private final ResponseProductoDTO responseProductoDTO = new ResponseProductoDTO(1L,"titulo","url",
-            210F,210F,null,null,null,null,null,null);
+            "direccion",210F,210F,"normas","salud","cancelacion",
+            1L,1L, Set.of(1L));
+    private final ResponseProductoDTO responseProductoDTO =
+            new ResponseProductoDTO(1L,"titulo","url", "direccion",210F,210F,
+            "normas","seguridad","cancelacion",
+                    null,null,null,null,null);
 
     @Test
-    @DisplayName("WHEN we create a producto THEN return HTTP STATUS 201 CREATED and a message 'Se creo el producto correctamente'")
+    @DisplayName("WHEN we create a producto THEN return the id of that producto in the database")
     public void createProducto() throws BadRequestException {
         //WHEN
-        given(service.create(requestProductoDTO)).willReturn(true);
+        given(service.create(requestProductoDTO)).willReturn(anyLong());
         //THEN
-        assertEquals(controller.create(requestProductoDTO),new ResponseEntity<>("Se creo el producto correctamente", HttpStatus.CREATED));
+        assertEquals(controller.create(requestProductoDTO),new ResponseEntity<>(service.create(requestProductoDTO), HttpStatus.CREATED));
     }
 
     @Test
@@ -70,6 +75,15 @@ public class ProductoControllerTest {
     }
 
     @Test
+    @DisplayName("WHEN we edit a producto THEN return HTTP Status 200 and message 'Se edito el producto correctamente'")
+    public void editProducto() throws BadRequestException, ProductoNotFoundException {
+        //WHEN
+        given(service.update(requestProductoDTO)).willReturn(true);
+        //THEN
+        assertEquals(controller.putByid(requestProductoDTO),new ResponseEntity<>("Se edito el producto correctamente", HttpStatus.OK));
+    }
+
+    @Test
     @DisplayName("WHEN we bring a producto by ciudad THEN return HTTP STATUS 200 OK and a producto")
     public void getProductoByCiudad(){
         //WHEN
@@ -85,6 +99,26 @@ public class ProductoControllerTest {
         given(service.filterCategoria(anyString())).willReturn(List.of(responseProductoDTO));
         //THEN
         assertEquals(controller.filterCategoria(anyString()),ResponseEntity.ok(List.of(responseProductoDTO)));
+    }
+
+    @Test
+    @DisplayName("WHEN we bring a producto by 2 dates THEN return HTTP STATUS 200 OK and a list of productos")
+    public void filterFechas(){
+        //WHEN
+        given(service.filterFechas(LocalDate.now(),LocalDate.now())).willReturn(List.of(responseProductoDTO));
+        //THEN
+        assertEquals(controller.filterFechas(LocalDate.now(),LocalDate.now()),ResponseEntity.ok(List.of(responseProductoDTO)));
+    }
+
+    @Test
+    @DisplayName("WHEN we bring a producto by 2 dates and one city THEN return HTTP STATUS 200 OK and a list of productos")
+    public void filterFechasAndCity(){
+        //WHEN
+        given(service.filterCiudadAndFechas("mar del plata",LocalDate.now(),LocalDate.now()))
+                .willReturn(List.of(responseProductoDTO));
+        //THEN
+        assertEquals(controller.filterCiudadFechas("mar del plata",LocalDate.now(),LocalDate.now()),
+                ResponseEntity.ok(List.of(responseProductoDTO)));
     }
 
     @Test

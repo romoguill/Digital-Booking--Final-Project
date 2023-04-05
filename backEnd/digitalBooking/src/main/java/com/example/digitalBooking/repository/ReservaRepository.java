@@ -14,4 +14,7 @@ public interface ReservaRepository extends JpaRepository<Reserva,Long> {
     @Query("SELECT r FROM Reserva r WHERE r.producto.id = :idProducto")
     List<Reserva> findAllByProductoId(@Param("idProducto") Long idProducto);
 
+    @Query("SELECT r FROM Reserva r WHERE r.usuario.id = :idUser")
+    List<Reserva> findAllByIdUsuario(@Param("idUser") Long idProducto);
+
 }

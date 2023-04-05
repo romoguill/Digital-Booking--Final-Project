@@ -16,8 +16,6 @@ function RentalProducts() {
   const [producto, setProducto] = useState({});
   const [imagenes, setImagenes] = useState([]);
 
-  const { auth } = useAuth();
-
   useEffect(() => {
     const fetchData = async () => {
       axios(`${import.meta.env.VITE_BASE_API_URL}/productos/id=${params.id}`)
@@ -74,6 +72,7 @@ function RentalProducts() {
             producto={producto}
             imagenes={imagenes}
             setValueDateRange={setValueDateRange}
+            productData={producto}
           />
           <div className="booking__call-to-action">
             <h4>Agregá tus fechas de viaje para obtener precios exactos</h4>
@@ -96,7 +95,7 @@ function RentalProducts() {
         <Map producto={producto} imagenes={imagenes} />
       </section>
 
-      <ProductPolicies productPolicies={producto.politicas} />
+      <ProductPolicies producto={producto} />
     </div>
   );
 }

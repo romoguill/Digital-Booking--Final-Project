@@ -93,6 +93,16 @@ public class UsuarioServiceTest {
     }
 
     @Test
+    @DisplayName("WHEN we list all the usuarios THEN return a list of usuarios")
+    public void getAllUsuarios1(){
+        //GIVEN
+        var usuarios = repository.findAll();
+        //WHEN AND THEN
+        if (!usuarios.isEmpty())
+            assertEquals(service.getAll(), repository.findAll());
+    }
+
+    @Test
     @DisplayName("WHEN we bring a usuario by id THEN don´t throws any exception")
     public void getByIdUsuario(){
         //GIVEN

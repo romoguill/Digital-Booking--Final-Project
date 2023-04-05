@@ -7,19 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -51,12 +46,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/usuarios/login").permitAll()
             .antMatchers("/usuarios/todas").hasAuthority("ADMIN")
             .antMatchers("/usuarios/id={id}").hasAuthority("ADMIN")
-            .antMatchers("/usuarios/email={email}").hasAuthority("USER")
+            .antMatchers("/usuarios/email={email}").permitAll()
             .antMatchers("/usuarios/editar").hasAuthority("ADMIN")
             .antMatchers("/usuarios/borrar/{id}").hasAuthority("ADMIN")
 
             .antMatchers("/productos/crear").hasAuthority("ADMIN")
+             .antMatchers("/productos/actualizar").hasAuthority("ADMIN")
             .antMatchers("/productos/todas").hasAuthority("USER")
+            .antMatchers("/productos/todas").hasAuthority("ADMIN")
             .antMatchers("/productos/todasRandom").permitAll()
             .antMatchers("/productos/id={id}").permitAll()
             .antMatchers("/productos/filterCat={categoria}").permitAll()
@@ -71,6 +68,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/categoria/titulo={titulo}").hasAuthority("ADMIN")
             .antMatchers("/categoria/editar").hasAuthority("ADMIN")
             .antMatchers("/categoria/borrar/{id}").hasAuthority("ADMIN")
+                
+            .antMatchers("/caracteristicas/todas").hasAuthority("ADMIN")
 
             .antMatchers("/ciudades/crear").hasAuthority("ADMIN")
             .antMatchers("/ciudades/todas").permitAll()
@@ -84,6 +83,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/reservas/crear").hasAuthority("USER")
             .antMatchers("/reservas/borrar/{id}").hasAuthority("USER")
             .antMatchers("/reservas/idProducto={idProducto}").permitAll()
+                .antMatchers("/reservas//idUsuario={idUsuario}").permitAll()
+
+                .antMatchers("/puntuaciones/crear").hasAuthority("USER")
+                .antMatchers("/puntuaciones/idProducto={idProducto}").permitAll()
+
+                .antMatchers("/v3/api-docs/**","/swagger-ui/**","/swagger-ui.html").permitAll()
 
 
             .anyRequest().authenticated()

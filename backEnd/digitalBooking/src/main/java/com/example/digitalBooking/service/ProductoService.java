@@ -21,11 +21,10 @@ public class ProductoService {
     private final CiudadRepository ciudadRepository;
     private final CategoriaRepository categoriaRepository;
     private final CaracteristicaRepository caracteristicaRepository;
-    private final PoliticaRepository politicaRepository;
     private static final Logger logger = Logger.getLogger(ProductoService.class);
 
 
-    public boolean create(RequestProductoDTO productoDTO) throws BadRequestException {
+    public Long create(RequestProductoDTO productoDTO) throws BadRequestException {
         if (repository.findByTitulo(productoDTO.titulo()).isPresent()) {
             logger.error("Ya existe un producto con el titulo: " + productoDTO.titulo());
             throw new BadRequestException("Ya existe una producto con el titulo: " + productoDTO.titulo());
@@ -44,15 +43,10 @@ public class ProductoService {
                 throw new BadRequestException("No existe una caracteristica con el id: " + idCaracteristica);
             }
         }
-        for (Long idPolitica:productoDTO.politicas()) {
-            if (politicaRepository.findById(idPolitica).isEmpty()){
-                logger.error("No existe una politica con el id: " + idPolitica);
-                throw new BadRequestException("No existe una politica con el id: " + idPolitica);
-            }
-        }
+
         repository.save(mapToProducto(productoDTO));
         logger.info("Se creo un nuevo producto: " + productoDTO.titulo());
-        return true;
+        return repository.findByTitulo(productoDTO.titulo()).get().getId();
     }
 
     public List<ResponseProductoDTO> getAll(){
@@ -81,6 +75,7 @@ public class ProductoService {
         }
         return listaDTO;
     }
+
     public ResponseProductoDTO getById(Long id) throws ProductoNotFoundException {
         var optionalProducto = repository.findByIdWithImagenes(id);
         if(optionalProducto.isEmpty()){
@@ -147,12 +142,38 @@ public class ProductoService {
         }
         return listaDTO;
     }
-    public boolean update(RequestProductoDTO producto) throws ProductoNotFoundException {
+    public boolean update(RequestProductoDTO producto) throws ProductoNotFoundException, BadRequestException {
         if (repository.findById(producto.id()).isEmpty()) {
-            logger.error("No existe un registro en la tabla Producto con el id: " + producto.id());
+            logger.error("No existe un registro para editar en la tabla Producto con el id: " + producto.id());
             throw new ProductoNotFoundException();
         }
-        repository.save(mapToProducto(producto));
+        if (ciudadRepository.findById(producto.idCiudad()).isEmpty()){
+            logger.error("No existe una ciudad con el id: " + producto.idCiudad());
+            throw new BadRequestException("No existe una ciudad con el id: " + producto.idCiudad());
+        }
+        if (categoriaRepository.findById(producto.idCategoria()).isEmpty()){
+            logger.error("No existe una categoria con el id: " + producto.idCategoria());
+            throw new BadRequestException("No existe una categoria con el id: " + producto.idCategoria());
+        }
+        Set<Caracteristica> editcaracteristicas = new HashSet<>();
+        for (Long idCaracteristica:producto.caracteristicas()) {
+            if (caracteristicaRepository.findById(idCaracteristica).isEmpty()){
+                logger.error("No existe una caracteristica con el id: " + idCaracteristica);
+                throw new BadRequestException("No existe una caracteristica con el id: " + idCaracteristica);
+            }
+         var caractExistente= caracteristicaRepository.findById(idCaracteristica);
+            editcaracteristicas.add(caractExistente.get());
+        }
+
+        var edit =mapToProducto(producto);
+        var findimagenes=repository.findById(producto.id());
+        var imagenesExistentes =findimagenes.get().getImagenes();
+
+
+        edit.setCaracteristicas(editcaracteristicas);
+        edit.setImagenes(imagenesExistentes);
+
+        repository.save(edit);
         logger.info("Se modifico el registro con el id: " + producto.id() + " de la tabla Producto");
         return true;
     }
@@ -167,16 +188,9 @@ public class ProductoService {
     private Producto mapToProducto(RequestProductoDTO productoDTO){
         Producto producto = new Producto();
 
-        Set<Politica> politicas = new HashSet<>();
-        Politica politica = new Politica();
-        for (Long idPolitica:productoDTO.politicas()) {
-            politica.setId(idPolitica);
-            politicas.add(politica);
-        }
-
         Set<Caracteristica> caracteristicas = new HashSet<>();
-        Caracteristica caracteristica = new Caracteristica();
         for (Long idCaracteristica:productoDTO.caracteristicas()) {
+            Caracteristica caracteristica = new Caracteristica();
             caracteristica.setId(idCaracteristica);
             caracteristicas.add(caracteristica);
         }
@@ -189,13 +203,15 @@ public class ProductoService {
         producto.setId(productoDTO.id());
         producto.setTitulo(productoDTO.titulo());
         producto.setDescripcion(productoDTO.descripcion());
+        producto.setDireccion(productoDTO.direccion());
         producto.setLatitud(productoDTO.latitud());
         producto.setLongitud(productoDTO.longitud());
+        producto.setNormas(productoDTO.normas());
+        producto.setSaludYseguridad(productoDTO.saludYseguridad());
+        producto.setCancelacion(productoDTO.cancelacion());
         producto.setCiudad(ciudad);
         producto.setCategoria(categoria);
         producto.setCaracteristicas(caracteristicas);
-        producto.setPoliticas(politicas);
-
         return producto;
     }
 
@@ -208,11 +224,6 @@ public class ProductoService {
             caracteristicas.add(caracteristica);
         }
 
-        Set<Politica> politicas = new HashSet<>();
-        for(Politica politica:producto.getPoliticas()) {
-            politicas.add(politica);
-        }
-
         Set<Imagen> imagenes = new HashSet<>();
         for(Imagen imagen:producto.getImagenes()) {
             imagenes.add(imagen);
@@ -221,11 +232,12 @@ public class ProductoService {
         Set<ResponseReservaDTO> reservas = new HashSet<>();
         for(Reserva reserva:producto.getReservas()) {
             var dto= new ResponseReservaDTO(reserva.getId(),reserva.getHoraComienzo(),reserva.getFechaInicial(),
-                    reserva.getFechaFinal(),reserva.getProducto().getId(),reserva.getUsuario().getId());
+                    reserva.getFechaFinal(),reserva.getUsuario().getId(),reserva.getProducto().getId(), producto.getTitulo(), producto.getImagenes());
             reservas.add(dto);
         }
 
-        return new ResponseProductoDTO(producto.getId(), producto.getTitulo(), producto.getDescripcion(), producto.getLatitud(),
-                producto.getLongitud(), ciudad,categoria,caracteristicas,politicas,imagenes,reservas);
+        return new ResponseProductoDTO(producto.getId(), producto.getTitulo(), producto.getDescripcion(), producto.getDescripcion(), producto.getLatitud(),
+                producto.getLongitud(), producto.getNormas(), producto.getSaludYseguridad(), producto.getCancelacion(),
+                ciudad,categoria,caracteristicas,imagenes,reservas);
     }
 }
