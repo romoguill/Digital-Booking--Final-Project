@@ -25,7 +25,9 @@ const MyReservations = () => {
 
   const idUsuario = auth.userId;
 
-  const ENDPOINT_GET_RESERVAS = `http://localhost:8080/reservas/idUsuario=${idUsuario}`;
+  const ENDPOINT_GET_RESERVAS = `${
+    import.meta.env.VITE_BASE_API_URL
+  }/reservas/idUsuario=${idUsuario}`;
 
   useEffect(() => {
     axios
@@ -39,30 +41,6 @@ const MyReservations = () => {
         console.error(err);
       });
   }, []);
-
-  // useEffect(() => {
-  //   if (reservas.length > 0) {
-  //     const fetchProductos = async () => {
-  //       const promises = reservas.map(async (reserva) => {
-  //         const urlProducto = `http://localhost:8080/productos/id=${reserva.idProducto}`;
-
-  //         try {
-  //           const response = await fetch(urlProducto);
-  //           return await response.json();
-  //         } catch (error) {
-  //           console.error(error);
-  //           return null;
-  //         }
-  //       });
-
-  //       const productos = await Promise.all(promises);
-  //       setProductoConsultados(productos);
-  //       console.log(productoConsultados[0].imagenes[0].url)
-  //     };
-
-  //     fetchProductos();
-  //   }
-  // }, [reservas]);
 
   if (isLoading) {
     return <div className="container-page"></div>;
