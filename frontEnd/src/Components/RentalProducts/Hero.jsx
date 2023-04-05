@@ -14,7 +14,7 @@ function Hero({ producto, imagenes }) {
   const params = useParams();
   const [frase, setFrase] = useState();
   const [promedio, setPromedio] = useState();
-  const shareBaseUrl = import.meta.env.VITE_BASE_API_URL + "/producto/" + producto.id;
+  const shareBaseUrl = import.meta.env.VITE_BASE_URL + "/producto/" + producto.id;
   const shareTitle = "Alójate en el corazón de "+ (producto.ciudad? producto.ciudad.nombre : "");
 
   const promedioProducto = (reseñas) => {
