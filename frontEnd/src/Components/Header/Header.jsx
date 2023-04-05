@@ -40,7 +40,7 @@ function Header({ setMenuDrawerVisible }) {
 
         {auth.userEmail ? (
           <div className="account-options">
-            {auth.userRole === 1 && (
+            {auth.userRole === 1 ? (
               <div className="menu--admin" onClick={toggleMenuVisibility}>
                 <p
                   className={`menu--admin__title ${
@@ -62,6 +62,15 @@ function Header({ setMenuDrawerVisible }) {
                     <Link to="/admin/modificar">Modificar Producto</Link>
                   </li>
                 </ul>
+              </div>
+            ) : (
+              <div className="menu--admin" onClick={toggleMenuVisibility}>
+                <Link
+                  to={`/${auth.userId}/reservas`}
+                  className={`menu--admin__title reservas__link`}
+                >
+                  Mis Reservas
+                </Link>
               </div>
             )}
             <UserProfile />
