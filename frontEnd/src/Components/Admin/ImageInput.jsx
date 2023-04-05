@@ -27,13 +27,13 @@ function ImageInput({
       <div className="form-control">
         <div className="inputs">
           <input
-            {...register(`titulo-${id}`)}
+            {...register(`imagenes.${id}.titulo`)}
             placeholder="Titulo de imagen"
             defaultValue={defaultValues && defaultValues[0]}
           />
           <input
             {...register(
-              `imagen-${id}`,
+              `imagenes.${id}.url`,
               !deletable && {
                 required: {
                   value: true,

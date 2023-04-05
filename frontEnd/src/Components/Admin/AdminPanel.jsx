@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 import ImageInput from './ImageInput';
 import MultiSearch from './MultiSearch';
 import { useForm } from 'react-hook-form';
+import { Oval } from 'react-loader-spinner';
 
 function AdminPanel({ mode }) {
   const { storedValue } = useLocalStorage('token', null);
@@ -18,6 +19,7 @@ function AdminPanel({ mode }) {
   const [categories, setCategories] = useState(null);
   const [cities, setCities] = useState(null);
   const [imagesData, setImagesData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const requiredImgId = useRef(uuidv4());
 
   const { storedValue: token } = useLocalStorage('token', null);
@@ -46,23 +48,25 @@ function AdminPanel({ mode }) {
   } = useForm({ mode: 'onBlur', defaultValues: defaultFormData });
 
   const onSubmit = async (formData) => {
-    if (mode === 'create') {
-      const payloadProduct = {
-        titulo: formData.titulo,
-        descripcion: formData.descripcion,
-        direccion: formData.direccion,
-        latitud: formData.latitud,
-        longitud: formData.longitud,
-        saludYseguridad: formData.saludYseguridad,
-        cancelacion: formData.cancelacion,
-        normas: formData.normas,
-        idCiudad: Number(formData.ciudad),
-        idCategoria: Number(formData.categoria),
-        caracteristicas: formData.caracteristicas.map((idCaracteristica) =>
-          Number(idCaracteristica)
-        ),
-      };
+    setIsLoading(true);
 
+    let payloadProduct = {
+      titulo: formData.titulo,
+      descripcion: formData.descripcion,
+      direccion: formData.direccion,
+      latitud: formData.latitud,
+      longitud: formData.longitud,
+      saludYseguridad: formData.saludYseguridad,
+      cancelacion: formData.cancelacion,
+      normas: formData.normas,
+      idCiudad: Number(formData.ciudad),
+      idCategoria: Number(formData.categoria),
+      caracteristicas: formData.caracteristicas.map((idCaracteristica) =>
+        Number(idCaracteristica)
+      ),
+    };
+
+    if (mode === 'create') {
       const response = await fetch(
         `${import.meta.env.VITE_BASE_API_URL}/productos/crear`,
         {
@@ -78,8 +82,36 @@ function AdminPanel({ mode }) {
 
       if (response.ok) {
         const newProductId = await response.json();
-        console.log(data);
+
+        Object.keys(formData.imagenes).forEach(async (imageId) => {
+          const payloadImages = {
+            titulo: formData.imagenes[imageId].titulo,
+            url: formData.imagenes[imageId].url,
+            idProducto: newProductId,
+          };
+
+          await fetch(`${import.meta.env.VITE_BASE_API_URL}/imagenes/crear`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify(payloadImages),
+          });
+        });
+        setIsLoading(false);
       }
+    } else {
+      payloadProduct = { ...payloadProduct, id: selectedRental.id };
+      await fetch(`${import.meta.env.VITE_BASE_API_URL}/productos/actualizar`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(payloadProduct),
+      });
+      setIsLoading(false);
     }
   };
 
@@ -168,6 +200,25 @@ function AdminPanel({ mode }) {
     setImagesData([]);
     setSelectedRental(null);
   }, [mode]);
+
+  if (isLoading) {
+    return (
+      <div className="container-page center-content">
+        <Oval
+          height={80}
+          width={80}
+          color="rgb(28, 191, 180)"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="oval-loading"
+          secondaryColor="rgb(28, 191, 180)"
+          strokeWidth={5}
+          strokeWidthSecondary={5}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="container-page">

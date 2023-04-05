@@ -148,6 +148,11 @@
   }
 }
 
+.loading-status {
+  font-size: 3rem;
+  color: globals.$text-dark;
+}
+
 @media screen and (max-width: globals.$bp-laptop) {
   .admin-rental-wrapper {
 
