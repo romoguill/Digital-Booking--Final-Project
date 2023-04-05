@@ -134,7 +134,9 @@ header {
   // }
 
   
-
+  .reservas__link {
+    border: 2px solid globals.$primary-color;
+  }
 }
 
 @media screen and (max-width: globals.$bp-menu-drawer) {
