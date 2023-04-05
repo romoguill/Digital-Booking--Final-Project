@@ -3,9 +3,9 @@ import es from 'date-fns/locale/es';
 import { parse, format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import BannerProductTitle from '../Components/BannerProductTitle';
 import Card from '../Components/Cards/CardRentalGrid';
 import './Search.scss';
+import HomeSearch from '../Components/Body/HomeSearch';
 
 function Search() {
   const [params, setParams] = useSearchParams();
@@ -70,10 +70,7 @@ function Search() {
 
   return (
     <div className="search-products container-page">
-      <BannerProductTitle
-        titulo={searchTitle.trim()}
-        categoria="Resultados de búsqueda"
-      />
+      <HomeSearch isSearch={true} titleSearch={searchTitle.trim()} />
       <div className="container-main product-list">
         <div className="grid-rentals__grid">
           {productos.map((item) => {

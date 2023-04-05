@@ -14,7 +14,7 @@ import { faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 
 registerLocale('es', es);
 
-function HomeSearch() {
+function HomeSearch({isSearch, titleSearch}) {
   const calRef = React.useRef();
   const [dates, setDates] = useState(null);
   const [ciudad, setCiudad] = useState(null);
@@ -193,7 +193,6 @@ function HomeSearch() {
               dateFormat="dd MMM yyyy"
               customInput={<CustomCalendarInput />}
             />
-
           </div>
           <button className="button-primary button-primary--full" type="submit" onClick={(e) => validateForm(e)}>
             Buscar
@@ -201,6 +200,12 @@ function HomeSearch() {
         </form>
         {showFormError && <p className='form-error'>Por favor ingrese la ciudad y/o las fechas</p>}
       </div>
+      {isSearch && <div className='search-result-title'>
+        <div className='container-main'>
+          <h2 className='text-primary'>Resultados de búsqueda </h2>
+          <h1 className='text-dark'>{titleSearch}</h1>
+        </div>
+      </div>}
     </div>
   );
 }
