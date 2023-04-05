@@ -1,20 +1,22 @@
-import React from 'react'
-import './ProductCreateSuccess.scss'
-import ReservaIcon from '../assets/Images/reserva-exito.png'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import './ProductCreateSuccess.scss';
+import ReservaIcon from '../assets/Images/reserva-exito.png';
+import { Link } from 'react-router-dom';
 
-const ProductCreateSuccess = () => {
+const AdminSuccess = ({ mode }) => {
   return (
-    <div className='productSuccess-container'>
-        <div className='productSuccess-card'>
-            <img src={ReservaIcon} alt="Producto Creado Exito" />
-            <p>Tu propiedad se ha creado con éxito</p>
-            <Link to={'home'}>
-                <button>Ok</button>
-            </Link>
-        </div>
+    <div className="productSuccess-container container-page">
+      <div className="productSuccess-card">
+        <img src={ReservaIcon} alt="Icono Exitoso" />
+        <p>{`Tu propiedad se ha ${
+          mode === 'create' ? 'creado' : 'modificado'
+        } con éxito`}</p>
+        <Link to={'/home'}>
+          <button>Ok</button>
+        </Link>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductCreateSuccess
+export default AdminSuccess;
