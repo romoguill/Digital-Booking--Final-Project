@@ -2,7 +2,7 @@
 
 ## Frontend
 
-URL Bucket s3: [http://digitalbookingc2.ddns.net/](http://digitalbookingc2.ddns.net/)
+URL Bucket s3: [http://grupo2-camada2-front.s3-website.us-east-2.amazonaws.com/](http://grupo2-camada2-front.s3-website.us-east-2.amazonaws.com/)
 
 **Usuario 1:**
 
