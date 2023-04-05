@@ -164,8 +164,14 @@ public class ProductoService {
          var caractExistente= caracteristicaRepository.findById(idCaracteristica);
             editcaracteristicas.add(caractExistente.get());
         }
+
         var edit =mapToProducto(producto);
+        var findimagenes=repository.findById(producto.id());
+        var imagenesExistentes =findimagenes.get().getImagenes();
+
+
         edit.setCaracteristicas(editcaracteristicas);
+        edit.setImagenes(imagenesExistentes);
 
         repository.save(edit);
         logger.info("Se modifico el registro con el id: " + producto.id() + " de la tabla Producto");

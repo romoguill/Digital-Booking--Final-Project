@@ -25,3 +25,4 @@
 [2023-03-3021:23:58] [ ERROR] [ProductoService:147] No existe un registro para editar en la tabla Producto con el id: 13
 [2023-03-3021:24:30] [ INFO ] [ProductoService:170] Se modifico el registro con el id: 12 de la tabla Producto
 [2023-03-3021:35:11] [ INFO ] [ProductoService:171] Se modifico el registro con el id: 12 de la tabla Producto
+[2023-04-0423:33:01] [ INFO ] [ProductoService:177] Se modifico el registro con el id: 8 de la tabla Producto
