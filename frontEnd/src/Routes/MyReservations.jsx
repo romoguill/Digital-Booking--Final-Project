@@ -79,7 +79,7 @@ const MyReservations = () => {
               className="no-reservation-icon fa-6x"
             />
             <h2>Aún no has efectuado ninguna reserva</h2>
-            <Link to={'home'}>
+            <Link to={'/home'}>
               <h4>Volver al inicio</h4>
             </Link>
           </div>

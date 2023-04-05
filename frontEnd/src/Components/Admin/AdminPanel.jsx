@@ -12,6 +12,7 @@ import ImageInput from './ImageInput';
 import MultiSearch from './MultiSearch';
 import { useForm } from 'react-hook-form';
 import { Oval } from 'react-loader-spinner';
+import AdminSuccess from '../../Routes/ProductCreateSuccess';
 
 function AdminPanel({ mode }) {
   const { storedValue } = useLocalStorage('token', null);
@@ -21,6 +22,7 @@ function AdminPanel({ mode }) {
   const [imagesData, setImagesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const requiredImgId = useRef(uuidv4());
+  const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
 
   const { storedValue: token } = useLocalStorage('token', null);
 
@@ -100,6 +102,7 @@ function AdminPanel({ mode }) {
           });
         });
         setIsLoading(false);
+        setIsSubmitSuccess(true);
       }
     } else {
       payloadProduct = { ...payloadProduct, id: selectedRental.id };
@@ -112,6 +115,7 @@ function AdminPanel({ mode }) {
         body: JSON.stringify(payloadProduct),
       });
       setIsLoading(false);
+      setIsSubmitSuccess(true);
     }
   };
 
@@ -218,6 +222,10 @@ function AdminPanel({ mode }) {
         />
       </div>
     );
+  }
+
+  if (isSubmitSuccess) {
+    return <AdminSuccess mode={mode} />;
   }
 
   return (
