@@ -80,7 +80,6 @@ function Booking() {
     };
 
     try {
-      console.log(token);
       const response = await fetch(ENDPOINT_POST, {
         method: 'POST',
         headers: {
@@ -196,12 +195,12 @@ function Booking() {
                     <input
                       type="text"
                       id="city"
-                      placeholder=""
+                      placeholder={productLocation}
                       className="cityInput form-input"
-                      required
                       name="city"
                       onChange={handleChange}
                       value={formData ? formData.city : ''}
+                      disabled
                     />
                   </div>
                 </form>
