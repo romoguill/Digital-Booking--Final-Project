@@ -1,6 +1,18 @@
+import L from 'leaflet';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIconShadow from 'leaflet/dist/images/marker-shadow.png';
 import { useEffect, useState } from 'react';
+
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: markerIcon2x,
+    iconUrl: markerIcon,
+    shadowUrl: markerIconShadow
+});
 
 function CustomMarker({ latitud, longitud, titulo }) {
   const map = useMap();
