@@ -53,6 +53,42 @@ function MenuDrawerMobile({ setMenuDrawerVisible }) {
           <div className="menu-drawer-mobile__container">
             {auth.userEmail ? (
               <>
+                {auth.userRole === 1 ? (
+                  <>
+                    {location.pathname === '/admin/crear' || (
+                      <Link
+                        className="nav-link-menu"
+                        to={'/admin/crear'}
+                        onClick={handleMenuDrawerClose}
+                      >
+                        <h3 className="text-dark">Crear propiedad</h3>
+                      </Link>
+                    )}
+
+                    {location.pathname === '/admin/crear' ||
+                      location.pathname === '/admin/modificar' || <hr />}
+
+                    {location.pathname === '/admin/modificar' || (
+                      <Link
+                        className="nav-link-menu"
+                        to={'/admin/modificar'}
+                        onClick={handleMenuDrawerClose}
+                      >
+                        <h3 className="text-dark">Modificar Propiedad</h3>
+                      </Link>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      to={`/${auth.userId}/reservas`}
+                      className={`nav-link-menu`}
+                    >
+                      Mis Reservas
+                    </Link>
+                  </>
+                )}
+
                 <div className="logout-container">
                   <p className="logout-drawer">
                     ¿Deseas{' '}
