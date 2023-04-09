@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @AllArgsConstructor
@@ -35,9 +36,21 @@ public class CategoriaService {
             logger.info("La tabla Categoria no tiene registros");
             return null;
         }
+        List<Object[]> productosPorCategoria = repository.countProductosByCategoriaId();
 
         List<CategoriaDTO> listaDTO = new ArrayList<>();
         for (Categoria categoria: categorias) {
+            for (Object[] row : productosPorCategoria) {
+                Long categoriaId = (Long) row[0];
+                if(Objects.equals(categoriaId, categoria.getId())){
+                    Long count = (Long) row[1];
+                    String countCategoria = Long.toString(count);
+                    String descripcionCount= countCategoria+" "+categoria.getDescripcion();
+                    categoria.setDescripcion(descripcionCount);
+                }
+
+            }
+
             listaDTO.add(mapToDTO(categoria));
         }
 
