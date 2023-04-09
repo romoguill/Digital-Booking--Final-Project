@@ -26,11 +26,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(service);
     }
-
+    private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+            // other public endpoints of your API may be appended to this array
+    };
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -42,6 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
+             .antMatchers(AUTH_WHITELIST).permitAll()
             .antMatchers("/usuarios/crear").permitAll()
             .antMatchers("/usuarios/login").permitAll()
             .antMatchers("/usuarios/todas").hasAuthority("ADMIN")

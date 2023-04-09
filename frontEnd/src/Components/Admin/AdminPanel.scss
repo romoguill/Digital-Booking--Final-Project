@@ -164,6 +164,11 @@
 
 @media screen and (max-width: globals.$bp-tablet) {
   .admin-rental-wrapper {
+
+    .heading-containter {
+      flex-direction: column;
+      align-items: flex-start;
+    }
     .rental__general {
       display: flex;
       flex-direction: column;
