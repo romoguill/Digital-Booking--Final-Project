@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from 'react';
 import useWindowSize from '../../Hooks/useWindowSize';
 
 function CustomCalendar({
+  disabled,
   allowRange,
   valueDateRange,
   setValueDateRange,
@@ -53,6 +54,8 @@ function CustomCalendar({
   };
 
   const onChange = (nextValue) => {
+    if (disabled) return;
+
     const datesInRange = eachDayOfInterval({
       start: nextValue[0],
       end: nextValue[1],

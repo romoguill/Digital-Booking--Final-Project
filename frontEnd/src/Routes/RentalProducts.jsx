@@ -69,6 +69,7 @@ function RentalProducts() {
         <h2 className="booking__title section-title">Fechas disponibles</h2>
         <div className="booking__body">
           <CustomCalendar
+            disabled
             producto={producto}
             imagenes={imagenes}
             setValueDateRange={setValueDateRange}
