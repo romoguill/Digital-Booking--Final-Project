@@ -50,7 +50,7 @@ function AdminPanel({ mode }) {
   } = useForm({ mode: 'onBlur', defaultValues: defaultFormData });
 
   const onSubmit = async (formData) => {
-    // setIsLoading(true);
+    setIsLoading(true);
 
     let payloadProduct = {
       titulo: formData.titulo,
@@ -71,9 +71,6 @@ function AdminPanel({ mode }) {
         url: formData.imagenes[imageId].url,
       })),
     };
-
-    console.log(formData);
-    console.log(payloadProduct);
 
     if (mode === 'create') {
       const response = await fetch(
@@ -117,14 +114,19 @@ function AdminPanel({ mode }) {
       //   setIsSubmitSuccess(true);
       // }
     } else {
-      payloadProduct = { ...payloadProduct, id: selectedRental.id };
+      let payloadWithoutImages = {
+        ...payloadProduct,
+        imagenes: [],
+        id: selectedRental.id,
+      };
+
       await fetch(`${import.meta.env.VITE_BASE_API_URL}/productos/actualizar`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-        body: JSON.stringify(payloadProduct),
+        body: JSON.stringify(payloadWithoutImages),
       });
       setIsLoading(false);
       setIsSubmitSuccess(true);
