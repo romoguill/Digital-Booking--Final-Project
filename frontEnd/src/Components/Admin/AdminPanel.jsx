@@ -50,7 +50,7 @@ function AdminPanel({ mode }) {
   } = useForm({ mode: 'onBlur', defaultValues: defaultFormData });
 
   const onSubmit = async (formData) => {
-    setIsLoading(true);
+    // setIsLoading(true);
 
     let payloadProduct = {
       titulo: formData.titulo,
@@ -66,7 +66,14 @@ function AdminPanel({ mode }) {
       caracteristicas: formData.caracteristicas.map((idCaracteristica) =>
         Number(idCaracteristica)
       ),
+      imagenes: Object.keys(formData.imagenes).map((imageId) => ({
+        titulo: formData.imagenes[imageId].titulo,
+        url: formData.imagenes[imageId].url,
+      })),
     };
+
+    console.log(formData);
+    console.log(payloadProduct);
 
     if (mode === 'create') {
       const response = await fetch(
@@ -80,30 +87,35 @@ function AdminPanel({ mode }) {
           body: JSON.stringify(payloadProduct),
         }
       );
-      console.log(response);
 
       if (response.ok) {
-        const newProductId = await response.json();
-
-        Object.keys(formData.imagenes).forEach(async (imageId) => {
-          const payloadImages = {
-            titulo: formData.imagenes[imageId].titulo,
-            url: formData.imagenes[imageId].url,
-            idProducto: newProductId,
-          };
-
-          await fetch(`${import.meta.env.VITE_BASE_API_URL}/imagenes/crear`, {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-type': 'application/json',
-            },
-            body: JSON.stringify(payloadImages),
-          });
-        });
         setIsLoading(false);
         setIsSubmitSuccess(true);
       }
+      // console.log(response);
+
+      // if (response.ok) {
+      //   const newProductId = await response.json();
+
+      //   Object.keys(formData.imagenes).forEach(async (imageId) => {
+      //     const payloadImages = {
+      //       titulo: formData.imagenes[imageId].titulo,
+      //       url: formData.imagenes[imageId].url,
+      //       idProducto: newProductId,
+      //     };
+
+      //     await fetch(`${import.meta.env.VITE_BASE_API_URL}/imagenes/crear`, {
+      //       method: 'POST',
+      //       headers: {
+      //         Authorization: `Bearer ${token}`,
+      //         'Content-type': 'application/json',
+      //       },
+      //       body: JSON.stringify(payloadImages),
+      //     });
+      //   });
+      //   setIsLoading(false);
+      //   setIsSubmitSuccess(true);
+      // }
     } else {
       payloadProduct = { ...payloadProduct, id: selectedRental.id };
       await fetch(`${import.meta.env.VITE_BASE_API_URL}/productos/actualizar`, {
