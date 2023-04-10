@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router';
 import useAuth from '../Hooks/useAuth';
-import useLocalStorage from '../Hooks/useLocalStorage';
 
 function ProtectedRoutes({ children, allowedRoles }) {
   const { auth, isLoading } = useAuth();
@@ -10,11 +8,14 @@ function ProtectedRoutes({ children, allowedRoles }) {
 
   if (isLoading) return;
 
-  if (allowedRoles.includes(auth.userRole)) {
-    return children;
-  } else {
-    return <Navigate to="/unauthorized" />;
+  if (auth?.userEmail) {
+    if (allowedRoles.includes(auth.userRole)) {
+      return children;
+    } else {
+      return <Navigate to="/unauthorized" replace={true} />;
+    }
   }
+  return <Navigate to="/login" replace={true} />;
 }
 
 export default ProtectedRoutes;

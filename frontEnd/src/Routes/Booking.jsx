@@ -24,7 +24,7 @@ function Booking() {
   const params = useParams();
 
   const { auth } = useAuth();
-  const { getItem } = useLocalStorage();
+  const { storedValue: token } = useLocalStorage('token', null);
 
   const [productCategory, setProductCategory] = useState(null);
   const [productName, setProductName] = useState(null);
@@ -83,7 +83,7 @@ function Booking() {
       const response = await fetch(ENDPOINT_POST, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${getItem('token')}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
@@ -195,12 +195,12 @@ function Booking() {
                     <input
                       type="text"
                       id="city"
-                      placeholder=""
+                      placeholder={productLocation}
                       className="cityInput form-input"
-                      required
                       name="city"
                       onChange={handleChange}
                       value={formData ? formData.city : ''}
+                      disabled
                     />
                   </div>
                 </form>
