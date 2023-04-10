@@ -19,6 +19,8 @@ import java.util.*;
 public class ProductoService {
     private final ProductoRepository repository;
     private final CiudadRepository ciudadRepository;
+
+    private final ImagenRepository imagenRepository;
     private final CategoriaRepository categoriaRepository;
     private final CaracteristicaRepository caracteristicaRepository;
     private static final Logger logger = Logger.getLogger(ProductoService.class);
@@ -43,8 +45,15 @@ public class ProductoService {
                 throw new BadRequestException("No existe una caracteristica con el id: " + idCaracteristica);
             }
         }
-
+        var imageneDef=productoDTO.imagenes();
         repository.save(mapToProducto(productoDTO));
+        Long idCreate=repository.findByTitulo(productoDTO.titulo()).get().getId();
+        for(Imagen imagenes: imageneDef){
+            Producto prod=new Producto();
+            prod.setId(idCreate);
+            imagenes.setProducto(prod);
+            imagenRepository.save(imagenes);
+        }
         logger.info("Se creo un nuevo producto: " + productoDTO.titulo());
         return repository.findByTitulo(productoDTO.titulo()).get().getId();
     }
@@ -168,14 +177,66 @@ public class ProductoService {
         var edit =mapToProducto(producto);
         var findimagenes=repository.findById(producto.id());
         var imagenesExistentes =findimagenes.get().getImagenes();
+        var imagenesEnviadas=producto.imagenes();
+        if(imagenesEnviadas.isEmpty()){
+            edit.setCaracteristicas(editcaracteristicas);
+            edit.setImagenes(imagenesExistentes);
 
+            repository.save(edit);
+            logger.info("Se modifico el registro con el id: " + producto.id() + " de la tabla Producto");
+            return true;
 
+        }
+        for(Imagen imgEnv:imagenesEnviadas){
+            Producto productoI = new Producto();
+            productoI.setId(producto.id());
+
+            imgEnv.setProducto(productoI);
+        }
         edit.setCaracteristicas(editcaracteristicas);
-        edit.setImagenes(imagenesExistentes);
+        edit.setImagenes(imagenesEnviadas);
 
         repository.save(edit);
         logger.info("Se modifico el registro con el id: " + producto.id() + " de la tabla Producto");
         return true;
+/*
+        Set<Imagen> imagenesActualizadas = new HashSet<>();
+        if(imagenesExistentes.size() != imagenesEnviadas.size()) {
+            for (Imagen imagenEnviada : imagenesEnviadas) {
+                Producto productoI = new Producto();
+                productoI.setId(producto.id());
+
+                Optional<Imagen> imagenExistenteOptional = imagenesExistentes.stream()
+                        .filter(idimage -> imagenEnviada.getId().equals(idimage.getId()))
+                        .findFirst();
+
+                if (imagenExistenteOptional.isPresent()) {
+                    Imagen imagenExistente = imagenExistenteOptional.get();
+                    imagenExistente.setProducto(productoI);
+                    imagenesActualizadas.add(imagenExistente);
+                } else {
+                    imagenesActualizadas.add(imagenEnviada);
+                }
+            }
+
+            imagenesExistentes.removeAll(imagenesActualizadas);
+            imagenesExistentes.addAll(imagenesActualizadas);
+            edit.setCaracteristicas(editcaracteristicas);
+            edit.setImagenes(imagenesExistentes);
+
+            repository.save(edit);
+            logger.info("Se modifico el registro con el id: " + producto.id() + " de la tabla Producto");
+            return true;
+
+        }
+        for(Imagen exist:imagenesEnviadas){
+            Producto p=new Producto();
+            p.setId(producto.id());
+            exist.setProducto(p);
+            imagenesActualizadas.add(exist);
+        }
+*/
+
     }
 
     public boolean deleteById(Long id) throws ProductoNotFoundException {

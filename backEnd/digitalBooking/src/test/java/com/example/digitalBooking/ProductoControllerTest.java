@@ -32,7 +32,7 @@ public class ProductoControllerTest {
     private ProductoController controller;
     private final RequestProductoDTO requestProductoDTO = new RequestProductoDTO(1L,"titulo","url",
             "direccion",210F,210F,"normas","salud","cancelacion",
-            1L,1L, Set.of(1L));
+            1L,1L, Set.of(1L),Set.of());
     private final ResponseProductoDTO responseProductoDTO =
             new ResponseProductoDTO(1L,"titulo","url", "direccion",210F,210F,
             "normas","seguridad","cancelacion",

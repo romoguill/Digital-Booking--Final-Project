@@ -46,19 +46,9 @@ public class ProductoServiceTest {
     void setUp(){
         requestProductoDTO =
                 new RequestProductoDTO(1L,"Departamento","descripcion","direccion",22F,
-            12F, "normas","salud","cancelacion",1L,1L,Set.of(1L));}
+            12F, "normas","salud","cancelacion",1L,1L,Set.of(1L),Set.of());}
 
-   /* @Test
-    @DisplayName("WHEN we create a producto then don´t throws any exception")
-    public void createProducto(){
-        //GIVEN
-        given(repository.findByTitulo(anyString())).willReturn(Optional.empty());
-        given(ciudadRepository.findById(anyLong())).willReturn(Optional.of(ciudad));
-        given(categoriaRepository.findById(anyLong())).willReturn(Optional.of(categoria));
-        given(caracteristicaRepository.findById(anyLong())).willReturn(Optional.of(caracteristica));
-        //WHEN AND THEN
-        assertDoesNotThrow(()->service.create(requestProductoDTO));
-    }*/
+
 
     @Test
     @DisplayName("WHEN we create a producto with the repeated titulo then it throws BadRequestException")
